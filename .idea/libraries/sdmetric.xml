@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="sdmetric">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/lib/SDMetricsOpenCore/src" />
+    </SOURCES>
+  </library>
+</component>

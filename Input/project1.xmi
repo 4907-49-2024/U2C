@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><uml:Model xmlns:uml="http://www.omg.org/spec/UML/20110701" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmi:version="2.1" xmi:id="_XHzs8KE-Ee-PjJisPHmgRA" name="project1">
+      
+    <eAnnotations xmi:id="_XHzs8aE-Ee-PjJisPHmgRA" source="Objing">
+            
+        <contents xmi:type="uml:Property" xmi:id="_XHzs8qE-Ee-PjJisPHmgRA" name="exporterVersion">
+                  
+            <defaultValue xmi:type="uml:LiteralString" xmi:id="_XHzs86E-Ee-PjJisPHmgRA" value="3.0.0"/>
+                
+        </contents>
+          
+    </eAnnotations>
+      
+    <packagedElement xmi:type="uml:Interaction" xmi:id="_XHzs9KE-Ee-PjJisPHmgRA" name="Interaction">
+            
+        <nestedClassifier xmi:type="uml:Collaboration" xmi:id="_XHzs9aE-Ee-PjJisPHmgRA" name="locals"/>
+            
+        <lifeline xmi:id="_XHzs9qE-Ee-PjJisPHmgRA" name="Lifeline" coveredBy="_XHzs-KE-Ee-PjJisPHmgRA _XHzs-aE-Ee-PjJisPHmgRA _XHzs-qE-Ee-PjJisPHmgRA _XHzs_qE-Ee-PjJisPHmgRA _XHzs_6E-Ee-PjJisPHmgRA"/>
+            
+        <lifeline xmi:id="_XHzs96E-Ee-PjJisPHmgRA" name="Lifeline" coveredBy="_XHzs-6E-Ee-PjJisPHmgRA _XHzs_KE-Ee-PjJisPHmgRA _XHzs_aE-Ee-PjJisPHmgRA"/>
+            
+        <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_XHzs-KE-Ee-PjJisPHmgRA" covered="_XHzs9qE-Ee-PjJisPHmgRA"/>
+            
+        <fragment xmi:type="uml:BehaviorExecutionSpecification" xmi:id="_XHzs-aE-Ee-PjJisPHmgRA" covered="_XHzs9qE-Ee-PjJisPHmgRA" start="_XHzs-KE-Ee-PjJisPHmgRA" finish="_XHzs_6E-Ee-PjJisPHmgRA"/>
+            
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XHzs-qE-Ee-PjJisPHmgRA" covered="_XHzs9qE-Ee-PjJisPHmgRA" message="_XHztAKE-Ee-PjJisPHmgRA"/>
+            
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XHzs-6E-Ee-PjJisPHmgRA" covered="_XHzs96E-Ee-PjJisPHmgRA" message="_XHztAKE-Ee-PjJisPHmgRA"/>
+            
+        <fragment xmi:type="uml:BehaviorExecutionSpecification" xmi:id="_XHzs_KE-Ee-PjJisPHmgRA" covered="_XHzs96E-Ee-PjJisPHmgRA" start="_XHzs-6E-Ee-PjJisPHmgRA" finish="_XHzs_aE-Ee-PjJisPHmgRA"/>
+            
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XHzs_aE-Ee-PjJisPHmgRA" covered="_XHzs96E-Ee-PjJisPHmgRA" message="_XHztAaE-Ee-PjJisPHmgRA"/>
+            
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_XHzs_qE-Ee-PjJisPHmgRA" covered="_XHzs9qE-Ee-PjJisPHmgRA" message="_XHztAaE-Ee-PjJisPHmgRA"/>
+            
+        <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_XHzs_6E-Ee-PjJisPHmgRA" covered="_XHzs9qE-Ee-PjJisPHmgRA"/>
+            
+        <message xmi:type="uml:Message" xmi:id="_XHztAKE-Ee-PjJisPHmgRA" receiveEvent="_XHzs-6E-Ee-PjJisPHmgRA" sendEvent="_XHzs-qE-Ee-PjJisPHmgRA"/>
+            
+        <message xmi:type="uml:Message" xmi:id="_XHztAaE-Ee-PjJisPHmgRA" messageSort="reply" receiveEvent="_XHzs_qE-Ee-PjJisPHmgRA" sendEvent="_XHzs_aE-Ee-PjJisPHmgRA"/>
+          
+    </packagedElement>
+    
+</uml:Model>
