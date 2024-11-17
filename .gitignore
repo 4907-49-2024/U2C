@@ -27,5 +27,4 @@ bin/
 
 ### Mac OS ###
 .DS_Store
-/lib/SDMetricsOpenCore/
 /.idea/git_toolbox_prj.xml

@@ -22,11 +22,11 @@ public class Main {
         // Tutorial: https://www.sdmetrics.com/javadoc/com/sdmetrics/model/package-summary.html
 
         // Path convenience variable
-        final Path resRoot = Paths.get("C:\\Users\\Alex\\IdeaProjects\\LibraryExploration\\lib\\SDMetricsOpenCore\\src\\com\\sdmetrics\\resources");
+        final Path resRoot = Paths.get("C:\\Users\\Alex\\IdeaProjects\\XMIParser\\lib\\SDMetricsOpenCore\\src\\com\\sdmetrics\\resources");
         // 2. Prepare Input files
         String metaModelURL = resRoot.resolve("metamodel2.xml").toString(); // Use UML 2.x as the metamodel
         String xmiTransURL = resRoot.resolve("xmiTrans2_0.xml").toString(); // Use UML+XMI 2.x as the XMI transformations
-        String xmiFile = "C:\\Users\\Alex\\IdeaProjects\\LibraryExploration\\Input\\project1.xmi";       // INPUT: XMI file with the UML model
+        String xmiFile = "C:\\Users\\Alex\\IdeaProjects\\XMIParser\\Input\\project1.xmi";       // INPUT: XMI file with the UML model
 
         // 3. Read metamodel - Exceptions unhandled
         XMLParser parser = new XMLParser(); // Can use a different XML reader that we create if we want
