@@ -1,88 +1,98 @@
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-// 1. Required imports
-import java.util.Collection;
-import java.util.List;
-
-import com.sdmetrics.model.MetaModel;
-import com.sdmetrics.model.MetaModelElement;
-import com.sdmetrics.model.Model;
-import com.sdmetrics.model.ModelElement;
-import com.sdmetrics.model.XMIReader;
-import com.sdmetrics.model.XMITransformations;
-import com.sdmetrics.util.XMLParser;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.ParserConfigurationException;
-
 public class Main {
-    // Call the function under prototype
-    public static void main(String[] args) throws Exception {
-        // Tutorial: https://www.sdmetrics.com/javadoc/com/sdmetrics/model/package-summary.html
+    private static JTextArea outputArea; // Text area to display output
 
-        // Path convenience variable
-        final Path resRoot = Paths.get("C:\\Users\\Alex\\IdeaProjects\\XMIParser\\lib\\SDMetricsOpenCore\\src\\com\\sdmetrics\\resources");
-        // 2. Prepare Input files
-        String metaModelURL = resRoot.resolve("metamodel2.xml").toString(); // Use UML 2.x as the metamodel
-        String xmiTransURL = resRoot.resolve("xmiTrans2_0.xml").toString(); // Use UML+XMI 2.x as the XMI transformations
-        String xmiFile = "C:\\Users\\Alex\\IdeaProjects\\XMIParser\\Input\\project1.xmi";       // INPUT: XMI file with the UML model
+    public static void main(String[] args) {
+        // Create the main application window
+        JFrame frame = new JFrame("XMI Parser");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 400);
+        frame.setLayout(new BorderLayout());
 
-        // 3. Read metamodel - Exceptions unhandled
-        XMLParser parser = new XMLParser(); // Can use a different XML reader that we create if we want
-        MetaModel metaModel = new MetaModel();
-        parser.parse(metaModelURL, metaModel.getSAXParserHandler());
+        // Create a panel with a button
+        JPanel panel = new JPanel();
+        JButton selectFileButton = new JButton("Select XMI File");
+        panel.add(selectFileButton);
 
-        // 4. Read XMI transformation file
-        XMITransformations trans=new XMITransformations(metaModel);
-        parser.parse(xmiTransURL, trans.getSAXParserHandler());
+        // Create a text area for displaying output
+        outputArea = new JTextArea();
+        outputArea.setEditable(false); // Make it read-only
+        JScrollPane scrollPane = new JScrollPane(outputArea);
 
-        // 5. Read the XMI file with the UML model
-        Model model = new Model(metaModel);
-        XMIReader xmiReader = new XMIReader(trans, model);
-        parser.parse(xmiFile, xmiReader);
+        // Add components to the frame
+        frame.add(panel, BorderLayout.NORTH);
+        frame.add(scrollPane, BorderLayout.CENTER);
 
-        // 6.  Optionally, specify element filters to get rid of standard libraries or 3rd party APIs
-        String[] filters = { "#.java", "#.javax", "#.org.xml" };
-        model.setFilter(filters, false, true);
+        // Add action listener to the button
+        selectFileButton.addActionListener(e -> selectAndParseFile());
 
-        // 7. Access the UML model
-        viewModel(model, metaModel);
+        // Make the frame visible
+        frame.setVisible(true);
     }
 
-    private static void viewModel(Model model, MetaModel metaModel){
-        // The following example writes all model elements accepted by the element filter to the console,
-        // along with the values of their attributes.
-        for (MetaModelElement type : metaModel) {
-            System.out.println("Elements of type: " + type.getName());
+    /**
+     * Opens the file chooser, validates the file, and parses it.
+     */
+    private static void selectAndParseFile() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Select an XMI File");
 
-            // iterate over all model elements of the current type
-            List<ModelElement> elements = model.getAcceptedElements(type);
-            for (ModelElement me : elements) {
-                System.out.println("  Element: " + me.getFullName() + " ");
+        // Show the file chooser dialog
+        int userSelection = fileChooser.showOpenDialog(null);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            String xmiFilePath = selectedFile.getAbsolutePath();
 
-                // write out the value of each attribute of the element
-                Collection<String> attributeNames = type.getAttributeNames();
-                for (String attr : attributeNames) {
-                    System.out.print("     Attribute '" + attr);
-                    if (type.isSetAttribute(attr))
-                        System.out.println("' has set value "
-                                + me.getSetAttribute(attr));
-                    else if (type.isRefAttribute(attr)) {
-                        System.out.print("' references ");
-                        ModelElement referenced = me.getRefAttribute(attr);
-                        System.out.println((referenced == null) ? "nothing"
-                                : referenced.getFullName());
-                    } else
-                        System.out.println("' has value: "
-                                + me.getPlainAttribute(attr));
-                }
+            // Validate the selected file
+            if (!isValidXMIFile(selectedFile)) {
+                JOptionPane.showMessageDialog(null, "The selected file is not a valid XMI file.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
+
+            // Paths for resource files (adjust as needed)
+            Path projectRoot = Paths.get(System.getProperty("user.dir"));
+            Path resourcesDir = projectRoot.resolve("lib/SDMetricsOpenCore/src/com/sdmetrics/resources");
+            String metaModelURL = resourcesDir.resolve("metamodel2.xml").toString();
+            String xmiTransURL = resourcesDir.resolve("xmiTrans2_0.xml").toString();
+
+            // Parse the file and display the results
+            try {
+                XMIParser parser = new XMIParser(metaModelURL, xmiTransURL, xmiFilePath);
+                String result = parser.parseAndReturnModel();
+                outputArea.setText(result); // Display the result in the text area
+                JOptionPane.showMessageDialog(null, "Parsing completed successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error during parsing: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No file was selected.", "Info", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
-    // ======================== Working methods ========================
-    private static void hello(){
-        System.out.println("Hello world!");
+    /**
+     * Validates if the selected file is a valid XMI file.
+     */
+    private static boolean isValidXMIFile(File file) {
+        // Check if the file exists and has the correct extension
+        if (!file.exists() || (!file.getName().endsWith(".xmi") && !file.getName().endsWith(".xml"))) {
+            return false;
+        }
+
+        // Check the file content for XMI-specific elements
+        try {
+            String content = Files.readString(file.toPath());
+            return content.contains("xmi:") || content.contains("<XMI");
+        } catch (IOException e) {
+            System.err.println("Error reading file content: " + e.getMessage());
+            return false;
+        }
     }
 }
