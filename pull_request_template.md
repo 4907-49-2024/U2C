@@ -13,7 +13,7 @@
 # PR Checklist
 [comment]: <> (Do not request review until all checked, label as draft if you post the PR before then)
 [comment]: <> (fill the checkbox by putting an x in like so: [x])
-- [ ] Single issue realted to PR
+- [ ] Single issue related to PR
 - [ ] Issue number at start of branch name
 - [ ] No code changes done on top of reorganizing changes (moving files, or contents)
 - [ ] Tests written for any new changes
