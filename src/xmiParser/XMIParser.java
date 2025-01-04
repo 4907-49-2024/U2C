@@ -1,3 +1,5 @@
+package xmiParser;
+
 import com.sdmetrics.model.MetaModel;
 import com.sdmetrics.model.MetaModelElement;
 import com.sdmetrics.model.Model;
@@ -10,14 +12,10 @@ import java.util.Collection;
 import java.util.List;
 
 public class XMIParser {
-    private final String metaModelURL;
-    private final String xmiTransURL;
-    private final String xmiFile;
+    private final XMIParserConfig config;
 
-    public XMIParser(String metaModelURL, String xmiTransURL, String xmiFile) {
-        this.metaModelURL = metaModelURL;
-        this.xmiTransURL = xmiTransURL;
-        this.xmiFile = xmiFile;
+    public XMIParser(XMIParserConfig config) {
+        this.config = config;
     }
 
     /**
@@ -29,16 +27,16 @@ public class XMIParser {
         // Parse the metamodel file
         XMLParser parser = new XMLParser();
         MetaModel metaModel = new MetaModel();
-        parser.parse(metaModelURL, metaModel.getSAXParserHandler());
+        parser.parse(config.metaModel(), metaModel.getSAXParserHandler());
 
         // Parse the XMI transformations file
         XMITransformations trans = new XMITransformations(metaModel);
-        parser.parse(xmiTransURL, trans.getSAXParserHandler());
+        parser.parse(config.xmiTrans(), trans.getSAXParserHandler());
 
         // Parse the input XMI file
         Model model = new Model(metaModel);
         XMIReader xmiReader = new XMIReader(trans, model);
-        parser.parse(xmiFile, xmiReader);
+        parser.parse(config.xmiFileName(), xmiReader);
 
         // Build the parsed model as a string
         for (MetaModelElement type : metaModel) {
