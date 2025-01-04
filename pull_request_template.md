@@ -15,7 +15,6 @@
 [comment]: <> (fill the checkbox by putting an x in like so: [x])
 - [ ] Single issue related to PR
 - [ ] Issue number at start of branch name
-- [ ] No code changes done on top of reorganizing changes (moving files, or contents)
 - [ ] Tests written for any new changes
 - [ ] All other fields above filled
 
