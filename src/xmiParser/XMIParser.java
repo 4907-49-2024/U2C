@@ -1,3 +1,5 @@
+package xmiParser;
+
 import com.sdmetrics.model.MetaModel;
 import com.sdmetrics.model.MetaModelElement;
 import com.sdmetrics.model.Model;

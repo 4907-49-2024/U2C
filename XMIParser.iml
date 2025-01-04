@@ -10,6 +10,7 @@
       <sourceFolder url="file://$MODULE_DIR$/lib/SDMetricsOpenCore/javadoc" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/lib/SDMetricsOpenCore/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/lib/SDMetricsOpenCore/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
