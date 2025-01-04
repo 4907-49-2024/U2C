@@ -3,7 +3,7 @@ import xmiParser.XMIParserConfig;
 
 public class MainTUI {
     public static void main(String[] args) {
-        XMIParser parser = new XMIParser(new XMIParserConfig("project1.xmi"));
+        XMIParser parser = new XMIParser(new XMIParserConfig());
         String model = "";
         // Parse
         try {
