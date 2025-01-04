@@ -48,7 +48,7 @@ public class Main {
         int userSelection = fileChooser.showOpenDialog(null);
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
-            String xmiFilePath = selectedFile.getAbsolutePath();
+            String xmiFilePath = selectedFile.getName();
 
             // Validate the selected file
             if (!isValidXMIFile(selectedFile)) {
@@ -56,15 +56,9 @@ public class Main {
                 return;
             }
 
-            // Paths for resource files (adjust as needed)
-            Path projectRoot = Paths.get(System.getProperty("user.dir"));
-            Path resourcesDir = projectRoot.resolve("lib/SDMetricsOpenCore/src/com/sdmetrics/resources");
-            String metaModelURL = resourcesDir.resolve("metamodel2.xml").toString();
-            String xmiTransURL = resourcesDir.resolve("xmiTrans2_0.xml").toString();
-
             // Parse the file and display the results
             try {
-                XMIParser parser = new XMIParser(metaModelURL, xmiTransURL, xmiFilePath);
+                XMIParser parser = new XMIParser(new XMIParserConfig(xmiFilePath));
                 String result = parser.parseAndReturnModel();
                 outputArea.setText(result); // Display the result in the text area
                 JOptionPane.showMessageDialog(null, "Parsing completed successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
@@ -80,6 +74,7 @@ public class Main {
     /**
      * Validates if the selected file is a valid XMI file.
      */
+    // TODO: if desired, we could put this in XMIParserConfig? It's fine here for now
     private static boolean isValidXMIFile(File file) {
         // Check if the file exists and has the correct extension
         if (!file.exists() || (!file.getName().endsWith(".xmi") && !file.getName().endsWith(".xml"))) {
