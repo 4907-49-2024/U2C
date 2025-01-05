@@ -1,3 +1,5 @@
+package mainGUI;
+
 import xmiParser.XMIParser;
 import xmiParser.XMIParserConfig;
 
@@ -41,7 +43,7 @@ public class MainGUI {
     /**
      * Opens the file chooser, validates the file, and parses it.
      */
-    private static void selectAndParseFile() {
+    public static void selectAndParseFile() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Select an XMI File");
 
@@ -76,7 +78,7 @@ public class MainGUI {
      * Validates if the selected file is a valid XMI file.
      */
     // TODO: if desired, we could put this in xmiParser.XMIParserConfig? It's fine here for now
-    private static boolean isValidXMIFile(File file) {
+    public static boolean isValidXMIFile(File file) {
         // Check if the file exists and has the correct extension
         if (!file.exists() || (!file.getName().endsWith(".xmi") && !file.getName().endsWith(".xml"))) {
             return false;
