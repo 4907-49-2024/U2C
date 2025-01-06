@@ -75,8 +75,10 @@ public class XMIParser {
 
     /**
      * Parses the XMI file and returns the model as a string.
+     * <p>
+     * Note: This is a debug/logging method. Don't use this in production code. Out of testing scope.
      */
-    public String getFullModel() throws Exception {
+    public String getFullModel() {
         StringBuilder result = new StringBuilder();
 
         // Build the parsed model as a string
