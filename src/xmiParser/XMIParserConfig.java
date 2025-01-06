@@ -9,7 +9,7 @@ import java.nio.file.Paths;
  */
 public record XMIParserConfig(String xmiFileName) {
     // Default file name
-    public static final String DEFAULT_FILE = "Simplest.umi";
+    public static final String DEFAULT_FILE = "Simplest.uml";
     public static final String META_MODEL_NAME = "metamodel2.xml";
     public static final String XMI_TRANSFO_NAME = "xmiTrans2_0.xml";
     // Directories
