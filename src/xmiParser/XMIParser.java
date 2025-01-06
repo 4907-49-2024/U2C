@@ -65,6 +65,15 @@ public class XMIParser {
     }
 
     /**
+     * Parse model to return set of agents found.
+     *
+     * @return A set of names of agents in the model.
+     */
+    public Set<String> parseAgents(){
+        return getElementNames(mappings.getTypeAgent());
+    }
+
+    /**
      * Parses the XMI file and returns the model as a string.
      */
     public String parseAndReturnModel() throws Exception {
