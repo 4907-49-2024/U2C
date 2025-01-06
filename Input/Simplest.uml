@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_DohcIMkyEe-87OvBdc931g" name="ColDiagTest">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_Dsdg8MkyEe-87OvBdc931g">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Interaction" xmi:id="_DpfsgMkyEe-87OvBdc931g" name="Interaction1">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_PoSZwMkyEe-87OvBdc931g" name="" type="_DpfsgMkyEe-87OvBdc931g"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_ItH-cMkyEe-87OvBdc931g" name="One" coveredBy="_MoeZsMkyEe-87OvBdc931g"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_LVZBMMkyEe-87OvBdc931g" name="Two" coveredBy="_MoeZsckyEe-87OvBdc931g"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_PoRysMkyEe-87OvBdc931g" name="" represents="_PoSZwMkyEe-87OvBdc931g"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_MoeZsMkyEe-87OvBdc931g" name="Message3SendEvent" covered="_ItH-cMkyEe-87OvBdc931g" message="_MoZhMMkyEe-87OvBdc931g"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_MoeZsckyEe-87OvBdc931g" name="Message3ReceiveEvent" covered="_LVZBMMkyEe-87OvBdc931g" message="_MoZhMMkyEe-87OvBdc931g"/>
+    <message xmi:type="uml:Message" xmi:id="_MoZhMMkyEe-87OvBdc931g" name="OneToTwo" messageSort="asynchCall" receiveEvent="_MoeZsckyEe-87OvBdc931g" sendEvent="_MoeZsMkyEe-87OvBdc931g"/>
+  </packagedElement>
+</uml:Model>

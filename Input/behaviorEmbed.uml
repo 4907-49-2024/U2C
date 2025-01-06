@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ActionLanguage="http://www.omg.org/spec/ALF/20120827/ActionLanguage-Profile" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.omg.org/spec/ALF/20120827/ActionLanguage-Profile pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ">
+  <uml:Model xmi:id="_kt10kMwOEe-vr5o4rlbhqQ" name="behaviorEmbed">
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_kuJWkMwOEe-vr5o4rlbhqQ">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Interaction" xmi:id="_kt6GAMwOEe-vr5o4rlbhqQ" name="Interaction1">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_tNXlocwOEe-vr5o4rlbhqQ" name="" type="_kt6GAMwOEe-vr5o4rlbhqQ"/>
+      <lifeline xmi:type="uml:Lifeline" xmi:id="_nOxgQMwOEe-vr5o4rlbhqQ" name="Lifeline1" coveredBy="_o6gCQMwOEe-vr5o4rlbhqQ _zDENsMwOEe-vr5o4rlbhqQ"/>
+      <lifeline xmi:type="uml:Lifeline" xmi:id="_noKQoMwOEe-vr5o4rlbhqQ" name="Lifeline2" coveredBy="_zDENscwOEe-vr5o4rlbhqQ"/>
+      <lifeline xmi:type="uml:Lifeline" xmi:id="_tNXloMwOEe-vr5o4rlbhqQ" name="" represents="_tNXlocwOEe-vr5o4rlbhqQ"/>
+      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_o6gCQMwOEe-vr5o4rlbhqQ" name="Message4SendEvent" covered="_nOxgQMwOEe-vr5o4rlbhqQ"/>
+      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_zDENsMwOEe-vr5o4rlbhqQ" name="Message8SendEvent" covered="_nOxgQMwOEe-vr5o4rlbhqQ" message="_zDDmoMwOEe-vr5o4rlbhqQ"/>
+      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_zDENscwOEe-vr5o4rlbhqQ" name="Message8ReceiveEvent" covered="_noKQoMwOEe-vr5o4rlbhqQ" message="_zDDmoMwOEe-vr5o4rlbhqQ"/>
+      <message xmi:type="uml:Message" xmi:id="_zDDmoMwOEe-vr5o4rlbhqQ" name="1:Send---(B1-B2)(B2-B3)(B3-B1)" messageSort="asynchCall" receiveEvent="_zDENscwOEe-vr5o4rlbhqQ" sendEvent="_zDENsMwOEe-vr5o4rlbhqQ"/>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_s26NcMwOEe-vr5o4rlbhqQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_s27bkMwOEe-vr5o4rlbhqQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
+    </profileApplication>
+  </uml:Model>
+  <ActionLanguage:TextualRepresentation xmi:id="_s3_ykMwOEe-vr5o4rlbhqQ" language="org.eclipse.papyrus.uml.textedit.message.xtext.UmlMessage"/>
+</xmi:XMI>
