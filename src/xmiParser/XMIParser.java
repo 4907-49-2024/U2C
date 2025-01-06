@@ -12,18 +12,9 @@ import java.util.Collection;
 import java.util.List;
 
 public class XMIParser {
-    private final XMIParserConfig config;
+    private final Model model; // This is where data gets stored after parsing
 
-    public XMIParser(XMIParserConfig config) {
-        this.config = config;
-    }
-
-    /**
-     * Parses the XMI file and returns the model as a string.
-     */
-    public String parseAndReturnModel() throws Exception {
-        StringBuilder result = new StringBuilder();
-
+    public XMIParser(XMIParserConfig config) throws Exception {
         // Parse the metamodel file
         XMLParser parser = new XMLParser();
         MetaModel metaModel = new MetaModel();
@@ -33,13 +24,29 @@ public class XMIParser {
         XMITransformations trans = new XMITransformations(metaModel);
         parser.parse(config.xmiTrans(), trans.getSAXParserHandler());
 
-        // Parse the input XMI file
-        Model model = new Model(metaModel);
+        // Parse the input XMI file -> Stores result in model object.
+        model = new Model(metaModel);
         XMIReader xmiReader = new XMIReader(trans, model);
         parser.parse(config.xmiFileName(), xmiReader);
+    }
+
+    /**
+     * Parse model to return list of stimuli (Message elements) found
+     *
+     * @returns A list of names of stimuli in the model.
+     */
+    public List<String> parseStimuli(){
+        return List.of(); // TODO: Implement, currently a stub
+    }
+
+    /**
+     * Parses the XMI file and returns the model as a string.
+     */
+    public String parseAndReturnModel() throws Exception {
+        StringBuilder result = new StringBuilder();
 
         // Build the parsed model as a string
-        for (MetaModelElement type : metaModel) {
+        for (MetaModelElement type : model.getMetaModel()) {
             result.append("Elements of type: ").append(type.getName()).append("\n");
 
             // Iterate over all model elements of the current type
