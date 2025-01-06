@@ -1,6 +1,5 @@
 package unittest.xmiParser;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 import xmiParser.XMIParserConfig;
 
@@ -41,5 +40,14 @@ public class XMIParserConfigTest {
         // Assert equivalence to expected name
         Path path = Paths.get(defaultConfig.xmiFileName());
         assert path.getFileName().toString().equals(XMIParserConfig.DEFAULT_FILE);
+    }
+
+    @Test
+    public void umlMapping() {
+        // Assert equivalence for default behavior
+        assert Objects.equals(defaultConfig.umlMapping(), specificConfig.umlMapping());
+
+        // Assert equivalence to expected name
+        assert defaultConfig.umlMapping().equals(XMIParserConfig.DEFAULT_MAPPING);
     }
 }

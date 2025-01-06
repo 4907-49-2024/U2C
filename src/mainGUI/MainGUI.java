@@ -62,7 +62,7 @@ public class MainGUI {
             // Parse the file and display the results
             try {
                 XMIParser parser = new XMIParser(new XMIParserConfig(xmiFilePath));
-                String result = parser.parseAndReturnModel();
+                String result = parser.getFullModel();
                 outputArea.setText(result); // Display the result in the text area
                 JOptionPane.showMessageDialog(null, "Parsing completed successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_sisg4MwiEe-vr5o4rlbhqQ" name="Simplest">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_si-0wMwiEe-vr5o4rlbhqQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Interaction" xmi:id="_siwyUMwiEe-vr5o4rlbhqQ" name="Interaction1">
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_tpl3gMwiEe-vr5o4rlbhqQ" name="Two" coveredBy="_0K3zMMwiEe-vr5o4rlbhqQ"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_wuYeMMwiEe-vr5o4rlbhqQ" name="One" coveredBy="_0K3MIcwiEe-vr5o4rlbhqQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_0K3MIcwiEe-vr5o4rlbhqQ" name="Message3SendEvent" covered="_wuYeMMwiEe-vr5o4rlbhqQ" message="_0K3MIMwiEe-vr5o4rlbhqQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_0K3zMMwiEe-vr5o4rlbhqQ" name="Message3ReceiveEvent" covered="_tpl3gMwiEe-vr5o4rlbhqQ" message="_0K3MIMwiEe-vr5o4rlbhqQ"/>
+    <message xmi:type="uml:Message" xmi:id="_0K3MIMwiEe-vr5o4rlbhqQ" name="1:OneToTwo" messageSort="asynchCall" receiveEvent="_0K3zMMwiEe-vr5o4rlbhqQ" sendEvent="_0K3MIcwiEe-vr5o4rlbhqQ"/>
+  </packagedElement>
+</uml:Model>
