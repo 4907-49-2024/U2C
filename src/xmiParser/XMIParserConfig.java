@@ -12,7 +12,7 @@ import java.nio.file.Paths;
  */
 public record XMIParserConfig(String xmiFileName, UMLMapping umlMapping) {
     // Default mapping (using papyrus in initial implementation)
-    private static final UMLMapping DEFAULT_MAPPING = new PapyrusMapping();
+    public static final UMLMapping DEFAULT_MAPPING = new PapyrusMapping();
     // Default file name
     public static final String DEFAULT_FILE = "Simplest.uml";
     public static final String META_MODEL_NAME = "metamodel2.xml";
