@@ -19,7 +19,7 @@ public record XMIParserConfig(String xmiFileName, UMLMapping umlMapping) {
     public static final String XMI_TRANSFO_NAME = "xmiTrans2_0.xml";
     // Directories
     private static final Path projectRoot = Paths.get(System.getProperty("user.dir"));
-    private static final Path resourcesDir = projectRoot.resolve("lib/SDMetricsOpenCore/src/com/sdmetrics/resources");
+    private static final Path resourcesDir = projectRoot.resolve("src/main/resources/sdmetrics/");
     private static final Path inputDir = projectRoot.resolve("Input");
     // Needed, default files
     public static final String metaModelURL = resourcesDir.resolve(META_MODEL_NAME).toString(); // UML 2.x metamodel
