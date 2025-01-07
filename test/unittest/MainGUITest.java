@@ -1,6 +1,6 @@
-package unittest.mainGUI;
+package unittest;
 
-import mainGUI.MainGUI;
+import main.MainGUI;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.io.File;

@@ -1,4 +1,4 @@
-package mainGUI;
+package main;
 
 import xmiParser.XMIParser;
 import xmiParser.XMIParserConfig;
