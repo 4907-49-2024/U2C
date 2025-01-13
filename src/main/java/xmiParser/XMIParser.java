@@ -1,18 +1,10 @@
 package xmiParser;
 
-import com.sdmetrics.model.MetaModel;
-import com.sdmetrics.model.MetaModelElement;
-import com.sdmetrics.model.Model;
-import com.sdmetrics.model.ModelElement;
-import com.sdmetrics.model.XMIReader;
-import com.sdmetrics.model.XMITransformations;
+import com.sdmetrics.model.*;
 import com.sdmetrics.util.XMLParser;
 import xmiParser.UMLMappings.UMLMapping;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class XMIParser {
     private final Model model; // This is where data gets stored after parsing
@@ -24,6 +16,9 @@ public class XMIParser {
         XMLParser parser = new XMLParser();
         MetaModel metaModel = new MetaModel();
         parser.parse(config.metaModel(), metaModel.getSAXParserHandler());
+
+        MetaModelElement commentType = metaModel.getType("comment");
+        commentType.addAttribute("annotatedElement", false, false); // Adding missing attribute
 
         // Parse the XMI transformations file
         XMITransformations trans = new XMITransformations(metaModel);
@@ -106,6 +101,79 @@ public class XMIParser {
                 }
             }
         }
+
+        return result.toString();
+    }
+
+    /**
+     * Parse the XMI file and return behaviors (states) associated with UML objects.
+     *
+     * @return A map of object names to the states they have.
+     */
+    /**
+     * Parse the XMI file and return behaviors (states) associated with UML objects.
+     *
+     * @return A formatted string of object names and their states.
+     */
+    public String parseBehaviours() {
+        Map<String, Set<String>> behaviors = new HashMap<>();
+
+        // Retrieve lifeline and comment types
+        MetaModelElement lifelineType = model.getMetaModel().getType("lifeline");
+        MetaModelElement commentType = model.getMetaModel().getType("comment");
+
+        if (lifelineType == null || commentType == null) {
+            return "[]"; // Return empty output if types are not defined
+        }
+
+        // Map lifeline IDs to their names
+        Map<String, String> lifelineIdToName = new HashMap<>();
+        for (ModelElement lifeline : model.getAcceptedElements(lifelineType)) {
+            String lifelineId = lifeline.getPlainAttribute("id");
+            String lifelineName = lifeline.getName();
+            if (lifelineId != null && lifelineName != null) {
+                lifelineIdToName.put(lifelineId, lifelineName);
+            }
+        }
+
+        // Process comments
+        for (ModelElement comment : model.getAcceptedElements(commentType)) {
+            String annotatedElementId = comment.getPlainAttribute("annotatedElement");
+            String commentBody = comment.getPlainAttribute("body");
+
+            if (annotatedElementId != null && commentBody != null) {
+                String lifelineName = lifelineIdToName.get(annotatedElementId);
+                if (lifelineName != null) {
+                    // Extract states from the comment body
+                    String[] lines = commentBody.split("\n");
+                    if (lines.length > 0) {
+                        behaviors.computeIfAbsent(lifelineName, k -> new LinkedHashSet<>()).add(lines[0].trim()); // Default state
+                        for (int i = 1; i < lines.length; i++) { // Transitions
+                            int colonIndex = lines[i].indexOf(":");
+                            if (colonIndex != -1) {
+                                behaviors.get(lifelineName).add(lines[i].substring(colonIndex + 1).trim());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Format the output for simplicity: [One:(State1, State2, State5), Two:(State3, State4)]
+        // TODO: we can change the format of the output as needed
+        StringBuilder result = new StringBuilder("[");
+        behaviors.forEach((object, states) -> {
+            result.append(object)
+                    .append(":(")
+                    .append(String.join(", ", states))
+                    .append("), ");
+        });
+
+        // Remove trailing comma and space, close the bracket
+        if (result.length() > 1) {
+            result.setLength(result.length() - 2);
+        }
+        result.append("]");
 
         return result.toString();
     }

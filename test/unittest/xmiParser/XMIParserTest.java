@@ -8,6 +8,8 @@ import xmiParser.XMIParserConfig;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Test that all diagrams have the elements we expect.
  */
@@ -15,13 +17,14 @@ public class XMIParserTest {
     // Assumes default mappings! No need to change until we're using more than 1.
     private static XMIParser simplestDiagram;
     private static XMIParser multiRcvDiagram;
-    private static XMIParser behaviorEmbedDiagram; // TODO, later when implementing behaviors
+    private static XMIParser behaviourTest;
+    //private static XMIParser behaviorEmbedDiagram; // TODO, later when implementing behaviors
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         simplestDiagram = new XMIParser(new XMIParserConfig("Simplest.uml"));
         multiRcvDiagram = new XMIParser(new XMIParserConfig("multiRcv.uml"));
-        behaviorEmbedDiagram = new XMIParser(new XMIParserConfig("behaviorEmbed.uml"));
+        behaviourTest = new XMIParser(new XMIParserConfig("behaviourTest.uml"));
     }
 
     @Test
@@ -59,5 +62,12 @@ public class XMIParserTest {
 
         assert multiRcvDiagram.parseAgents().equals(expected);
 
+    }
+
+    @Test
+    public void parseBehaviors() {
+        // Expected for behaviourTest.uml
+        String expectedBehaviourTest = "[One:(State1, State2, State5), Two:(State3, State4)]";;
+        assertEquals(expectedBehaviourTest, behaviourTest.parseBehaviours());
     }
 }

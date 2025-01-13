@@ -740,6 +740,7 @@ other part of SDMetrics.
 <xmitransformation modelelement="stereotype" xmipattern="uml:Stereotype" />
 
 <xmitransformation modelelement="comment" xmipattern="uml:Comment">
+<trigger name="annotatedElement" type="attrval" attr="annotatedElement"/>
 <trigger name="body" type="attrval" attr="body" />
 <trigger name="body" type="ctext" src="body" />
 </xmitransformation>

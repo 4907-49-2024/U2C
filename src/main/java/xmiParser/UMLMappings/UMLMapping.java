@@ -9,4 +9,5 @@ public interface UMLMapping {
     // These can be static methods in theory, but it makes passing the class around complicated.
     String getTypeStimulus();
     String getTypeAgent();
+    String getTypeComment(); //not used
 }
