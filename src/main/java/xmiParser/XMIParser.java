@@ -108,11 +108,6 @@ public class XMIParser {
     /**
      * Parse the XMI file and return behaviors (states) associated with UML objects.
      *
-     * @return A map of object names to the states they have.
-     */
-    /**
-     * Parse the XMI file and return behaviors (states) associated with UML objects.
-     *
      * @return A formatted string of object names and their states.
      */
     public String parseBehaviours() {
