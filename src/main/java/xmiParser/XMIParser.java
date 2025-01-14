@@ -121,11 +121,6 @@ public class XMIParser {
         MetaModelElement lifelineType = model.getMetaModel().getType(lifelineTypeName);
         MetaModelElement commentType = model.getMetaModel().getType(commentTypeName);
 
-        if (lifelineType == null || commentType == null) {
-            System.err.println("Error: 'lifeline' or 'comment' type not found in metamodel.");
-            return agentsToBehaviours; // Return empty output if types are not defined
-        }
-
         // Map lifeline IDs to their names
         Map<String, String> lifelineIdToName = new HashMap<>();
         for (ModelElement lifeline : model.getAcceptedElements(lifelineType)) {
