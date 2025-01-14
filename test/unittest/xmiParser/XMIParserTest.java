@@ -5,7 +5,9 @@ import org.junit.Test;
 import xmiParser.XMIParser;
 import xmiParser.XMIParserConfig;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
@@ -76,8 +78,40 @@ public class XMIParserTest {
 
     @Test
     public void parseBehaviours() {
-        // Expected for behaviourTest.uml
-        String expectedBehaviourTest = "[One:(State1, State2, State5), Two:(State3, State4)]";;
+
+        // Expected for simplest.uml
+        Map<String, Set<String>> expectedBehaviourTest = new HashMap<>();
+        assertEquals(expectedBehaviourTest, simplestDiagram.parseBehaviours());
+
+        // Expected for multiRcv.uml
+        expectedBehaviourTest.clear();
+        assertEquals(expectedBehaviourTest, multiRcvDiagram.parseBehaviours());
+
+
+        // Expected for behaviourEmbedDiagram.uml
+        expectedBehaviourTest.clear();
+        expectedBehaviourTest.put("One", Set.of("State1", "State2", "State5"));
+        expectedBehaviourTest.put("Two", Set.of("State3", "State4"));
         assertEquals(expectedBehaviourTest, behaviourEmbedDiagram.parseBehaviours());
+    }
+
+    @Test
+    public void viewBehaviours() {
+        Map<String, Set<String>> agentsToBehaviours = new HashMap<>();
+
+        // Add behaviours in specific order for "One" and "Two"
+        Set<String> oneStates = new HashSet<>();
+        oneStates.add("State1");
+        oneStates.add("State2");
+        oneStates.add("State5");
+        agentsToBehaviours.put("One", oneStates);
+
+        Set<String> twoStates = new HashSet<>();
+        twoStates.add("State3");
+        twoStates.add("State4");
+        agentsToBehaviours.put("Two", twoStates);
+
+        String expected = "[One:(State1, State2, State5), Two:(State3, State4)]";
+        assertEquals(expected, XMIParser.viewBehaviours(agentsToBehaviours));
     }
 }
