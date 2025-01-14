@@ -17,9 +17,6 @@ public class XMIParser {
         MetaModel metaModel = new MetaModel();
         parser.parse(config.metaModel(), metaModel.getSAXParserHandler());
 
-        MetaModelElement commentType = metaModel.getType("comment");
-        commentType.addAttribute("annotatedElement", false, false); // Adding missing attribute
-
         // Parse the XMI transformations file
         XMITransformations trans = new XMITransformations(metaModel);
         parser.parse(config.xmiTrans(), trans.getSAXParserHandler());

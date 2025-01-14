@@ -342,6 +342,7 @@ other part of SDMetrics.
 <modelelement name="stereotype" />
 <modelelement name="comment">
   <attribute name="body">The comment text.</attribute>
+  <attribute name="annotatedElement">The element the comment refers to.</attribute>
 </modelelement>
 
 
