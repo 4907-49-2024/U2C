@@ -80,7 +80,7 @@ public class MainGUI {
     // TODO: if desired, we could put this in xmiParser.XMIParserConfig? It's fine here for now
     public static boolean isValidXMIFile(File file) {
         // Check if the file exists and has the correct extension
-        if (!file.exists() || (!file.getName().endsWith(".xmi") && !file.getName().endsWith(".xml"))) {
+        if (!file.exists() || (!file.getName().endsWith(".xmi") && !file.getName().endsWith(".xml") && !file.getName().endsWith(".uml"))) {
             return false;
         }
 

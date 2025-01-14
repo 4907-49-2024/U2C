@@ -10,4 +10,9 @@ public class PapyrusMapping implements UMLMapping {
     public String getTypeAgent() {
         return "lifeline";
     }
+
+    @Override
+    public String getTypeComment() { //not used
+        return "comment";
+    }
 }

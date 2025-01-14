@@ -11,5 +11,7 @@ public class MainTUI {
         System.out.println("--------------------------------------------------");
         System.out.println(parser.parseAgents());
         System.out.println("--------------------------------------------------");
+        System.out.println(parser.parseBehaviours());
+        System.out.println("--------------------------------------------------");
     }
 }

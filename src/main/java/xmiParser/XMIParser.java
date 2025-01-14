@@ -1,18 +1,10 @@
 package xmiParser;
 
-import com.sdmetrics.model.MetaModel;
-import com.sdmetrics.model.MetaModelElement;
-import com.sdmetrics.model.Model;
-import com.sdmetrics.model.ModelElement;
-import com.sdmetrics.model.XMIReader;
-import com.sdmetrics.model.XMITransformations;
+import com.sdmetrics.model.*;
 import com.sdmetrics.util.XMLParser;
 import xmiParser.UMLMappings.UMLMapping;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class XMIParser {
     private final Model model; // This is where data gets stored after parsing
@@ -109,5 +101,83 @@ public class XMIParser {
 
         return result.toString();
     }
+
+    /**
+     * Parse the XMI file and return behaviours (states) associated with UML agents (objects).
+     *
+     * @return A String to Set map of object names and their states.
+     */
+    public  Map<String, Set<String>> parseBehaviours() {
+        Map<String, Set<String>> agentsToBehaviours = new HashMap<>();
+
+        // Retrieve types from UMLMappings for modularity
+        String lifelineTypeName = mappings.getTypeAgent();
+        String commentTypeName = mappings.getTypeComment();
+
+        // Retrieve lifeline and comment types from the model
+        MetaModelElement lifelineType = model.getMetaModel().getType(lifelineTypeName);
+        MetaModelElement commentType = model.getMetaModel().getType(commentTypeName);
+
+        // Map lifeline IDs to their names
+        Map<String, String> lifelineIdToName = new HashMap<>();
+        for (ModelElement lifeline : model.getAcceptedElements(lifelineType)) {
+            String lifelineId = lifeline.getPlainAttribute("id");
+            String lifelineName = lifeline.getName();
+            if (lifelineId != null && lifelineName != null) {
+                lifelineIdToName.put(lifelineId, lifelineName);
+            }
+        }
+
+        // Process comments
+        for (ModelElement comment : model.getAcceptedElements(commentType)) {
+            String annotatedElementId = comment.getPlainAttribute("annotatedElement");
+            String commentBody = comment.getPlainAttribute("body");
+
+            if (annotatedElementId != null && commentBody != null) {
+                String lifelineName = lifelineIdToName.get(annotatedElementId);
+                if (lifelineName != null) {
+                    // Extract states from the comment body
+                    String[] lines = commentBody.split("\n");
+                    if (lines.length > 0) {
+                        agentsToBehaviours.computeIfAbsent(lifelineName, k -> new LinkedHashSet<>()).add(lines[0].trim()); // Default state
+                        for (int i = 1; i < lines.length; i++) { // Transitions
+                            int colonIndex = lines[i].indexOf(":");
+                            if (colonIndex != -1) {
+                                agentsToBehaviours.get(lifelineName).add(lines[i].substring(colonIndex + 1).trim());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return agentsToBehaviours;
+    }
+
+    /**
+     * Formats the behaviours map for display.
+     *
+     * @param agentsToBehaviours Map of agents (lifelines) to their behaviours (states).
+     * @return A formatted string representation of the behaviours.
+     */
+    public static String viewBehaviours(Map<String, Set<String>> agentsToBehaviours) {
+        StringBuilder result = new StringBuilder("[");
+
+        agentsToBehaviours.forEach((agent, states) -> {
+            result.append(agent)
+                    .append(":(")
+                    .append(String.join(", ", states))
+                    .append("), ");
+        });
+
+        // Remove trailing comma and space, close the bracket
+        if (result.length() > 1) {
+            result.setLength(result.length() - 2);
+        }
+        result.append("]");
+
+        return result.toString();
+    }
+
+
 
 }
