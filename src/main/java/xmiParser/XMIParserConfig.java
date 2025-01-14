@@ -14,7 +14,7 @@ public record XMIParserConfig(String xmiFileName, UMLMapping umlMapping) {
     // Default mapping (using papyrus in initial implementation)
     public static final UMLMapping DEFAULT_MAPPING = new PapyrusMapping();
     // Default file name
-    public static final String DEFAULT_FILE = "behaviourTest.uml";
+    public static final String DEFAULT_FILE = "behaviourEmbedDiagram.uml";
     public static final String META_MODEL_NAME = "metamodel2.xml";
     public static final String XMI_TRANSFO_NAME = "xmiTrans2_0.xml";
     // Directories
