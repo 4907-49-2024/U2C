@@ -1,13 +1,13 @@
-package unittest;
+package unittest.inputInterface;
 
-import main.MainGUI;
+import inputInterface.InputSanitation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.nio.file.Files;
 import java.io.IOException;
 
-class MainGUITest {
+class InputSanitationTest {
 
     @Test
     void testValidXMIFile() throws IOException {
@@ -15,7 +15,7 @@ class MainGUITest {
         File validFile = File.createTempFile("valid", ".xmi");
         Files.writeString(validFile.toPath(), "<XMI xmi:version=\"2.1\"></XMI>");
 
-        Assertions.assertTrue(MainGUI.isValidXMIFile(validFile));
+        Assertions.assertTrue(InputSanitation.isValidXMIFile(validFile));
 
         // Cleanup
         validFile.deleteOnExit();
@@ -27,7 +27,7 @@ class MainGUITest {
         File invalidFile = File.createTempFile("invalid", ".txt");
         Files.writeString(invalidFile.toPath(), "<XMI xmi:version=\"2.1\"></XMI>");
 
-        Assertions.assertFalse(MainGUI.isValidXMIFile(invalidFile));
+        Assertions.assertFalse(InputSanitation.isValidXMIFile(invalidFile));
 
         // Cleanup
         invalidFile.deleteOnExit();
@@ -39,7 +39,7 @@ class MainGUITest {
         File invalidFile = File.createTempFile("invalidContent", ".xmi");
         Files.writeString(invalidFile.toPath(), "<Invalid></Invalid>");
 
-        Assertions.assertFalse(MainGUI.isValidXMIFile(invalidFile));
+        Assertions.assertFalse(InputSanitation.isValidXMIFile(invalidFile));
 
         // Cleanup
         invalidFile.deleteOnExit();
@@ -49,6 +49,6 @@ class MainGUITest {
     void testMissingFile() {
         // Test with a non-existent file
         File missingFile = new File("nonexistent.xmi");
-        Assertions.assertFalse(MainGUI.isValidXMIFile(missingFile));
+        Assertions.assertFalse(InputSanitation.isValidXMIFile(missingFile));
     }
 }

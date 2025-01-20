@@ -1,13 +1,11 @@
-package main;
-
 import xmiParser.XMIParser;
 import xmiParser.XMIParserConfig;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
+
+import static inputInterface.InputSanitation.isValidXMIFile;
 
 public class MainGUI {
     private static JTextArea outputArea; // Text area to display output
@@ -40,6 +38,8 @@ public class MainGUI {
         frame.setVisible(true);
     }
 
+
+
     /**
      * Opens the file chooser, validates the file, and parses it.
      */
@@ -71,26 +71,6 @@ public class MainGUI {
             }
         } else {
             JOptionPane.showMessageDialog(null, "No file was selected.", "Info", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }
-
-    /**
-     * Validates if the selected file is a valid XMI file.
-     */
-    // TODO: if desired, we could put this in xmiParser.XMIParserConfig? It's fine here for now
-    public static boolean isValidXMIFile(File file) {
-        // Check if the file exists and has the correct extension
-        if (!file.exists() || (!file.getName().endsWith(".xmi") && !file.getName().endsWith(".xml") && !file.getName().endsWith(".uml"))) {
-            return false;
-        }
-
-        // Check the file content for XMI-specific elements
-        try {
-            String content = Files.readString(file.toPath());
-            return content.contains("xmi:") || content.contains("<XMI");
-        } catch (IOException e) {
-            System.err.println("Error reading file content: " + e.getMessage());
-            return false;
         }
     }
 }
