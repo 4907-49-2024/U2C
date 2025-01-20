@@ -49,4 +49,13 @@ class XMIParserTest {
         // The model is not ordered (doesn't have to be), not checking specific contents
         assertEquals(3, lifelines.size());
     }
+
+    /**
+     * Test state diagram elements. These include:
+     *  - State...
+     */
+    @Test
+    public void testGetTypedElementsState() {
+        // TODO: When states get implemented, add this test.
+    }
 }
