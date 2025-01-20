@@ -1,19 +1,19 @@
 package unittest.xmiParser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import xmiParser.XMIParserConfig;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
-public class XMIParserConfigTest {
+class XMIParserConfigTest {
     // Want to test that the default implementation is equivalent to passing in the default file
     private static final XMIParserConfig defaultConfig = new XMIParserConfig();
     private static final XMIParserConfig specificConfig = new XMIParserConfig(XMIParserConfig.DEFAULT_FILE);
 
     @Test
-    public void metaModel() {
+    void testMetaModel() {
         // Assert equivalence for default behavior
         assert Objects.equals(defaultConfig.metaModel(), specificConfig.metaModel());
 
@@ -23,7 +23,7 @@ public class XMIParserConfigTest {
     }
 
     @Test
-    public void xmiTrans() {
+    void testXmiTrans() {
         // Assert equivalence for default behavior
         assert Objects.equals(defaultConfig.xmiTrans(), specificConfig.xmiTrans());
 
@@ -33,7 +33,7 @@ public class XMIParserConfigTest {
     }
 
     @Test
-    public void xmiFileName() {
+    void testXmiFileName() {
         // Assert equivalence for default behavior
         assert Objects.equals(defaultConfig.xmiFileName(), specificConfig.xmiFileName());
 
