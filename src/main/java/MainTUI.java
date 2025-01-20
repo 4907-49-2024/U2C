@@ -6,12 +6,12 @@ public class MainTUI {
         XMIParser parser = new XMIParser(new XMIParserConfig());
 
         // Print model (with separators)
-        System.out.println("--------------------------------------------------");
-        System.out.println(parser.parseStimuli());
-        System.out.println("--------------------------------------------------");
-        System.out.println(parser.parseAgents());
-        System.out.println("--------------------------------------------------");
-        System.out.println(parser.parseBehaviours());
-        System.out.println("--------------------------------------------------");
+//        System.out.println("--------------------------------------------------");
+//        System.out.println(parser.parseStimuli());
+//        System.out.println("--------------------------------------------------");
+//        System.out.println(parser.parseAgents());
+//        System.out.println("--------------------------------------------------");
+//        System.out.println(parser.parseBehaviours());
+//        System.out.println("--------------------------------------------------");
     }
 }

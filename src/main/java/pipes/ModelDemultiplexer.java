@@ -1,6 +1,5 @@
 package pipes;
 
-import xmiParser.UMLMappings.UMLMapping;
 import xmiParser.XMIParser;
 
 /**
@@ -18,7 +17,6 @@ public class ModelDemultiplexer implements Runnable {
     @Override
     public void run() {
         // DEMUX the parser
-        // TODO: figure out typing issue
-        parser.getTypedElements();
+        parser.getTypedElements("message");
     }
 }
