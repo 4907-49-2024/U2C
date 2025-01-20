@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class Primitives {
     Set<Stimulus> stimuli;
 
-    Primitives(){
+    public Primitives(){
         stimuli = new HashSet<>();
     }
 
@@ -20,7 +20,7 @@ public class Primitives {
      *
      * @param s  The stimuli to register
      */
-    void registerStimulus(Stimulus s){
+    public void registerStimulus(Stimulus s){
         // TODO: Add safeguards for errors? Define errors
         stimuli.add(s);
     }
@@ -30,7 +30,7 @@ public class Primitives {
      *
      * @return stimuli list
      */
-    List<Stimulus> getTimedStimuli(){
+    public List<Stimulus> getTimedStimuli(){
         return stimuli.stream().sorted().toList();
     }
 
@@ -39,7 +39,7 @@ public class Primitives {
      *
      * @return stimuli name list
      */
-    Set<String> getStimuliNames(){
+    public Set<String> getStimuliNames(){
         return stimuli.stream().map(Stimulus::name).collect(Collectors.toSet());
     }
 }
