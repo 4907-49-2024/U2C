@@ -1,5 +1,7 @@
 package filters;
 
+import com.sdmetrics.model.MetaModelElement;
+import com.sdmetrics.model.Model;
 import com.sdmetrics.model.ModelElement;
 import pipes.primitives.Primitives;
 import pipes.primitives.Stimulus;
@@ -11,13 +13,32 @@ import java.util.List;
  * The model demultiplexer takes in the parser input and uses it to set up the different primitive collections.
  */
 public class ModelDemultiplexer implements Runnable {
-    private final XMIParser parser;
+    private final Model model;
     private final Primitives primitives;
 
-    public ModelDemultiplexer(XMIParser parser, Primitives primitives) {
-        this.parser = parser;
+    public ModelDemultiplexer(Model model, Primitives primitives) {
+        this.model = model;
         this.primitives = primitives;
     }
+
+
+    /**
+     * Get elements from the model matching the given type.
+     * Pre-reduces "invalid" elements this includes:
+     *  - Elements with no names.
+     *
+     * @param typeName The type of elements to get from the model.
+     */
+    private List<ModelElement> getTypedElements(String typeName){
+        // Store given element type for parsing
+        MetaModelElement type = model.getMetaModel().getType(typeName);
+
+        List<ModelElement> typedElements = model.getAcceptedElements(type);
+        // Remove blank name elements
+        typedElements.removeIf(e -> e.getName().isBlank());
+        return typedElements;
+    }
+
 
     /**
      * Packs the stimuli, by parsing the message strings.
@@ -25,7 +46,7 @@ public class ModelDemultiplexer implements Runnable {
      *
      */
     private void packStimuli(){
-        List<ModelElement> elems = parser.getTypedElements("message");
+        List<ModelElement> elems = getTypedElements("message");
         for (ModelElement elem : elems) {
             // String format: (Sequence):(Name)
             String[] stimComponents = elem.getName().split(":");
