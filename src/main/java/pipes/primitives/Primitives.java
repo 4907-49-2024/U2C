@@ -1,4 +1,4 @@
-package primitives;
+package pipes.primitives;
 
 import java.util.HashSet;
 import java.util.List;

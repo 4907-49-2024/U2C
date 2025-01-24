@@ -1,7 +1,7 @@
-import pipes.ModelDemultiplexer;
-import primitives.Primitives;
-import xmiParser.XMIParser;
-import xmiParser.XMIParserConfig;
+import filters.ModelDemultiplexer;
+import pipes.primitives.Primitives;
+import filters.xmiParser.XMIParser;
+import filters.xmiParser.XMIParserConfig;
 
 public class MainTUI {
     public static void main(String[] args) throws Exception {

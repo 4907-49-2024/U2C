@@ -1,11 +1,11 @@
-import xmiParser.XMIParser;
-import xmiParser.XMIParserConfig;
+import filters.xmiParser.XMIParser;
+import filters.xmiParser.XMIParserConfig;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 
-import static inputInterface.InputSanitation.isValidXMIFile;
+import static source.InputSanitation.isValidXMIFile;
 
 public class MainGUI {
     private static JTextArea outputArea; // Text area to display output

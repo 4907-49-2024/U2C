@@ -1,4 +1,4 @@
-package inputInterface;
+package source;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package xmiParser;
+package filters.xmiParser;
 
 import com.sdmetrics.model.*;
 import com.sdmetrics.util.XMLParser;

@@ -1,9 +1,9 @@
-package pipes;
+package filters;
 
 import com.sdmetrics.model.ModelElement;
-import primitives.Primitives;
-import primitives.Stimulus;
-import xmiParser.XMIParser;
+import pipes.primitives.Primitives;
+import pipes.primitives.Stimulus;
+import filters.xmiParser.XMIParser;
 
 import java.util.List;
 

@@ -3,8 +3,8 @@ package unittest.xmiParser;
 import com.sdmetrics.model.ModelElement;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import xmiParser.XMIParser;
-import xmiParser.XMIParserConfig;
+import filters.xmiParser.XMIParser;
+import filters.xmiParser.XMIParserConfig;
 
 import java.util.*;
 

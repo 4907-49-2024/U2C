@@ -1,10 +1,10 @@
-package xmiParser;
+package filters.xmiParser;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * Config for xmiParser.XMIParser, has a default configuration.
+ * Config for filters.xmiParser.XMIParser, has a default configuration.
  * @param xmiFileName The file name of the XMI file as seen in the input folder (name + extension only, not full path).
  */
 public record XMIParserConfig(String xmiFileName) {
