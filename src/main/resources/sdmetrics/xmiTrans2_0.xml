@@ -380,7 +380,9 @@ other part of SDMetrics.
 <trigger name="kind" type="attrval" attr="kind" />
 <trigger name="kind" type="ctext" src="kind" />
 <trigger name="transsource" type="xmi2assoc" attr="source" />
+<trigger name="sourceID" type="attrval" attr="source" />
 <trigger name="transtarget" type="xmi2assoc" attr="target" />
+<trigger name="targetID" type="attrval" attr="target" />
 <trigger name="triggers" type="xmi2assoc" attr="trigger" src="uml:Trigger" />
 <trigger name="guard" type="xmi2assoc" attr="guard" src="uml:Constraint" />
 
