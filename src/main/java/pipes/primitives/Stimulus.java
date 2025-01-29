@@ -1,4 +1,4 @@
-package primitives;
+package pipes.primitives;
 
 /**
  * Stimuli are compared by timing sequence. Increasing order.

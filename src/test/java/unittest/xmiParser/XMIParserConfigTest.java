@@ -1,7 +1,7 @@
 package unittest.xmiParser;
 
 import org.junit.jupiter.api.Test;
-import xmiParser.XMIParserConfig;
+import filters.xmiParser.XMIParserConfig;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

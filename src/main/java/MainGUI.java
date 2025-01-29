@@ -1,11 +1,11 @@
-import xmiParser.XMIParser;
-import xmiParser.XMIParserConfig;
+import filters.xmiParser.XMIParser;
+import filters.xmiParser.XMIParserConfig;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 
-import static inputInterface.InputSanitation.isValidXMIFile;
+import static source.InputSanitation.isValidXMIFile;
 
 public class MainGUI {
     private static JTextArea outputArea; // Text area to display output
@@ -62,7 +62,7 @@ public class MainGUI {
             // Parse the file and display the results
             try {
                 XMIParser parser = new XMIParser(new XMIParserConfig(xmiFilePath));
-                String result = parser.getFullModel();
+                String result = parser.getModel().toString();
                 outputArea.setText(result); // Display the result in the text area
                 JOptionPane.showMessageDialog(null, "Parsing completed successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
