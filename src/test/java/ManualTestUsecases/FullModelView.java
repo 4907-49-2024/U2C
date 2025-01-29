@@ -13,9 +13,12 @@ public class FullModelView {
     public static void main(String[] args) throws Exception {
         // PIPE 1
         String xmiFile = "StateTest.uml";
+        String metaModel = "custom/stateMetaModel.xml";
+        String xmiTrans = "custom/xmiTrans.xml";
+
 
         // FILTER 1
-        XMIParser parser = new XMIParser(new XMIParserConfig(xmiFile));
+        XMIParser parser = new XMIParser(new XMIParserConfig(xmiFile, xmiTrans, metaModel));
         // PIPE 2
         Model UMLModel = parser.getModel();
 
