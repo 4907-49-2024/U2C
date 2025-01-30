@@ -6,6 +6,8 @@ This README defines the scope of each diagram interpretation (what elements we w
 ## Assumptions (General)
 1. Inputs are valid models in Papyrus.
    - This allows us to rely on Papyrus to validate a bunch of implicit assumptions we may have. 
+   - Cannot duplicate names within a subspace -> Unique state, statemachine names (good!)
+   - Cannot have more than one initial state in a region.
 
 ## Inputs
 1. XMI file input (The model to convert to UML elements)
