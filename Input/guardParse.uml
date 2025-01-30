@@ -5,15 +5,16 @@
   </packageImport>
   <packagedElement xmi:type="uml:StateMachine" xmi:id="_G1AjIN5jEe-t2OwjNAl7rQ" name="StateMachine1">
     <region xmi:type="uml:Region" xmi:id="_G1RB0N5jEe-t2OwjNAl7rQ" name="Region1">
-      <transition xmi:type="uml:Transition" xmi:id="_Na-KgN5jEe-t2OwjNAl7rQ" name="M1" guard="_XwSYgN5jEe-t2OwjNAl7rQ" source="_MFSJ8N5jEe-t2OwjNAl7rQ" target="_McphEN5jEe-t2OwjNAl7rQ">
-        <ownedRule xmi:type="uml:InteractionConstraint" xmi:id="_XwSYgN5jEe-t2OwjNAl7rQ">
-          <specification xmi:type="uml:Expression" xmi:id="_XwSYgd5jEe-t2OwjNAl7rQ" symbol="x = 1"/>
+      <transition xmi:type="uml:Transition" xmi:id="_Na-KgN5jEe-t2OwjNAl7rQ" guard="_5XgsIN52Ee-t2OwjNAl7rQ" source="_MFSJ8N5jEe-t2OwjNAl7rQ" target="_McphEN5jEe-t2OwjNAl7rQ">
+        <ownedRule xmi:type="uml:InteractionConstraint" xmi:id="_5XgsIN52Ee-t2OwjNAl7rQ" name="c">
+          <specification xmi:type="uml:Expression" xmi:id="_5XgsId52Ee-t2OwjNAl7rQ" name="x=1"/>
         </ownedRule>
-        <effect xmi:type="uml:Activity" xmi:id="_PhgZMN5jEe-t2OwjNAl7rQ" name="Activ"/>
-        <trigger xmi:type="uml:Trigger" xmi:id="_HvvlsN5mEe-t2OwjNAl7rQ" name="Trigger" event="_GzupYN5mEe-t2OwjNAl7rQ"/>
+        <effect xmi:type="uml:Activity" xmi:id="_0lRsMN52Ee-t2OwjNAl7rQ" name="activity"/>
       </transition>
+      <transition xmi:type="uml:Transition" xmi:id="_6qUeMN5-Ee-t2OwjNAl7rQ" source="_5jgnIN5-Ee-t2OwjNAl7rQ" target="_MFSJ8N5jEe-t2OwjNAl7rQ"/>
       <subvertex xmi:type="uml:State" xmi:id="_MFSJ8N5jEe-t2OwjNAl7rQ" name="State1"/>
       <subvertex xmi:type="uml:State" xmi:id="_McphEN5jEe-t2OwjNAl7rQ" name="State2"/>
+      <subvertex xmi:type="uml:Pseudostate" xmi:id="_5jgnIN5-Ee-t2OwjNAl7rQ" name=""/>
     </region>
   </packagedElement>
   <packagedElement xmi:type="uml:AnyReceiveEvent" xmi:id="_GzupYN5mEe-t2OwjNAl7rQ" name="T1"/>

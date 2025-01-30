@@ -12,9 +12,11 @@ import java.util.List;
 public class FullModelView {
     public static void main(String[] args) throws Exception {
         // PIPE 1
-        String xmiFile = "StateTest.uml";
+        String xmiFile = "superState.uml";
         String metaModel = "custom/stateMetaModel.xml";
-        String xmiTrans = "custom/xmiTrans.xml";
+        String xmiTrans = "custom/xmiStateTrans.xml";
+//        String metaModel = "metamodel2.xml";
+//        String xmiTrans = "xmiTrans2_0.xml";
 
 
         // FILTER 1
