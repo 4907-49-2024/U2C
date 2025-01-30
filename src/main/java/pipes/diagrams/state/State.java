@@ -1,4 +1,4 @@
-package pipes.diagrams;
+package pipes.diagrams.state;
 
 /**
  * Representation of a state in a state diagram

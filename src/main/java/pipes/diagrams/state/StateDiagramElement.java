@@ -1,4 +1,4 @@
-package pipes.diagrams;
+package pipes.diagrams.state;
 
 /**
  * Labels State Diagram Elements.

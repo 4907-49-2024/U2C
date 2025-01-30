@@ -1,4 +1,4 @@
-package pipes.diagrams;
+package pipes.diagrams.state;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -31,7 +31,7 @@ public class StateDiagram {
      *
      * @param element The element to register
      */
-    public void registerElement(StateDiagramElement element) {
+    public void registerElement(StateDiagramElement element) throws IllegalArgumentException, IllegalStateException {
         if (element instanceof State s) {
             if (s.kind().isEmpty()) {
                 if (initialState == null) {
