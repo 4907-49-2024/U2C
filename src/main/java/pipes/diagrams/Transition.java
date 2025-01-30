@@ -13,7 +13,7 @@ package pipes.diagrams;
  * @param guard The transition guard, if it exists.
  * @param output The transition output.
  */
-public record Transition (State source, State target, String input, String guard, String output) {
+public record Transition (State source, State target, String input, String guard, String output) implements StateDiagramElement {
     /**
      * It's intended at the moment to use this constructor.
      * Parses the name assuming standard transition notation: input[guard]/output
