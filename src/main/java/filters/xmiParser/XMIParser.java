@@ -21,7 +21,7 @@ public class XMIParser {
         // Parse the input XMI file -> Stores result in model object.
         model = new Model(metaModel);
         XMIReader xmiReader = new XMIReader(trans, model);
-        parser.parse(config.xmiFileName(), xmiReader);
+        parser.parse(config.xmiInputFile(), xmiReader);
     }
 
 

@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE sdmetricsmetamodel SYSTEM '..\metamodel.dtd'>
+
+<!--
+Copyright (c) 2002-2020 Juergen Wuest
+
+The MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this SDMetrics project file (the "Project File"), to deal in the Project File
+without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Project File, and to permit persons to whom the Project File is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Project File.
+
+THE PROJECT FILE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE PROJECT FILE.
+
+Note: this license grant only applies to this Project File, and not to any
+other part of SDMetrics.
+
+-->
+
+<!-- stateMetaModel.xml
+Custom metamodel for the C2KA extractor (Temp name), for state diagrams.
+
+UML support: UML2.x
+Modelling tools supported:
+    - Papyrus
+Diagrams supported:
+    - State
+-->
+
+<sdmetricsmetamodel version="2.0">
+
+
+    <modelelement name="sdmetricsbase">
+        <attribute name="context" type="ref">Owner of the element in the UML model.</attribute>
+        <attribute name="id">Unique identifier of the model element.</attribute>
+        <attribute name="name">Name of the element in UML model.</attribute>
+    </modelelement>
+
+    <!-- state machines -->
+    <modelelement name="statemachine"/>
+
+    <modelelement name="state">
+        <attribute name="kind">The kind of state: '' (empty), final, initial, deepHistory, shallowHistory, join, fork, choice, junction, entryPoint, exitPoint, terminate.</attribute>
+        <attribute name="doactivity" type="ref" multiplicity="many">The do-activities of the state.</attribute>
+    </modelelement>
+
+    <modelelement name="transition">
+        <attribute name="source">The ID of the source state of the transition.</attribute>
+        <attribute name="target">The ID of the target state of the transition.</attribute>
+    </modelelement>
+
+    <!-- activities -->
+    <modelelement name="activity"/>
+
+</sdmetricsmetamodel>
+

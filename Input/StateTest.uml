@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_f3YPwN2EEe-VU7d0gROTPQ" name="StateTest">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_f_bYgN2EEe-VU7d0gROTPQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_f6E-cN2EEe-VU7d0gROTPQ" name="AgentOne" visibility="protected">
+    <region xmi:type="uml:Region" xmi:id="_f7qS0N2EEe-VU7d0gROTPQ" name="Region1">
+      <transition xmi:type="uml:Transition" xmi:id="_0Yj00N2EEe-VU7d0gROTPQ" kind="local" source="_tLTj8N2EEe-VU7d0gROTPQ" target="_uHuI4N2EEe-VU7d0gROTPQ"/>
+      <transition xmi:type="uml:Transition" xmi:id="_5Q4jwN2GEe-VU7d0gROTPQ" name="activate" source="_uHuI4N2EEe-VU7d0gROTPQ" target="_E0O9EN2FEe-VU7d0gROTPQ">
+        <effect xmi:type="uml:Interaction" xmi:id="_hHmaIN2HEe-VU7d0gROTPQ" name="Activated"/>
+      </transition>
+      <transition xmi:type="uml:Transition" xmi:id="_MdZmgN2IEe-VU7d0gROTPQ" name="function" guard="_Hz0E4N2LEe-VU7d0gROTPQ" source="_uHuI4N2EEe-VU7d0gROTPQ" target="_DfhFgN2IEe-VU7d0gROTPQ">
+        <ownedRule xmi:type="uml:InteractionConstraint" xmi:id="_Hz0E4N2LEe-VU7d0gROTPQ">
+          <specification xmi:type="uml:Expression" xmi:id="_BOuKwN2MEe-VU7d0gROTPQ" name="x = 1" symbol="x = 1"/>
+        </ownedRule>
+        <effect xmi:type="uml:FunctionBehavior" xmi:id="_QVvKAN2IEe-VU7d0gROTPQ" name="funcName"/>
+      </transition>
+      <transition xmi:type="uml:Transition" xmi:id="_WX8kEN2IEe-VU7d0gROTPQ" name="ActivityT" source="_uHuI4N2EEe-VU7d0gROTPQ" target="_IluxYN2IEe-VU7d0gROTPQ">
+        <effect xmi:type="uml:Activity" xmi:id="_cRw3IN2IEe-VU7d0gROTPQ" name="transitionActivity"/>
+      </transition>
+      <subvertex xmi:type="uml:Pseudostate" xmi:id="_tLTj8N2EEe-VU7d0gROTPQ" name="S-AgentOne"/>
+      <subvertex xmi:type="uml:State" xmi:id="_uHuI4N2EEe-VU7d0gROTPQ" name="Start">
+        <doActivity xmi:type="uml:Activity" xmi:id="_yrqOIN2EEe-VU7d0gROTPQ" name="idling" visibility="public"/>
+      </subvertex>
+      <subvertex xmi:type="uml:State" xmi:id="_E0O9EN2FEe-VU7d0gROTPQ" name="Process">
+        <region xmi:type="uml:Region" xmi:id="_-88kIN2FEe-VU7d0gROTPQ" name="Region1">
+          <transition xmi:type="uml:Transition" xmi:id="_nP8t4N2GEe-VU7d0gROTPQ" source="_D4FBYN2GEe-VU7d0gROTPQ" target="_RoPloN2GEe-VU7d0gROTPQ"/>
+          <transition xmi:type="uml:Transition" xmi:id="_oVlgQN2GEe-VU7d0gROTPQ" guard="_TsrlwN2KEe-VU7d0gROTPQ" source="_RoPloN2GEe-VU7d0gROTPQ" target="_Al1NgN2GEe-VU7d0gROTPQ">
+            <ownedRule xmi:type="uml:InteractionConstraint" xmi:id="_TsrlwN2KEe-VU7d0gROTPQ" name="x = 0">
+              <specification xmi:type="uml:Expression" xmi:id="_2c94YN2LEe-VU7d0gROTPQ" name="x = 0" symbol="x = 0"/>
+            </ownedRule>
+          </transition>
+          <transition xmi:type="uml:Transition" xmi:id="_qS46cN2GEe-VU7d0gROTPQ" source="_RoPloN2GEe-VU7d0gROTPQ" target="_avVtAN2GEe-VU7d0gROTPQ"/>
+          <subvertex xmi:type="uml:State" xmi:id="_Al1NgN2GEe-VU7d0gROTPQ" name="Process-1">
+            <doActivity xmi:type="uml:Activity" xmi:id="_UOpxwN2HEe-VU7d0gROTPQ" name="processing1"/>
+          </subvertex>
+          <subvertex xmi:type="uml:Pseudostate" xmi:id="_D4FBYN2GEe-VU7d0gROTPQ" name="S-Process"/>
+          <subvertex xmi:type="uml:Pseudostate" xmi:id="_RoPloN2GEe-VU7d0gROTPQ" kind="choice"/>
+          <subvertex xmi:type="uml:State" xmi:id="_avVtAN2GEe-VU7d0gROTPQ" name="Process-2">
+            <doActivity xmi:type="uml:Activity" xmi:id="_XOEwQN2HEe-VU7d0gROTPQ" name="processing2"/>
+          </subvertex>
+        </region>
+      </subvertex>
+      <subvertex xmi:type="uml:State" xmi:id="_DfhFgN2IEe-VU7d0gROTPQ" name="FunctionState"/>
+      <subvertex xmi:type="uml:State" xmi:id="_IluxYN2IEe-VU7d0gROTPQ" name="ActivityState"/>
+    </region>
+  </packagedElement>
+</uml:Model>
