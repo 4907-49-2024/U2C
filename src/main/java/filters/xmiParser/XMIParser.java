@@ -32,4 +32,11 @@ public class XMIParser {
     public UMLModel getModel(){
         return new UMLModel(model);
     }
+
+    /**
+     * @return XMI Model representation (testing only!)
+     */
+    public Model getXMIModel(){
+        return model;
+    }
 }
