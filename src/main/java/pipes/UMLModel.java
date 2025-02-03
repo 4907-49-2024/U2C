@@ -24,7 +24,7 @@ public class UMLModel {
      *
      * @param typeName The type of elements to get from the model.
      */
-    private List<ModelElement> getTypedElements(String typeName){
+    public List<ModelElement> getTypedElements(String typeName){
         // Store given element type for parsing
         MetaModelElement type = model.getMetaModel().getType(typeName);
 

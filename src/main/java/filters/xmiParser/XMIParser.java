@@ -2,6 +2,7 @@ package filters.xmiParser;
 
 import com.sdmetrics.model.*;
 import com.sdmetrics.util.XMLParser;
+import pipes.UMLModel;
 
 import java.util.*;
 
@@ -28,7 +29,7 @@ public class XMIParser {
     /**
      * @return UML Model representation of the input diagrams.
      */
-    public Model getModel(){
-        return model;
+    public UMLModel getModel(){
+        return new UMLModel(model);
     }
 }
