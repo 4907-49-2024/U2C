@@ -70,4 +70,12 @@ public class StateDiagram {
     public Set<Transition> getTransitions() {
         return transitions;
     }
+
+
+    @Override
+    public String toString() {
+        return "StateDiagram{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
