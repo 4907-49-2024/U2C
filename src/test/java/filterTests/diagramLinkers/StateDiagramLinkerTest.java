@@ -5,7 +5,9 @@ import filters.xmiParser.XMIParser;
 import filters.xmiParser.XMIParserConfig;
 import org.junit.jupiter.api.Test;
 import pipes.UMLModel;
+import pipes.diagrams.state.State;
 import pipes.diagrams.state.StateDiagram;
+import pipes.diagrams.state.Transition;
 
 import java.util.Set;
 
@@ -41,7 +43,27 @@ public class StateDiagramLinkerTest {
         // Check statemachine itself
         assert diagrams.size() == 1;
         assert d.getName().equals("StateMachine1");
-        // TODO: Check states
-        // TODO: Check transitions
+
+        // Check states
+        Set<State> states = d.getStates();
+        assert states.size() == 5;
+        State initial = new State("", "", "", null);
+        assert states.contains(initial); // Pseudostate-initial
+        State s1 = new State("State1", "state", "", null);
+        assert states.contains(s1); // Normal State
+        State parentState = new State("State4", "state", "", null);
+        assert states.contains(parentState); // Parent
+        State i1 = new State("Inner1", "state", "", parentState);
+        State i2 = new State("Inner2", "state", "", parentState);
+        assert states.contains(i1); // Child1
+        assert states.contains(i2); // Child2
+
+        // Check Transitions
+        Set<Transition> transitions = d.getTransitions();
+        assert transitions.size() == 4;
+        assert transitions.contains(new Transition(initial, s1, ""));
+        assert transitions.contains(new Transition(parentState, s1, ""));
+        assert transitions.contains(new Transition(s1, i1, "nextState"));
+        assert transitions.contains(new Transition(s1, i2, "nextState"));
     }
 }
