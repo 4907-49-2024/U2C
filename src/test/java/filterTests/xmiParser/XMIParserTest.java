@@ -5,7 +5,7 @@ import filters.xmiParser.XMIParser;
 import filters.xmiParser.XMIParserConfig;
 import org.junit.jupiter.api.Test;
 import pipes.UMLModel;
-import pipes.diagrams.state.StateTypes;
+import pipes.diagrams.state.StateType;
 
 import java.util.List;
 
@@ -27,10 +27,10 @@ class XMIParserTest {
 
         // Collect output
         UMLModel model = parser.getModel();
-        List<ModelElement> states = model.getTypedElements(StateTypes.state.name());
-        List<ModelElement> transitions = model.getTypedElements(StateTypes.transition.name());
-        List<ModelElement> activity = model.getTypedElements(StateTypes.activity.name());
-        List<ModelElement> statemachines = model.getTypedElements(StateTypes.statemachine.name());
+        List<ModelElement> states = model.getTypedElements(StateType.state.name());
+        List<ModelElement> transitions = model.getTypedElements(StateType.transition.name());
+        List<ModelElement> activity = model.getTypedElements(StateType.activity.name());
+        List<ModelElement> statemachines = model.getTypedElements(StateType.statemachine.name());
 
         // Test States
         assert states.size() == 5; // Includes pseudo-states
