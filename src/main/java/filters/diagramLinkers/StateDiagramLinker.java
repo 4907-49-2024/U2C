@@ -4,9 +4,7 @@ import com.sdmetrics.model.ModelElement;
 import pipes.UMLModel;
 import pipes.diagrams.state.*;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * The StateDiagramLinker takes in a UMLModel, returns a collection of StateDiagrams.
@@ -53,8 +51,11 @@ public class StateDiagramLinker implements Runnable {
         // Always store own state
         State newState = buildState(element, parent);
         diagram.registerElement(newState);
+        // Null check, because lib has the bad practice of returning null instead of an empty collection
+        Collection<ModelElement> elements = element.getOwnedElements();
+        elements = Objects.requireNonNullElse(elements, new ArrayList<>()); // Empty collection if null
         // Store children, if they exist... Normally should only exist at 1 depth but this should go at any depth.
-        for(ModelElement me : element.getOwnedElements()){
+        for(ModelElement me : elements){
             if(StateType.getType(me) == StateType.state){
                 registerStateRecursive(diagram, me, newState);
             } else{
@@ -66,14 +67,36 @@ public class StateDiagramLinker implements Runnable {
 
     /**
      * From a ModelElement, build a Transition object
+     * PRECONDITION: States are all linked already to the given diagram.
+     *
      * @param element The model element representing the transition
+     * @param diagram The diagram containing the states + new transition element
      * @return The Transition representation of the ModelElement
      */
-    private Transition buildTransition(ModelElement element){
-        State source = buildState(element.getRefAttribute("source"), null);
-        State target = buildState(element.getRefAttribute("target"), null);
+    private Transition registerTransition(StateDiagram diagram, ModelElement element){
+        State source = findState(diagram, element.getRefAttribute("source"));
+        State target = findState(diagram, element.getRefAttribute("target"));
 
         return new Transition(source, target, element.getName());
+    }
+
+    /**
+     * Finds a state element already linked in the given diagram.
+     * Uses name as key, as it is assumed to be unique (based on model validity).
+     *
+     * @param diagram The state diagram model with states fully linked
+     * @param stateElement The state element to find in the diagram (as a ModelElement)
+     * @return The State object representation of the stateElement found in the diagram.
+     */
+    private State findState(StateDiagram diagram, ModelElement stateElement) {
+        Set<State> states = diagram.getStates();
+        String key = stateElement.getName();
+        for(State state : states){
+            if (key.equals(state.name()))
+                return state;
+        }
+        // Something has gone wrong if we get to here
+        throw new RuntimeException("State not found: " + stateElement.getName());
     }
 
     @Override
@@ -86,14 +109,23 @@ public class StateDiagramLinker implements Runnable {
             StateDiagram newDiagram = new StateDiagram(element.getName());
             stateDiagrams.add(newDiagram);
 
-            // Add its owned elements
+            // Add its owned elements... We need to register states first so sort on the first past
+            List<ModelElement> stateElements = new ArrayList<>();
+            List<ModelElement> transitionElements = new ArrayList<>();
             for(ModelElement ownedElement : element.getOwnedElements()) {
-                // Choose the StateDiagramElement to construct, based on model type.
                 switch (StateType.getType(ownedElement)) {
-                    case StateType.state -> registerStateRecursive(newDiagram, ownedElement, null);
-                    case StateType.transition ->  newDiagram.registerElement(buildTransition(ownedElement));
+                    case StateType.state -> stateElements.add(ownedElement);
+                    case StateType.transition -> transitionElements.add(ownedElement);
                     default -> System.out.println("Unknown state: " + ownedElement.getName());
                 }
+            }
+
+            // Register states, then transitions (so they can do state lookups)
+            for (ModelElement stateElement : stateElements) {
+                registerStateRecursive(newDiagram, stateElement, null);
+            }
+            for (ModelElement transitionElement : transitionElements) {
+                newDiagram.registerElement(registerTransition(newDiagram, transitionElement));
             }
         }
     }

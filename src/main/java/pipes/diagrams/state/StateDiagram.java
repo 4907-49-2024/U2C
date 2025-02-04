@@ -22,12 +22,6 @@ public class StateDiagram {
     /**
      * Registers a state diagram element to its collection
      * <br>
-     * TODO: Superstates are going to be a bit complicated. Taking some notes here temporarily to avoid forgetting.
-     *   Make sure to check these behaviours when we implement it outside:
-     *  - Child states inherit the name of their parent, but have different activities
-     *  - Parent has no activity itself, and thus should never be a state itself (Only state which does this!)
-     *  - Transitions go to both child states (should be easy enough)
-     *  - Single Transition out gets duplicated to be sourced from both child states.
      *
      * @param element The element to register
      */
