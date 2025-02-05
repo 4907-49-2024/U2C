@@ -1,4 +1,4 @@
-package unittest.pipes.diagrams.state;
+package pipeTests.diagrams.state;
 
 import org.junit.jupiter.api.Test;
 import pipes.diagrams.state.Transition;

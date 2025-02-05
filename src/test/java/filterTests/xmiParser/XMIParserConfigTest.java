@@ -1,4 +1,4 @@
-package unittest.xmiParser;
+package filterTests.xmiParser;
 
 import org.junit.jupiter.api.Test;
 import filters.xmiParser.XMIParserConfig;

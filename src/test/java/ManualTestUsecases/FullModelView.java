@@ -5,6 +5,7 @@ import com.sdmetrics.model.Model;
 import com.sdmetrics.model.ModelElement;
 import filters.xmiParser.XMIParser;
 import filters.xmiParser.XMIParserConfig;
+import pipes.UMLModel;
 
 import java.util.Collection;
 import java.util.List;
@@ -22,9 +23,9 @@ public class FullModelView {
         // FILTER 1
         XMIParser parser = new XMIParser(new XMIParserConfig(xmiFile, xmiTrans, metaModel));
         // PIPE 2
-        Model UMLModel = parser.getModel();
+        Model model = parser.getXMIModel();
 
-        System.out.println(showFullModel(UMLModel));
+        System.out.println(showFullModel(model));
     }
 
     /**

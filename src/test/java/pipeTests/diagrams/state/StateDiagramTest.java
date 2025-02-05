@@ -1,4 +1,4 @@
-package unittest.pipes.diagrams.state;
+package pipeTests.diagrams.state;
 
 import org.junit.jupiter.api.Test;
 import pipes.diagrams.state.State;
@@ -18,8 +18,8 @@ public class StateDiagramTest {
         Set<Transition> transitions = new HashSet<>();
 
         // Test state registering
-        State initialState1 = new State("", "", "");
-        State normalState = new State("stateName", "N/A", "processing");
+        State initialState1 = new State("", "", "", null);
+        State normalState = new State("stateName", "N/A", "processing", null);
 
         diagram.registerElement(initialState1);
         diagram.registerElement(normalState);
@@ -47,7 +47,7 @@ public class StateDiagramTest {
         assert transitions.equals(diagram.getTransitions());
 
         // Also check for illegal initial state add
-        State initialState2 = new State("", "", null);
+        State initialState2 = new State("", "", null, null);
         assertThrows(IllegalStateException.class, () -> diagram.registerElement(initialState2));
     }
 }
