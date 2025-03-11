@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:style="http://www.eclipse.org/papyrus/infra/gmfdiag/style" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_KOWHMegLEe--vebs2_M8Fw" type="PapyrusUMLStateMachineDiagram" name="State Machine Diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_KOWHMugLEe--vebs2_M8Fw" type="StateMachine_Shape">
+    <children xmi:type="notation:DecorationNode" xmi:id="_KOWHM-gLEe--vebs2_M8Fw" type="StateMachine_NameLabel">
+      <element xmi:type="uml:StateMachine" href="Parallel.uml#_KN-60OgLEe--vebs2_M8Fw"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_KOWHNOgLEe--vebs2_M8Fw" width="386" height="25"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_KOWHNegLEe--vebs2_M8Fw" type="StateMachine_RegionCompartment">
+      <children xmi:type="notation:Shape" xmi:id="_KOWHNugLEe--vebs2_M8Fw" type="Region_Shape">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_KOWHN-gLEe--vebs2_M8Fw" source="RegionAnnotationKey">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_KOWHOOgLEe--vebs2_M8Fw" key="RegionZoneKey" value=""/>
+        </eAnnotations>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_KOWHOegLEe--vebs2_M8Fw" type="Region_SubvertexCompartment">
+          <children xmi:type="notation:Shape" xmi:id="_CUxQ8OgNEe-eOO7SGSMIXA" type="State_Shape">
+            <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="__FUc8OgNEe-eOO7SGSMIXA" source="PapyrusCSSForceValue">
+              <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="__FVEAOgNEe-eOO7SGSMIXA" key="mutable" value="true"/>
+            </eAnnotations>
+            <children xmi:type="notation:DecorationNode" xmi:id="_CUzGIOgNEe-eOO7SGSMIXA" type="State_NameLabel">
+              <element xmi:type="uml:State" href="Parallel.uml#_CUaEkOgNEe-eOO7SGSMIXA"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_GDXCkegNEe-eOO7SGSMIXA" width="340" height="25"/>
+            </children>
+            <children xmi:type="notation:DecorationNode" xmi:id="_CUzGIegNEe-eOO7SGSMIXA" type="State_FloatingNameLabel">
+              <element xmi:type="uml:State" href="Parallel.uml#_CUaEkOgNEe-eOO7SGSMIXA"/>
+              <layoutConstraint xmi:type="notation:Location" xmi:id="_CUzGIugNEe-eOO7SGSMIXA" x="40"/>
+            </children>
+            <children xmi:type="notation:BasicCompartment" xmi:id="_CUzGI-gNEe-eOO7SGSMIXA" type="State_RegionCompartment">
+              <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_GDIZEOgNEe-eOO7SGSMIXA" source="PapyrusCSSForceValue">
+                <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_GDIZEegNEe-eOO7SGSMIXA" key="visible" value="true"/>
+              </eAnnotations>
+              <children xmi:type="notation:Shape" xmi:id="_PoU8QegOEe-eOO7SGSMIXA" type="Region_Shape">
+                <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_PoU8RegOEe-eOO7SGSMIXA" source="RegionAnnotationKey">
+                  <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_PoU8RugOEe-eOO7SGSMIXA" key="RegionZoneKey" value="T"/>
+                </eAnnotations>
+                <children xmi:type="notation:BasicCompartment" xmi:id="_PoU8Q-gOEe-eOO7SGSMIXA" type="Region_SubvertexCompartment">
+                  <children xmi:type="notation:Shape" xmi:id="_QunO4OgOEe-eOO7SGSMIXA" type="State_Shape">
+                    <children xmi:type="notation:DecorationNode" xmi:id="_Qun18OgOEe-eOO7SGSMIXA" type="State_NameLabel"/>
+                    <children xmi:type="notation:DecorationNode" xmi:id="_Qun18egOEe-eOO7SGSMIXA" type="State_FloatingNameLabel">
+                      <layoutConstraint xmi:type="notation:Location" xmi:id="_Qun18ugOEe-eOO7SGSMIXA" x="40"/>
+                    </children>
+                    <children xmi:type="notation:BasicCompartment" xmi:id="_Qun18-gOEe-eOO7SGSMIXA" type="State_RegionCompartment">
+                      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Qun19OgOEe-eOO7SGSMIXA"/>
+                    </children>
+                    <element xmi:type="uml:State" href="Parallel.uml#_QuZzgOgOEe-eOO7SGSMIXA"/>
+                    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QunO4egOEe-eOO7SGSMIXA" x="139" y="35"/>
+                  </children>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_PoU8ROgOEe-eOO7SGSMIXA"/>
+                </children>
+                <element xmi:type="uml:Region" href="Parallel.uml#_PoU8QOgOEe-eOO7SGSMIXA"/>
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_PoU8QugOEe-eOO7SGSMIXA" width="340" height="103"/>
+              </children>
+              <children xmi:type="notation:Shape" xmi:id="_QNqd8OgOEe-eOO7SGSMIXA" type="Region_Shape">
+                <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_QNrFAugOEe-eOO7SGSMIXA" source="RegionAnnotationKey">
+                  <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_QNrFA-gOEe-eOO7SGSMIXA" key="RegionZoneKey" value="B"/>
+                </eAnnotations>
+                <children xmi:type="notation:BasicCompartment" xmi:id="_QNrFAOgOEe-eOO7SGSMIXA" type="Region_SubvertexCompartment">
+                  <children xmi:type="notation:Shape" xmi:id="_ReyuoOgOEe-eOO7SGSMIXA" type="State_Shape">
+                    <children xmi:type="notation:DecorationNode" xmi:id="_ReyuougOEe-eOO7SGSMIXA" type="State_NameLabel"/>
+                    <children xmi:type="notation:DecorationNode" xmi:id="_Reyuo-gOEe-eOO7SGSMIXA" type="State_FloatingNameLabel">
+                      <layoutConstraint xmi:type="notation:Location" xmi:id="_ReyupOgOEe-eOO7SGSMIXA" x="40"/>
+                    </children>
+                    <children xmi:type="notation:BasicCompartment" xmi:id="_ReyupegOEe-eOO7SGSMIXA" type="State_RegionCompartment">
+                      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ReyupugOEe-eOO7SGSMIXA"/>
+                    </children>
+                    <element xmi:type="uml:State" href="Parallel.uml#_RerZ4OgOEe-eOO7SGSMIXA"/>
+                    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ReyuoegOEe-eOO7SGSMIXA" x="139" y="32"/>
+                  </children>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QNrFAegOEe-eOO7SGSMIXA"/>
+                </children>
+                <element xmi:type="uml:Region" href="Parallel.uml#_QNp24OgOEe-eOO7SGSMIXA"/>
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QNqd8egOEe-eOO7SGSMIXA" y="103" width="340" height="103"/>
+              </children>
+              <element xmi:type="uml:State" href="Parallel.uml#_CUaEkOgNEe-eOO7SGSMIXA"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_CUzGJOgNEe-eOO7SGSMIXA" y="25" width="340" height="207"/>
+            </children>
+            <children xmi:type="notation:BasicCompartment" xmi:id="_7qwakOgNEe-eOO7SGSMIXA" type="compartment_shape_display">
+              <styles xmi:type="notation:TitleStyle" xmi:id="_7qwakegNEe-eOO7SGSMIXA"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7qwakugNEe-eOO7SGSMIXA"/>
+            </children>
+            <children xmi:type="notation:Shape" xmi:id="_QN4gYOgOEe-eOO7SGSMIXA" type="Region_Shape">
+              <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_QPGoYOgOEe-eOO7SGSMIXA" source="PapyrusCSSForceValue">
+                <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_QPGoYegOEe-eOO7SGSMIXA" key="mutable" value="true"/>
+              </eAnnotations>
+              <children xmi:type="notation:BasicCompartment" xmi:id="_QN4gYugOEe-eOO7SGSMIXA" type="Region_SubvertexCompartment">
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QN4gY-gOEe-eOO7SGSMIXA"/>
+              </children>
+              <element xmi:type="uml:Region" href="Parallel.uml#_PoU8QOgOEe-eOO7SGSMIXA"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QN4gYegOEe-eOO7SGSMIXA" x="-10" y="-10"/>
+            </children>
+            <children xmi:type="notation:Shape" xmi:id="_QN5HcOgOEe-eOO7SGSMIXA" type="Region_Shape">
+              <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_QPGoYugOEe-eOO7SGSMIXA" source="PapyrusCSSForceValue">
+                <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_QPGoY-gOEe-eOO7SGSMIXA" key="mutable" value="true"/>
+              </eAnnotations>
+              <children xmi:type="notation:BasicCompartment" xmi:id="_QN5HcugOEe-eOO7SGSMIXA" type="Region_SubvertexCompartment">
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QN5Hc-gOEe-eOO7SGSMIXA"/>
+              </children>
+              <element xmi:type="uml:Region" href="Parallel.uml#_QNp24OgOEe-eOO7SGSMIXA"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QN5HcegOEe-eOO7SGSMIXA" x="-10" y="-10"/>
+            </children>
+            <element xmi:type="uml:State" href="Parallel.uml#_CUaEkOgNEe-eOO7SGSMIXA"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_CUxQ8egNEe-eOO7SGSMIXA" x="29" y="25" width="340" height="232"/>
+          </children>
+          <element xmi:type="uml:Region" href="Parallel.uml#_KOWHMOgLEe--vebs2_M8Fw"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_KOWHOugLEe--vebs2_M8Fw"/>
+        </children>
+        <element xmi:type="uml:Region" href="Parallel.uml#_KOWHMOgLEe--vebs2_M8Fw"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_KOWHO-gLEe--vebs2_M8Fw" width="386" height="291"/>
+      </children>
+      <element xmi:type="uml:StateMachine" href="Parallel.uml#_KN-60OgLEe--vebs2_M8Fw"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_KOWHPOgLEe--vebs2_M8Fw" y="25" width="386" height="291"/>
+    </children>
+    <element xmi:type="uml:StateMachine" href="Parallel.uml#_KN-60OgLEe--vebs2_M8Fw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_KOWHPegLEe--vebs2_M8Fw" x="30" y="30" width="386" height="316"/>
+  </children>
+  <styles xmi:type="notation:StringValueStyle" xmi:id="_KOWHPugLEe--vebs2_M8Fw" name="diagram_compatibility_version" stringValue="1.4.0"/>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_KOWHP-gLEe--vebs2_M8Fw"/>
+  <styles xmi:type="style:PapyrusDiagramStyle" xmi:id="_KOWHQOgLEe--vebs2_M8Fw" diagramKindId="org.eclipse.papyrus.uml.diagram.stateMachine">
+    <owner xmi:type="uml:Model" href="Parallel.uml#_KNhAwOgLEe--vebs2_M8Fw"/>
+  </styles>
+  <element xmi:type="uml:StateMachine" href="Parallel.uml#_KN-60OgLEe--vebs2_M8Fw"/>
+</notation:Diagram>
