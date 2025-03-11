@@ -1,7 +1,6 @@
-package pipeTests.diagrams.state;
+package pipes.diagrams.state;
 
 import org.junit.jupiter.api.Test;
-import pipes.diagrams.state.Transition;
 
 /**
  * Test class for transition records.

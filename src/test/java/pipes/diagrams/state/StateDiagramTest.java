@@ -1,9 +1,6 @@
-package pipeTests.diagrams.state;
+package pipes.diagrams.state;
 
 import org.junit.jupiter.api.Test;
-import pipes.diagrams.state.State;
-import pipes.diagrams.state.StateDiagram;
-import pipes.diagrams.state.Transition;
 
 import java.util.HashSet;
 import java.util.Set;

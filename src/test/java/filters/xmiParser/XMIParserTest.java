@@ -1,8 +1,6 @@
-package filterTests.xmiParser;
+package filters.xmiParser;
 
 import com.sdmetrics.model.ModelElement;
-import filters.xmiParser.XMIParser;
-import filters.xmiParser.XMIParserConfig;
 import org.junit.jupiter.api.Test;
 import pipes.UMLModel;
 import pipes.diagrams.state.StateType;
