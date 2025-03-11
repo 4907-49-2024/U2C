@@ -1,6 +1,5 @@
-package filterTests.diagramLinkers;
+package filters.diagramLinkers;
 
-import filters.diagramLinkers.StateDiagramLinker;
 import filters.xmiParser.XMIParser;
 import filters.xmiParser.XMIParserConfig;
 import org.junit.jupiter.api.Test;
