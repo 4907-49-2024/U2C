@@ -31,7 +31,7 @@ public class StateDiagramLinker implements Runnable {
     private State buildState(ModelElement element, State parent) {
         return new State(element.getName(),
                 element.getPlainAttribute("kind"),
-                element.getPlainAttribute("doactivity"),
+                element.getRefAttribute("doactivity").getName(),
                 parent);
     }
 
@@ -46,11 +46,14 @@ public class StateDiagramLinker implements Runnable {
      * @param diagram The State Diagram to register states to
      * @param element The model element representing the top level state
      * @param parent The parent state (if applicable, can be null)
+     *
+     * @throws IllegalStateException if the Base Case or the Recursive Case assumption fails.
      */
     private void registerStateRecursive(StateDiagram diagram, ModelElement element, State parent){
         // Always store own state
         State newState = buildState(element, parent);
         diagram.registerElement(newState);
+
         // Null check, because lib has the bad practice of returning null instead of an empty collection
         Collection<ModelElement> elements = element.getOwnedElements();
         elements = Objects.requireNonNullElse(elements, new ArrayList<>()); // Empty collection if null
@@ -102,7 +105,7 @@ public class StateDiagramLinker implements Runnable {
     @Override
     public void run() {
         // Get set of State Diagrams elements
-        // TODO: Is this necessary?
+        // TODO: Make state diagram linker take in one model at a time...
         List<ModelElement> diagramElements = model.getTypedElements(StateType.statemachine.name());
 
         // For each diagram, add it and register its owned elements to itself
@@ -140,4 +143,6 @@ public class StateDiagramLinker implements Runnable {
     public Set<StateDiagram> getStateDiagrams() {
         return stateDiagrams;
     }
+
+    // FIXME: Remember to make StateDiagramLinker take in a single state machine as input
 }
