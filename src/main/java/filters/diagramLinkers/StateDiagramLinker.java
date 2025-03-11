@@ -60,7 +60,7 @@ public class StateDiagramLinker implements Runnable {
                 registerStateRecursive(diagram, me, newState);
             } else{
                 // TODO: Replace prints with proper logging or errors
-                System.out.println("Unexpected child type in superstate");
+                System.out.println("Unexpected child type in superstate: "+ StateType.getType(me));
             }
         } // Base case -> element with no children
     }
@@ -102,6 +102,7 @@ public class StateDiagramLinker implements Runnable {
     @Override
     public void run() {
         // Get set of State Diagrams elements
+        // TODO: Is this necessary?
         List<ModelElement> diagramElements = model.getTypedElements(StateType.statemachine.name());
 
         // For each diagram, add it and register its owned elements to itself
