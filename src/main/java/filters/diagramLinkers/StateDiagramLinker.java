@@ -37,11 +37,10 @@ public class StateDiagramLinker implements Runnable {
 
     /**
      * Build a State object recursively:
-     * - Normal state: Shall have no children, should have an activity
-     * - Base Case, add the state directly
-     * - Superstate: Shall have children (>1), shall not have an activity.
-     * 1. Recursively call this method, with all the owned elements
-     * 2. Assumption: There are only normal states as children (no other types, single depth)
+     * - Base Case: No state children.
+     *   - Assumption: Has an activity!
+     * - Recursive case: Superstate, has a state child.
+     *   - Assumption: Does not have an activity!
      *
      * @param diagram The State Diagram to register states to
      * @param element The model element representing the top level state
@@ -57,15 +56,25 @@ public class StateDiagramLinker implements Runnable {
         // Null check, because lib has the bad practice of returning null instead of an empty collection
         Collection<ModelElement> elements = element.getOwnedElements();
         elements = Objects.requireNonNullElse(elements, new ArrayList<>()); // Empty collection if null
-        // Store children, if they exist... Normally should only exist at 1 depth but this should go at any depth.
+
+        // Parse contained elements, check contract at the end.
+        boolean isSuper = false;
+        boolean hasActivity = false;
         for(ModelElement me : elements){
             if(StateType.getType(me) == StateType.state){
                 registerStateRecursive(diagram, me, newState);
-            } else{
-                // TODO: Replace prints with proper logging or errors
-                System.out.println("Unexpected child type in superstate: "+ StateType.getType(me));
+                isSuper = true;
+            } else if(StateType.getType(me) == StateType.activity){
+                hasActivity = true;
+            }else{
+                System.out.println("Unexpected child type in state: "+ StateType.getType(me));
             }
-        } // Base case -> element with no children
+        }
+        // Recall, superstate means no activity, not superstate means activity (bidirectional!)
+        if(isSuper == hasActivity){
+            throw new IllegalStateException("Super state and activity aligned: " +
+                    "\n{hasActivity= "+hasActivity+" isSuper= "+isSuper+"}");
+        }
     }
 
     /**
