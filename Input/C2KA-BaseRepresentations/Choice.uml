@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_KNhAwOgLEe--vebs2_M8Fw" name="SingleBehaviour">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_KPBcoOgLEe--vebs2_M8Fw">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_KN-60OgLEe--vebs2_M8Fw" name="Behaviour Choice">
+    <region xmi:type="uml:Region" xmi:id="_KOWHMOgLEe--vebs2_M8Fw" name="Region1">
+      <subvertex xmi:type="uml:State" xmi:id="_XXT2oOgNEe-eOO7SGSMIXA" name="a+b">
+        <region xmi:type="uml:Region" xmi:id="_dyCeYOgNEe-eOO7SGSMIXA" name="Region1">
+          <subvertex xmi:type="uml:State" xmi:id="_Nw0vcOgLEe--vebs2_M8Fw" name="a"/>
+          <subvertex xmi:type="uml:State" xmi:id="_JxpusOgMEe--vebs2_M8Fw" name="b"/>
+        </region>
+      </subvertex>
+    </region>
+  </packagedElement>
+  <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_YksPwOgNEe-eOO7SGSMIXA">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_YkyWYOgNEe-eOO7SGSMIXA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
+    </eAnnotations>
+    <appliedProfile xmi:type="uml:Profile" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
+  </profileApplication>
+</uml:Model>
