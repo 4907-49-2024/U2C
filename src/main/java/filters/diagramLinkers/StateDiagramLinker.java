@@ -61,6 +61,32 @@ public class StateDiagramLinker implements Runnable {
         }
     }
 
+
+    /**
+     * Get the transitions potentially nested in the given state element.
+     * Recursive case: Nested state, check for nested transitions inside
+     * Base case: Nested transition found, add to list. (Otherwise do nothing)
+     *
+     * @param stateElement the state to check for nested transitions
+     * @return The list of nested transitions in the stateElement
+     */
+    private Collection<? extends ModelElement> getNestedTransitions(ModelElement stateElement) {
+        List<ModelElement> nestedTransitions = new ArrayList<>();
+        // Recursively register contains states if they exist
+        for(ModelElement me : ModelElementUtils.getOwnedElements(stateElement)){
+            // Recursive Case
+            if(StateType.getType(me) == StateType.state) {
+                nestedTransitions.addAll(getNestedTransitions(me));
+            }
+            // Base Case
+            if(StateType.getType(me) == StateType.transition) {
+                nestedTransitions.add(me);
+            }
+        }
+        return nestedTransitions;
+    }
+
+
     /**
      * From a ModelElement, build a Transition object
      * PRECONDITION: States are all linked already to the given diagram.
@@ -106,7 +132,7 @@ public class StateDiagramLinker implements Runnable {
         for(ModelElement ownedElement : stateDiagramElement.getOwnedElements()) {
             switch (StateType.getType(ownedElement)) {
                 case StateType.state -> stateElements.add(ownedElement);
-                case StateType.transition -> transitionElements.add(ownedElement);
+                case StateType.transition -> transitionElements.add(ownedElement); // Only gets top-level transitions!
                 default -> System.out.println("Unknown state: " + ownedElement.getName());
             }
         }
@@ -114,6 +140,8 @@ public class StateDiagramLinker implements Runnable {
         // Register states, then transitions (so they can do state lookups)
         for (ModelElement stateElement : stateElements) {
             registerStateRecursive(stateDiagram, stateElement, null);
+            // Get transitions hidden in super states
+            transitionElements.addAll(getNestedTransitions(stateElement));
         }
         for (ModelElement transitionElement : transitionElements) {
             stateDiagram.registerElement(registerTransition(stateDiagram, transitionElement));
