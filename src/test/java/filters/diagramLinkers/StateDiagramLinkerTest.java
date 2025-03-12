@@ -6,11 +6,9 @@ import filters.xmiParser.XMIParser;
 import filters.xmiParser.XMIParserConfig;
 import org.junit.jupiter.api.Test;
 import pipes.UMLModel;
-import pipes.diagrams.state.State;
-import pipes.diagrams.state.StateDiagram;
-import pipes.diagrams.state.StateType;
-import pipes.diagrams.state.Transition;
+import pipes.diagrams.state.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -57,11 +55,11 @@ public class StateDiagramLinkerTest {
         assert d.getName().equals("Atomic Behavior");
 
         // Setup state Checks
-        Set<State> states = d.getStates();
-        State state1 = new State("<name>", "state", "<behavior-expression>", null);
+        Set<State> roots = d.getRoots();
+        State state1 = new AtomicState("<name>", "state", "<behavior-expression>");
         // Run state Checks
-        assert states.size() == 1;
-        assert states.contains(state1);
+        assert roots.size() == 1;
+        assert roots.contains(state1);
 
         // Check Transitions
         Set<Transition> transitions = d.getTransitions();
@@ -80,8 +78,8 @@ public class StateDiagramLinkerTest {
         assert d.getName().equals("Atomic Assignment");
 
         // Setup state Checks
-        Set<State> states = d.getStates();
-        State state1 = new State("<name>", "state", "ready:=1", null); //a+b
+        Set<State> states = d.getRoots();
+        State state1 = new AtomicState("<name>", "state", "ready:=1"); //a+b
         // Run State Checks
         assert states.size() == 1;
         assert states.contains(state1);
@@ -117,7 +115,7 @@ public class StateDiagramLinkerTest {
 //        // Assuming single diagram, do not need to match it
 //        StateDiagram d = diagrams.iterator().next();
 //        //assert d.getName().equals("");
-//        Set<State> states = d.getStates();
+//        Set<State> states = d.getRoots();
 //    }
 
     /***
@@ -132,15 +130,16 @@ public class StateDiagramLinkerTest {
         assert d.getName().equals("Behaviour Choice");
 
         // Setup state Checks
-        Set<State> states = d.getStates();
-        State parent = new State("a+b", "state", "", null); //a+b
-        State a = new State("a", "state", "<behavior-expression>", parent);
-        State b = new State("b", "state", "<behavior-expression>", parent);
+        Set<State> roots = d.getRoots();
+        Set<State> children = new HashSet<>();
+        State a = new AtomicState("a", "state", "<behavior-expression>");
+        State b = new AtomicState("b", "state", "<behavior-expression>");
+        children.add(a);
+        children.add(b);
+        State parent = new SuperState("a+b", children, new HashSet<>(), 1); //
         // Run state checks
-        assert states.size() == 3;
-        assert states.contains(parent);
-        assert states.contains(a);
-        assert states.contains(b);
+        assert roots.size() == 1;
+        assert roots.contains(parent);
 
         //Check Transitions
         Set<Transition> transitions = d.getTransitions();
@@ -158,27 +157,35 @@ public class StateDiagramLinkerTest {
         // Check name
         assert d.getName().equals("Sequential Composition");
 
+
+
         // Setup state Checks
-        Set<State> states = d.getStates();
-        State parent = new State("a|b", "state", "", null);
-        State initial = new State("", "", "", parent);
-        State a = new State("a", "state", "<behavior-expression>", parent);
-        State b = new State("b", "state", "<behavior-expression>", parent);
-        // Run state Checks
-        assert states.size() == 4;
-        assert states.contains(parent);
-        assert states.contains(initial);
-        assert states.contains(a);
-        assert states.contains(b);
+        Set<State> roots = d.getRoots();
+        Set<State> children = new HashSet<>();
+        State initial = new AtomicState("", "", "");
+        State a = new AtomicState("a", "state", "<behavior-expression>");
+        State b = new AtomicState("b", "state", "<behavior-expression>");
+        children.add(a);
+        children.add(b);
+        children.add(initial);
 
         // Setup transitions checks
         Set<Transition> transitions = d.getTransitions();
-        Transition transition1 = new Transition(initial, a, "");
-        Transition transition2 = new Transition(a, b, "stimulus (a out, b in)");
+        Set<Transition> innerTransitions = new HashSet<>();
+        Transition transition1 = new Transition(a, b, "stimulus (a out, b in)");
+        innerTransitions.add(transition1);
+
+        // Setup Parent
+        State parent = new SuperState("a|b", children, innerTransitions, 1); //
+
+
+        // Run state Checks
+        assert roots.size() == 1;
+        assert roots.contains(parent);
+
         // Run transition checks
-        assert transitions.size() == 2;
+        assert transitions.size() == 1;
         assert transitions.contains(transition1);
-        assert transitions.contains(transition2);
     }
 
     /***
@@ -193,14 +200,16 @@ public class StateDiagramLinkerTest {
         assert d.getName().equals("Parallel Composition");
 
         // Setup state Checks
-        Set<State> states = d.getStates();
-        State parent = new State("a||b", "state", "", null);
-        State state2 = new State("b", "state", "<behavior-expression>", parent);
-        State state3 = new State("a", "state", "<behavior-expression>", parent);
+        Set<State> roots = d.getRoots();
+        Set<State> children = new HashSet<>();
+        State a = new AtomicState("b", "state", "<behavior-expression>");
+        State b = new AtomicState("a", "state", "<behavior-expression>");
+        children.add(a);
+        children.add(b);
+        State parent = new SuperState("a||b", children, new HashSet<>(), 1); //
         // Run state Checks
-        assert states.contains(parent);
-        assert states.contains(state2);
-        assert states.contains(state3);
+        assert roots.size() == 1;
+        assert roots.contains(parent);
 
         // Run transition checks
         Set<Transition> transitions = d.getTransitions();
@@ -221,9 +230,9 @@ public class StateDiagramLinkerTest {
         assert d.getName().equals("Next Mapping");
 
         // Setup state Checks
-        Set<State> states = d.getStates();
-        State state1 = new State("Current", "state", "<behavior-expression>", null);
-        State state2 = new State("NextBehavior", "state", "<behavior-expression>", null);
+        Set<State> states = d.getRoots();
+        State state1 = new AtomicState("Current", "state", "<behavior-expression>");
+        State state2 = new AtomicState("NextBehavior", "state", "<behavior-expression>");
         // Run state Checks
         assert states.size() == 2;
         assert states.contains(state1);
