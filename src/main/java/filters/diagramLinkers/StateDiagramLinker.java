@@ -15,7 +15,7 @@ public class StateDiagramLinker implements Runnable {
     // INPUT
     private final ModelElement stateDiagramElement;
     // OUTPUT
-    private final StateDiagram stateDiagram;
+    private StateDiagram stateDiagram;
 
     public StateDiagramLinker(ModelElement stateDiagramElement) {
         this.stateDiagramElement = stateDiagramElement;
@@ -117,7 +117,7 @@ public class StateDiagramLinker implements Runnable {
     @Override
     public void run() {
         // For each diagram, add it and register its owned elements to itself
-        StateDiagram newDiagram = new StateDiagram(stateDiagramElement.getName());
+        stateDiagram = new StateDiagram(stateDiagramElement.getName());
 
         // Add its owned elements... We need to register states first so sort on the first past
         List<ModelElement> stateElements = new ArrayList<>();
@@ -132,10 +132,10 @@ public class StateDiagramLinker implements Runnable {
 
         // Register states, then transitions (so they can do state lookups)
         for (ModelElement stateElement : stateElements) {
-            registerStateRecursive(newDiagram, stateElement, null);
+            registerStateRecursive(stateDiagram, stateElement, null);
         }
         for (ModelElement transitionElement : transitionElements) {
-            newDiagram.registerElement(registerTransition(newDiagram, transitionElement));
+            stateDiagram.registerElement(registerTransition(stateDiagram, transitionElement));
         }
     }
 
