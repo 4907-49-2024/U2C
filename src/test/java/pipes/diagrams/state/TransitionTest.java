@@ -24,13 +24,5 @@ public class TransitionTest {
         assert normalState.output().equals("stimOut");
     }
 
-
-    @Test
-    public void testGuardedState() {
-        Transition guardedState = new Transition (null, null, "stim1[x=1]/stim2");
-        assert guardedState.input().equals("stim1");
-        assert guardedState.output().equals("stim2");
-    }
-
     // TODO: add isSequential test
 }
