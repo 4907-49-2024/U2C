@@ -29,6 +29,7 @@ class XMIParserTest {
         List<ModelElement> transitions = model.getTypedElements(StateType.transition.name());
         List<ModelElement> activity = model.getTypedElements(StateType.activity.name());
         List<ModelElement> statemachines = model.getTypedElements(StateType.statemachine.name());
+        List<ModelElement> regions = model.getTypedElements(StateType.region.name());
 
         // Test States
         assert states.size() == 5; // Includes pseudo-states
@@ -47,10 +48,13 @@ class XMIParserTest {
         assert statemachines.size() == 1; // Includes pseudo-states
         assert statemachines.stream().anyMatch(s -> s.getName().equals("StateMachine1"));
 
-        // Test StateDiagrams
+        // Test Activites
         assert activity.size() == 3; // Includes pseudo-states
         assert activity.stream().anyMatch(s -> s.getName().equals("sendStim1"));
         assert activity.stream().anyMatch(s -> s.getName().equals("sendStim2"));
         assert activity.stream().anyMatch(s -> s.getName().equals("sendStim3"));
+
+        // Test Regions (we just care about counting them, nothing else)
+        assert regions.size() == 2;
     }
 }
