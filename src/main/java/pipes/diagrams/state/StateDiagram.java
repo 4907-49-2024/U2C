@@ -9,29 +9,37 @@ import java.util.Set;
  */
 public class StateDiagram {
     private final String name;
-    private final Set<State> states;
-    private final Set<Transition> transitions;
+    private final Set<State> rootStates;
 
     public StateDiagram(String name) {
         this.name = name;
-        this.states = new HashSet<>();
-        this.transitions = new HashSet<>();
+        this.rootStates = new HashSet<>();
+    }
+
+    /**
+     * Get all transitions in this state, recursively.
+     * Base Case: AtomicState - return empty set
+     * Recursive Case: SuperState - Add internal transitions
+     *
+     * @param state the state to search for transitions in recursively
+     * @return Set of transitions in this state and all its substates
+     */
+    private Set<Transition> getStateTransitionsRecursive(State state){
+        // Recursive case - Return super state transitions
+        if(state instanceof SuperState superState){
+            return superState.innerTransitions();
+        }
+        // Else, Base case return empty set
+        return new HashSet<>();
     }
 
     /**
      * Registers a state diagram element to its collection
      * <br>
-     *
-     * @param element The element to register
+     * @param root The root state to register
      */
-    public void registerElement(StateDiagramElement element) throws IllegalArgumentException, IllegalStateException {
-        if (element instanceof State s) {
-            this.states.add(s);
-        } else if (element instanceof Transition t) {
-            this.transitions.add(t);
-        } else {
-            throw new IllegalArgumentException("Element is not a known StateDiagramElement");
-        }
+    public void registerRoot(State root) {
+        rootStates.add(root);
     }
 
     /**
@@ -42,16 +50,21 @@ public class StateDiagram {
     }
 
     /**
-     * @return Diagram States
+     * @return Diagram root states - Iteration method should be determined outside
      */
-    public Set<State> getStates() {
-        return states;
+    public Set<State> getRoots() {
+        return rootStates;
     }
 
     /**
-     * @return Diagram Transitions
+     * @return Transitions contained in the state diagram
      */
     public Set<Transition> getTransitions() {
+        Set<Transition> transitions = new HashSet<>();
+        // Recursively collect transitions in all roots
+        for (State root : rootStates) {
+            transitions.addAll(getStateTransitionsRecursive(root));
+        }
         return transitions;
     }
 
