@@ -15,4 +15,12 @@ public class AtomicBehavior implements Behavior {
     public String toString() {
         return name;
     }
+
+    /**
+     * Get concrete details of this atomic behavior
+     * @return concrete details of this atomic behavior
+     */
+    public String getDetails() {
+        return concreteDetails;
+    }
 }

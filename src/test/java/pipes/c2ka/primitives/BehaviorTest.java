@@ -1,10 +1,6 @@
-package pipeTests.c2ka.primitives;
+package pipes.c2ka.primitives;
 
 import org.junit.jupiter.api.Test;
-import pipes.c2ka.primitives.AtomicBehavior;
-import pipes.c2ka.primitives.ChoiceBehavior;
-
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,9 +8,20 @@ import java.util.Set;
  * Test class for Behavior classes.
  * <p>
  * For composites: tests string representations, and nesting behavior
- * For Atomic: TODO
+ * For Atomic: tests string representations, and concrete details
  */
 public class BehaviorTest {
+
+    @Test
+    public void testAtomicBehavior() {
+        // We just want to make sure in = out. It should have no other unexpected behavior.
+        // Try using some special chars to see if anything breaks
+        AtomicBehavior b = new AtomicBehavior("name_opsdhoipu21370!)@(#*&", "cd_>}|QW{E\">?\".");
+        assert b.toString().equals("name_opsdhoipu21370!)@(#*&");
+        assert b.getDetails().equals("cd_>}|QW{E\">?\".");
+    }
+
+
     @Test
     public void testChoiceBehavior() {
         ChoiceBehavior behavior = new ChoiceBehavior();
