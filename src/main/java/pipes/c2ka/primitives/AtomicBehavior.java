@@ -10,4 +10,9 @@ public class AtomicBehavior implements Behavior {
         this.name = name;
         this.concreteDetails = concreteDetails;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

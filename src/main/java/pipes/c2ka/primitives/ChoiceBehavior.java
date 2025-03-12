@@ -16,16 +16,18 @@ public class ChoiceBehavior extends CompositeBehavior {
 
         // Every composite encapsulated in ()
         sb.append("(");
+        sb.append(" ");
         for(Behavior behavior : behaviors) {
             sb.append(behavior.toString()); // Recursively build inner behaviors
             sb.append(" ");
             sb.append(getCompositeOperator());
             sb.append(" ");
         }
-        sb.trimToSize(); // Remove last space
+        int opIndex = sb.lastIndexOf(getCompositeOperator());
+        sb.setLength(opIndex > 0 ? opIndex : sb.length()); // Remove last operator occurrence
         sb.append(")");
 
-        return super.toString();
+        return sb.toString();
     }
 
     /**
