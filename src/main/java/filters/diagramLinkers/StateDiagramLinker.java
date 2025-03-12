@@ -2,6 +2,7 @@ package filters.diagramLinkers;
 
 import com.sdmetrics.model.ModelElement;
 import pipes.diagrams.state.*;
+import utils.ModelElementUtils;
 
 import java.util.*;
 
@@ -52,12 +53,8 @@ public class StateDiagramLinker implements Runnable {
         State newState = buildState(element, parent);
         diagram.registerElement(newState);
 
-        // Null check, because lib has the bad practice of returning null instead of an empty collection
-        Collection<ModelElement> elements = element.getOwnedElements();
-        elements = Objects.requireNonNullElse(elements, new ArrayList<>()); // Empty collection if null
-
         // Recursively register contains states if they exist
-        for(ModelElement me : elements){
+        for(ModelElement me : ModelElementUtils.getOwnedElements(element)){
             if(StateType.getType(me) == StateType.state) {
                 registerStateRecursive(diagram, me, newState);
             }
