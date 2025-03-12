@@ -20,4 +20,12 @@ public record AtomicState(String name, String kind, String doActivity) implement
     public static boolean isInitialState(AtomicState state) {
         return state != null && state.kind.isEmpty();
     }
+
+    /**
+     * @return Key used to uniquely identify state.
+     */
+    @Override
+    public String getKey() {
+        return name;
+    }
 }

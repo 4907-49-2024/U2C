@@ -11,4 +11,12 @@ import java.util.Set;
  * @param innerTransitions Transitions between the children (but not nested!)
  * @param numRegions Number of regions in the super state. (>1 for concurrent superstate)
  */
-public record SuperState(Set<State> children, Set<Transition> innerTransitions, int numRegions) implements State { }
+public record SuperState(String name, Set<State> children, Set<Transition> innerTransitions, int numRegions) implements State {
+    /**
+     * @return Key used to uniquely identify state.
+     */
+    @Override
+    public String getKey() {
+        return name;
+    }
+}
