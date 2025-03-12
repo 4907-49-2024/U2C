@@ -192,15 +192,17 @@ public class StateDiagramLinkerTest {
         // Check name
         assert d.getName().equals("Parallel Composition");
 
+        // Setup state Checks
         Set<State> states = d.getStates();
         State parent = new State("a||b", "state", "", null);
         State state2 = new State("b", "state", "<behavior-expression>", parent);
         State state3 = new State("a", "state", "<behavior-expression>", parent);
-
+        // Run state Checks
         assert states.contains(parent);
         assert states.contains(state2);
         assert states.contains(state3);
 
+        // Run transition checks
         Set<Transition> transitions = d.getTransitions();
         assert transitions.isEmpty();
 
@@ -218,19 +220,21 @@ public class StateDiagramLinkerTest {
         // Check name
         assert d.getName().equals("Next Mapping");
 
+        // Setup state Checks
         Set<State> states = d.getStates();
-        // FIXME: This is not holding, why?
-//        assert states.size() == 2;
-        // Are the Required states being picked up?
-        // FIXME: Diagram updates: need to add sample behavior in atomic behaviors (could just put <behavior> label in all)
-        State state1 = new State("Current", "state", "", null);
-        State state2 = new State("NextBehaviour", "state", "", null);
-//        assert states.contains(state1);
-//        assert states.contains(state2);
+        State state1 = new State("Current", "state", "<behavior-expression>", null);
+        State state2 = new State("NextBehavior", "state", "<behavior-expression>", null);
+        // Run state Checks
+        assert states.size() == 2;
+        assert states.contains(state1);
+        assert states.contains(state2);
 
+        // Setup transition checks
         Set<Transition> transitions = d.getTransitions();
-        // FIXME: Not sure why this transition assertion fails yet
-//        assert transitions.contains(new Transition(state1, state2, "inStim / nextStim"));
+        Transition transition1 = new Transition(state1, state2, "inStim / nextStim");
+        // Run transition checks
+        assert transitions.size() == 1;
+        assert transitions.contains(new Transition(state1, state2, "inStim / nextStim"));
     }
 
 }
