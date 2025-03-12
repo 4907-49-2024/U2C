@@ -41,15 +41,11 @@ public class StateDiagramLinker implements Runnable {
     /**
      * Build a State object recursively:
      * - Base Case: No state children.
-     *   - Assumption: Has an activity!
      * - Recursive case: Superstate, has a state child.
-     *   - Assumption: Does not have an activity!
      *
      * @param diagram The State Diagram to register states to
      * @param element The model element representing the top level state
      * @param parent The parent state (if applicable, can be null)
-     *
-     * @throws IllegalStateException if the Base Case or the Recursive Case assumption fails.
      */
     private void registerStateRecursive(StateDiagram diagram, ModelElement element, State parent){
         // Always store own state
@@ -60,23 +56,11 @@ public class StateDiagramLinker implements Runnable {
         Collection<ModelElement> elements = element.getOwnedElements();
         elements = Objects.requireNonNullElse(elements, new ArrayList<>()); // Empty collection if null
 
-        // Parse contained elements, check contract at the end.
-        boolean isSuper = false;
-        boolean hasActivity = false;
+        // Recursively register contains states if they exist
         for(ModelElement me : elements){
-            if(StateType.getType(me) == StateType.state){
+            if(StateType.getType(me) == StateType.state) {
                 registerStateRecursive(diagram, me, newState);
-                isSuper = true;
-            } else if(StateType.getType(me) == StateType.activity){
-                hasActivity = true;
-            }else{
-                System.out.println("Unexpected child type in state: "+ StateType.getType(me));
             }
-        }
-        // Recall, superstate means no activity, not superstate means activity (bidirectional!)
-        if(isSuper == hasActivity){
-            throw new IllegalStateException("Super state and activity aligned: " +
-                    "\n{hasActivity= "+hasActivity+" isSuper= "+isSuper+"}");
         }
     }
 
