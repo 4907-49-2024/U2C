@@ -1,19 +1,48 @@
 package filters.diagramLinkers;
 
+import com.sdmetrics.model.Model;
+import com.sdmetrics.model.ModelElement;
 import filters.xmiParser.XMIParser;
 import filters.xmiParser.XMIParserConfig;
 import org.junit.jupiter.api.Test;
 import pipes.UMLModel;
 import pipes.diagrams.state.State;
 import pipes.diagrams.state.StateDiagram;
+import pipes.diagrams.state.StateType;
 import pipes.diagrams.state.Transition;
 
+import java.util.List;
 import java.util.Set;
 
 /**
  * Test the stateDiagramLinker filter
  */
 public class StateDiagramLinkerTest {
+    /**
+     * Define test pipeline
+     * @param inputDiagramXMI Reference to input diagram file
+     * @return StateDiagram type pipe object (filter under test's output)
+     * @throws Exception In case of thread or input exceptions
+     */
+    private StateDiagram runTestPipeline(String inputDiagramXMI) throws Exception{
+        // Setup Input
+        String metaModel = "custom/stateMetaModel.xml";
+        String xmiTrans = "custom/xmiStateTrans.xml";
+        XMIParser parser = new XMIParser(new XMIParserConfig(inputDiagramXMI, xmiTrans, metaModel));
+        UMLModel model = parser.getModel();
+        // Assume single state diagram, get first one
+        List<ModelElement> stateDiagramsElems = model.getTypedElements(StateType.statemachine.name());
+        StateDiagramLinker linker = new StateDiagramLinker(stateDiagramsElems.getFirst());
+
+        // Start Thread (run filter)
+        Thread t = new Thread(linker);
+        t.start();
+        t.join();
+
+        // Return output pipe
+        return linker.getStateDiagram();
+    }
+
 
     /***
      * Tests the Atomic(basic) state diagram.
@@ -21,33 +50,19 @@ public class StateDiagramLinkerTest {
      */
     @Test
     public void testAtomic() throws Exception {
-        // Setup Input
-        String xmiFile = "C2KA-BaseRepresentations/Atomic.uml";
-        String metaModel = "custom/stateMetaModel.xml";
-        String xmiTrans = "custom/xmiStateTrans.xml";
-        XMIParser parser = new XMIParser(new XMIParserConfig(xmiFile, xmiTrans, metaModel));
-        UMLModel model = parser.getModel();
-        StateDiagramLinker linker = new StateDiagramLinker(model);
+        // Get output
+        StateDiagram d = runTestPipeline("C2KA-BaseRepresentations/Atomic.uml");
 
-        // Start Thread (run filter)
-        Thread t = new Thread(linker);
-        t.start();
-        t.join();
-
-        // Check output
-        Set<StateDiagram> diagrams = linker.getStateDiagrams();
-        // Assuming single diagram, do not need to match it
-        StateDiagram d = diagrams.iterator().next();
-
+        // Check name
         assert d.getName().equals("Atomic Behavior");
 
-        //Check States
+        // Check States
         Set<State> states = d.getStates();
         assert states.size() == 1;
-        State initial = new State("<name>", "state", "<behaviour-expression>", null);
+        State initial = new State("<name>", "state", "<behavior-expression>", null);
         assert states.contains(initial);
 
-        //CHeck Transitions
+        // Check Transitions
         Set<Transition> transitions = d.getTransitions();
         assert transitions.isEmpty();
     }
@@ -58,24 +73,9 @@ public class StateDiagramLinkerTest {
      */
     @Test
     public void testAtomicAssignment() throws Exception {
-        // Setup Input
-        String xmiFile = "C2KA-BaseRepresentations/Atomic-Assignment.uml";
-        String metaModel = "custom/stateMetaModel.xml";
-        String xmiTrans = "custom/xmiStateTrans.xml";
-        XMIParser parser = new XMIParser(new XMIParserConfig(xmiFile, xmiTrans, metaModel));
-        UMLModel model = parser.getModel();
-        StateDiagramLinker linker = new StateDiagramLinker(model);
-
-        // Start Thread (run filter)
-        Thread t = new Thread(linker);
-        t.start();
-        t.join();
-
-        // Check output
-        Set<StateDiagram> diagrams = linker.getStateDiagrams();
-        // Assuming single diagram, do not need to match it
-        StateDiagram d = diagrams.iterator().next();
-
+        // Get output
+        StateDiagram d = runTestPipeline("C2KA-BaseRepresentations/Atomic-Assignment.uml");
+        // Check name
         assert d.getName().equals("Atomic Assignment");
 
         //Check States
@@ -110,7 +110,7 @@ public class StateDiagramLinkerTest {
 //        t.join();
 //
 //        // Check output
-//        Set<StateDiagram> diagrams = linker.getStateDiagrams();
+//        StateDiagram d = linker.getStateDiagram();
 //        // Assuming single diagram, do not need to match it
 //        StateDiagram d = diagrams.iterator().next();
 //        //assert d.getName().equals("");
@@ -123,24 +123,9 @@ public class StateDiagramLinkerTest {
      */
     @Test
     public void testChoice() throws Exception {
-        // Setup Input
-        String xmiFile = "C2KA-BaseRepresentations/Choice.uml";
-        String metaModel = "custom/stateMetaModel.xml";
-        String xmiTrans = "custom/xmiStateTrans.xml";
-        XMIParser parser = new XMIParser(new XMIParserConfig(xmiFile, xmiTrans, metaModel));
-        UMLModel model = parser.getModel();
-        StateDiagramLinker linker = new StateDiagramLinker(model);
-
-        // Start Thread (run filter)
-        Thread t = new Thread(linker);
-        t.start();
-        t.join();
-
-        // Check output
-        Set<StateDiagram> diagrams = linker.getStateDiagrams();
-        // Assuming single diagram, do not need to match it
-        StateDiagram d = diagrams.iterator().next();
-
+        // Get output
+        StateDiagram d = runTestPipeline("C2KA-BaseRepresentations/Choice.uml");
+        // Check name
         assert d.getName().equals("Behaviour Choice");
 
         //Check States
@@ -167,22 +152,9 @@ public class StateDiagramLinkerTest {
      */
     @Test
     public void testSequential() throws Exception {
-        String xmiFile = "C2KA-BaseRepresentations/Sequential.uml";
-        String metaModel = "custom/stateMetaModel.xml";
-        String xmiTrans = "custom/xmiStateTrans.xml";
-        XMIParser parser = new XMIParser(new XMIParserConfig(xmiFile, xmiTrans, metaModel));
-        UMLModel model = parser.getModel();
-        StateDiagramLinker linker = new StateDiagramLinker(model);
-
-        // Start Thread (run filter)
-        Thread t = new Thread(linker);
-        t.start();
-        t.join();
-
-        // Check output
-        Set<StateDiagram> diagrams = linker.getStateDiagrams();
-        // Assuming single diagram, do not need to match it
-        StateDiagram d = diagrams.iterator().next();
+        // Get output
+        StateDiagram d = runTestPipeline("C2KA-BaseRepresentations/Sequential.uml");
+        // Check name
         assert d.getName().equals("Sequential Composition");
 
         Set<State> states = d.getStates();
@@ -216,22 +188,9 @@ public class StateDiagramLinkerTest {
      */
     @Test
     public void testParallel() throws Exception {
-        String xmiFile = "C2KA-BaseRepresentations/Parallel.uml";
-        String metaModel = "custom/stateMetaModel.xml";
-        String xmiTrans = "custom/xmiStateTrans.xml";
-        XMIParser parser = new XMIParser(new XMIParserConfig(xmiFile, xmiTrans, metaModel));
-        UMLModel model = parser.getModel();
-        StateDiagramLinker linker = new StateDiagramLinker(model);
-
-        // Start Thread (run filter)
-        Thread t = new Thread(linker);
-        t.start();
-        t.join();
-
-        // Check output
-        Set<StateDiagram> diagrams = linker.getStateDiagrams();
-        // Assuming single diagram, do not need to match it
-        StateDiagram d = diagrams.iterator().next();
+        // Get output
+        StateDiagram d = runTestPipeline("C2KA-BaseRepresentations/Parallel.uml");
+        // Check name
         assert d.getName().equals("Parallel Composition");
 
         Set<State> states = d.getStates();
@@ -254,25 +213,12 @@ public class StateDiagramLinkerTest {
      */
     @Test
     public void testNextMapping() throws Exception {
-        String xmiFile = "C2KA-BaseRepresentations/NextMappings.uml";
-        String metaModel = "custom/stateMetaModel.xml";
-        String xmiTrans = "custom/xmiStateTrans.xml";
-        XMIParser parser = new XMIParser(new XMIParserConfig(xmiFile, xmiTrans, metaModel));
-        UMLModel model = parser.getModel();
-        StateDiagramLinker linker = new StateDiagramLinker(model);
-
-        // Start Thread (run filter)
-        Thread t = new Thread(linker);
-        t.start();
-        t.join();
-
-        // Check output
-        Set<StateDiagram> diagrams = linker.getStateDiagrams();
-        // Assuming single diagram, do not need to match it
-        StateDiagram d = diagrams.iterator().next();
+        // Get output
+        StateDiagram d = runTestPipeline("C2KA-BaseRepresentations/NextMappings.uml");
+        // Check name
+        assert d.getName().equals("Next Mapping");
 
         Set<State> states = d.getStates();
-        assert d.getName().equals("Next Mapping");
         // FIXME: This is not holding, why?
 //        assert states.size() == 2;
         // Are the Required states being picked up?
