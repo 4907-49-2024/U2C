@@ -1,4 +1,4 @@
-package pipeTests.inputInterface;
+package pipes.inputInterface;
 
 import source.InputSanitation;
 import org.junit.jupiter.api.Assertions;

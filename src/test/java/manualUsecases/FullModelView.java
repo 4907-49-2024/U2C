@@ -1,11 +1,10 @@
-package ManualTestUsecases;
+package manualUsecases;
 
 import com.sdmetrics.model.MetaModelElement;
 import com.sdmetrics.model.Model;
 import com.sdmetrics.model.ModelElement;
 import filters.xmiParser.XMIParser;
 import filters.xmiParser.XMIParserConfig;
-import pipes.UMLModel;
 
 import java.util.Collection;
 import java.util.List;
