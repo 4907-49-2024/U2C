@@ -3,12 +3,12 @@ package pipes.diagrams.state;
 import java.util.HashSet;
 import java.util.Set;
 
-public class SuperState implements State {
-    private final Set<State> children;
-    private final Set<Transition> innerTransitions;
-
-    public SuperState() {
-        this.children = new HashSet<>();
-        this.innerTransitions = new HashSet<>();
-    }
-}
+/**
+ * A representation of a super state in a state diagram.
+ * Immutable, components calculated before creation
+ *
+ * @param children Children states of this super state
+ * @param innerTransitions Transitions between the children (but not nested!)
+ * @param numRegions Number of regions in the super state. (>1 for concurrent superstate)
+ */
+public record SuperState(Set<State> children, Set<Transition> innerTransitions, int numRegions) implements State { }
