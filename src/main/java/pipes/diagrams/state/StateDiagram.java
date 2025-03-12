@@ -11,7 +11,6 @@ public class StateDiagram {
     private final String name;
     private final Set<State> states;
     private final Set<Transition> transitions;
-    private State initialState;
 
     public StateDiagram(String name) {
         this.name = name;
@@ -27,15 +26,6 @@ public class StateDiagram {
      */
     public void registerElement(StateDiagramElement element) throws IllegalArgumentException, IllegalStateException {
         if (element instanceof State s) {
-            if (s.kind().isEmpty()) {
-                if (initialState == null) {
-                    initialState = s;
-                } else {
-                    // This may technically be legal in concurrent regions, which we don't handle yet.
-                    throw new IllegalStateException("There exists more than one initial State.");
-                }
-            }
-
             this.states.add(s);
         } else if (element instanceof Transition t) {
             this.transitions.add(t);
