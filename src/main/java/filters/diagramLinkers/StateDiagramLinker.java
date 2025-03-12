@@ -1,8 +1,8 @@
 package filters.diagramLinkers;
 
 import com.sdmetrics.model.ModelElement;
-import pipes.UMLModel;
 import pipes.diagrams.state.*;
+import utils.ModelElementUtils;
 
 import java.util.*;
 
@@ -14,13 +14,13 @@ import java.util.*;
  */
 public class StateDiagramLinker implements Runnable {
     // INPUT
-    private final UMLModel model;
+    private final ModelElement stateDiagramElement;
     // OUTPUT
-    private final Set<StateDiagram> stateDiagrams;
+    private StateDiagram stateDiagram;
 
-    public StateDiagramLinker(UMLModel model) {
-        this.model = model;
-        this.stateDiagrams = new HashSet<>();
+    public StateDiagramLinker(ModelElement stateDiagramElement) {
+        this.stateDiagramElement = stateDiagramElement;
+        this.stateDiagram = null;
     }
 
     /**
@@ -42,44 +42,50 @@ public class StateDiagramLinker implements Runnable {
     /**
      * Build a State object recursively:
      * - Base Case: No state children.
-     *   - Assumption: Has an activity!
      * - Recursive case: Superstate, has a state child.
-     *   - Assumption: Does not have an activity!
      *
      * @param diagram The State Diagram to register states to
      * @param element The model element representing the top level state
      * @param parent The parent state (if applicable, can be null)
-     *
-     * @throws IllegalStateException if the Base Case or the Recursive Case assumption fails.
      */
     private void registerStateRecursive(StateDiagram diagram, ModelElement element, State parent){
         // Always store own state
         State newState = buildState(element, parent);
         diagram.registerElement(newState);
 
-        // Null check, because lib has the bad practice of returning null instead of an empty collection
-        Collection<ModelElement> elements = element.getOwnedElements();
-        elements = Objects.requireNonNullElse(elements, new ArrayList<>()); // Empty collection if null
-
-        // Parse contained elements, check contract at the end.
-        boolean isSuper = false;
-        boolean hasActivity = false;
-        for(ModelElement me : elements){
-            if(StateType.getType(me) == StateType.state){
+        // Recursively register contains states if they exist
+        for(ModelElement me : ModelElementUtils.getOwnedElements(element)){
+            if(StateType.getType(me) == StateType.state) {
                 registerStateRecursive(diagram, me, newState);
-                isSuper = true;
-            } else if(StateType.getType(me) == StateType.activity){
-                hasActivity = true;
-            }else{
-                System.out.println("Unexpected child type in state: "+ StateType.getType(me));
             }
         }
-        // Recall, superstate means no activity, not superstate means activity (bidirectional!)
-        if(isSuper == hasActivity){
-            throw new IllegalStateException("Super state and activity aligned: " +
-                    "\n{hasActivity= "+hasActivity+" isSuper= "+isSuper+"}");
-        }
     }
+
+
+    /**
+     * Get the transitions potentially nested in the given state element.
+     * Recursive case: Nested state, check for nested transitions inside
+     * Base case: Nested transition found, add to list. (Otherwise do nothing)
+     *
+     * @param stateElement the state to check for nested transitions
+     * @return The list of nested transitions in the stateElement
+     */
+    private Collection<? extends ModelElement> getNestedTransitions(ModelElement stateElement) {
+        List<ModelElement> nestedTransitions = new ArrayList<>();
+        // Recursively register contains states if they exist
+        for(ModelElement me : ModelElementUtils.getOwnedElements(stateElement)){
+            // Recursive Case
+            if(StateType.getType(me) == StateType.state) {
+                nestedTransitions.addAll(getNestedTransitions(me));
+            }
+            // Base Case
+            if(StateType.getType(me) == StateType.transition) {
+                nestedTransitions.add(me);
+            }
+        }
+        return nestedTransitions;
+    }
+
 
     /**
      * From a ModelElement, build a Transition object
@@ -117,45 +123,43 @@ public class StateDiagramLinker implements Runnable {
 
     @Override
     public void run() {
-        // Get set of State Diagrams elements
-        // TODO: Make state diagram linker take in one model at a time...
-        List<ModelElement> diagramElements = model.getTypedElements(StateType.statemachine.name());
-
         // For each diagram, add it and register its owned elements to itself
-        for (ModelElement element : diagramElements) {
-            StateDiagram newDiagram = new StateDiagram(element.getName());
-            stateDiagrams.add(newDiagram);
+        stateDiagram = new StateDiagram(stateDiagramElement.getName());
 
-            // Add its owned elements... We need to register states first so sort on the first past
-            List<ModelElement> stateElements = new ArrayList<>();
-            List<ModelElement> transitionElements = new ArrayList<>();
-            for(ModelElement ownedElement : element.getOwnedElements()) {
-                switch (StateType.getType(ownedElement)) {
-                    case StateType.state -> stateElements.add(ownedElement);
-                    case StateType.transition -> transitionElements.add(ownedElement);
-                    default -> System.out.println("Unknown state: " + ownedElement.getName());
-                }
+        // Add its owned elements... We need to register states first so sort on the first past
+        List<ModelElement> stateElements = new ArrayList<>();
+        List<ModelElement> transitionElements = new ArrayList<>();
+        for(ModelElement ownedElement : stateDiagramElement.getOwnedElements()) {
+            switch (StateType.getType(ownedElement)) {
+                case StateType.state -> stateElements.add(ownedElement);
+                case StateType.transition -> transitionElements.add(ownedElement); // Only gets top-level transitions!
+                default -> System.out.println("Unknown state: " + ownedElement.getName());
             }
+        }
 
-            // Register states, then transitions (so they can do state lookups)
-            for (ModelElement stateElement : stateElements) {
-                registerStateRecursive(newDiagram, stateElement, null);
-            }
-            for (ModelElement transitionElement : transitionElements) {
-                newDiagram.registerElement(registerTransition(newDiagram, transitionElement));
-            }
+        // Register states, then transitions (so they can do state lookups)
+        for (ModelElement stateElement : stateElements) {
+            registerStateRecursive(stateDiagram, stateElement, null);
+            // Get transitions hidden in super states
+            transitionElements.addAll(getNestedTransitions(stateElement));
+        }
+        for (ModelElement transitionElement : transitionElements) {
+            stateDiagram.registerElement(registerTransition(stateDiagram, transitionElement));
         }
     }
 
     /**
-     * Returns the desired output from this filter, the set of StateDiagrams in the Model/
+     * Returns the desired output from this filter, the StateDiagrams representation of the given state diagram model
      * Note: it needs to run/join through a thread before collecting this output!
      *
-     * @return The set of state diagrams linked by the linker.
+     * @return The state diagrams linked by the linker.
+     *
+     * @throws IllegalStateException if the output has not been computed yet due to the filter not being run yet.
      */
-    public Set<StateDiagram> getStateDiagrams() {
-        return stateDiagrams;
+    public StateDiagram getStateDiagram() {
+        if (stateDiagram == null){
+            throw new IllegalStateException("StateDiagram not initialized, run filter before getting output!");
+        }
+        return stateDiagram;
     }
-
-    // FIXME: Remember to make StateDiagramLinker take in a single state machine as input
 }
