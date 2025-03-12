@@ -4,6 +4,8 @@ import com.sdmetrics.model.ModelElement;
 import pipes.diagrams.state.*;
 import utils.ModelElementUtils;
 
+import java.io.InvalidObjectException;
+import java.security.InvalidParameterException;
 import java.util.*;
 
 /**
@@ -38,7 +40,7 @@ public class StateDiagramLinker implements Runnable {
                 return state;
         }
         // Something has gone wrong if we get to here
-        throw new RuntimeException("State not found: " + stateElement.getName());
+        throw new InvalidParameterException("State not found: " + stateElement.getName());
     }
 
 
@@ -48,11 +50,27 @@ public class StateDiagramLinker implements Runnable {
      * @param element The model element representing the transition
      * @param stateDomain The domain of states to find a transition within
      * @return The Transition representation of the ModelElement
+     *
+     * @throws InvalidObjectException if a transition from an initial state is found. Should not be counted
      */
-    private Transition createTransition(Set<State> stateDomain, ModelElement element){
-        State source = findState(stateDomain, element.getRefAttribute("source"));
-        State target = findState(stateDomain, element.getRefAttribute("target"));
+    private Transition createTransition(Set<State> stateDomain, ModelElement element) throws InvalidObjectException {
+        // If a state is not found, assume its due to weird behavior of initial state ownership being always top-level.
+        //  This may hide bugs if they occur later on, careful
+        State source;
+        try {
+            source = findState(stateDomain, element.getRefAttribute("source"));
+        } catch (InvalidParameterException e) { //
+            throw new InvalidObjectException("No state found, likely due to initial state. Ignore");
+        }
 
+        // If at top level, ignore initial state transitions
+        if (source instanceof AtomicState s) {
+            if (AtomicState.isInitialState(s))
+                throw new InvalidObjectException("Initial state transition found, ignore");
+        }
+
+        // No issues, find dest state and link
+        State target = findState(stateDomain, element.getRefAttribute("target"));
         return new Transition(source, target, element.getName());
     }
 
@@ -98,7 +116,9 @@ public class StateDiagramLinker implements Runnable {
         // Find internal transitions between children
         for(ModelElement me : ModelElementUtils.getOwnedElements(stateElement)){
             if(StateType.getType(me) == StateType.transition) {
-                internalTransitions.add(createTransition(children, me));
+                try {
+                    internalTransitions.add(createTransition(children, me));
+                } catch (InvalidObjectException ignored){}
             }
         }
 
