@@ -72,7 +72,6 @@ public class BehaviorTest {
         }
     }
 
-
     @Test
     public void testParallelBehavior() {
         ParallelBehavior behavior = new ParallelBehavior();
@@ -121,5 +120,39 @@ public class BehaviorTest {
         for (String string : containedStrings) {
             assert behavior.toString().contains(string);
         }
+    }
+
+    @Test
+    public void testSequentialBehavior() {
+        SequentialBehavior behavior = new SequentialBehavior();
+
+        // Empty
+        assert behavior.toString().equals("( )");
+
+        // One
+        behavior.addBehavior(new AtomicBehavior("A", "_"));
+        assert behavior.toString().equals("( A )");
+
+        // Two
+        behavior.addBehavior(new AtomicBehavior("B", "_"));
+        assert behavior.toString().equals("( A ; B )");
+
+        // Many
+        behavior.addBehavior(new AtomicBehavior("C", "_"));
+        behavior.addBehavior(new AtomicBehavior("D", "_"));
+        assert behavior.toString().equals("( A ; B ; C ; D )");
+
+        // Nested Behavior
+        ChoiceBehavior behaviorNested = new ChoiceBehavior();
+        behaviorNested.addBehavior(new AtomicBehavior("F", "_"));
+        behavior.addBehavior(behaviorNested);
+        assert behavior.toString().equals("( A ; B ; C ; D ; ( F ) )");
+
+        // Nested Sequential
+        SequentialBehavior sequentialNested = new SequentialBehavior();
+        sequentialNested.addBehavior(new AtomicBehavior("G", "_"));
+        sequentialNested.addBehavior(new AtomicBehavior("H", "_"));
+        behavior.addBehavior(sequentialNested);
+        assert behavior.toString().equals("( A ; B ; C ; D ; ( F ) ; ( G ; H ) )");
     }
 }
