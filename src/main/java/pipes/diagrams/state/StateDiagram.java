@@ -10,10 +10,12 @@ import java.util.Set;
 public class StateDiagram {
     private final String name;
     private final Set<State> rootStates;
+    private final Set<Transition> rootTransitions;
 
     public StateDiagram(String name) {
         this.name = name;
         this.rootStates = new HashSet<>();
+        this.rootTransitions = new HashSet<>();
     }
 
     /**
@@ -34,12 +36,21 @@ public class StateDiagram {
     }
 
     /**
-     * Registers a state diagram element to its collection
+     * Registers all root states in the StateDiagram
      * <br>
-     * @param root The root state to register
+     * @param rootStates The root states to register
      */
-    public void registerRoot(State root) {
-        rootStates.add(root);
+    public void registerRootStates(Set<State> states) {
+        rootStates.addAll(states);
+    }
+
+    /**
+     * Registers all root transitions in the StateDiagram
+     * <br>
+     * @param transitions The root transitions to register
+     */
+    public void registerRootTransitions(Set<Transition> transitions) {
+        rootTransitions.addAll(transitions);
     }
 
     /**
@@ -60,7 +71,7 @@ public class StateDiagram {
      * @return Transitions contained in the state diagram
      */
     public Set<Transition> getTransitions() {
-        Set<Transition> transitions = new HashSet<>();
+        Set<Transition> transitions = new HashSet<>(rootTransitions);
         // Recursively collect transitions in all roots
         for (State root : rootStates) {
             transitions.addAll(getStateTransitionsRecursive(root));

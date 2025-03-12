@@ -137,10 +137,8 @@ public class StateDiagramLinker implements Runnable {
         // Fake container -> its children are the true roots of the diagram
         SuperState topLevelContainer = (SuperState) buildStateRecursive(stateDiagramElement);
 
-        // Register roots of state diagram
-        for (State child : topLevelContainer.children()) {
-            stateDiagram.registerRoot(child);
-        }
+        stateDiagram.registerRootStates(topLevelContainer.children());
+        stateDiagram.registerRootTransitions(topLevelContainer.innerTransitions());
     }
 
     /**
