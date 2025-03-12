@@ -61,6 +61,8 @@ Diagrams supported:
         <attribute name="target" type="ref" >The ID of the target state of the transition.</attribute>
     </modelelement>
 
+    <modelelement name="region"> A region of the state diagram</modelelement>
+
     <!-- activities -->
     <modelelement name="activity"/>
 
