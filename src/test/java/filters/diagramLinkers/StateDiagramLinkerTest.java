@@ -56,11 +56,12 @@ public class StateDiagramLinkerTest {
         // Check name
         assert d.getName().equals("Atomic Behavior");
 
-        // Check States
+        // Setup state Checks
         Set<State> states = d.getStates();
+        State state1 = new State("<name>", "state", "<behavior-expression>", null);
+        // Run state Checks
         assert states.size() == 1;
-        State initial = new State("<name>", "state", "<behavior-expression>", null);
-        assert states.contains(initial);
+        assert states.contains(state1);
 
         // Check Transitions
         Set<Transition> transitions = d.getTransitions();
@@ -78,14 +79,16 @@ public class StateDiagramLinkerTest {
         // Check name
         assert d.getName().equals("Atomic Assignment");
 
-        //Check States
+        // Setup state Checks
         Set<State> states = d.getStates();
         State state1 = new State("<name>", "state", "ready:=1", null); //a+b
-        assert states.contains(state1);
+        // Run State Checks
         assert states.size() == 1;
+        assert states.contains(state1);
 
-        //Check Transitions
+        // Setup Transition Checks
         Set<Transition> transitions = d.getTransitions();
+        // Run Transition Checks
         assert transitions.isEmpty();
 
     }
