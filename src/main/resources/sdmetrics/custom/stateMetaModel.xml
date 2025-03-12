@@ -53,7 +53,7 @@ Diagrams supported:
 
     <modelelement name="state">
         <attribute name="kind">The kind of state: '' (empty), final, initial, deepHistory, shallowHistory, join, fork, choice, junction, entryPoint, exitPoint, terminate.</attribute>
-        <attribute name="doactivity" type="ref" multiplicity="many">The do-activities of the state.</attribute>
+        <attribute name="doactivity" type="ref">The do-activity of the state.</attribute>
     </modelelement>
 
     <modelelement name="transition">

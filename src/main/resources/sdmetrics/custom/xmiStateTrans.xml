@@ -52,7 +52,7 @@ Diagrams supported:
     <xmitransformation modelelement="state" xmipattern="uml:State" recurse="true">
         <trigger name="kind" type="constant" attr="state"/>
 
-        <trigger name="doactivity" type="attrval" attr="doActivity"/>
+        <trigger name="doactivity" type="xmi2assoc" attr="doActivity"/>
     </xmitransformation>
     <!-- Mostly for initial states - They have an empty "kind" field -->
     <xmitransformation modelelement="state" xmipattern="uml:Pseudostate">

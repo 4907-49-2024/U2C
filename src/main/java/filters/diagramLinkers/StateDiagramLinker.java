@@ -29,40 +29,56 @@ public class StateDiagramLinker implements Runnable {
      * @return The State object representation of the ModelElement
      */
     private State buildState(ModelElement element, State parent) {
+        // Null checked activity
+        ModelElement activityElem = element.getRefAttribute("doactivity");
+        String activity = activityElem == null ? "" : activityElem.getName();
+
         return new State(element.getName(),
                 element.getPlainAttribute("kind"),
-                element.getPlainAttribute("doactivity"),
+                activity,
                 parent);
     }
 
     /**
      * Build a State object recursively:
-     * - Normal state: Shall have no children, should have an activity
-     * - Base Case, add the state directly
-     * - Superstate: Shall have children (>1), shall not have an activity.
-     * 1. Recursively call this method, with all the owned elements
-     * 2. Assumption: There are only normal states as children (no other types, single depth)
+     * - Base Case: No state children.
+     *   - Assumption: Has an activity!
+     * - Recursive case: Superstate, has a state child.
+     *   - Assumption: Does not have an activity!
      *
      * @param diagram The State Diagram to register states to
      * @param element The model element representing the top level state
      * @param parent The parent state (if applicable, can be null)
+     *
+     * @throws IllegalStateException if the Base Case or the Recursive Case assumption fails.
      */
     private void registerStateRecursive(StateDiagram diagram, ModelElement element, State parent){
         // Always store own state
         State newState = buildState(element, parent);
         diagram.registerElement(newState);
+
         // Null check, because lib has the bad practice of returning null instead of an empty collection
         Collection<ModelElement> elements = element.getOwnedElements();
         elements = Objects.requireNonNullElse(elements, new ArrayList<>()); // Empty collection if null
-        // Store children, if they exist... Normally should only exist at 1 depth but this should go at any depth.
+
+        // Parse contained elements, check contract at the end.
+        boolean isSuper = false;
+        boolean hasActivity = false;
         for(ModelElement me : elements){
             if(StateType.getType(me) == StateType.state){
                 registerStateRecursive(diagram, me, newState);
-            } else{
-                // TODO: Replace prints with proper logging or errors
-                System.out.println("Unexpected child type in superstate");
+                isSuper = true;
+            } else if(StateType.getType(me) == StateType.activity){
+                hasActivity = true;
+            }else{
+                System.out.println("Unexpected child type in state: "+ StateType.getType(me));
             }
-        } // Base case -> element with no children
+        }
+        // Recall, superstate means no activity, not superstate means activity (bidirectional!)
+        if(isSuper == hasActivity){
+            throw new IllegalStateException("Super state and activity aligned: " +
+                    "\n{hasActivity= "+hasActivity+" isSuper= "+isSuper+"}");
+        }
     }
 
     /**
@@ -102,6 +118,7 @@ public class StateDiagramLinker implements Runnable {
     @Override
     public void run() {
         // Get set of State Diagrams elements
+        // TODO: Make state diagram linker take in one model at a time...
         List<ModelElement> diagramElements = model.getTypedElements(StateType.statemachine.name());
 
         // For each diagram, add it and register its owned elements to itself
@@ -139,4 +156,6 @@ public class StateDiagramLinker implements Runnable {
     public Set<StateDiagram> getStateDiagrams() {
         return stateDiagrams;
     }
+
+    // FIXME: Remember to make StateDiagramLinker take in a single state machine as input
 }
