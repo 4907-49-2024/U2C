@@ -6,8 +6,12 @@
   <packagedElement xmi:type="uml:StateMachine" xmi:id="_KN-60OgLEe--vebs2_M8Fw" name="Next Mapping">
     <region xmi:type="uml:Region" xmi:id="_KOWHMOgLEe--vebs2_M8Fw" name="Region1">
       <transition xmi:type="uml:Transition" xmi:id="_XOffkOgSEe-eOO7SGSMIXA" name="inStim / nextStim" source="_Nw0vcOgLEe--vebs2_M8Fw" target="_JxpusOgMEe--vebs2_M8Fw"/>
-      <subvertex xmi:type="uml:State" xmi:id="_Nw0vcOgLEe--vebs2_M8Fw" name="Current"/>
-      <subvertex xmi:type="uml:State" xmi:id="_JxpusOgMEe--vebs2_M8Fw" name="NextBehaviour"/>
+      <subvertex xmi:type="uml:State" xmi:id="_Nw0vcOgLEe--vebs2_M8Fw" name="Current">
+        <doActivity xmi:type="uml:Activity" xmi:id="_Y8poAP9fEe-VdNk0tFhV7A" name="&lt;behavior-expression>"/>
+      </subvertex>
+      <subvertex xmi:type="uml:State" xmi:id="_JxpusOgMEe--vebs2_M8Fw" name="NextBehavior">
+        <doActivity xmi:type="uml:Activity" xmi:id="_gJj6oP9fEe-VdNk0tFhV7A" name="&lt;behavior-expression>"/>
+      </subvertex>
     </region>
   </packagedElement>
   <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_YksPwOgNEe-eOO7SGSMIXA">
