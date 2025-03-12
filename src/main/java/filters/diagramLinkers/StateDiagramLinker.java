@@ -29,9 +29,13 @@ public class StateDiagramLinker implements Runnable {
      * @return The State object representation of the ModelElement
      */
     private State buildState(ModelElement element, State parent) {
+        // Null checked activity
+        ModelElement activityElem = element.getRefAttribute("doactivity");
+        String activity = activityElem == null ? "" : activityElem.getName();
+
         return new State(element.getName(),
                 element.getPlainAttribute("kind"),
-                element.getRefAttribute("doactivity").getName(),
+                activity,
                 parent);
     }
 
