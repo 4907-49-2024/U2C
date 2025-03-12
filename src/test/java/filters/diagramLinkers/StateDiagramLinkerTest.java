@@ -131,22 +131,20 @@ public class StateDiagramLinkerTest {
         // Check name
         assert d.getName().equals("Behaviour Choice");
 
-        //Check States
+        // Setup state Checks
         Set<State> states = d.getStates();
-        // FIXME: This is not holding, why?
-//        assert states.size() == 3;
-        State initial = new State("a+b", "state", "", null); //a+b
-        assert states.contains(initial);
-        // FIXME: Diagram updates: need to add sample behavior in atomic behaviors (could just put <behavior> label in all)
-        State a = new State("a", "state", "", initial);
-//        assert states.contains(a);
-        State b = new State("b", "state", "", initial);
-//        assert states.contains(b);
+        State parent = new State("a+b", "state", "", null); //a+b
+        State a = new State("a", "state", "<behavior-expression>", parent);
+        State b = new State("b", "state", "<behavior-expression>", parent);
+        // Run state checks
+        assert states.size() == 3;
+        assert states.contains(parent);
+        assert states.contains(a);
+        assert states.contains(b);
 
         //Check Transitions
         Set<Transition> transitions = d.getTransitions();
         assert transitions.isEmpty();
-
     }
 
     /***
@@ -160,29 +158,27 @@ public class StateDiagramLinkerTest {
         // Check name
         assert d.getName().equals("Sequential Composition");
 
+        // Setup state Checks
         Set<State> states = d.getStates();
-        State state1 = new State("a|b", "state", "", null);
-        State initial = new State("", "", "", state1);
-        State a = new State("a", "state", "", state1);
-        State b = new State("b", "state", "", state1);
-        assert states.contains(state1);
-        // FIXME: Diagram updates: need to add sample behavior in atomic behaviors (could just put <behavior> label in all)
-//        assert states.contains(initial);
-//        assert states.contains(a);
-//        assert states.contains(b);
+        State parent = new State("a|b", "state", "", null);
+        State initial = new State("", "", "", parent);
+        State a = new State("a", "state", "<behavior-expression>", parent);
+        State b = new State("b", "state", "<behavior-expression>", parent);
+        // Run state Checks
+        assert states.size() == 4;
+        assert states.contains(parent);
+        assert states.contains(initial);
+        assert states.contains(a);
+        assert states.contains(b);
 
-        // FIXME: Nested transitions seem to be entirely missed?
-//        Set<Transition> transitions = d.getTransitions();
-//        Transition tran1 = transitions.iterator().next();
-//        Transition transition1 = new Transition(a, b, "stimulus (a out, b in)");
-
-        // Could not reproduce the output below during my test run... Or I think the description below was inaccurate
-        //TODO: the source state in the transition has no name? while target has name 'a'
-        /* Printed out Error*/
-        //Transition[source=State[name=, kind=, doActivity=, parent=State[name=a|b, kind=state, doActivity=, parent=null]],
-        // target=State[name=a, kind=state, doActivity=, parent=State[name=a|b, kind=state, doActivity=, parent=null]],
-        // input=, guard=, output=]
-
+        // Setup transitions checks
+        Set<Transition> transitions = d.getTransitions();
+        Transition transition1 = new Transition(initial, a, "");
+        Transition transition2 = new Transition(a, b, "stimulus (a out, b in)");
+        // Run transition checks
+        assert transitions.size() == 2;
+        assert transitions.contains(transition1);
+        assert transitions.contains(transition2);
     }
 
     /***
@@ -197,17 +193,18 @@ public class StateDiagramLinkerTest {
         assert d.getName().equals("Parallel Composition");
 
         Set<State> states = d.getStates();
-        State state1 = new State("a||b", "state", "", null);
-        State state2 = new State("b", "state", "", state1);
-        State state3 = new State("a", "state", "", state1);
+        State parent = new State("a||b", "state", "", null);
+        State state2 = new State("b", "state", "<behavior-expression>", parent);
+        State state3 = new State("a", "state", "<behavior-expression>", parent);
 
-        // FIXME: Diagram updates: need to add sample behavior in atomic behaviors (could just put <behavior> label in all)
-        assert states.contains(state1);
-//        assert states.contains(state2);
-//        assert states.contains(state3);
+        assert states.contains(parent);
+        assert states.contains(state2);
+        assert states.contains(state3);
 
         Set<Transition> transitions = d.getTransitions();
         assert transitions.isEmpty();
+
+        // FIXME: New requirement for regions in parallel (issue is up already)
     }
 
     /***
