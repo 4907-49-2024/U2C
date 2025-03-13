@@ -4,7 +4,7 @@ import com.sdmetrics.model.MetaModelElement;
 import com.sdmetrics.model.Model;
 import com.sdmetrics.model.ModelElement;
 import filters.xmiParser.XMIParser;
-import filters.xmiParser.XMIParserConfig;
+import pipes.XMIParserConfig;
 
 import java.util.Collection;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
 public class FullModelView {
     public static void main(String[] args) throws Exception {
         // PIPE 1
-        String xmiFile = "superState.uml";
+        String xmiFile = "C2KA-BaseRepresentations/Atomic.uml";
         String metaModel = "custom/stateMetaModel.xml";
         String xmiTrans = "custom/xmiStateTrans.xml";
 //        String metaModel = "metamodel2.xml";
@@ -22,9 +22,11 @@ public class FullModelView {
         // FILTER 1
         XMIParser parser = new XMIParser(new XMIParserConfig(xmiFile, xmiTrans, metaModel));
         // PIPE 2
-        Model model = parser.getXMIModel();
+        // TODO: Re-implement this through "legal" means - i.e. by building a new model viewer on the UMLModel.
+        //  Only do this if needed
+//        Model model = parser.getXMIModel();
 
-        System.out.println(showFullModel(model));
+//        System.out.println(showFullModel(model));
     }
 
     /**
