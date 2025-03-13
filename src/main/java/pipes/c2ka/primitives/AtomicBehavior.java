@@ -17,10 +17,11 @@ public class AtomicBehavior implements Behavior {
     }
 
     /**
-     * Get concrete details of this atomic behavior
-     * @return concrete details of this atomic behavior
+     * Get concrete behavior representation of this atomic behavior
+     * Format: {name} => [ {concrete-details} ]
+     * @return concrete behavior representation of this atomic behavior
      */
-    public String getDetails() {
-        return concreteDetails;
+    public String getConcreteBehavior() {
+        return name + " => [ " + concreteDetails + " ]";
     }
 }
