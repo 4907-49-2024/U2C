@@ -1,6 +1,7 @@
 package filters.diagramLinkers;
 
 import com.sdmetrics.model.ModelElement;
+import filters.Filter;
 import pipes.diagrams.state.*;
 import utils.ModelElementUtils;
 
@@ -14,15 +15,9 @@ import java.util.*;
  * Every state diagram is an individual StateDiagram object,
  * All the internal components (states, transitions) also need to be registered to its parent diagram by the linker.
  */
-public class StateDiagramLinker implements Runnable {
-    // INPUT
-    private final ModelElement stateDiagramElement;
-    // OUTPUT
-    private StateDiagram stateDiagram;
-
-    public StateDiagramLinker(ModelElement stateDiagramElement) {
-        this.stateDiagramElement = stateDiagramElement;
-        this.stateDiagram = null;
+public class StateDiagramLinker extends Filter<ModelElement, StateDiagram> {
+    public StateDiagramLinker(ModelElement stateDiagramElem) {
+        super(stateDiagramElem);
     }
 
     /**
@@ -142,26 +137,11 @@ public class StateDiagramLinker implements Runnable {
     @Override
     public void run() {
         // For each diagram, add it and register its owned elements to itself
-        stateDiagram = new StateDiagram(stateDiagramElement.getName());
+        output = new StateDiagram(input.getName());
         // Fake container -> its children are the true roots of the diagram
-        SuperState topLevelContainer = (SuperState) buildStateRecursive(stateDiagramElement);
+        SuperState topLevelContainer = (SuperState) buildStateRecursive(input);
 
-        stateDiagram.registerRootStates(topLevelContainer.children());
-        stateDiagram.registerRootTransitions(topLevelContainer.innerTransitions());
-    }
-
-    /**
-     * Returns the desired output from this filter, the StateDiagrams representation of the given state diagram model
-     * Note: it needs to run/join through a thread before collecting this output!
-     *
-     * @return The state diagrams linked by the linker.
-     *
-     * @throws IllegalStateException if the output has not been computed yet due to the filter not being run yet.
-     */
-    public StateDiagram getStateDiagram() {
-        if (stateDiagram == null){
-            throw new IllegalStateException("StateDiagram not initialized, run filter before getting output!");
-        }
-        return stateDiagram;
+        output.registerRootStates(topLevelContainer.children());
+        output.registerRootTransitions(topLevelContainer.innerTransitions());
     }
 }
