@@ -1,10 +1,7 @@
 package filters.diagramInterpreters;
 
 import pipes.c2ka.primitives.*;
-import pipes.diagrams.state.State;
-import pipes.diagrams.state.StateDiagram;
-import pipes.diagrams.state.SuperState;
-import pipes.diagrams.state.Transition;
+import pipes.diagrams.state.*;
 
 import java.util.Set;
 
@@ -16,10 +13,37 @@ public class StateAbstractBehaviorInterpreter implements Runnable {
     // INPUT
     private final StateDiagram diagram;
     // OUTPUT (top level behavior: string representation = Abstract Behavior Specification)
-    private Behavior topBehavior;
+    private CompositeBehavior topBehavior;
 
     public StateAbstractBehaviorInterpreter(StateDiagram diagram) {
         this.diagram = diagram;
+    }
+
+    /**
+     * Convert State to behavior
+     * Base Case: Atomic State, add as is (convert to atomic behavior)
+     * Recursive Case: Super state, add composite after recursively adding contents
+     *
+     * @param state The state to convert to a behavior
+     * @return The behavior representation of the given state
+     */
+    private Behavior createBehaviorRecursive(State state){
+        // Base case
+        if (state instanceof AtomicState atState) {
+            return new AtomicBehavior(atState.name(), atState.doActivity());
+        }
+        // Recursive case, add composite (and recursively fill it)
+        if (state instanceof SuperState supState) {
+            // Get composite type
+            CompositeBehavior composite = instantiateComposite(supState);
+            // Fill composite
+            for (State child : supState.children()) {
+                composite.addBehavior(createBehaviorRecursive(child));
+            }
+            return composite;
+        }
+        // Should never reach here normally, need a default return, but we also need to typecast above
+        return null;
     }
 
     /**
@@ -65,8 +89,20 @@ public class StateAbstractBehaviorInterpreter implements Runnable {
     public void run() {
         // Get all root states
         Set<State> roots = diagram.getRoots();
-//        if (roots.size() > 1) {
-//
-//        }
+        // Check for top level composite
+        if (roots.size() == 1) {
+            State root = roots.iterator().next();
+            if (root instanceof SuperState superRoot) {
+                topBehavior = instantiateComposite(superRoot);
+            }
+        }
+        // Default top level (>1 root OR single atomic root)
+        if (topBehavior == null) {
+            topBehavior = new ChoiceBehavior();
+        }
+        // Add all roots to top behavior, they build their inner behaviors before being added.
+        for (State root : diagram.getRoots()) {
+            topBehavior.addBehavior(createBehaviorRecursive(root));
+        }
     }
 }
