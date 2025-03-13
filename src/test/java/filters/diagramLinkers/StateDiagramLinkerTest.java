@@ -206,7 +206,7 @@ public class StateDiagramLinkerTest {
         State b = new AtomicState("a", "state", "<behavior-expression>");
         children.add(a);
         children.add(b);
-        State parent = new SuperState("a||b", children, new HashSet<>(), 1); //
+        State parent = new SuperState("a||b", children, new HashSet<>(), 2); //
         // Run state Checks
         assert roots.size() == 1;
         assert roots.contains(parent);
