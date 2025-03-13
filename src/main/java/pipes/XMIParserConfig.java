@@ -1,4 +1,4 @@
-package filters.xmiParser;
+package pipes;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
