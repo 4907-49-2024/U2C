@@ -102,23 +102,32 @@ public class StateDiagramLinker implements Runnable {
         // Check for children (and recursively build them)
         Set<State> children = new HashSet<>();
         Set<Transition> internalTransitions = new HashSet<>();
-        int numRegions = 1; // States all have at least one region TODO: this may change to zero once parsing is fixed
+        Set<ModelElement> regions = new HashSet<>(); // Regions containing states
 
-        // Process states first - needed
+        // Get state regions
         for(ModelElement me : ModelElementUtils.getOwnedElements(stateElement)){
-            if(StateType.getType(me) == StateType.state) {
-                children.add(buildStateRecursive(me));
-            } else if(StateType.getType(me) == StateType.region) {
-                numRegions++; // TODO: Add this to the parser! - rn this will never trigger
+            if(StateType.getType(me) == StateType.region) {
+                regions.add(me);
             }
         }
 
-        // Find internal transitions between children
-        for(ModelElement me : ModelElementUtils.getOwnedElements(stateElement)){
-            if(StateType.getType(me) == StateType.transition) {
-                try {
-                    internalTransitions.add(createTransition(children, me));
-                } catch (InvalidObjectException ignored){}
+        // Search regions for states
+        for(ModelElement region: regions){
+            for(ModelElement me : ModelElementUtils.getOwnedElements(region)) {
+                if(StateType.getType(me) == StateType.state) {
+                    children.add(buildStateRecursive(me));
+                }
+            }
+        }
+
+        // Search regions for their internal transitions
+        for(ModelElement region: regions) {
+            for(ModelElement me : ModelElementUtils.getOwnedElements(region)){
+                if(StateType.getType(me) == StateType.transition) {
+                    try {
+                        internalTransitions.add(createTransition(children, me));
+                    } catch (InvalidObjectException ignored){}
+                }
             }
         }
 
@@ -127,7 +136,7 @@ public class StateDiagramLinker implements Runnable {
             return buildAtomicState(stateElement);
         }
         // Recursive Case
-        return new SuperState(stateElement.getName(), children, internalTransitions, numRegions);
+        return new SuperState(stateElement.getName(), children, internalTransitions, regions.size());
     }
 
     @Override
