@@ -91,32 +91,32 @@ public class StateDiagramLinkerTest {
 
     }
 
-//    /***
-//     * Conditional data stored in Representation.
-//     * @throws Exception
-//     */
-//    @Test
-    // FIXME: Test not implemented
-//    public void testAtomicConditional() throws Exception {
-//        String xmiFile = "C2KA-BaseRepresentations/Atomic-Conditional.uml";
-//        String metaModel = "custom/stateMetaModel.xml";
-//        String xmiTrans = "custom/xmiStateTrans.xml";
-//        XMIParser parser = new XMIParser(new XMIParserConfig(xmiFile, xmiTrans, metaModel));
-//        UMLModel model = parser.getModel();
-//        StateDiagramLinker linker = new StateDiagramLinker(model);
-//
-//        // Start Thread (run filter)
-//        Thread t = new Thread(linker);
-//        t.start();
-//        t.join();
-//
-//        // Check output
-//        StateDiagram d = linker.getStateDiagram();
-//        // Assuming single diagram, do not need to match it
-//        StateDiagram d = diagrams.iterator().next();
-//        //assert d.getName().equals("");
-//        Set<State> states = d.getRoots();
-//    }
+    /***
+     * Tests if atomic conditional behaviour is correctly parsed and represented in state diagrams.
+     * @throws Exception
+     */
+    @Test
+    public void testAtomicConditional() throws Exception {
+        // Get output
+        StateDiagram d = runTestPipeline("C2KA-BaseRepresentations/Atomic-Conditional.uml");
+
+        // Check name
+        assert d.getName().equals("Atomic Conditional");
+
+        // Setup state checks
+        Set<State> roots = d.getRoots();
+        State conditionalState = new AtomicState("<name>", "state", "if (material = 1 AND state > 2 AND status < 0)" +
+                " -> ready:=0 | (material >= 1 AND state <= 2 || NOT status = 0) -> ready:=1 | NOT (material = 1 AND" +
+                " state > 2 AND status < 0) || NOT (material = 1 AND state <= 2 OR NOT status = 0) then ready:=2 fi");
+
+        // Run state checks
+        assert roots.size() == 1;
+        assert roots.contains(conditionalState);
+
+        // Check transitions
+        Set<Transition> transitions = d.getTransitions();
+        assert transitions.isEmpty();
+    }
 
     /***
      * Tests if "choice" of state diagram is stored in representation.
