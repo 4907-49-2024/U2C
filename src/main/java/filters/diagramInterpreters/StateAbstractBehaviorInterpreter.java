@@ -9,6 +9,7 @@ import java.util.Set;
 
 /**
  * The StateAbstractBehaviorInterpreter takes in a StateDiagram, and returns a representation of its AbstractBehaviors.
+ * The output's toString returns the AbstractBehavior of the entire agent.
  */
 public class StateAbstractBehaviorInterpreter extends Filter<StateDiagram, CompositeBehavior> {
     public StateAbstractBehaviorInterpreter(StateDiagram diagram) {
