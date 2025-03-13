@@ -100,9 +100,9 @@ public class StateDiagramLinkerTest {
 
         // Setup state Checks
         Set<State> roots = d.getRoots();
-        String conditionalExpression = "[if (material = 1 AND state > 2 AND status < 0) -> ready:=0 | (material " +
+        String conditionalExpression = "if (material = 1 AND state > 2 AND status < 0) -> ready:=0 | (material " +
                 ">= 1 AND state <= 2 || status = 0) -> ready:=1; do (material = 1 AND state = 3) -> ready:= 3" +
-                " od | NOT ((material = 1 AND state > 2 AND status < 0) || (material >= 1 AND state <= 2 || status = 0)) -> ready:=0 fi]";
+                " od | NOT ((material = 1 AND state > 2 AND status < 0) || (material >= 1 AND state <= 2 || status = 0)) -> ready:=0 fi";
         State conditionalState = new AtomicState("<name>", "state", conditionalExpression);
 
         // Run state Checks
@@ -210,8 +210,6 @@ public class StateDiagramLinkerTest {
         // Run transition checks
         Set<Transition> transitions = d.getTransitions();
         assert transitions.isEmpty();
-
-        // FIXME: New requirement for regions in parallel (issue is up already)
     }
 
     /***

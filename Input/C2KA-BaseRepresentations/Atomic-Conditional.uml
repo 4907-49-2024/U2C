@@ -6,7 +6,7 @@
   <packagedElement xmi:type="uml:StateMachine" xmi:id="_KN-60OgLEe--vebs2_M8Fw" name="Atomic Conditional">
     <region xmi:type="uml:Region" xmi:id="_KOWHMOgLEe--vebs2_M8Fw" name="Region1">
       <subvertex xmi:type="uml:State" xmi:id="_Nw0vcOgLEe--vebs2_M8Fw" name="&lt;name>">
-        <doActivity xmi:type="uml:Activity" xmi:id="__3KNoP0WEe-HZ6beZ_YPpQ" name="[if (material = 1 AND state > 2 AND status &lt; 0) -> ready:=0 | (material >= 1 AND state &lt;= 2 || status = 0) -> ready:=1; do (material = 1 AND state = 3) -> ready:= 3 od | NOT ((material = 1 AND state > 2 AND status &lt; 0) || (material >= 1 AND state &lt;= 2 || status = 0)) -> ready:=0 fi]" visibility="public"/>
+        <doActivity xmi:type="uml:Activity" xmi:id="__3KNoP0WEe-HZ6beZ_YPpQ" name="if (material = 1 AND state > 2 AND status &lt; 0) -> ready:=0 | (material >= 1 AND state &lt;= 2 || status = 0) -> ready:=1; do (material = 1 AND state = 3) -> ready:= 3 od | NOT ((material = 1 AND state > 2 AND status &lt; 0) || (material >= 1 AND state &lt;= 2 || status = 0)) -> ready:=0 fi" visibility="public"/>
       </subvertex>
     </region>
   </packagedElement>
