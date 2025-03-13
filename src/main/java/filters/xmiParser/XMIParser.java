@@ -5,11 +5,11 @@ import com.sdmetrics.util.XMLParser;
 import filters.Filter;
 import org.xml.sax.SAXException;
 import pipes.UMLModel;
+import pipes.XMIParserConfig;
 
 import javax.xml.parsers.ParserConfigurationException;
-import java.util.*;
 
-public class XMIParser extends Filter<XMIParserConfig, Model> {
+public class XMIParser extends Filter<XMIParserConfig, UMLModel> {
     public XMIParser(XMIParserConfig config) {
         super(config);
     }
@@ -18,7 +18,7 @@ public class XMIParser extends Filter<XMIParserConfig, Model> {
      * Executes the filter
      */
     @Override
-    public void run() {
+    public void run(){
         // Parse the metamodel file
         XMLParser parser = null;
         try {
@@ -42,12 +42,14 @@ public class XMIParser extends Filter<XMIParserConfig, Model> {
         }
 
         // Parse the input XMI file -> Stores result in model object.
-        output = new Model(metaModel);
-        XMIReader xmiReader = new XMIReader(trans, output);
+        Model model = new Model(metaModel);
+        XMIReader xmiReader = new XMIReader(trans, model);
         try {
             parser.parse(input.xmiInputFile(), xmiReader);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
+        output = new UMLModel(model);
     }
 }
