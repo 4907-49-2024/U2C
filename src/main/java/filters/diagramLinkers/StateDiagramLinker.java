@@ -4,6 +4,8 @@ import com.sdmetrics.model.ModelElement;
 import pipes.diagrams.state.*;
 import utils.ModelElementUtils;
 
+import java.io.InvalidObjectException;
+import java.security.InvalidParameterException;
 import java.util.*;
 
 /**
@@ -24,128 +26,119 @@ public class StateDiagramLinker implements Runnable {
     }
 
     /**
-     * From a ModelElement, build a State object (Base case)
-     * @param element The model element representing the state
-     * @return The State object representation of the ModelElement
-     */
-    private State buildState(ModelElement element, State parent) {
-        // Null checked activity
-        ModelElement activityElem = element.getRefAttribute("doactivity");
-        String activity = activityElem == null ? "" : activityElem.getName();
-
-        return new State(element.getName(),
-                element.getPlainAttribute("kind"),
-                activity,
-                parent);
-    }
-
-    /**
-     * Build a State object recursively:
-     * - Base Case: No state children.
-     * - Recursive case: Superstate, has a state child.
+     * Finds a state element within the given set of state.
+     * Uses name as key, as it is assumed to be unique (based on model validity).
      *
-     * @param diagram The State Diagram to register states to
-     * @param element The model element representing the top level state
-     * @param parent The parent state (if applicable, can be null)
+     * @param states The set of states to check for the desired state
+     * @param stateElement The state element to find in the diagram (as a ModelElement)
+     * @return The State object representation of the stateElement found in the diagram.
      */
-    private void registerStateRecursive(StateDiagram diagram, ModelElement element, State parent){
-        // Always store own state
-        State newState = buildState(element, parent);
-        diagram.registerElement(newState);
-
-        // Recursively register contains states if they exist
-        for(ModelElement me : ModelElementUtils.getOwnedElements(element)){
-            if(StateType.getType(me) == StateType.state) {
-                registerStateRecursive(diagram, me, newState);
-            }
+    private State findState(Set<State> states, ModelElement stateElement) {
+        String key = stateElement.getName();
+        for(State state : states){
+            if (key.equals(state.getKey()))
+                return state;
         }
-    }
-
-
-    /**
-     * Get the transitions potentially nested in the given state element.
-     * Recursive case: Nested state, check for nested transitions inside
-     * Base case: Nested transition found, add to list. (Otherwise do nothing)
-     *
-     * @param stateElement the state to check for nested transitions
-     * @return The list of nested transitions in the stateElement
-     */
-    private Collection<? extends ModelElement> getNestedTransitions(ModelElement stateElement) {
-        List<ModelElement> nestedTransitions = new ArrayList<>();
-        // Recursively register contains states if they exist
-        for(ModelElement me : ModelElementUtils.getOwnedElements(stateElement)){
-            // Recursive Case
-            if(StateType.getType(me) == StateType.state) {
-                nestedTransitions.addAll(getNestedTransitions(me));
-            }
-            // Base Case
-            if(StateType.getType(me) == StateType.transition) {
-                nestedTransitions.add(me);
-            }
-        }
-        return nestedTransitions;
+        // Something has gone wrong if we get to here
+        throw new InvalidParameterException("State not found: " + stateElement.getName());
     }
 
 
     /**
      * From a ModelElement, build a Transition object
-     * PRECONDITION: States are all linked already to the given diagram.
      *
      * @param element The model element representing the transition
-     * @param diagram The diagram containing the states + new transition element
+     * @param stateDomain The domain of states to find a transition within
      * @return The Transition representation of the ModelElement
+     *
+     * @throws InvalidObjectException if a transition from an initial state is found. Should not be counted
      */
-    private Transition registerTransition(StateDiagram diagram, ModelElement element){
-        State source = findState(diagram, element.getRefAttribute("source"));
-        State target = findState(diagram, element.getRefAttribute("target"));
+    private Transition createTransition(Set<State> stateDomain, ModelElement element) throws InvalidObjectException {
+        // If a state is not found, assume its due to weird behavior of initial state ownership being always top-level.
+        //  This may hide bugs if they occur later on, careful
+        State source;
+        try {
+            source = findState(stateDomain, element.getRefAttribute("source"));
+        } catch (InvalidParameterException e) { //
+            throw new InvalidObjectException("No state found, likely due to initial state. Ignore");
+        }
 
+        // If at top level, ignore initial state transitions
+        if (source instanceof AtomicState s) {
+            if (AtomicState.isInitialState(s))
+                throw new InvalidObjectException("Initial state transition found, ignore");
+        }
+
+        // No issues, find dest state and link
+        State target = findState(stateDomain, element.getRefAttribute("target"));
         return new Transition(source, target, element.getName());
     }
 
     /**
-     * Finds a state element already linked in the given diagram.
-     * Uses name as key, as it is assumed to be unique (based on model validity).
-     *
-     * @param diagram The state diagram model with states fully linked
-     * @param stateElement The state element to find in the diagram (as a ModelElement)
-     * @return The State object representation of the stateElement found in the diagram.
+     * From a ModelElement, build a State object (Base case)
+     * @param element The model element representing the state
+     * @return The State object representation of the ModelElement
      */
-    private State findState(StateDiagram diagram, ModelElement stateElement) {
-        Set<State> states = diagram.getStates();
-        String key = stateElement.getName();
-        for(State state : states){
-            if (key.equals(state.name()))
-                return state;
+    private State buildAtomicState(ModelElement element) {
+        // Null checked activity
+        ModelElement activityElem = element.getRefAttribute("doactivity");
+        String activity = activityElem == null ? "" : activityElem.getName();
+
+        return new AtomicState(element.getName(),
+                element.getPlainAttribute("kind"),
+                activity);
+    }
+
+    /**
+     * Recursively build State objects.
+     * Recursive Case: stateElement has children, -> build each child and then build super state with its children.
+     * Base Case: stateElement has no children, build an AtomicState
+     * Note: This also takes in any element which contain states, which is useful for getting the roots of a diagram.
+     *
+     * @param stateElement The state element to build
+     * @return The recursively built state
+     */
+    private State buildStateRecursive(ModelElement stateElement) {
+        // Check for children (and recursively build them)
+        Set<State> children = new HashSet<>();
+        Set<Transition> internalTransitions = new HashSet<>();
+        int numRegions = 1; // States all have at least one region TODO: this may change to zero once parsing is fixed
+
+        // Process states first - needed
+        for(ModelElement me : ModelElementUtils.getOwnedElements(stateElement)){
+            if(StateType.getType(me) == StateType.state) {
+                children.add(buildStateRecursive(me));
+            } else if(StateType.getType(me) == StateType.region) {
+                numRegions++; // TODO: Add this to the parser! - rn this will never trigger
+            }
         }
-        // Something has gone wrong if we get to here
-        throw new RuntimeException("State not found: " + stateElement.getName());
+
+        // Find internal transitions between children
+        for(ModelElement me : ModelElementUtils.getOwnedElements(stateElement)){
+            if(StateType.getType(me) == StateType.transition) {
+                try {
+                    internalTransitions.add(createTransition(children, me));
+                } catch (InvalidObjectException ignored){}
+            }
+        }
+
+        // Base Case - No children
+        if (children.isEmpty()){
+            return buildAtomicState(stateElement);
+        }
+        // Recursive Case
+        return new SuperState(stateElement.getName(), children, internalTransitions, numRegions);
     }
 
     @Override
     public void run() {
         // For each diagram, add it and register its owned elements to itself
         stateDiagram = new StateDiagram(stateDiagramElement.getName());
+        // Fake container -> its children are the true roots of the diagram
+        SuperState topLevelContainer = (SuperState) buildStateRecursive(stateDiagramElement);
 
-        // Add its owned elements... We need to register states first so sort on the first past
-        List<ModelElement> stateElements = new ArrayList<>();
-        List<ModelElement> transitionElements = new ArrayList<>();
-        for(ModelElement ownedElement : stateDiagramElement.getOwnedElements()) {
-            switch (StateType.getType(ownedElement)) {
-                case StateType.state -> stateElements.add(ownedElement);
-                case StateType.transition -> transitionElements.add(ownedElement); // Only gets top-level transitions!
-                default -> System.out.println("Unknown state: " + ownedElement.getName());
-            }
-        }
-
-        // Register states, then transitions (so they can do state lookups)
-        for (ModelElement stateElement : stateElements) {
-            registerStateRecursive(stateDiagram, stateElement, null);
-            // Get transitions hidden in super states
-            transitionElements.addAll(getNestedTransitions(stateElement));
-        }
-        for (ModelElement transitionElement : transitionElements) {
-            stateDiagram.registerElement(registerTransition(stateDiagram, transitionElement));
-        }
+        stateDiagram.registerRootStates(topLevelContainer.children());
+        stateDiagram.registerRootTransitions(topLevelContainer.innerTransitions());
     }
 
     /**

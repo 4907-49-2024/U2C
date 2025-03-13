@@ -9,39 +9,48 @@ import java.util.Set;
  */
 public class StateDiagram {
     private final String name;
-    private final Set<State> states;
-    private final Set<Transition> transitions;
-    private State initialState;
+    private final Set<State> rootStates;
+    private final Set<Transition> rootTransitions;
 
     public StateDiagram(String name) {
         this.name = name;
-        this.states = new HashSet<>();
-        this.transitions = new HashSet<>();
+        this.rootStates = new HashSet<>();
+        this.rootTransitions = new HashSet<>();
     }
 
     /**
-     * Registers a state diagram element to its collection
-     * <br>
+     * Get all transitions in this state, recursively.
+     * Base Case: AtomicState - return empty set
+     * Recursive Case: SuperState - Add internal transitions
      *
-     * @param element The element to register
+     * @param state the state to search for transitions in recursively
+     * @return Set of transitions in this state and all its substates
      */
-    public void registerElement(StateDiagramElement element) throws IllegalArgumentException, IllegalStateException {
-        if (element instanceof State s) {
-            if (s.kind().isEmpty()) {
-                if (initialState == null) {
-                    initialState = s;
-                } else {
-                    // This may technically be legal in concurrent regions, which we don't handle yet.
-                    throw new IllegalStateException("There exists more than one initial State.");
-                }
-            }
-
-            this.states.add(s);
-        } else if (element instanceof Transition t) {
-            this.transitions.add(t);
-        } else {
-            throw new IllegalArgumentException("Element is not a known StateDiagramElement");
+    private Set<Transition> getStateTransitionsRecursive(State state){
+        // Recursive case - Return super state transitions
+        if(state instanceof SuperState superState){
+            return superState.innerTransitions();
         }
+        // Else, Base case return empty set
+        return new HashSet<>();
+    }
+
+    /**
+     * Registers all root states in the StateDiagram
+     * <br>
+     * @param rootStates The root states to register
+     */
+    public void registerRootStates(Set<State> states) {
+        rootStates.addAll(states);
+    }
+
+    /**
+     * Registers all root transitions in the StateDiagram
+     * <br>
+     * @param transitions The root transitions to register
+     */
+    public void registerRootTransitions(Set<Transition> transitions) {
+        rootTransitions.addAll(transitions);
     }
 
     /**
@@ -52,16 +61,21 @@ public class StateDiagram {
     }
 
     /**
-     * @return Diagram States
+     * @return Diagram root states - Iteration method should be determined outside
      */
-    public Set<State> getStates() {
-        return states;
+    public Set<State> getRoots() {
+        return rootStates;
     }
 
     /**
-     * @return Diagram Transitions
+     * @return Transitions contained in the state diagram
      */
     public Set<Transition> getTransitions() {
+        Set<Transition> transitions = new HashSet<>(rootTransitions);
+        // Recursively collect transitions in all roots
+        for (State root : rootStates) {
+            transitions.addAll(getStateTransitionsRecursive(root));
+        }
         return transitions;
     }
 

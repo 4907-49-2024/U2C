@@ -12,6 +12,7 @@ public enum StateType {
     state,
     transition,
     activity,
+    region,
     unsupported;
 
     public static StateType getType(ModelElement modelElement) {
@@ -20,6 +21,7 @@ public enum StateType {
             case "state" -> StateType.state;
             case "transition" -> StateType.transition;
             case "activity" -> StateType.activity;
+            case "region" -> StateType.region;
             default -> StateType.unsupported;
         };
     }
