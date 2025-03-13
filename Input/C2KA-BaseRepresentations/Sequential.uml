@@ -9,8 +9,12 @@
       <subvertex xmi:type="uml:State" xmi:id="_CUaEkOgNEe-eOO7SGSMIXA" name="a|b">
         <region xmi:type="uml:Region" xmi:id="_GDUmUOgNEe-eOO7SGSMIXA" name="Region1">
           <transition xmi:type="uml:Transition" xmi:id="_ITpqMOgNEe-eOO7SGSMIXA" name="stimulus (a out, b in)" source="_Nw0vcOgLEe--vebs2_M8Fw" target="_JxpusOgMEe--vebs2_M8Fw"/>
-          <subvertex xmi:type="uml:State" xmi:id="_Nw0vcOgLEe--vebs2_M8Fw" name="a"/>
-          <subvertex xmi:type="uml:State" xmi:id="_JxpusOgMEe--vebs2_M8Fw" name="b"/>
+          <subvertex xmi:type="uml:State" xmi:id="_Nw0vcOgLEe--vebs2_M8Fw" name="a">
+            <doActivity xmi:type="uml:Activity" xmi:id="_nxi_sP9fEe-VdNk0tFhV7A" name="&lt;behavior-expression>"/>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_JxpusOgMEe--vebs2_M8Fw" name="b">
+            <doActivity xmi:type="uml:Activity" xmi:id="_zL9NgP9fEe-VdNk0tFhV7A" name="&lt;behavior-expression>"/>
+          </subvertex>
           <subvertex xmi:type="uml:Pseudostate" xmi:id="_nPMGcP0jEe-HZ6beZ_YPpQ" name=""/>
         </region>
       </subvertex>

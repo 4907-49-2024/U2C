@@ -6,7 +6,7 @@
   <packagedElement xmi:type="uml:StateMachine" xmi:id="_KN-60OgLEe--vebs2_M8Fw" name="Atomic Behavior">
     <region xmi:type="uml:Region" xmi:id="_KOWHMOgLEe--vebs2_M8Fw" name="Region1">
       <subvertex xmi:type="uml:State" xmi:id="_Nw0vcOgLEe--vebs2_M8Fw" name="&lt;name>">
-        <doActivity xmi:type="uml:Activity" xmi:id="__3KNoP0WEe-HZ6beZ_YPpQ" name="&lt;behaviour-expression>"/>
+        <doActivity xmi:type="uml:Activity" xmi:id="__3KNoP0WEe-HZ6beZ_YPpQ" name="&lt;behavior-expression>"/>
       </subvertex>
     </region>
   </packagedElement>

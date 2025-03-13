@@ -12,6 +12,9 @@ We set up a pipeline (series of pipes and filters) up to and including the filte
 We then test the filter output to check it matches our expectations.
 Integration testing is good for filters because it is hard to mock their inputs in isolation.
 
+Implementation notes: The "pipeline" should be a private function called by every test case changing only the input diagram.
+It returns the pipe output of the filter under test. The oracles verify the contents of that pipe.
+
 ## Models
 End to end system test (Validation). 
 

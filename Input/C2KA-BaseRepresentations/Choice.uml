@@ -7,8 +7,12 @@
     <region xmi:type="uml:Region" xmi:id="_KOWHMOgLEe--vebs2_M8Fw" name="Region1">
       <subvertex xmi:type="uml:State" xmi:id="_XXT2oOgNEe-eOO7SGSMIXA" name="a+b">
         <region xmi:type="uml:Region" xmi:id="_dyCeYOgNEe-eOO7SGSMIXA" name="Region1">
-          <subvertex xmi:type="uml:State" xmi:id="_Nw0vcOgLEe--vebs2_M8Fw" name="a"/>
-          <subvertex xmi:type="uml:State" xmi:id="_JxpusOgMEe--vebs2_M8Fw" name="b"/>
+          <subvertex xmi:type="uml:State" xmi:id="_Nw0vcOgLEe--vebs2_M8Fw" name="a">
+            <doActivity xmi:type="uml:Activity" xmi:id="_8FZTYP9fEe-VdNk0tFhV7A" name="&lt;behavior-expression>"/>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_JxpusOgMEe--vebs2_M8Fw" name="b">
+            <doActivity xmi:type="uml:Activity" xmi:id="_-pu4YP9fEe-VdNk0tFhV7A" name="&lt;behavior-expression>"/>
+          </subvertex>
         </region>
       </subvertex>
     </region>

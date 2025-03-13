@@ -1,21 +1,11 @@
 package pipes.diagrams.state;
 
 /**
- * Representation of a state in a state diagram
- *
- * @param name The name of the state - UNIQUE, can be used safely as a key
- * @param kind The kind of the pseudo-state, N/A if not a pseudo-state (For Papyrus, Empty = Initial)
- * @param doActivity The doActivity, if set. Null otherwise.
- * @param parent The superstate containing this state, if applicable. Note: if set, name should be null
+ * Interface representing state objects in a state diagram.
  */
-public record State(String name, String kind, String doActivity, State parent) implements StateDiagramElement {
+public interface State extends StateDiagramElement {
     /**
-     * Converts null objects to empty strings, otherwise stores as is.
+     * @return Key used to uniquely identify state.
      */
-    public State(String name, String kind, String doActivity, State parent) {
-        this.name = name == null ? "" : name;
-        this.kind = kind == null ? "" : kind;
-        this.doActivity = doActivity == null ? "" : doActivity;
-        this.parent = parent;
-    }
+    String getKey();
 }
