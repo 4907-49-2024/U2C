@@ -16,9 +16,9 @@ import java.util.Set;
  */
 public class StateDiagramLinkerTest {
     /**
-     * Define test pipeline
+     * Define test pipeline for Filter Under Test (FUT)
      * @param inputDiagramXMI Reference to input diagram file
-     * @return StateDiagram type pipe object (filter under test's output)
+     * @return StateDiagram type pipe object (FUT's output)
      * @throws Exception In case of thread or input exceptions
      */
     private StateDiagram runTestPipeline(String inputDiagramXMI) throws Exception{
