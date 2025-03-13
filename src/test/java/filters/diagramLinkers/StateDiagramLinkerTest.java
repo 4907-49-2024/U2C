@@ -1,9 +1,8 @@
 package filters.diagramLinkers;
 
-import com.sdmetrics.model.Model;
 import com.sdmetrics.model.ModelElement;
 import filters.xmiParser.XMIParser;
-import filters.xmiParser.XMIParserConfig;
+import pipes.XMIParserConfig;
 import org.junit.jupiter.api.Test;
 import pipes.UMLModel;
 import pipes.diagrams.state.*;
@@ -17,28 +16,24 @@ import java.util.Set;
  */
 public class StateDiagramLinkerTest {
     /**
-     * Define test pipeline
+     * Define test pipeline for Filter Under Test (FUT)
      * @param inputDiagramXMI Reference to input diagram file
-     * @return StateDiagram type pipe object (filter under test's output)
+     * @return StateDiagram type pipe object (FUT's output)
      * @throws Exception In case of thread or input exceptions
      */
     private StateDiagram runTestPipeline(String inputDiagramXMI) throws Exception{
         // Setup Input
         String metaModel = "custom/stateMetaModel.xml";
         String xmiTrans = "custom/xmiStateTrans.xml";
-        XMIParser parser = new XMIParser(new XMIParserConfig(inputDiagramXMI, xmiTrans, metaModel));
-        UMLModel model = parser.getModel();
-        // Assume single state diagram, get first one
-        List<ModelElement> stateDiagramsElems = model.getTypedElements(StateType.statemachine.name());
-        StateDiagramLinker linker = new StateDiagramLinker(stateDiagramsElems.getFirst());
-
-        // Start Thread (run filter)
-        Thread t = new Thread(linker);
-        t.start();
-        t.join();
-
-        // Return output pipe
-        return linker.getStateDiagram();
+        XMIParserConfig config = new XMIParserConfig(inputDiagramXMI, xmiTrans, metaModel);
+        // Filter 1
+        XMIParser parser = new XMIParser(config);
+        UMLModel model = parser.getOutput();
+        // Filter 2 - FUT
+        List<ModelElement> stateDiagramsElems = model.getStateDiagrams();
+        ModelElement stateDiagramElem = stateDiagramsElems.getFirst(); // Assume single state diagram for test case.
+        StateDiagramLinker linker = new StateDiagramLinker(stateDiagramElem);
+        return linker.getOutput();
     }
 
 
@@ -215,8 +210,6 @@ public class StateDiagramLinkerTest {
         // Run transition checks
         Set<Transition> transitions = d.getTransitions();
         assert transitions.isEmpty();
-
-        // FIXME: New requirement for regions in parallel (issue is up already)
     }
 
     /***
@@ -244,7 +237,7 @@ public class StateDiagramLinkerTest {
         Transition transition1 = new Transition(state1, state2, "inStim / nextStim");
         // Run transition checks
         assert transitions.size() == 1;
-        assert transitions.contains(new Transition(state1, state2, "inStim / nextStim"));
+        assert transitions.contains(transition1);
     }
 
 }

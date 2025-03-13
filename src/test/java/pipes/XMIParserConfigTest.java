@@ -1,4 +1,4 @@
-package filters.xmiParser;
+package pipes;
 
 import org.junit.jupiter.api.Test;
 

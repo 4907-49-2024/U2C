@@ -2,41 +2,54 @@ package filters.xmiParser;
 
 import com.sdmetrics.model.*;
 import com.sdmetrics.util.XMLParser;
+import filters.Filter;
+import org.xml.sax.SAXException;
 import pipes.UMLModel;
+import pipes.XMIParserConfig;
 
-import java.util.*;
+import javax.xml.parsers.ParserConfigurationException;
 
-public class XMIParser {
-    private final Model model; // This is where data gets stored after parsing
+public class XMIParser extends Filter<XMIParserConfig, UMLModel> {
+    public XMIParser(XMIParserConfig config) {
+        super(config);
+    }
 
-    public XMIParser(XMIParserConfig config) throws Exception {
+    /**
+     * Executes the filter
+     */
+    @Override
+    public void run(){
         // Parse the metamodel file
-        XMLParser parser = new XMLParser();
+        XMLParser parser;
+        try {
+            parser = new XMLParser();
+        } catch (SAXException | ParserConfigurationException e) {
+            throw new RuntimeException(e);
+        }
         MetaModel metaModel = new MetaModel();
-        parser.parse(config.metaModel(), metaModel.getSAXParserHandler());
+        try {
+            parser.parse(input.metaModel(), metaModel.getSAXParserHandler());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         // Parse the XMI transformations file
         XMITransformations trans = new XMITransformations(metaModel);
-        parser.parse(config.xmiTrans(), trans.getSAXParserHandler());
+        try {
+            parser.parse(input.xmiTrans(), trans.getSAXParserHandler());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         // Parse the input XMI file -> Stores result in model object.
-        model = new Model(metaModel);
+        Model model = new Model(metaModel);
         XMIReader xmiReader = new XMIReader(trans, model);
-        parser.parse(config.xmiInputFile(), xmiReader);
-    }
+        try {
+            parser.parse(input.xmiInputFile(), xmiReader);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
-
-    /**
-     * @return UML Model representation of the input diagrams.
-     */
-    public UMLModel getModel(){
-        return new UMLModel(model);
-    }
-
-    /**
-     * @return XMI Model representation (testing only!)
-     */
-    public Model getXMIModel(){
-        return model;
+        output = new UMLModel(model);
     }
 }

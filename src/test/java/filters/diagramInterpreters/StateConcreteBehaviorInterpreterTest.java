@@ -3,19 +3,19 @@ package filters.diagramInterpreters;
 import com.sdmetrics.model.ModelElement;
 import filters.diagramLinkers.StateDiagramLinker;
 import filters.xmiParser.XMIParser;
-import pipes.XMIParserConfig;
 import org.junit.jupiter.api.Test;
 import pipes.UMLModel;
-import pipes.c2ka.primitives.Behavior;
-import pipes.c2ka.primitives.CompositeBehavior;
+import pipes.XMIParserConfig;
+import pipes.c2ka.primitives.AtomicBehavior;
 import pipes.diagrams.state.StateDiagram;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Test the StateAbstractBehaviorInterpreterTest filter
  */
-public class StateAbstractBehaviorInterpreterTest {
+public class StateConcreteBehaviorInterpreterTest {
     /**
      * Define test pipeline
      *
@@ -23,7 +23,7 @@ public class StateAbstractBehaviorInterpreterTest {
      * @return Behavior type pipe object (filter under test's output)
      * @throws Exception In case of thread or input exceptions
      */
-    private CompositeBehavior runTestPipeline(String inputDiagramXMI) throws Exception {
+    private Set<AtomicBehavior> runTestPipeline(String inputDiagramXMI) throws Exception {
         // Setup Input
         String metaModel = "custom/stateMetaModel.xml";
         String xmiTrans = "custom/xmiStateTrans.xml";
@@ -37,18 +37,24 @@ public class StateAbstractBehaviorInterpreterTest {
         StateDiagramLinker linker = new StateDiagramLinker(stateDiagramElem);
         StateDiagram stateDiagram = linker.getOutput();
         // Filter 3 - FUT
-        StateAbstractBehaviorInterpreter interpreter = new StateAbstractBehaviorInterpreter(stateDiagram);
+        StateConcreteBehaviorInterpreter interpreter = new StateConcreteBehaviorInterpreter(stateDiagram);
         return interpreter.getOutput();
     }
 
     @Test
     void testAtomic() throws Exception {
         // Get output
-        Behavior behavior = runTestPipeline("C2KA-BaseRepresentations/Atomic.uml");
+        Set<AtomicBehavior> behavior = runTestPipeline("C2KA-BaseRepresentations/Atomic.uml");
 
-        assert behavior.toString().equals("( <name> )");
+        for (AtomicBehavior b: behavior) {
+            // Need to do check a switch every time because of the indeterministic nature of sets.
+            switch (b.toString()){
+                case "<name>" -> {assert b.getConcreteBehavior().equals("<name> => [ <behavior-expression> ]");}
+                default -> {assert false;} // Should not have any extra cases
+            }
+        }
     }
 
-    // TODO: implement rest of tests... look at the behavior tests for reference on how to handle indeterministic output!
-    //      There are tricks you need to do because after two behaviors in a choice the order is randomized.
+    // TODO: implement rest of tests... Add cases to switch like above, the final string is deterministic,
+    //  but you don't know the test sequence order!
 }

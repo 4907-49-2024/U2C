@@ -3,6 +3,7 @@ package filters.xmiParser;
 import com.sdmetrics.model.ModelElement;
 import org.junit.jupiter.api.Test;
 import pipes.UMLModel;
+import pipes.XMIParserConfig;
 import pipes.diagrams.state.StateType;
 
 import java.util.List;
@@ -11,20 +12,29 @@ import java.util.List;
  * Test that all diagrams have the elements we expect.
  */
 class XMIParserTest {
+    /**
+     * Define test pipeline for Filter Under Test (FUT)
+     * @param inputDiagramXMI Reference to input diagram file
+     * @return StateDiagram type pipe object (FUT's output)
+     * @throws Exception In case of thread or input exceptions
+     */
+    private UMLModel runTestPipeline(String inputDiagramXMI) throws Exception{
+        // Setup Input
+        String metaModel = "custom/stateMetaModel.xml";
+        String xmiTrans = "custom/xmiStateTrans.xml";
+        XMIParserConfig config = new XMIParserConfig(inputDiagramXMI, xmiTrans, metaModel);
+        // Filter 1 - FUT
+        XMIParser parser = new XMIParser(config);
+        return parser.getOutput();
+    }
 
     /**
      * Test for state diagram elements
      */
     @Test
     void testStateElements() throws Exception {
-        // Setup XMI Parse config - state based
-        String xmiFile = "superState.uml";
-        String metaModel = "custom/stateMetaModel.xml";
-        String xmiTrans = "custom/xmiStateTrans.xml";
-        XMIParser parser = new XMIParser(new XMIParserConfig(xmiFile, xmiTrans, metaModel));
-
         // Collect output
-        UMLModel model = parser.getModel();
+        UMLModel model = runTestPipeline("superState.uml");
         List<ModelElement> states = model.getTypedElements(StateType.state.name());
         List<ModelElement> transitions = model.getTypedElements(StateType.transition.name());
         List<ModelElement> activity = model.getTypedElements(StateType.activity.name());

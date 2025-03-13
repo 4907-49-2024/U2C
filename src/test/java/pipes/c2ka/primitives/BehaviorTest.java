@@ -18,7 +18,7 @@ public class BehaviorTest {
         // Try using some special chars to see if anything breaks
         AtomicBehavior b = new AtomicBehavior("name_opsdhoipu21370!)@(#*&", "cd_>}|QW{E\">?\".");
         assert b.toString().equals("name_opsdhoipu21370!)@(#*&");
-        assert b.getDetails().equals("cd_>}|QW{E\">?\".");
+        assert b.getConcreteBehavior().equals("name_opsdhoipu21370!)@(#*& => [ cd_>}|QW{E\">?\". ]");
     }
 
 
