@@ -65,6 +65,8 @@ Diagrams supported:
         <trigger name="target" type="attrval" attr="target" />
     </xmitransformation>
 
+    <xmitransformation modelelement="region" xmipattern="uml:Region" recurse="true"/>
+
     <!-- do activities -->
     <xmitransformation modelelement="activity" xmipattern="uml:Activity"/>
 
