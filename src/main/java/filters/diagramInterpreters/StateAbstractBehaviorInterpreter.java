@@ -105,4 +105,16 @@ public class StateAbstractBehaviorInterpreter implements Runnable {
             topBehavior.addBehavior(createBehaviorRecursive(root));
         }
     }
+
+    /**
+     * Return top level behavior, if the filter has been executed. Otherwise, throw an error.
+     * @return Filter output
+     * @throws IllegalStateException If the filter has not set its output yet (need to run it first)
+     */
+    public Behavior getTopBehavior() throws IllegalStateException {
+        if (topBehavior == null) {
+            throw new IllegalStateException("Filter has not been executed yet, output not set");
+        }
+        return topBehavior;
+    }
 }
