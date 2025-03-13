@@ -1,5 +1,6 @@
 package filters.diagramInterpreters;
 
+import filters.Filter;
 import pipes.c2ka.primitives.*;
 import pipes.diagrams.state.*;
 
@@ -9,14 +10,9 @@ import java.util.Set;
 /**
  * The StateAbstractBehaviorInterpreter takes in a StateDiagram, and returns a representation of its AbstractBehaviors.
  */
-public class StateAbstractBehaviorInterpreter implements Runnable {
-    // INPUT
-    private final StateDiagram diagram;
-    // OUTPUT (top level behavior: string representation = Abstract Behavior Specification)
-    private CompositeBehavior topBehavior;
-
+public class StateAbstractBehaviorInterpreter extends Filter<StateDiagram, CompositeBehavior> {
     public StateAbstractBehaviorInterpreter(StateDiagram diagram) {
-        this.diagram = diagram;
+        super(diagram);
     }
 
     /**
@@ -88,33 +84,21 @@ public class StateAbstractBehaviorInterpreter implements Runnable {
     @Override
     public void run() {
         // Get all root states
-        Set<State> roots = diagram.getRoots();
+        Set<State> roots = input.getRoots();
         // Check for top level composite
         if (roots.size() == 1) {
             State root = roots.iterator().next();
             if (root instanceof SuperState superRoot) {
-                topBehavior = instantiateComposite(superRoot);
+                output = instantiateComposite(superRoot);
             }
         }
         // Default top level (>1 root OR single atomic root)
-        if (topBehavior == null) {
-            topBehavior = new ChoiceBehavior();
+        if (output == null) {
+            output = new ChoiceBehavior();
         }
         // Add all roots to top behavior, they build their inner behaviors before being added.
-        for (State root : diagram.getRoots()) {
-            topBehavior.addBehavior(createBehaviorRecursive(root));
+        for (State root : input.getRoots()) {
+            output.addBehavior(createBehaviorRecursive(root));
         }
-    }
-
-    /**
-     * Return top level behavior, if the filter has been executed. Otherwise, throw an error.
-     * @return Filter output
-     * @throws IllegalStateException If the filter has not set its output yet (need to run it first)
-     */
-    public Behavior getTopBehavior() throws IllegalStateException {
-        if (topBehavior == null) {
-            throw new IllegalStateException("Filter has not been executed yet, output not set");
-        }
-        return topBehavior;
     }
 }
