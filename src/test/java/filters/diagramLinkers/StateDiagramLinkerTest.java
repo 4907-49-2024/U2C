@@ -92,7 +92,7 @@ public class StateDiagramLinkerTest {
     }
 
     /***
-     * Tests if atomic conditional behaviour is correctly parsed and represented in state diagrams.
+     * Tests if Atomic Conditional state diagram is correctly parsed and represented.
      * @throws Exception
      */
     @Test
@@ -103,17 +103,18 @@ public class StateDiagramLinkerTest {
         // Check name
         assert d.getName().equals("Atomic Conditional");
 
-        // Setup state checks
+        // Setup state Checks
         Set<State> roots = d.getRoots();
-        State conditionalState = new AtomicState("<name>", "state", "if (material = 1 AND state > 2 AND status < 0)" +
-                " -> ready:=0 | (material >= 1 AND state <= 2 || NOT status = 0) -> ready:=1 | NOT (material = 1 AND" +
-                " state > 2 AND status < 0) || NOT (material = 1 AND state <= 2 OR NOT status = 0) then ready:=2 fi");
+        String conditionalExpression = "[if (material = 1 AND state > 2 AND status < 0) -> ready:=0 | (material " +
+                ">= 1 AND state <= 2 || status = 0) -> ready:=1; do (material = 1 AND state = 3) -> ready:= 3" +
+                " od | NOT ((material = 1 AND state > 2 AND status < 0) || (material >= 1 AND state <= 2 || status = 0)) -> ready:=0 fi]";
+        State conditionalState = new AtomicState("<name>", "state", conditionalExpression);
 
-        // Run state checks
+        // Run state Checks
         assert roots.size() == 1;
         assert roots.contains(conditionalState);
 
-        // Check transitions
+        // Check Transitions
         Set<Transition> transitions = d.getTransitions();
         assert transitions.isEmpty();
     }
