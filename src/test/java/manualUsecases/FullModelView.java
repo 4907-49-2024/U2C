@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class FullModelView {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         // PIPE 1
         String xmiFile = "C2KA-BaseRepresentations/Atomic.uml";
         String metaModel = "custom/stateMetaModel.xml";

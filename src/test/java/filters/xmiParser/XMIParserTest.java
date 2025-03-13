@@ -1,11 +1,9 @@
 package filters.xmiParser;
 
 import com.sdmetrics.model.ModelElement;
-import filters.diagramLinkers.StateDiagramLinker;
 import org.junit.jupiter.api.Test;
 import pipes.UMLModel;
 import pipes.XMIParserConfig;
-import pipes.diagrams.state.StateDiagram;
 import pipes.diagrams.state.StateType;
 
 import java.util.List;

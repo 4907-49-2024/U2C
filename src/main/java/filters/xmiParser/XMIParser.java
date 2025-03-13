@@ -20,7 +20,7 @@ public class XMIParser extends Filter<XMIParserConfig, UMLModel> {
     @Override
     public void run(){
         // Parse the metamodel file
-        XMLParser parser = null;
+        XMLParser parser;
         try {
             parser = new XMLParser();
         } catch (SAXException | ParserConfigurationException e) {

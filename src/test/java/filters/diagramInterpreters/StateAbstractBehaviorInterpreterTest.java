@@ -9,7 +9,6 @@ import pipes.UMLModel;
 import pipes.c2ka.primitives.Behavior;
 import pipes.c2ka.primitives.CompositeBehavior;
 import pipes.diagrams.state.StateDiagram;
-import pipes.diagrams.state.StateType;
 
 import java.util.List;
 

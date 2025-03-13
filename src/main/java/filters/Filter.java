@@ -1,7 +1,5 @@
 package filters;
 
-import pipes.diagrams.state.StateDiagram;
-
 /**
  * Interface to label all filters in our system.
  * - InT: Input type to the filter

@@ -239,7 +239,7 @@ public class StateDiagramLinkerTest {
         Transition transition1 = new Transition(state1, state2, "inStim / nextStim");
         // Run transition checks
         assert transitions.size() == 1;
-        assert transitions.contains(new Transition(state1, state2, "inStim / nextStim"));
+        assert transitions.contains(transition1);
     }
 
 }
