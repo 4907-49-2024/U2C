@@ -7,10 +7,11 @@ import pipes.c2ka.semirings.NextStimulusMap;
 import pipes.diagrams.state.SuperState;
 import pipes.diagrams.state.Transition;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class StateNextStimInterpreter extends Filter<SuperState, Set<NextStimulusMap>> {
-    protected StateNextStimInterpreter(SuperState input) {
+    public StateNextStimInterpreter(SuperState input) {
         super(input);
     }
 
@@ -19,6 +20,7 @@ public class StateNextStimInterpreter extends Filter<SuperState, Set<NextStimulu
      */
     @Override
     public void run() {
+        output = new HashSet<>();
         for(Transition t: input.getAllTransitions()){
             Behavior initial = StateBehaviorConverter.getStateBehavior(t.source());
             output.add(new NextStimulusMap(initial, t.input(), t.output()));
