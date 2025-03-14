@@ -23,7 +23,7 @@ public record C2KASpecifications(String agentName,
                              CompositeBehavior abstractBehaviorSpec,
                              Set<NextBehaviorMap> nextBehaviorSpec, Set<NextStimulusMap> nextStimulusSpec,
                              Set<AtomicBehavior> concreteBehaviorSpec) {
-    private static final String OUTPUT_DIR = "../../../../Output/";
+    private static final String OUTPUT_DIR = "Output/"; // Starts at project root
     private static final String FILETYPE_SUFFIX = ".txt";
 
     /**
