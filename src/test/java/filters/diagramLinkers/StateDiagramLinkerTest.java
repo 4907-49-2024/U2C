@@ -21,7 +21,7 @@ public class StateDiagramLinkerTest {
      * @return StateDiagram type pipe object (FUT's output)
      * @throws Exception In case of thread or input exceptions
      */
-    private StateDiagram runTestPipeline(String inputDiagramXMI) throws Exception{
+    private SuperState runTestPipeline(String inputDiagramXMI) throws Exception{
         // Setup Input
         String metaModel = "custom/stateMetaModel.xml";
         String xmiTrans = "custom/xmiStateTrans.xml";
@@ -44,20 +44,20 @@ public class StateDiagramLinkerTest {
     @Test
     public void testAtomic() throws Exception {
         // Get output
-        StateDiagram d = runTestPipeline("C2KA-BaseRepresentations/Atomic.uml");
+        SuperState d = runTestPipeline("C2KA-BaseRepresentations/Atomic.uml");
 
         // Check name
-        assert d.getName().equals("Atomic Behavior");
+        assert d.name().equals("Atomic Behavior");
 
         // Setup state Checks
-        Set<State> roots = d.getRoots();
+        Set<State> roots = d.children();
         State state1 = new AtomicState("<name>", "state", "<behavior-expression>");
         // Run state Checks
         assert roots.size() == 1;
         assert roots.contains(state1);
 
         // Check Transitions
-        Set<Transition> transitions = d.getTransitions();
+        Set<Transition> transitions = d.getAllTransitions();
         assert transitions.isEmpty();
     }
 
@@ -68,19 +68,19 @@ public class StateDiagramLinkerTest {
     @Test
     public void testAtomicAssignment() throws Exception {
         // Get output
-        StateDiagram d = runTestPipeline("C2KA-BaseRepresentations/Atomic-Assignment.uml");
+        SuperState d = runTestPipeline("C2KA-BaseRepresentations/Atomic-Assignment.uml");
         // Check name
-        assert d.getName().equals("Atomic Assignment");
+        assert d.name().equals("Atomic Assignment");
 
         // Setup state Checks
-        Set<State> states = d.getRoots();
+        Set<State> states = d.children();
         State state1 = new AtomicState("<name>", "state", "ready:=1"); //a+b
         // Run State Checks
         assert states.size() == 1;
         assert states.contains(state1);
 
         // Setup Transition Checks
-        Set<Transition> transitions = d.getTransitions();
+        Set<Transition> transitions = d.getAllTransitions();
         // Run Transition Checks
         assert transitions.isEmpty();
 
@@ -93,13 +93,13 @@ public class StateDiagramLinkerTest {
     @Test
     public void testAtomicConditional() throws Exception {
         // Get output
-        StateDiagram d = runTestPipeline("C2KA-BaseRepresentations/Atomic-Conditional.uml");
+        SuperState d = runTestPipeline("C2KA-BaseRepresentations/Atomic-Conditional.uml");
 
         // Check name
-        assert d.getName().equals("Atomic Conditional");
+        assert d.name().equals("Atomic Conditional");
 
         // Setup state Checks
-        Set<State> roots = d.getRoots();
+        Set<State> roots = d.children();
         String conditionalExpression = "[if (material = 1 && state > 2 && status < 0) -> ready:=0 | (material >= 1 &&" +
                 " state <= 2 || status = 0) -> ready:=1; do (material = 1 && state = 3) -> ready:= 3 od | ~ ((material" +
                 " = 1 && state > 2 && status < 0) || (material >= 1 && state <= 2 || status = 0)) -> ready:=0 fi]";
@@ -110,7 +110,7 @@ public class StateDiagramLinkerTest {
         assert roots.contains(conditionalState);
 
         // Check Transitions
-        Set<Transition> transitions = d.getTransitions();
+        Set<Transition> transitions = d.getAllTransitions();
         assert transitions.isEmpty();
     }
 
@@ -121,12 +121,12 @@ public class StateDiagramLinkerTest {
     @Test
     public void testChoice() throws Exception {
         // Get output
-        StateDiagram d = runTestPipeline("C2KA-BaseRepresentations/Choice.uml");
+        SuperState d = runTestPipeline("C2KA-BaseRepresentations/Choice.uml");
         // Check name
-        assert d.getName().equals("Behaviour Choice");
+        assert d.name().equals("Behaviour Choice");
 
         // Setup state Checks
-        Set<State> roots = d.getRoots();
+        Set<State> roots = d.children();
         Set<State> children = new HashSet<>();
         State a = new AtomicState("a", "state", "<behavior-expression>");
         State b = new AtomicState("b", "state", "<behavior-expression>");
@@ -138,7 +138,7 @@ public class StateDiagramLinkerTest {
         assert roots.contains(parent);
 
         //Check Transitions
-        Set<Transition> transitions = d.getTransitions();
+        Set<Transition> transitions = d.getAllTransitions();
         assert transitions.isEmpty();
     }
 
@@ -149,14 +149,14 @@ public class StateDiagramLinkerTest {
     @Test
     public void testSequential() throws Exception {
         // Get output
-        StateDiagram d = runTestPipeline("C2KA-BaseRepresentations/Sequential.uml");
+        SuperState d = runTestPipeline("C2KA-BaseRepresentations/Sequential.uml");
         // Check name
-        assert d.getName().equals("Sequential Composition");
+        assert d.name().equals("Sequential Composition");
 
 
 
         // Setup state Checks
-        Set<State> roots = d.getRoots();
+        Set<State> roots = d.children();
         Set<State> children = new HashSet<>();
         State initial = new AtomicState("", "", "");
         State a = new AtomicState("a", "state", "<behavior-expression>");
@@ -166,7 +166,7 @@ public class StateDiagramLinkerTest {
         children.add(initial);
 
         // Setup transitions checks
-        Set<Transition> transitions = d.getTransitions();
+        Set<Transition> transitions = d.getAllTransitions();
         Set<Transition> innerTransitions = new HashSet<>();
         Transition transition1 = new Transition(a, b, "stimulus (a out, b in)");
         innerTransitions.add(transition1);
@@ -191,12 +191,12 @@ public class StateDiagramLinkerTest {
     @Test
     public void testParallel() throws Exception {
         // Get output
-        StateDiagram d = runTestPipeline("C2KA-BaseRepresentations/Parallel.uml");
+        SuperState d = runTestPipeline("C2KA-BaseRepresentations/Parallel.uml");
         // Check name
-        assert d.getName().equals("Parallel Composition");
+        assert d.name().equals("Parallel Composition");
 
         // Setup state Checks
-        Set<State> roots = d.getRoots();
+        Set<State> roots = d.children();
         Set<State> children = new HashSet<>();
         State a = new AtomicState("b", "state", "<behavior-expression>");
         State b = new AtomicState("a", "state", "<behavior-expression>");
@@ -208,7 +208,7 @@ public class StateDiagramLinkerTest {
         assert roots.contains(parent);
 
         // Run transition checks
-        Set<Transition> transitions = d.getTransitions();
+        Set<Transition> transitions = d.getAllTransitions();
         assert transitions.isEmpty();
     }
 
@@ -219,12 +219,12 @@ public class StateDiagramLinkerTest {
     @Test
     public void testNextMapping() throws Exception {
         // Get output
-        StateDiagram d = runTestPipeline("C2KA-BaseRepresentations/NextMappings.uml");
+        SuperState d = runTestPipeline("C2KA-BaseRepresentations/NextMappings.uml");
         // Check name
-        assert d.getName().equals("Next Mapping");
+        assert d.name().equals("Next Mapping");
 
         // Setup state Checks
-        Set<State> states = d.getRoots();
+        Set<State> states = d.children();
         State state1 = new AtomicState("Current", "state", "<behavior-expression>");
         State state2 = new AtomicState("NextBehavior", "state", "<behavior-expression>");
         // Run state Checks
@@ -233,7 +233,7 @@ public class StateDiagramLinkerTest {
         assert states.contains(state2);
 
         // Setup transition checks
-        Set<Transition> transitions = d.getTransitions();
+        Set<Transition> transitions = d.getAllTransitions();
         Transition transition1 = new Transition(state1, state2, "inStim / nextStim");
         // Run transition checks
         assert transitions.size() == 1;

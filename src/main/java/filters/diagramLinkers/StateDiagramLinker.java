@@ -15,7 +15,7 @@ import java.util.*;
  * Every state diagram is an individual StateDiagram object,
  * All the internal components (states, transitions) also need to be registered to its parent diagram by the linker.
  */
-public class StateDiagramLinker extends Filter<ModelElement, StateDiagram> {
+public class StateDiagramLinker extends Filter<ModelElement, SuperState> {
     public StateDiagramLinker(ModelElement stateDiagramElem) {
         super(stateDiagramElem);
     }
@@ -136,12 +136,7 @@ public class StateDiagramLinker extends Filter<ModelElement, StateDiagram> {
 
     @Override
     public void run() {
-        // For each diagram, add it and register its owned elements to itself
-        output = new StateDiagram(input.getName());
-        // Fake container -> its children are the true roots of the diagram
-        SuperState topLevelContainer = (SuperState) buildStateRecursive(input);
-
-        output.registerRootStates(topLevelContainer.children());
-        output.registerRootTransitions(topLevelContainer.innerTransitions());
+        // Given a diagram model element, treat it as the root superstate and recursively fill it
+        output = (SuperState) buildStateRecursive(input);
     }
 }
