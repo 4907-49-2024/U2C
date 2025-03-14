@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import pipes.UMLModel;
 import pipes.XMIParserConfig;
 import pipes.c2ka.primitives.AtomicBehavior;
-import pipes.diagrams.state.StateDiagram;
+import pipes.diagrams.state.SuperState;
 
 import java.util.List;
 import java.util.Set;
@@ -35,7 +35,7 @@ public class StateConcreteBehaviorInterpreterTest {
         List<ModelElement> stateDiagramsElems = model.getStateDiagrams();
         ModelElement stateDiagramElem = stateDiagramsElems.getFirst(); // Assume single state diagram for test case.
         StateDiagramLinker linker = new StateDiagramLinker(stateDiagramElem);
-        StateDiagram stateDiagram = linker.getOutput();
+        SuperState stateDiagram = linker.getOutput();
         // Filter 3 - FUT
         StateConcreteBehaviorInterpreter interpreter = new StateConcreteBehaviorInterpreter(stateDiagram);
         return interpreter.getOutput();

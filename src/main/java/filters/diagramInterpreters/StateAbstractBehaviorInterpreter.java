@@ -11,8 +11,8 @@ import java.util.Set;
  * The StateAbstractBehaviorInterpreter takes in a StateDiagram, and returns a representation of its AbstractBehaviors.
  * The output's toString returns the AbstractBehavior of the entire agent.
  */
-public class StateAbstractBehaviorInterpreter extends Filter<StateDiagram, CompositeBehavior> {
-    public StateAbstractBehaviorInterpreter(StateDiagram diagram) {
+public class StateAbstractBehaviorInterpreter extends Filter<SuperState, CompositeBehavior> {
+    public StateAbstractBehaviorInterpreter(SuperState diagram) {
         super(diagram);
     }
 
@@ -85,7 +85,7 @@ public class StateAbstractBehaviorInterpreter extends Filter<StateDiagram, Compo
     @Override
     public void run() {
         // Get all root states
-        Set<State> roots = input.getRoots();
+        Set<State> roots = input.children();
         // Check for top level composite
         if (roots.size() == 1) {
             State root = roots.iterator().next();
@@ -98,7 +98,7 @@ public class StateAbstractBehaviorInterpreter extends Filter<StateDiagram, Compo
             output = new ChoiceBehavior();
         }
         // Add all roots to top behavior, they build their inner behaviors before being added.
-        for (State root : input.getRoots()) {
+        for (State root : input.children()) {
             output.addBehavior(createBehaviorRecursive(root));
         }
     }
