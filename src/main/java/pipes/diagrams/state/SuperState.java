@@ -21,4 +21,37 @@ public record SuperState(String name, Set<State> children, Set<Transition> inner
     public String getKey() {
         return name;
     }
+
+    /**
+     * Get all transitions in this state, recursively.
+     * Base Case: AtomicState - return empty set
+     * Recursive Case: SuperState - Add internal transitions
+     *
+     * @param state the state to search for transitions in recursively
+     * @return Set of transitions in this state and all its substates
+     */
+    private static Set<Transition> getTransitionsRecursive(State state){
+        // Base case - AtomicState, no transitions
+        if (state instanceof AtomicState) return new HashSet<>();
+
+        // Recursive case - Return super state transitions and substate transitions
+        SuperState superState = (SuperState) state;
+
+        Set<Transition> recursiveTransitions = new HashSet<>(superState.innerTransitions);
+        for(State child : superState.children()){
+            recursiveTransitions.addAll(getTransitionsRecursive(child));
+        }
+
+        return recursiveTransitions;
+    }
+
+    /**
+     * Get all transitions in this state, including nested ones.
+     *
+     * @return All transitions contained in this state, including nested transitions.
+     */
+    public Set<Transition> getAllTransitions(){
+        return getTransitionsRecursive(this);
+    }
+
 }
