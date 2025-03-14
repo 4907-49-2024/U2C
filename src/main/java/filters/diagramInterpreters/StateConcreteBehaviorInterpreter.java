@@ -46,10 +46,6 @@ public class StateConcreteBehaviorInterpreter extends Filter<SuperState, Set<Ato
     public void run() {
         // Collect all atomic behaviors.
         output = new HashSet<>();
-
-        Set<State> roots = input.children();
-        for (State root : roots) {
-            registerAtomicBehaviorRecursive(root);
-        }
+        registerAtomicBehaviorRecursive(input);
     }
 }
