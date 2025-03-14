@@ -1,4 +1,4 @@
-package pipes.c2ka.primitives;
+package pipes.c2ka.behaviors;
 
 import java.util.HashSet;
 

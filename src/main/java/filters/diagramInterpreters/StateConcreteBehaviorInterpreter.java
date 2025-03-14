@@ -1,7 +1,7 @@
 package filters.diagramInterpreters;
 
 import filters.Filter;
-import pipes.c2ka.primitives.AtomicBehavior;
+import pipes.c2ka.behaviors.AtomicBehavior;
 import pipes.diagrams.state.AtomicState;
 import pipes.diagrams.state.State;
 import pipes.diagrams.state.SuperState;

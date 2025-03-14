@@ -1,7 +1,7 @@
 package filters.diagramInterpreters;
 
 import filters.Filter;
-import pipes.c2ka.primitives.*;
+import pipes.c2ka.behaviors.*;
 import pipes.diagrams.state.*;
 
 import java.util.Set;
@@ -84,6 +84,11 @@ public class StateAbstractBehaviorInterpreter extends Filter<SuperState, Composi
      */
     @Override
     public void run() {
+
+
+
+
+
         // Get all root states
         Set<State> roots = input.children();
         // Check for top level composite

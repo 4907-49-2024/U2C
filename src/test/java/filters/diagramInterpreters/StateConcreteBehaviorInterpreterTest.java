@@ -6,7 +6,7 @@ import filters.xmiParser.XMIParser;
 import org.junit.jupiter.api.Test;
 import pipes.UMLModel;
 import pipes.XMIParserConfig;
-import pipes.c2ka.primitives.AtomicBehavior;
+import pipes.c2ka.behaviors.AtomicBehavior;
 import pipes.diagrams.state.SuperState;
 
 import java.util.List;
