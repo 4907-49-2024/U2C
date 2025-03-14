@@ -14,4 +14,18 @@ public record NextStimulusMap(Behavior initialBehavior, String inputStim, String
     public String toString() {
         return "("+initialBehavior+","+inputStim+") = "+nextStimulus;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        // Same instance
+        if (this == o) return true;
+        // Null check, class match
+        if (o == null || getClass() != o.getClass()) return false;
+        return toString().equals(o.toString()); // Equivalent toString means functionally equivalent records.
+    }
+
+    @Override
+    public int hashCode() {
+        return toString().hashCode(); // Based on equals mechanism
+    }
 }
