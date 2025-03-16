@@ -1,10 +1,7 @@
 package sinks;
 
 import com.sdmetrics.model.ModelElement;
-import filters.diagramInterpreters.StateAbstractBehaviorInterpreter;
-import filters.diagramInterpreters.StateConcreteBehaviorInterpreter;
-import filters.diagramInterpreters.StateNextBehaviorInterpreter;
-import filters.diagramInterpreters.StateNextStimInterpreter;
+import filters.diagramInterpreters.*;
 import filters.diagramLinkers.StateDiagramLinker;
 import filters.xmiParser.XMIParser;
 import org.junit.jupiter.api.Test;
@@ -12,9 +9,20 @@ import pipes.UMLModel;
 import pipes.XMIParserConfig;
 import pipes.diagrams.state.SuperState;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class C2KASpecificationsTest {
+
+    private static final String INPUT_DIR = "C2KA-CompleteExample/ManufacturingCell/";
+    private static final String EXPECTED_OUTPUT_DIR = "Output/C2KA-CompleteExample/ManufacturingCell/Output/Expected/";
+    private static final String ACTUAL_OUTPUT_DIR = "Output/C2KA-CompleteExample/ManufacturingCell/Output/Actual/";
+
     /**
      * Define test pipeline
      *
@@ -45,6 +53,54 @@ public class C2KASpecificationsTest {
                 nextB.getOutput(), nextS.getOutput(), concreteB.getOutput());
     }
 
+    private void specificationDiff(String umlFileName, String expectedFileName) throws Exception {
+        String inputFilePath = INPUT_DIR + umlFileName;
+        String expectedFilePath = EXPECTED_OUTPUT_DIR + expectedFileName;
+        String actualFilePath = ACTUAL_OUTPUT_DIR + expectedFileName;
+
+        // Run pipeline
+        C2KASpecifications specs = runTestPipeline(inputFilePath);
+
+        // Output to actual file
+        Path actualPath = Paths.get(actualFilePath);
+        Files.createDirectories(actualPath.getParent());
+        Files.writeString(actualPath, specs.toString());
+
+        // Load expected file content
+        Path expectedPath = Paths.get(expectedFilePath);
+        String expectedContent = Files.readString(expectedPath);
+
+        // Compare files
+        assertEquals(expectedContent.trim(), specs.toString().trim(),
+                "Differences found between expected and actual outputs for " + umlFileName);
+    }
+
+    //Tests for ManufacturingCell Example
+    // System Test for Control Agent
+    @Test
+    void testControlAgent() throws Exception {
+        specificationDiff("Control Agent.uml", "C.txt");
+    }
+
+    // System Test for Handling Agent
+    @Test
+    void testHandlingAgent() throws Exception {
+        specificationDiff("Handling Agent.uml", "H.txt");
+    }
+
+    // System Test for Processing Agent
+    @Test
+    void testProcessingAgent() throws Exception {
+        specificationDiff("Processing Agent.uml", "P.txt");
+    }
+
+    // System Test for Storage Agent
+    @Test
+    void testStorageAgent() throws Exception {
+        specificationDiff("Storage Agent.uml", "S.txt");
+    }
+
+    // Tests for C2KA-BaseRepresentations
     @Test
     void testAtomic() throws Exception {
         // Get output
@@ -76,8 +132,5 @@ public class C2KASpecificationsTest {
 
         assert specs.toString().equals(expectedFormat);
     }
-
-    // TODO: implement system tests here.
-    //  Maybe the other C2KA_BaseRepresentations?
-    //  Mostly interested in the real sample outputs
+    //TODO: tests for other C2KA-BaseRepresentations
 }
