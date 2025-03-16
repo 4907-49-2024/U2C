@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_y3b-4AA3EfCvSrFeLTR7qQ" name="Processing Agent">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_y3548AA3EfCvSrFeLTR7qQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_y3lI0AA3EfCvSrFeLTR7qQ" name="Processing Agent">
+    <region xmi:type="uml:Region" xmi:id="_y3lv4AA3EfCvSrFeLTR7qQ" name="Region1">
+      <transition xmi:type="uml:Transition" xmi:id="_yRC-MABAEfCvSrFeLTR7qQ" name="setup / ready" source="_3BrKsAA3EfCvSrFeLTR7qQ" target="_5XhAsAA3EfCvSrFeLTR7qQ"/>
+      <transition xmi:type="uml:Transition" xmi:id="_9zMLsABAEfCvSrFeLTR7qQ" name="process  / processed" source="_5XhAsAA3EfCvSrFeLTR7qQ" target="_8V-88AA3EfCvSrFeLTR7qQ"/>
+      <subvertex xmi:type="uml:State" xmi:id="_3BrKsAA3EfCvSrFeLTR7qQ" name="STBY">
+        <doActivity xmi:type="uml:Activity" xmi:id="_FCpyIAA4EfCvSrFeLTR7qQ" name="skip"/>
+      </subvertex>
+      <subvertex xmi:type="uml:State" xmi:id="_5XhAsAA3EfCvSrFeLTR7qQ" name="SET">
+        <doActivity xmi:type="uml:Activity" xmi:id="_Z1vmkAA4EfCvSrFeLTR7qQ" name="if (material = 1 AND state = 2 AND status = 0) -> ready:= 1 | NOT (material = 1 AND state = 2 AND status = 0) -> := 0 fi"/>
+      </subvertex>
+      <subvertex xmi:type="uml:State" xmi:id="_8V-88AA3EfCvSrFeLTR7qQ" name="WORK">
+        <doActivity xmi:type="uml:Activity" xmi:id="_wBOxUAA4EfCvSrFeLTR7qQ" name="if (ready = 1) -> part := PROCESS() | NOT (ready = 1) -> part := null fi"/>
+      </subvertex>
+    </region>
+  </packagedElement>
+</uml:Model>
