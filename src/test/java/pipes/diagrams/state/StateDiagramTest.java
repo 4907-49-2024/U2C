@@ -5,48 +5,106 @@ import org.junit.jupiter.api.Test;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test class for the State implementations (AtomicState, SuperState, Transition).
+ */
 public class StateDiagramTest {
-    // TODO: Update unittest
 
-//    @Test
-//    public void registerElementTest() {
-//        StateDiagram diagram = new StateDiagram("name");
-//        Set<State> states = new HashSet<>();
-//        Set<Transition> transitions = new HashSet<>();
-//
-//        // Test state registering
-//        State initialState1 = new State("", "", "");
-//        State normalState = new State("stateName", "N/A", "processing");
-//
-//        diagram.registerElement(initialState1);
-//        diagram.registerElement(normalState);
-//        states.add(initialState1);
-//        states.add(normalState);
-//
-//        assert states.equals(diagram.getStates());
-//
-//        // Test transition registering
-//        Transition t1 = new Transition(initialState1, normalState, "");
-//        // No explicit prohibition of multiple transitions from initial state - although there should be, probably
-//        Transition t1_2 = new Transition(null, null, "");
-//        Transition t2 = new Transition(null, null, "in/out");
-//        Transition t3 = new Transition(null, null, "in2[guard]/out2");
-//
-//        diagram.registerElement(t1);
-//        diagram.registerElement(t1_2);
-//        diagram.registerElement(t2);
-//        diagram.registerElement(t3);
-//        transitions.add(t1);
-//        transitions.add(t1_2);
-//        transitions.add(t2);
-//        transitions.add(t3);
-//
-//        assert transitions.equals(diagram.getTransitions());
-//
-//        // Also check for illegal initial state add
-//        State initialState2 = new State("", "", null, null);
-//        assertThrows(IllegalStateException.class, () -> diagram.registerElement(initialState2));
-//    }
+    @Test
+    public void testAtomicStateCreation() {
+        AtomicState atomicState = new AtomicState("Idle", "state", "waiting");
+        assertEquals("Idle", atomicState.name());
+        assertEquals("state", atomicState.kind());
+        assertEquals("waiting", atomicState.doActivity());
+        assertEquals("Idle", atomicState.getKey());
+    }
+
+    @Test
+    public void testSuperStateCreation() {
+        Set<State> children = new HashSet<>();
+        AtomicState child1 = new AtomicState("Start", "state", "init");
+        AtomicState child2 = new AtomicState("End", "state", "terminate");
+        children.add(child1);
+        children.add(child2);
+
+        SuperState superState = new SuperState("ProcessFlow", children, new HashSet<>(), 1);
+
+        assertEquals("ProcessFlow", superState.getKey());
+        assertEquals(2, superState.children().size());
+        assertTrue(superState.children().contains(child1));
+        assertTrue(superState.children().contains(child2));
+        assertEquals(0, superState.innerTransitions().size());
+        assertEquals(1, superState.numRegions());
+    }
+
+    @Test
+    public void testTransitionParsingNormal() {
+        Transition transition = new Transition(null, null, "inputEvent/outputEvent");
+        assertEquals("inputEvent", transition.input());
+        assertEquals("outputEvent", transition.output());
+    }
+
+    @Test
+    public void testTransitionParsingInitialState() {
+        Transition initialTransition = new Transition(null, null, "");
+        assert initialTransition.input().isEmpty();
+        assert initialTransition.output().isEmpty();
+    }
+
+    @Test
+    public void testTransitionParsingWithGuard() {
+        Transition transition = new Transition(null, null, "inEvent[guardCondition]/outEvent");
+        assertEquals("inEvent[guardCondition]", transition.input());
+        assertEquals("outEvent", transition.output());
+    }
+
+    @Test
+    public void testIsSequentialTransition() {
+        Transition sequentialTransition = new Transition(null, null, "eventA/eventA"); // same input and output
+        Transition nonSequentialTransition = new Transition(null, null, "eventA/eventB"); // different input and output
+
+        assertTrue(Transition.isSequentialTransition(sequentialTransition));
+        assertFalse(Transition.isSequentialTransition(nonSequentialTransition));
+    }
+
+    @Test
+    public void testInitialTransition() {
+        Transition initialTransition = new Transition(null, null, "");
+        assertEquals("", initialTransition.input());
+        assertEquals("", initialTransition.output());
+    }
+
+    @Test
+    public void testAtomicState() {
+        String conditionalExpression = "[if (material = 1 AND state > 2 AND status < 0) -> ready:=0 | " +
+                "(material >= 1 AND state <= 2 || status = 0) -> ready:=1 | " +
+                "NOT ((material = 1 AND state > 2 AND status < 0) || (material >= 1 AND state <= 2 || status = 0)) -> ready:=2 fi]";
+
+        AtomicState conditionalState = new AtomicState("ConditionalState", "state", conditionalExpression);
+
+        assertEquals(conditionalExpression, conditionalState.doActivity());
+        assertEquals("ConditionalState", conditionalState.name());
+    }
+
+    @Test
+    public void testSuperStateWithTransitions() {
+        AtomicState state1 = new AtomicState("A", "state", "activityA");
+        AtomicState state2 = new AtomicState("B", "state", "activityB");
+        Transition t = new Transition(state1, state2, "eventX/eventY");
+
+        Set<State> children = new HashSet<>();
+        children.add(state1);
+        children.add(state2);
+
+        Set<Transition> transitions = new HashSet<>();
+        transitions.add(t);
+
+        SuperState superState = new SuperState("ParentState", children, transitions, 1);
+
+        assertEquals("ParentState", superState.getKey());
+        assertTrue(superState.children().contains(state1));
+        assertTrue(superState.innerTransitions().contains(t));
+    }
 }
