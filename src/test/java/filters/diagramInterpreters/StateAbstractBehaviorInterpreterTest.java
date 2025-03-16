@@ -6,11 +6,14 @@ import filters.xmiParser.XMIParser;
 import pipes.XMIParserConfig;
 import org.junit.jupiter.api.Test;
 import pipes.UMLModel;
-import pipes.c2ka.behaviors.Behavior;
-import pipes.c2ka.behaviors.CompositeBehavior;
+import pipes.c2ka.behaviors.*;
 import pipes.diagrams.state.SuperState;
 
 import java.util.List;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Test the StateAbstractBehaviorInterpreterTest filter
@@ -49,6 +52,46 @@ public class StateAbstractBehaviorInterpreterTest {
         assert behavior.toString().equals("( <name> )");
     }
 
-    // TODO: implement rest of tests... look at the behavior tests for reference on how to handle indeterministic output!
-    //      There are tricks you need to do because after two behaviors in a choice the order is randomized.
+//    @Test
+//    void testAtomicAssignment() throws Exception {
+//        Behavior behavior = runTestPipeline("C2KA-BaseRepresentations/Atomic-Assignment.uml");
+//        //assertTrue(behavior instanceof AtomicBehavior);
+//        assertTrue(behavior.toString().equals("ready:=1"));
+//    }
+//
+//    @Test
+//    void testAtomicConditional() throws Exception {
+//        Behavior behavior = runTestPipeline("C2KA-BaseRepresentations/Atomic-Conditional.uml");
+//        //assertTrue(behavior instanceof AtomicBehavior);
+//        String expected = "[if (material = 1 && state > 2 && status < 0) -> ready:=0 | (material >= 1 && state <= 2 || status = 0) -> ready:=1; do (material = 1 && state = 3) -> ready:= 3 od | ~ ((material = 1 && state > 2 && status < 0) || (material >= 1 && state <= 2 || status = 0)) -> ready:=0 fi]";
+//        assert (behavior.toString().equals(expected));
+//    }
+//
+//    @Test
+//    void testChoice() throws Exception {
+//        Behavior behavior = runTestPipeline("C2KA-BaseRepresentations/Choice.uml");
+//        //assertTrue(behavior instanceof ChoiceBehavior);
+//        assertTrue(behavior.toString().equals("a+b"));
+//    }
+//
+//    @Test
+//    void testSequential() throws Exception {
+//        Behavior behavior = runTestPipeline("C2KA-BaseRepresentations/Sequential.uml");
+//        //assertTrue(behavior instanceof SequentialBehavior);
+//        assertTrue(behavior.toString().equals("a|b"));
+//    }
+//
+//    @Test
+//    void testParallel() throws Exception {
+//        Behavior behavior = runTestPipeline("C2KA-BaseRepresentations/Parallel.uml");
+//        //assertTrue(behavior instanceof ParallelBehavior);
+//        assertTrue(behavior.toString().equals("a||b"));
+//    }
+//
+//    @Test
+//    void testNextMappings() throws Exception {
+//        Behavior behavior = runTestPipeline("C2KA-BaseRepresentations/NextMappings.uml");
+//        //assertTrue(behavior instanceof CompositeBehavior);
+//        assertTrue(behavior.toString().equals("Next Mapping"));
+//    }
 }
