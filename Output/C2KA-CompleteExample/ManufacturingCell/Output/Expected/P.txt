@@ -1,0 +1,123 @@
+begin AGENT where
+
+	P := STBY + SET + WORK
+
+end
+
+
+begin NEXT_BEHAVIOUR where
+
+	(start,STBY)      = STBY
+	(start,SET)       = SET
+	(start,WORK)      = WORK
+	
+	(load,STBY)       = STBY
+	(load,SET)        = SET
+	(load,WORK)       = WORK
+	
+	(loaded,STBY)     = STBY
+	(loaded,SET)      = SET
+	(loaded,WORK)     = WORK
+	
+	(prepare,STBY)       = STBY
+	(prepare,SET)        = SET
+	(prepare,WORK)       = WORK
+	
+	(done,STBY)      = STBY
+	(done,SET)       = SET
+	(done,WORK)      = STBY
+	
+	(setup,STBY)      = SET
+	(setup,SET)       = SET
+	(setup,WORK)      = WORK
+	
+	(unload,STBY)     = STBY
+	(unload,SET)      = SET
+	(unload,WORK)     = WORK
+	
+	(unloaded,STBY)   = STBY
+	(unloaded,SET)    = SET
+	(unloaded,WORK)   = WORK
+
+	(ready,STBY)      = STBY
+	(ready,SET)       = SET
+	(ready,WORK)      = WORK
+	
+	(process,STBY)    = STBY
+	(process,SET)     = WORK
+	(process,WORK)    = WORK
+
+	(processed,STBY)  = STBY
+	(processed,SET)   = SET
+	(processed,WORK)  = WORK
+	
+	(end,STBY)      = STBY
+	(end,SET)       = SET
+	(end,WORK)      = WORK
+
+end
+
+
+begin NEXT_STIMULUS where
+
+	(start,STBY)     = N
+	(start,SET)      = N
+	(start,WORK)     = N
+	
+	(load,STBY)      = N
+	(load,SET)       = N
+	(load,WORK)      = N
+	
+	(loaded,STBY)    = N
+	(loaded,SET)     = N
+	(loaded,WORK)    = N
+	
+	(prepare,STBY)      = N
+	(prepare,SET)       = N
+	(prepare,WORK)      = N
+	
+	(done,STBY)     = N
+	(done,SET)      = N
+	(done,WORK)     = N
+	
+	(setup,STBY)     = ready
+	(setup,SET)      = N
+	(setup,WORK)     = N
+	
+	(unload,STBY)    = N
+	(unload,SET)     = N
+	(unload,WORK)    = N
+	
+	(unloaded,STBY)  = N
+	(unloaded,SET)   = N
+	(unloaded,WORK)  = N
+	
+	(ready,STBY)     = N
+	(ready,SET)      = N
+	(ready,WORK)     = N	
+	
+	(process,STBY)   = N
+	(process,SET)    = processed
+	(process,WORK)   = N
+
+	(processed,STBY) = N
+	(processed,SET)  = N
+	(processed,WORK) = N
+	
+	(end,STBY)     = N
+	(end,SET)      = N
+	(end,WORK)     = N
+	
+end
+
+
+begin CONCRETE_BEHAVIOUR where
+
+	STBY => [ skip ]
+	SET  => [ if  (material = 1 && state = 3 && status = 0)  -> ready := 1
+     		   | ~(material = 1 && state = 3 && status = 0)  -> ready := 0
+		      fi ]	
+	WORK => [ if  (ready = 1)  -> part := PROCESS
+     		   | ~(ready = 1)  -> part := NULL
+		      fi ]	
+end

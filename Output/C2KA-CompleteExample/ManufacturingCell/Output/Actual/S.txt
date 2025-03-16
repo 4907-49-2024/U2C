@@ -1,0 +1,29 @@
+begin AGENT where
+
+	Storage Agent :=  FULL + EMPTY 
+
+end
+
+
+begin NEXT_BEHAVIOR  where
+
+	(FULL,unload) = EMPTY
+(EMPTY,load) = FULL
+
+end
+
+
+begin NEXT_STIMULUS  where
+
+	(FULL,unload) = unloaded
+(EMPTY,load) = loaded
+
+end
+
+
+begin CONCRETE_BEHAVIOR  where
+
+	EMPTY => [ status := 0 ]
+FULL => [ status := 1 ]
+
+end

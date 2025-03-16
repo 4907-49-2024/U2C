@@ -1,0 +1,29 @@
+begin AGENT where
+
+	Handling Agent :=  MOVE + WAIT 
+
+end
+
+
+begin NEXT_BEHAVIOR  where
+
+	(MOVE,ready) = WAIT
+(WAIT,prepare) = MOVE
+
+end
+
+
+begin NEXT_STIMULUS  where
+
+	(MOVE,ready) = process
+(WAIT,prepare) = unload
+
+end
+
+
+begin CONCRETE_BEHAVIOR  where
+
+	WAIT => [ skip ]
+MOVE => [  if (status) = 11 -> material := 1 | (status) = 0)-> material := 0 fi ]
+
+end

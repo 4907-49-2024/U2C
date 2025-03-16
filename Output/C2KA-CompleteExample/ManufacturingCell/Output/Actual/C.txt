@@ -1,0 +1,38 @@
+begin AGENT where
+
+	Control Agent :=  PREP + IDLE + LOAD + PROC + INIT 
+
+end
+
+
+begin NEXT_BEHAVIOR  where
+
+	(PREP,unloaded) = INIT
+(IDLE,start) = LOAD
+(LOAD,loaded) = PREP
+(PROC,processed) = IDLE
+(INIT,process) = PROC
+
+end
+
+
+begin NEXT_STIMULUS  where
+
+	(PREP,unloaded) = setup
+(IDLE,start) = load
+(PROC,processed) = end
+(LOAD,loaded) = prepare
+(INIT,process) = done
+
+end
+
+
+begin CONCRETE_BEHAVIOR  where
+
+	PREP => [ state := 2 ]
+PROC => [ state := 4 ]
+LOAD => [ state := 1 ]
+IDLE => [ state := 0 ]
+INIT => [ state := 3 ]
+
+end

@@ -1,0 +1,95 @@
+begin AGENT where
+
+	S := EMPTY + FULL
+
+end
+
+
+begin NEXT_BEHAVIOUR where
+
+	(start,EMPTY)  = EMPTY
+	(start,FULL) = FULL
+	
+	(load,EMPTY)  = FULL
+	(load,FULL) = FULL
+	
+	(loaded,EMPTY)  = EMPTY
+	(loaded,FULL) = FULL
+	
+	(prepare,EMPTY)  = EMPTY
+	(prepare,FULL) = FULL
+	
+	(done,EMPTY)  = EMPTY
+	(done,FULL) = FULL
+	
+	(setup,EMPTY)  = EMPTY
+	(setup,FULL) = FULL
+	
+	(unload,EMPTY)  = EMPTY
+	(unload,FULL) = EMPTY
+	
+	(unloaded,EMPTY)  = EMPTY
+	(unloaded,FULL) = FULL
+	
+	(ready,EMPTY)  = EMPTY
+	(ready,FULL) = FULL
+	
+	(process,EMPTY)  = EMPTY
+	(process,FULL) = FULL
+
+	(processed,EMPTY)  = EMPTY
+	(processed,FULL) = FULL
+
+	(end,EMPTY)  = EMPTY
+	(end,FULL) = FULL
+	
+end
+
+
+begin NEXT_STIMULUS where
+
+	(start,EMPTY)  = N
+	(start,FULL) = N
+	
+	(load,EMPTY)  = loaded
+	(load,FULL) = N
+	
+	(loaded,EMPTY)  = N
+	(loaded,FULL) = N
+	
+	(prepare,EMPTY)  = N
+	(prepare,FULL) = N
+	
+	(done,EMPTY)  = N
+	(done,FULL) = N
+	
+	(setup,EMPTY)  = N
+	(setup,FULL) = N
+	
+	(unload,EMPTY)  = N
+	(unload,FULL) = unloaded
+	
+	(unloaded,EMPTY)  = N
+	(unloaded,FULL) = N
+	
+	(ready,EMPTY)  = N
+	(ready,FULL) = N
+	
+	(process,EMPTY)  = N
+	(process,FULL) = N
+
+	(processed,EMPTY)  = N
+	(processed,FULL) = N
+	
+	(end,EMPTY)  = N
+	(end,FULL) = N
+	
+end
+
+
+begin CONCRETE_BEHAVIOUR where
+
+	EMPTY => [ status := 1 ]
+    FULL  => [ status := 0 ]
+
+end
