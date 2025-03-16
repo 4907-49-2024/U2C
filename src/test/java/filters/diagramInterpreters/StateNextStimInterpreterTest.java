@@ -63,7 +63,7 @@ public class StateNextStimInterpreterTest {
         // Get output
         Set<NextStimulusMap> mappings = runTestPipeline("C2KA-BaseRepresentations/NextMappings.uml");
         Set<NextStimulusMap> expected = new HashSet<>();
-        expected.add(new NextStimulusMap(new AtomicBehavior("Current", "<behavior-expression>"), "inStim", "nextStim"));
+        expected.add(new NextStimulusMap("inStim", new AtomicBehavior("Current", "<behavior-expression>"), "nextStim"));
         assert expected.equals(mappings);
     }
 

@@ -62,7 +62,7 @@ public class StateNextBehaviorInterpreterTest {
 
         Behavior initial = new AtomicBehavior("Current", "<behavior-expression>");
         Behavior next = new AtomicBehavior("NextBehavior", "<behavior-expression>");
-        expected.add(new NextBehaviorMap(initial, "inStim", next));
+        expected.add(new NextBehaviorMap("inStim", initial,  next));
 
         assert expected.equals(mappings);
     }

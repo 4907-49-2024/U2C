@@ -24,7 +24,7 @@ public class StateNextBehaviorInterpreter extends Filter<SuperState, Set<NextBeh
         for(Transition t: input.getAllTransitions()){
             Behavior initial = StateBehaviorConverter.getStateBehavior(t.source());
             Behavior next = StateBehaviorConverter.getStateBehavior(t.target());
-            output.add(new NextBehaviorMap(initial, t.input(), next));
+            output.add(new NextBehaviorMap(t.input(), initial, next));
         }
     }
 }
