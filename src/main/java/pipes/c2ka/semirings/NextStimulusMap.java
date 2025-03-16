@@ -12,7 +12,7 @@ import pipes.c2ka.behaviors.Behavior;
 public record NextStimulusMap(Behavior initialBehavior, String inputStim, String nextStimulus) {
     @Override
     public String toString() {
-        return "("+initialBehavior+","+inputStim+") = "+nextStimulus;
+        return "("+inputStim+","+initialBehavior+") = "+nextStimulus;
     }
 
     @Override

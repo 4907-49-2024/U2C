@@ -1,22 +1,22 @@
 begin AGENT where
 
-	Processing Agent :=  SET + STBY + WORK 
+	Processing Agent :=  SET + WORK + STBY 
 
 end
 
 
 begin NEXT_BEHAVIOR  where
 
-	(SET,process) = WORK
-(STBY,setup) = SET
+	(setup,STBY) = SET
+(process,SET) = WORK
 
 end
 
 
 begin NEXT_STIMULUS  where
 
-	(SET,process) = processed
-(STBY,setup) = ready
+	(process,SET) = processed
+(setup,STBY) = ready
 
 end
 

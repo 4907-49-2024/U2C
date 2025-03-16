@@ -7,16 +7,16 @@ end
 
 begin NEXT_BEHAVIOR  where
 
-	(FULL,unload) = EMPTY
-(EMPTY,load) = FULL
+	(load,EMPTY) = FULL
+(unload,FULL) = EMPTY
 
 end
 
 
 begin NEXT_STIMULUS  where
 
-	(FULL,unload) = unloaded
-(EMPTY,load) = loaded
+	(unload,FULL) = unloaded
+(load,EMPTY) = loaded
 
 end
 
