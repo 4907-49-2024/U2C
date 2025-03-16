@@ -67,7 +67,7 @@ public record C2KASpecifications(String agentName,
         // Note: Order is completely random, and no whitespace to separate sections. Hopefully not a problem?
         for(AtomicBehavior specElement: concreteBehaviorSpec){
             sb.append(specElement.getConcreteBehavior());
-            sb.append("\n");
+            sb.append("\n\t");
         }
 
         sb.append("\n");

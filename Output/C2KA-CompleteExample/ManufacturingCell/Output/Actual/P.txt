@@ -1,6 +1,6 @@
 begin AGENT where
 
-	Processing Agent :=  STBY + WORK + SET 
+	Processing Agent :=  SET + STBY + WORK 
 
 end
 
@@ -24,7 +24,7 @@ end
 begin CONCRETE_BEHAVIOR  where
 
 	SET => [ if (material = 1 AND state = 2 AND status = 0) -> ready:= 1 | NOT (material = 1 AND state = 2 AND status = 0) -> := 0 fi ]
-STBY => [ skip ]
-WORK => [ if (ready = 1) -> part := PROCESS() | NOT (ready = 1) -> part := null fi ]
-
+	WORK => [ if (ready = 1) -> part := PROCESS() | NOT (ready = 1) -> part := null fi ]
+	STBY => [ skip ]
+	
 end

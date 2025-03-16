@@ -1,6 +1,6 @@
 begin AGENT where
 
-	Storage Agent :=  FULL + EMPTY 
+	Storage Agent :=  EMPTY + FULL 
 
 end
 
@@ -24,6 +24,6 @@ end
 begin CONCRETE_BEHAVIOR  where
 
 	EMPTY => [ status := 0 ]
-FULL => [ status := 1 ]
-
+	FULL => [ status := 1 ]
+	
 end

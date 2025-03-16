@@ -1,6 +1,6 @@
 begin AGENT where
 
-	Control Agent :=  PREP + IDLE + LOAD + PROC + INIT 
+	Control Agent :=  LOAD + IDLE + INIT + PROC + PREP 
 
 end
 
@@ -29,10 +29,10 @@ end
 
 begin CONCRETE_BEHAVIOR  where
 
+	IDLE => [ state := 0 ]
+	INIT => [ state := 3 ]
 	PREP => [ state := 2 ]
-PROC => [ state := 4 ]
-LOAD => [ state := 1 ]
-IDLE => [ state := 0 ]
-INIT => [ state := 3 ]
-
+	PROC => [ state := 4 ]
+	LOAD => [ state := 1 ]
+	
 end

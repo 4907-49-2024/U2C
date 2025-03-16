@@ -126,7 +126,7 @@ public class C2KASpecificationsTest {
                 "\n" +
                 "begin CONCRETE_BEHAVIOR  where\n" +
                 "\n" +
-                "\t<name> => [ <behavior-expression> ]\n" +
+                "\t<name> => [ <behavior-expression> ]\n\t" +
                 "\n" +
                 "end";
 
