@@ -14,7 +14,9 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Main executable flow of the program.
@@ -54,7 +56,7 @@ public class Main {
      * @param inputDiagramXMI Reference to input diagram file
      * @throws Exception In case of thread or input exceptions
      */
-    private static void runSpecificationsPipeline(String inputDiagramXMI) throws Exception {
+    private static C2KASpecifications runSpecificationsPipeline(String inputDiagramXMI) throws Exception {
         // Setup Input
         String metaModel = "custom/stateMetaModel.xml";
         String xmiTrans = "custom/xmiStateTrans.xml";
@@ -73,15 +75,20 @@ public class Main {
         StateNextStimInterpreter nextS = new StateNextStimInterpreter(stateDiagram);
         StateConcreteBehaviorInterpreter concreteB = new StateConcreteBehaviorInterpreter(stateDiagram);
         // Sink - Build then output to file!
-        C2KASpecifications specs = new C2KASpecifications(stateDiagram.name(), abstractB.getOutput(),
+        return new C2KASpecifications(stateDiagram.name(), abstractB.getOutput(),
                 nextB.getOutput(), nextS.getOutput(), concreteB.getOutput());
-        specs.outputToFile();
     }
 
     public static void main(String[] args) throws Exception {
-        // Produce one output per input file.
+        Set<C2KASpecifications> specifications = new HashSet<>();
+        // Produce one specification per input file.
         for (String input : getInputs()) {
-            runSpecificationsPipeline(input);
+            specifications.add(runSpecificationsPipeline(input));
+        }
+
+        // Output specifications (needs to be done once full system is analyzed)
+        for (C2KASpecifications spec : specifications) {
+            spec.outputToFile();
         }
     }
 }
