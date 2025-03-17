@@ -49,8 +49,8 @@ public abstract class NextMappingSpecification<mapType extends NextMapSemiring<?
 
         for (AtomicBehavior b : agentBehaviors) {
             for (Stimulus s : systemStimuli) {
-                if(keyNotInSpec(s, b)){
-                    // This should work
+                if(!keyInSpec(s, b)){
+                    // Casting should work
                     this.mappings.add((mapType) map.createNeutralMap(s, b));
                 }
             }
@@ -59,8 +59,8 @@ public abstract class NextMappingSpecification<mapType extends NextMapSemiring<?
     /**
      * @return True if the given key pair does not have a matching map in this specification yet
      */
-    private boolean keyNotInSpec(Stimulus s, AtomicBehavior b) {
-        return false; // FIXME: Implement this
+    private boolean keyInSpec(Stimulus s, AtomicBehavior b) {
+        return mappings.stream().anyMatch(m -> m.isKeyEqual(s, b)); // FIXME: Implement this
     }
 
 

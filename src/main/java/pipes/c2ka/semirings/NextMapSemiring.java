@@ -27,6 +27,15 @@ public abstract class NextMapSemiring<outT> implements Comparable<NextMapSemirin
         return initialBehavior;
     }
 
+    /**
+     * @param inputStim The inputstim to check
+     * @param initialBehavior The initial Behavior to check
+     * @return True IFF the given pair matches the mapping input
+     */
+    public boolean isKeyEqual(Stimulus inputStim, AtomicBehavior initialBehavior) {
+        return inputStim.equals(this.inputStim) && initialBehavior.equals(this.initialBehavior);
+    }
+
     @Override
     public String toString() {
         return "("+inputStim+","+initialBehavior+") = "+output;
