@@ -27,21 +27,6 @@ public record C2KASpecifications(String agentName,
     private static final String FILETYPE_SUFFIX = ".txt";
 
     /**
-     * Canonical constructor, extends next mappings with neutral outcomes when they are missing.
-     *
-     * @param agentName The name of the agent the specs are written for
-     * @param abstractBehaviorSpec The abstract behavior specification of the agent
-     * @param nextBehaviorSpec The next behavior specification of the agent
-     * @param nextStimulusSpec The next stimulus specification of the agent
-     * @param concreteBehaviorSpec The concrete behavior specification of the agent
-     */
-    public C2KASpecifications {
-        // Automatically sets fields. The rest is post-processing.
-        nextBehaviorSpec.fillSpecification();
-        nextStimulusSpec.fillSpecification();
-    }
-
-    /**
      * @return The filename for this C2KA specification
      */
     private String getFilename(){
@@ -114,6 +99,15 @@ public record C2KASpecifications(String agentName,
         return sb.toString();
     }
 
+    /**
+     *  Fills the mapping type specification with their missing neutral outcomes.
+     *  Precondition: System has been fully analyzed, no stimuli are missing.
+     *  (Should be called once before any format of output processing)
+     */
+    public void fillMappingSpecs(){
+        nextBehaviorSpec.fillSpecification();
+        nextStimulusSpec.fillSpecification();
+    }
 
     /**
      * @return The full specification string of this C2KASpecification sink
@@ -136,6 +130,7 @@ public record C2KASpecifications(String agentName,
     /**
      * Output formal specifications to an output file.
      * Will output it to Output/{agentName}.txt
+     * Precondition: "fillMappingSpecs" has been called before this, respecting its own preconditions
      */
     public void outputToFile() {
         try (PrintWriter out = new PrintWriter(getFilename())) {
