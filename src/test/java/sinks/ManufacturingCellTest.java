@@ -12,6 +12,7 @@ import pipes.UMLModel;
 import pipes.XMIParserConfig;
 import pipes.diagrams.state.SuperState;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.List;
 public class ManufacturingCellTest {
     private static final Path projectRoot = Paths.get(System.getProperty("user.dir"));
     private static final Path TEST_DIR = projectRoot.resolve("src/test/java/TestInputs/KnownC2KASystems/ManufacturingCell");
+    private static final Path OUTPUT_DIR = projectRoot.resolve("Output");
 
     /**
      * Define test pipeline
@@ -50,24 +52,70 @@ public class ManufacturingCellTest {
                 nextB.getOutput(), nextS.getOutput(), concreteB.getOutput());
     }
 
+    private void specificationDiff(String umlFileName, String expectedFileName) throws Exception {
+        // Run pipeline and output actual file
+        C2KASpecifications specifications = runTestPipeline(umlFileName);
+        specifications.outputToFile();
+
+        // Paths to actual and expected files
+        Path actualFilePath = OUTPUT_DIR.resolve(specifications.agentName() + ".txt");
+        Path expectedFilePath = TEST_DIR.resolve(expectedFileName);
+
+        // Read actual and expected file content
+        String actualContent = Files.readString(actualFilePath).replaceAll("\\r\\n", "\n").trim();
+        String expectedContent = Files.readString(expectedFilePath).replaceAll("\\r\\n", "\n").trim();
+
+        // Perform simple equality check
+        if (actualContent.equals(expectedContent)) {
+            System.out.println("✅ Test passed: " + umlFileName);
+            return;
+        }
+
+        // Detailed line-by-line diff for debugging
+        List<String> actualLines = List.of(actualContent.split("\n"));
+        List<String> expectedLines = List.of(expectedContent.split("\n"));
+
+        StringBuilder diffReport = new StringBuilder();
+        diffReport.append("❌ Differences found in file: ").append(umlFileName).append("\n\n");
+
+        int maxLines = Math.max(actualLines.size(), expectedLines.size());
+        for (int i = 0; i < maxLines; i++) {
+            String actualLine = i < actualLines.size() ? actualLines.get(i).trim() : "<missing>";
+            String expectedLine = i < expectedLines.size() ? expectedLines.get(i).trim() : "<missing>";
+
+            if (!actualLine.equals(expectedLine)) {
+                diffReport.append(String.format("Line %d:\n  Expected: %s\n  Actual:   %s\n\n",
+                        (i + 1), expectedLine, actualLine));
+            }
+        }
+
+        throw new AssertionError(diffReport.toString());
+    }
+
     @Test
     void testControlAgent() throws Exception {
-        C2KASpecifications specifications = runTestPipeline("Control Agent.uml");
-        specifications.outputToFile(); // TODO: Augment this test with a diff tool/mechanism
+        //C2KASpecifications specifications = runTestPipeline("Control Agent.uml");
+        //specifications.outputToFile(); // TODO: Augment this test with a diff tool/mechanism
+        specificationDiff("Control Agent.uml", "C.txt");
     }
+
     @Test
     void testHandlingAgent() throws Exception {
-        C2KASpecifications specifications = runTestPipeline("Handling Agent.uml");
-        specifications.outputToFile(); // TODO: Augment this test with a diff tool/mechanism
+        //C2KASpecifications specifications = runTestPipeline("Handling Agent.uml");
+        //specifications.outputToFile(); // TODO: Augment this test with a diff tool/mechanism
+        specificationDiff("Handling Agent.uml", "H.txt");
     }
     @Test
     void testProcessingAgent() throws Exception {
-        C2KASpecifications specifications = runTestPipeline("Processing Agent.uml");
-        specifications.outputToFile(); // TODO: Augment this test with a diff tool/mechanism
+        //C2KASpecifications specifications = runTestPipeline("Processing Agent.uml");
+        //specifications.outputToFile(); // TODO: Augment this test with a diff tool/mechanism
+        specificationDiff("Processing Agent.uml", "P.txt");
     }
+
     @Test
     void testStorageAgent() throws Exception {
-        C2KASpecifications specifications = runTestPipeline("Storage Agent.uml");
-        specifications.outputToFile(); // TODO: Augment this test with a diff tool/mechanism
+        //C2KASpecifications specifications = runTestPipeline("Storage Agent.uml");
+        //specifications.outputToFile(); // TODO: Augment this test with a diff tool/mechanism
+        specificationDiff("Storage Agent.uml", "S.txt");
     }
 }
