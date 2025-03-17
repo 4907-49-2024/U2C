@@ -9,20 +9,25 @@ import java.util.Set;
  * Keeps track of any stimulus created in the system, allowing to get a complete list of them after all agents processed.
  */
 public record Stimulus(String name) implements Comparable<Stimulus> {
-    public static final Stimulus NEUTRAL_STIMULUS = new Stimulus("N");
-    public static Set<Stimulus> systemStimuli = new HashSet<>();
+    public static final Stimulus NEUTRAL_STIMULUS = new Stimulus("N"); // Do not register this one!
+    private static final Set<Stimulus> systemStimuli = new HashSet<>();
 
-    public Stimulus(String name) {
-        this.name = name;
-        systemStimuli.add(this);
-        // Neutral stimulus should not be part of the system stimuli (keep implicit)
-        // Note: if we had a factory we could avoid checking this on every construction
-        if (name.equals(NEUTRAL_STIMULUS.name))
-            systemStimuli.remove(NEUTRAL_STIMULUS);
+    /**
+     * Create a new stimulus and return it after registering it to the set of system stimuli
+     * @param name Stimulus name
+     * @return New stimulus instance
+     */
+    public static Stimulus createStimulus(String name){
+        Stimulus newStim = new Stimulus(name);
+        systemStimuli.add(newStim);
+        return newStim;
     }
 
+    /**
+     * @return set of stimuli registered so far in the system
+     */
     public static Set<Stimulus> getSystemStimuli() {
-        return systemStimuli;
+        return Stimulus.systemStimuli;
     }
 
     /**
