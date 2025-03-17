@@ -2,6 +2,8 @@ package filters.diagramInterpreters;
 
 import filters.Filter;
 import filters.diagramInterpreters.utils.StateBehaviorConverter;
+import pipes.c2ka.Stimulus;
+import pipes.c2ka.behaviors.AtomicBehavior;
 import pipes.c2ka.behaviors.Behavior;
 import pipes.c2ka.semirings.NextBehaviorMap;
 import pipes.c2ka.semirings.NextStimulusMap;
@@ -25,8 +27,9 @@ public class StateNextStimInterpreter extends Filter<SuperState, NextStimulusSpe
     public void run() {
         Set<NextStimulusMap> mappings = new HashSet<>();
         for(Transition t: input.getAllTransitions()){
-            Behavior initial = StateBehaviorConverter.getStateBehavior(t.source());
-            mappings.add(new NextStimulusMap(t.input(), initial, t.output()));
+            // FIXME: (#101) Implement logic to map composite destinations to AtomicBehaviors
+            AtomicBehavior initial = (AtomicBehavior) StateBehaviorConverter.getStateBehavior(t.source());
+            mappings.add(new NextStimulusMap(new Stimulus(t.input()), initial, new Stimulus(t.output())));
         }
 
         output = new NextStimulusSpecification(mappings);
