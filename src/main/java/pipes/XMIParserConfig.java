@@ -15,9 +15,6 @@ public class XMIParserConfig {
     private static final Path projectRoot = Paths.get(System.getProperty("user.dir"));
     private static final Path DEFAULT_INPUT_DIR = projectRoot.resolve("Input");
     private static final Path resourcesDir = projectRoot.resolve("src/main/resources/sdmetrics/");
-    // Needed, default files
-    public static final String DEFAULT_META_MODEL_FILE = resourcesDir.resolve(META_MODEL_NAME).toString(); // UML 2.x metamodel
-    public static final String DEFAULT_XMI_TRANSFORMS_FILE = resourcesDir.resolve(XMI_TRANSFO_NAME).toString(); // XMI 2.x xmi transformations
 
     // Config fields
     private final String xmiInputFile;
@@ -36,12 +33,11 @@ public class XMIParserConfig {
         this.metaModelFile = resourcesDir.resolve(metaModelFile).toString();
     }
 
-    public XMIParserConfig(Path inputDir, String xmiFileName){
-        this(inputDir, xmiFileName, DEFAULT_XMI_TRANSFORMS_FILE, DEFAULT_META_MODEL_FILE);
-    }
-
-    public XMIParserConfig(String xmiFileName){
-        this(DEFAULT_INPUT_DIR, xmiFileName, DEFAULT_XMI_TRANSFORMS_FILE, DEFAULT_META_MODEL_FILE);
+    // Default input dir
+    public XMIParserConfig(String xmiInputFile, String xmiTransformsFile, String metaModelFile){
+        this.xmiInputFile = DEFAULT_INPUT_DIR.resolve(xmiInputFile).toString();
+        this.xmiTransformsFile = resourcesDir.resolve(xmiTransformsFile).toString();
+        this.metaModelFile = resourcesDir.resolve(metaModelFile).toString();
     }
 
     public String metaModel(){
