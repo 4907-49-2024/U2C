@@ -25,16 +25,18 @@ import java.util.List;
 public class Main {
     private static final Path projectRoot = Paths.get(System.getProperty("user.dir"));
     private static final Path INPUT_DIR = projectRoot.resolve("Input");
-    private static final Path TEST_DIR = projectRoot.resolve("src/test/java/TestInputs/C2KA-BaseRepresentations");
 
     private static List<String> getInputs(){
         // Get all input files.
         List<String> input_files = new ArrayList<>();
 
-        File[] files = INPUT_DIR.toFile().listFiles();
         //If this pathname does not denote a directory, then listFiles() returns null.
+        File[] files = INPUT_DIR.toFile().listFiles();
 
-//        assert files != null;
+        if (files == null) {
+            throw new RuntimeException("Input directory has no files");
+        }
+
         for (File file : files) {
             if (file.isFile()) {
                 input_files.add(file.getName());
