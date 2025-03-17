@@ -1,7 +1,10 @@
 package pipes.c2ka.specifications;
 
+import pipes.c2ka.Stimulus;
+import pipes.c2ka.behaviors.AtomicBehavior;
 import pipes.c2ka.semirings.NextMapSemiring;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -13,6 +16,27 @@ public abstract class NextMappingSpecification<mapType extends NextMapSemiring<?
 
     protected NextMappingSpecification(Set<mapType> mappings) {
         this.mappings = mappings;
+    }
+
+    /**
+     * Gets all the behaviours for the agent.
+     * Assumption: All states (behaviors) have at least one outgoing transition (including reflective ones).
+     *
+     * @return Set of behaviors of the agent for this specification
+     */
+    protected Set<AtomicBehavior> getAgentBehaviours() {
+        Set<AtomicBehavior> agentBehaviours = new HashSet<>();
+        // Add atomic behaviors found in the mapping
+        for (mapType m : mappings) {
+            agentBehaviours.add(m.getInitialBehavior());
+        }
+
+        return agentBehaviours;
+    }
+
+    public void fillSpecification(){
+        Set<AtomicBehavior> agentBehaviors = getAgentBehaviours();
+        Set<Stimulus> systemStimuli = Stimulus.getSystemStimuli();
     }
 
     @Override

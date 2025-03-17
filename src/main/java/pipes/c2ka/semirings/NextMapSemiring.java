@@ -1,17 +1,22 @@
 package pipes.c2ka.semirings;
 
 import pipes.c2ka.Stimulus;
-import pipes.c2ka.behaviors.Behavior;
+import pipes.c2ka.behaviors.AtomicBehavior;
 
 public abstract class NextMapSemiring<outT> implements Comparable<NextMapSemiring<outT>> {
     private final outT output;
-    private final Behavior initialBehavior;
+    //Assumption: We only care to map atomic behaviors
+    private final AtomicBehavior initialBehavior;
     private final Stimulus inputStim;
 
-    protected NextMapSemiring(Stimulus inputStim, Behavior initialBehavior, outT output) {
+    protected NextMapSemiring(Stimulus inputStim, AtomicBehavior initialBehavior, outT output) {
         this.initialBehavior = initialBehavior;
         this.inputStim = inputStim;
         this.output = output;
+    }
+
+    public AtomicBehavior getInitialBehavior() {
+        return initialBehavior;
     }
 
     @Override
