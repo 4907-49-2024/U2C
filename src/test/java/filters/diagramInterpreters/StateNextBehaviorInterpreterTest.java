@@ -67,8 +67,8 @@ public class StateNextBehaviorInterpreterTest {
         NextBehaviorSpecification mappings = runTestPipeline("NextMappings.uml");
         Set<NextBehaviorMap> behaviorMaps = new HashSet<>();
 
-        Behavior initial = new AtomicBehavior("Current", "<behavior-expression>");
-        Behavior next = new AtomicBehavior("NextBehavior", "<behavior-expression>");
+        AtomicBehavior initial = new AtomicBehavior("Current", "<behavior-expression>");
+        AtomicBehavior next = new AtomicBehavior("NextBehavior", "<behavior-expression>");
         behaviorMaps.add(new NextBehaviorMap("inStim", initial,  next));
 
         NextBehaviorSpecification expected = new NextBehaviorSpecification(behaviorMaps);
