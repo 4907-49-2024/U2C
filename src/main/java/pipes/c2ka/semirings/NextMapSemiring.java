@@ -28,6 +28,14 @@ public abstract class NextMapSemiring<outT> implements Comparable<NextMapSemirin
     }
 
     /**
+     * @return initial behavior of this mapping
+     */
+    public Stimulus getInputStim() {
+        return inputStim;
+    }
+
+
+    /**
      * @param inputStim The inputstim to check
      * @param initialBehavior The initial Behavior to check
      * @return True IFF the given pair matches the mapping input

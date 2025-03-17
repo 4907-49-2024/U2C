@@ -68,16 +68,22 @@ public abstract class NextMappingSpecification<mapType extends NextMapSemiring<?
     public String toString() {
 
         StringBuilder sb = new StringBuilder();
+        String lineSeparator = "\n\t";
 
         sb.append("begin ");
         sb.append(getSpecificationName()); // Type erasure in java makes this tricky to generalize without passing info
         sb.append("  where");
-        sb.append("\n\n\t");
+        sb.append("\n");
 
+        Stimulus lastStim = null;
         // Note: Order is completely random, and no whitespace to separate sections. Hopefully not a problem?
         for(mapType mapping: mappings.stream().sorted().toList()){
-            sb.append(mapping.toString());
-            sb.append("\n\t");
+            if (lastStim == null || !lastStim.equals(mapping.getInputStim())) {
+                lastStim = mapping.getInputStim();
+                sb.append(lineSeparator);
+            }
+            sb.append(mapping);
+            sb.append(lineSeparator);
         }
 
         sb.append("\n");
