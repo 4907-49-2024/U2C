@@ -1,5 +1,6 @@
 package pipes.c2ka.semirings;
 
+import pipes.c2ka.Stimulus;
 import pipes.c2ka.behaviors.Behavior;
 
 /**
@@ -7,6 +8,6 @@ import pipes.c2ka.behaviors.Behavior;
  */
 public class NextBehaviorMap extends NextMapSemiring<Behavior> {
     public NextBehaviorMap(String inputStim, Behavior initialBehavior, Behavior output) {
-        super(inputStim, initialBehavior, output);
+        super(new Stimulus(inputStim), initialBehavior, output);
     }
 }

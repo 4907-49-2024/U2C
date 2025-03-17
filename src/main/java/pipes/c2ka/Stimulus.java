@@ -1,38 +1,24 @@
-package pipes.c2ka.semirings;
+package pipes.c2ka;
 
-import pipes.c2ka.Stimulus;
-import pipes.c2ka.behaviors.Behavior;
+import java.util.HashSet;
+import java.util.Set;
 
-public abstract class NextMapSemiring<outT> implements Comparable<NextMapSemiring<outT>> {
-    private final outT output;
-    private final Behavior initialBehavior;
-    private final Stimulus inputStim;
+/**
+ * Class to represent a stimulus in the system.
+ * <br>
+ * Keeps track of any stimulus created in the system, allowing to get a complete list of them after all agents processed.
+ */
+public record Stimulus(String name) implements Comparable<Stimulus> {
+    public static Set<Stimulus> systemStimuli = new HashSet<>();
 
-    protected NextMapSemiring(Stimulus inputStim, Behavior initialBehavior, outT output) {
-        this.initialBehavior = initialBehavior;
-        this.inputStim = inputStim;
-        this.output = output;
+    public Stimulus(String name) {
+        this.name = name;
+        systemStimuli.add(this);
     }
 
-    @Override
-    public String toString() {
-        return "("+inputStim+","+initialBehavior+") = "+output;
+    public static Set<Stimulus> getSystemStimuli() {
+        return systemStimuli;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        // Same instance
-        if (this == o) return true;
-        // Null check, class match
-        if (o == null || getClass() != o.getClass()) return false;
-        return toString().equals(o.toString()); // Equivalent toString means functionally equivalent records.
-    }
-
-    @Override
-    public int hashCode() {
-        return toString().hashCode(); // Based on equals mechanism
-    }
-
 
     /**
      * Compares this object with the specified object for order.  Returns a
@@ -67,15 +53,7 @@ public abstract class NextMapSemiring<outT> implements Comparable<NextMapSemirin
      * inconsistent with equals."
      */
     @Override
-    public int compareTo(NextMapSemiring o) {
-        // Note, this allows comparison across output types, although it's not really intended.
-        // Equals -> 0
-        if(this.equals(o)) return 0;
-        // Compare stimuli, behavior
-        int stimCmp = inputStim.compareTo(o.inputStim);
-        int behaviorCmp = initialBehavior.compareTo(o.initialBehavior);
-
-        // Return stimulus comparison if not equal, otherwise compare behaviors (Should not be 0 at this point in theory)
-        return stimCmp != 0 ? stimCmp : behaviorCmp;
+    public int compareTo(Stimulus o) {
+        return this.name.compareTo(o.name);
     }
 }
