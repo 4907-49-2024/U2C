@@ -19,6 +19,7 @@ import java.util.List;
 public class C2KASpecificationsTest {
     private static final Path projectRoot = Paths.get(System.getProperty("user.dir"));
     private static final Path TEST_DIR = projectRoot.resolve("src/test/java/TestInputs/C2KA-BaseRepresentations");
+
     /**
      * Define test pipeline
      *

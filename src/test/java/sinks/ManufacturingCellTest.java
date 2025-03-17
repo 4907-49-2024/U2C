@@ -53,6 +53,21 @@ public class ManufacturingCellTest {
     @Test
     void testControlAgent() throws Exception {
         C2KASpecifications specifications = runTestPipeline("Control Agent.uml");
-        specifications.outputToFile(); // TODO: Augment this test with a diff tool
+        specifications.outputToFile(); // TODO: Augment this test with a diff tool/mechanism
+    }
+    @Test
+    void testHandlingAgent() throws Exception {
+        C2KASpecifications specifications = runTestPipeline("Handling Agent.uml");
+        specifications.outputToFile(); // TODO: Augment this test with a diff tool/mechanism
+    }
+    @Test
+    void testProcessingAgent() throws Exception {
+        C2KASpecifications specifications = runTestPipeline("Processing Agent.uml");
+        specifications.outputToFile(); // TODO: Augment this test with a diff tool/mechanism
+    }
+    @Test
+    void testStorageAgent() throws Exception {
+        C2KASpecifications specifications = runTestPipeline("Storage Agent.uml");
+        specifications.outputToFile(); // TODO: Augment this test with a diff tool/mechanism
     }
 }
