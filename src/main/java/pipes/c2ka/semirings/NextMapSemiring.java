@@ -15,6 +15,14 @@ public abstract class NextMapSemiring<outT> implements Comparable<NextMapSemirin
         this.output = output;
     }
 
+    /**
+     * @return A map with the neutral output for the given output type
+     */
+    public abstract NextMapSemiring<?> createNeutralMap(Stimulus inputStim, AtomicBehavior initialBehavior);
+
+    /**
+     * @return initial behavior of this mapping
+     */
     public AtomicBehavior getInitialBehavior() {
         return initialBehavior;
     }

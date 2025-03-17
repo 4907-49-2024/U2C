@@ -9,11 +9,16 @@ import java.util.Set;
  * Keeps track of any stimulus created in the system, allowing to get a complete list of them after all agents processed.
  */
 public record Stimulus(String name) implements Comparable<Stimulus> {
+    public static final Stimulus NEUTRAL_STIMULUS = new Stimulus("N");
     public static Set<Stimulus> systemStimuli = new HashSet<>();
 
     public Stimulus(String name) {
         this.name = name;
         systemStimuli.add(this);
+        // Neutral stimulus should not be part of the system stimuli (keep implicit)
+        // Note: if we had a factory we could avoid checking this on every construction
+        if (name.equals(NEUTRAL_STIMULUS.name))
+            systemStimuli.remove(NEUTRAL_STIMULUS);
     }
 
     public static Set<Stimulus> getSystemStimuli() {

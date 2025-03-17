@@ -34,10 +34,35 @@ public abstract class NextMappingSpecification<mapType extends NextMapSemiring<?
         return agentBehaviours;
     }
 
+    /**
+     * Fill specification with all missing "neutral mappings".
+     */
     public void fillSpecification(){
+        // Skip filling if there are 0 mappings.
+        if(mappings.isEmpty())
+            return;
+        // Limitation of java with static inheritance, need to cheat it by getting an instance
+        mapType map = mappings.iterator().next();
+
         Set<AtomicBehavior> agentBehaviors = getAgentBehaviours();
         Set<Stimulus> systemStimuli = Stimulus.getSystemStimuli();
+
+        for (AtomicBehavior b : agentBehaviors) {
+            for (Stimulus s : systemStimuli) {
+                if(keyNotInSpec(s, b)){
+                    // This should work
+                    this.mappings.add((mapType) map.createNeutralMap(s, b));
+                }
+            }
+        }
     }
+    /**
+     * @return True if the given key pair does not have a matching map in this specification yet
+     */
+    private boolean keyNotInSpec(Stimulus s, AtomicBehavior b) {
+        return false; // FIXME: Implement this
+    }
+
 
     @Override
     public String toString() {
