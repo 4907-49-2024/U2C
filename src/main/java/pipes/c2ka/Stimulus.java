@@ -66,4 +66,9 @@ public record Stimulus(String name) implements Comparable<Stimulus> {
     public int compareTo(Stimulus o) {
         return this.name.compareTo(o.name);
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }
