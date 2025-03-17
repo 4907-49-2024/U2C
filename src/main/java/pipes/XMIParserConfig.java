@@ -7,10 +7,6 @@ import java.nio.file.Paths;
  * Config for filters.xmiParser.XMIParser, has a default configuration.
  */
 public class XMIParserConfig {
-    // Default file name
-    public static final String DEFAULT_INPUT = "behaviourEmbedDiagram.uml";
-    public static final String META_MODEL_NAME = "metamodel2.xml";
-    public static final String XMI_TRANSFO_NAME = "xmiTrans2_0.xml";
     // Directories
     private static final Path projectRoot = Paths.get(System.getProperty("user.dir"));
     private static final Path DEFAULT_INPUT_DIR = projectRoot.resolve("Input");

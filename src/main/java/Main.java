@@ -14,7 +14,9 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Main executable flow of the program.
@@ -25,18 +27,22 @@ import java.util.List;
 public class Main {
     private static final Path projectRoot = Paths.get(System.getProperty("user.dir"));
     private static final Path INPUT_DIR = projectRoot.resolve("Input");
-    private static final Path TEST_DIR = projectRoot.resolve("src/test/java/TestInputs/C2KA-BaseRepresentations");
 
     private static List<String> getInputs(){
         // Get all input files.
         List<String> input_files = new ArrayList<>();
 
-        File[] files = INPUT_DIR.toFile().listFiles();
         //If this pathname does not denote a directory, then listFiles() returns null.
+        File[] files = INPUT_DIR.toFile().listFiles();
 
-//        assert files != null;
+        if (files == null) {
+            throw new RuntimeException("Input directory has no files");
+        }
+
         for (File file : files) {
-            if (file.isFile()) {
+            // Only accept files with .uml extension
+            // FIXME: This assumes all .uml files are state diagrams, no way to distinguish other diagrams yet.
+            if (file.isFile() && (file.getName().endsWith(".uml") || file.getName().endsWith(".xmi"))) {
                 input_files.add(file.getName());
             }
         }
@@ -52,7 +58,7 @@ public class Main {
      * @param inputDiagramXMI Reference to input diagram file
      * @throws Exception In case of thread or input exceptions
      */
-    private static void runSpecificationsPipeline(String inputDiagramXMI) throws Exception {
+    private static C2KASpecifications runSpecificationsPipeline(String inputDiagramXMI) throws Exception {
         // Setup Input
         String metaModel = "custom/stateMetaModel.xml";
         String xmiTrans = "custom/xmiStateTrans.xml";
@@ -71,15 +77,21 @@ public class Main {
         StateNextStimInterpreter nextS = new StateNextStimInterpreter(stateDiagram);
         StateConcreteBehaviorInterpreter concreteB = new StateConcreteBehaviorInterpreter(stateDiagram);
         // Sink - Build then output to file!
-        C2KASpecifications specs = new C2KASpecifications(stateDiagram.name(), abstractB.getOutput(),
+        return new C2KASpecifications(stateDiagram.name(), abstractB.getOutput(),
                 nextB.getOutput(), nextS.getOutput(), concreteB.getOutput());
-        specs.outputToFile();
     }
 
     public static void main(String[] args) throws Exception {
-        // Produce one output per input file.
+        Set<C2KASpecifications> specifications = new HashSet<>();
+        // Produce one specification per input file.
         for (String input : getInputs()) {
-            runSpecificationsPipeline(input);
+            specifications.add(runSpecificationsPipeline(input));
+        }
+
+        // Output specifications (needs to be done once full system is analyzed)
+        for (C2KASpecifications spec : specifications) {
+            spec.fillMappingSpecs();
+            spec.outputToFile();
         }
     }
 }

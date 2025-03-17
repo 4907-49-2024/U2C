@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import pipes.UMLModel;
 import pipes.c2ka.behaviors.AtomicBehavior;
 import pipes.c2ka.semirings.NextStimulusMap;
+import pipes.c2ka.specifications.NextStimulusSpecification;
 import pipes.diagrams.state.SuperState;
 
 import java.nio.file.Path;
@@ -30,7 +31,7 @@ public class StateNextStimInterpreterTest {
      * @return Behavior type pipe object (filter under test's output)
      * @throws Exception In case of thread or input exceptions
      */
-    private Set<NextStimulusMap> runTestPipeline(String inputDiagramXMI) throws Exception {
+    private NextStimulusSpecification runTestPipeline(String inputDiagramXMI) throws Exception {
         // Setup Input
         String metaModel = "custom/stateMetaModel.xml";
         String xmiTrans = "custom/xmiStateTrans.xml";
@@ -52,24 +53,23 @@ public class StateNextStimInterpreterTest {
     @Test
     void testAtomic() throws Exception {
         // Get output
-        Set<NextStimulusMap> mappings = runTestPipeline("Atomic.uml");
+        NextStimulusSpecification mappings = runTestPipeline("Atomic.uml");
 
-        for (NextStimulusMap map: mappings) {
-            // Need to do check a switch every time because of the indeterministic nature of sets.
-            switch (map.toString()){
-                default -> {assert false;} // Should not have any extra cases
-            }
-        }
+        NextStimulusSpecification expectedSpec = new NextStimulusSpecification(new HashSet<>());
+        assert mappings.equals(expectedSpec);
     }
 
     // Next stim mapping has an explicit example
     @Test
     void testNextMappings() throws Exception {
         // Get output
-        Set<NextStimulusMap> mappings = runTestPipeline("NextMappings.uml");
+        NextStimulusSpecification mappings = runTestPipeline("NextMappings.uml");
+
         Set<NextStimulusMap> expected = new HashSet<>();
         expected.add(new NextStimulusMap("inStim", new AtomicBehavior("Current", "<behavior-expression>"), "nextStim"));
-        assert expected.equals(mappings);
+
+        NextStimulusSpecification expectedSpec = new NextStimulusSpecification(expected);
+        assert mappings.equals(expectedSpec);
     }
 
     // Sequential also has a special transition example

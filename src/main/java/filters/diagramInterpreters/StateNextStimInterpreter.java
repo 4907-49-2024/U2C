@@ -2,15 +2,20 @@ package filters.diagramInterpreters;
 
 import filters.Filter;
 import filters.diagramInterpreters.utils.StateBehaviorConverter;
+import pipes.c2ka.Stimulus;
+import pipes.c2ka.behaviors.AtomicBehavior;
 import pipes.c2ka.behaviors.Behavior;
+import pipes.c2ka.semirings.NextBehaviorMap;
 import pipes.c2ka.semirings.NextStimulusMap;
+import pipes.c2ka.specifications.NextBehaviorSpecification;
+import pipes.c2ka.specifications.NextStimulusSpecification;
 import pipes.diagrams.state.SuperState;
 import pipes.diagrams.state.Transition;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class StateNextStimInterpreter extends Filter<SuperState, Set<NextStimulusMap>> {
+public class StateNextStimInterpreter extends Filter<SuperState, NextStimulusSpecification> {
     public StateNextStimInterpreter(SuperState input) {
         super(input);
     }
@@ -20,10 +25,13 @@ public class StateNextStimInterpreter extends Filter<SuperState, Set<NextStimulu
      */
     @Override
     public void run() {
-        output = new HashSet<>();
+        Set<NextStimulusMap> mappings = new HashSet<>();
         for(Transition t: input.getAllTransitions()){
-            Behavior initial = StateBehaviorConverter.getStateBehavior(t.source());
-            output.add(new NextStimulusMap(t.input(), initial, t.output()));
+            // FIXME: (#101) Implement logic to map composite destinations to AtomicBehaviors
+            AtomicBehavior initial = (AtomicBehavior) StateBehaviorConverter.getStateBehavior(t.source());
+            mappings.add(new NextStimulusMap(t.input(), initial, t.output()));
         }
+
+        output = new NextStimulusSpecification(mappings);
     }
 }

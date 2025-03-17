@@ -2,8 +2,8 @@ package sinks;
 
 import pipes.c2ka.behaviors.AtomicBehavior;
 import pipes.c2ka.behaviors.CompositeBehavior;
-import pipes.c2ka.semirings.NextBehaviorMap;
-import pipes.c2ka.semirings.NextStimulusMap;
+import pipes.c2ka.specifications.NextBehaviorSpecification;
+import pipes.c2ka.specifications.NextStimulusSpecification;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -20,9 +20,9 @@ import java.util.Set;
  * @param concreteBehaviorSpec The concrete behavior specification of the agent
  */
 public record C2KASpecifications(String agentName,
-                             CompositeBehavior abstractBehaviorSpec,
-                             Set<NextBehaviorMap> nextBehaviorSpec, Set<NextStimulusMap> nextStimulusSpec,
-                             Set<AtomicBehavior> concreteBehaviorSpec) {
+                                 CompositeBehavior abstractBehaviorSpec,
+                                 NextBehaviorSpecification nextBehaviorSpec, NextStimulusSpecification nextStimulusSpec,
+                                 Set<AtomicBehavior> concreteBehaviorSpec) {
     private static final String OUTPUT_DIR = "Output/"; // Starts at project root
     private static final String FILETYPE_SUFFIX = ".txt";
 
@@ -99,6 +99,15 @@ public record C2KASpecifications(String agentName,
         return sb.toString();
     }
 
+    /**
+     *  Fills the mapping type specification with their missing neutral outcomes.
+     *  Precondition: System has been fully analyzed, no stimuli are missing.
+     *  (Should be called once before any format of output processing)
+     */
+    public void fillMappingSpecs(){
+        nextBehaviorSpec.fillSpecification();
+        nextStimulusSpec.fillSpecification();
+    }
 
     /**
      * @return The full specification string of this C2KASpecification sink
@@ -109,9 +118,9 @@ public record C2KASpecifications(String agentName,
 
         sb.append(getFormattedAbstractSpec());
         sb.append("\n\n\n");
-        sb.append(getFormattedMapSpec(nextBehaviorSpec, "NEXT_BEHAVIOR"));
+        sb.append(nextBehaviorSpec);
         sb.append("\n\n\n");
-        sb.append(getFormattedMapSpec(nextStimulusSpec, "NEXT_STIMULUS"));
+        sb.append(nextStimulusSpec);
         sb.append("\n\n\n");
         sb.append(getFormattedConcreteSpec());
 
@@ -121,6 +130,7 @@ public record C2KASpecifications(String agentName,
     /**
      * Output formal specifications to an output file.
      * Will output it to Output/{agentName}.txt
+     * Precondition: "fillMappingSpecs" has been called before this, respecting its own preconditions
      */
     public void outputToFile() {
         try (PrintWriter out = new PrintWriter(getFilename())) {
