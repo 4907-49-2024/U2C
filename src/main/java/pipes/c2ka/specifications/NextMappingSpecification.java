@@ -80,10 +80,10 @@ public abstract class NextMappingSpecification<mapType extends NextMapSemiring<?
         for(mapType mapping: mappings.stream().sorted().toList()){
             if (lastStim == null || !lastStim.equals(mapping.getInputStim())) {
                 lastStim = mapping.getInputStim();
-                sb.append("\n\t");
+                sb.append(lineSeparator);
             }
-            sb.append(mapping.toString());
-            sb.append("\n\t");
+            sb.append(mapping);
+            sb.append(lineSeparator);
         }
 
         sb.append("\n");
