@@ -40,7 +40,9 @@ public class Main {
         }
 
         for (File file : files) {
-            if (file.isFile()) {
+            // Only accept files with .uml extension
+            // FIXME: This assumes all .uml files are state diagrams, no way to distinguish other diagrams yet.
+            if (file.isFile() && (file.getName().endsWith(".uml") || file.getName().endsWith(".xmi"))) {
                 input_files.add(file.getName());
             }
         }
