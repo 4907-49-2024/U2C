@@ -1,0 +1,170 @@
+begin AGENT where
+
+	C := IDLE + LOAD + PREP + INIT + PROC
+
+end
+
+
+begin NEXT_BEHAVIOUR where
+
+	(start,IDLE)  = LOAD
+	(start,LOAD)  = LOAD
+	(start,PREP)  = PREP
+	(start,INIT)  = INIT
+	(start,PROC)  = PROC
+
+	(load,IDLE)  = IDLE
+	(load,LOAD)  = LOAD
+	(load,PREP)  = PREP
+	(load,INIT)  = INIT
+	(load,PROC)  = PROC
+
+	(loaded,IDLE)  = IDLE
+	(loaded,LOAD)  = PREP
+	(loaded,PREP)  = PREP
+	(loaded,INIT)  = INIT
+	(loaded,PROC)  = PROC
+
+	(prepare,IDLE)  = IDLE
+	(prepare,LOAD)  = LOAD
+	(prepare,PREP)  = PREP
+	(prepare,INIT)  = INIT
+	(prepare,PROC)  = PROC
+
+	(done,IDLE)  = IDLE
+	(done,LOAD)  = LOAD
+	(done,PREP)  = PREP
+	(done,INIT)  = INIT
+	(done,PROC)  = PROC
+
+	(setup,IDLE)  = IDLE
+	(setup,LOAD)  = LOAD
+	(setup,PREP)  = PREP
+	(setup,INIT)  = INIT
+	(setup,PROC)  = PROC
+
+	(unload,IDLE)  = IDLE
+	(unload,LOAD)  = LOAD
+	(unload,PREP)  = PREP
+	(unload,INIT)  = INIT
+	(unload,PROC)  = PROC
+
+	(unloaded,IDLE)  = IDLE
+	(unloaded,LOAD)  = LOAD
+	(unloaded,PREP)  = INIT
+	(unloaded,INIT)  = INIT
+	(unloaded,PROC)  = PROC
+
+	(ready,IDLE)  = IDLE
+	(ready,LOAD)  = LOAD
+	(ready,PREP)  = PREP
+	(ready,INIT)  = INIT
+	(ready,PROC)  = PROC
+
+	(process,IDLE)  = IDLE
+	(process,LOAD)  = LOAD
+	(process,PREP)  = PREP
+	(process,INIT)  = PROC
+	(process,PROC)  = PROC
+
+	(processed,IDLE)  = IDLE
+	(processed,LOAD)  = LOAD
+	(processed,PREP)  = PREP
+	(processed,INIT)  = INIT
+	(processed,PROC)  = IDLE
+
+	(end,IDLE)  = IDLE
+	(end,LOAD)  = LOAD
+	(end,PREP)  = PREP
+	(end,INIT)  = INIT
+	(end,PROC)  = PROC
+
+end
+
+
+begin NEXT_STIMULUS where
+
+	(start,IDLE)  = load
+	(start,LOAD)  = N
+	(start,PREP)  = N
+	(start,INIT)  = N
+	(start,PROC)  = N
+
+	(load,IDLE)  = N
+	(load,LOAD)  = N
+	(load,PREP)  = N
+	(load,INIT)  = N
+	(load,PROC)  = N
+
+	(loaded,IDLE)  = N
+	(loaded,LOAD)  = prepare
+	(loaded,PREP)  = N
+	(loaded,INIT)  = N
+	(loaded,PROC)  = N
+
+	(prepare,IDLE)  = N
+	(prepare,LOAD)  = N
+	(prepare,PREP)  = N
+	(prepare,INIT)  = N
+	(prepare,PROC)  = N
+
+	(done,IDLE)  = N
+	(done,LOAD)  = N
+	(done,PREP)  = N
+	(done,INIT)  = N
+	(done,PROC)  = N
+
+	(setup,IDLE)  = N
+	(setup,LOAD)  = N
+	(setup,PREP)  = N
+	(setup,INIT)  = N
+	(setup,PROC)  = N
+
+	(unload,IDLE)  = N
+	(unload,LOAD)  = N
+	(unload,PREP)  = N
+	(unload,INIT)  = N
+	(unload,PROC)  = N
+
+	(unloaded,IDLE)  = N
+	(unloaded,LOAD)  = N
+	(unloaded,PREP)  = setup
+	(unloaded,INIT)  = N
+	(unloaded,PROC)  = N
+
+	(ready,IDLE)  = N
+	(ready,LOAD)  = N
+	(ready,PREP)  = N
+	(ready,INIT)  = N
+	(ready,PROC)  = N
+
+	(process,IDLE)  = N
+	(process,LOAD)  = N
+	(process,PREP)  = N
+	(process,INIT)  = done
+	(process,PROC)  = N
+
+	(processed,IDLE)  = N
+	(processed,LOAD)  = N
+	(processed,PREP)  = N
+	(processed,INIT)  = N
+	(processed,PROC)  = end
+
+	(end,IDLE)  = N
+	(end,LOAD)  = N
+	(end,PREP)  = N
+	(end,INIT)  = N
+	(end,PROC)  = N
+
+end
+
+
+begin CONCRETE_BEHAVIOUR where
+
+	IDLE => [ state := 0 ]
+	LOAD => [ state := 1 ]
+	PREP => [ state := 2 ]
+	INIT => [ state := 3 ]
+	PROC => [ state := 4 ]
+
+end

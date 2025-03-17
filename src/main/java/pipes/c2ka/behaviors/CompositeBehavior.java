@@ -5,7 +5,7 @@ import java.util.Collection;
 /**
  * Representation of a composite of C2KA behaviors
  */
-public abstract class CompositeBehavior implements Behavior {
+public abstract class CompositeBehavior extends Behavior {
     protected final Collection<Behavior> behaviors;
 
     protected CompositeBehavior(Collection<Behavior> behaviors) {

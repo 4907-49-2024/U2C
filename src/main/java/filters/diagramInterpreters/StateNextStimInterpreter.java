@@ -23,7 +23,7 @@ public class StateNextStimInterpreter extends Filter<SuperState, Set<NextStimulu
         output = new HashSet<>();
         for(Transition t: input.getAllTransitions()){
             Behavior initial = StateBehaviorConverter.getStateBehavior(t.source());
-            output.add(new NextStimulusMap(initial, t.input(), t.output()));
+            output.add(new NextStimulusMap(t.input(), initial, t.output()));
         }
     }
 }

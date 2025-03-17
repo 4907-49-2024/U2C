@@ -10,6 +10,8 @@ import pipes.c2ka.behaviors.AtomicBehavior;
 import pipes.c2ka.semirings.NextStimulusMap;
 import pipes.diagrams.state.SuperState;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,6 +20,9 @@ import java.util.Set;
  * Test the StateAbstractBehaviorInterpreterTest filter
  */
 public class StateNextStimInterpreterTest {
+    private static final Path projectRoot = Paths.get(System.getProperty("user.dir"));
+    private static final Path TEST_DIR = projectRoot.resolve("src/test/java/TestInputs/C2KA-BaseRepresentations");
+
     /**
      * Define test pipeline
      *
@@ -29,7 +34,7 @@ public class StateNextStimInterpreterTest {
         // Setup Input
         String metaModel = "custom/stateMetaModel.xml";
         String xmiTrans = "custom/xmiStateTrans.xml";
-        XMIParserConfig config = new XMIParserConfig(inputDiagramXMI, xmiTrans, metaModel);
+        XMIParserConfig config = new XMIParserConfig(TEST_DIR, inputDiagramXMI, xmiTrans, metaModel);
         // Filter 1
         XMIParser parser = new XMIParser(config);
         UMLModel model = parser.getOutput();
@@ -47,7 +52,7 @@ public class StateNextStimInterpreterTest {
     @Test
     void testAtomic() throws Exception {
         // Get output
-        Set<NextStimulusMap> mappings = runTestPipeline("C2KA-BaseRepresentations/Atomic.uml");
+        Set<NextStimulusMap> mappings = runTestPipeline("Atomic.uml");
 
         for (NextStimulusMap map: mappings) {
             // Need to do check a switch every time because of the indeterministic nature of sets.
@@ -61,9 +66,9 @@ public class StateNextStimInterpreterTest {
     @Test
     void testNextMappings() throws Exception {
         // Get output
-        Set<NextStimulusMap> mappings = runTestPipeline("C2KA-BaseRepresentations/NextMappings.uml");
+        Set<NextStimulusMap> mappings = runTestPipeline("NextMappings.uml");
         Set<NextStimulusMap> expected = new HashSet<>();
-        expected.add(new NextStimulusMap(new AtomicBehavior("Current", "<behavior-expression>"), "inStim", "nextStim"));
+        expected.add(new NextStimulusMap("inStim", new AtomicBehavior("Current", "<behavior-expression>"), "nextStim"));
         assert expected.equals(mappings);
     }
 

@@ -2,7 +2,7 @@ package pipes.c2ka.behaviors;
 /**
  * Representation of an atomic C2KA Behavior
  */
-public class AtomicBehavior implements Behavior {
+public class AtomicBehavior extends Behavior {
     private final String name;
     private final String concreteDetails;
 

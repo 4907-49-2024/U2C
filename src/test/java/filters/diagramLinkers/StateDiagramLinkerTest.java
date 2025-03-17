@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import pipes.UMLModel;
 import pipes.diagrams.state.*;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,6 +17,9 @@ import java.util.Set;
  * Test the stateDiagramLinker filter
  */
 public class StateDiagramLinkerTest {
+    private static final Path projectRoot = Paths.get(System.getProperty("user.dir"));
+    private static final Path TEST_DIR = projectRoot.resolve("src/test/java/TestInputs/C2KA-BaseRepresentations");
+
     /**
      * Define test pipeline for Filter Under Test (FUT)
      * @param inputDiagramXMI Reference to input diagram file
@@ -25,7 +30,7 @@ public class StateDiagramLinkerTest {
         // Setup Input
         String metaModel = "custom/stateMetaModel.xml";
         String xmiTrans = "custom/xmiStateTrans.xml";
-        XMIParserConfig config = new XMIParserConfig(inputDiagramXMI, xmiTrans, metaModel);
+        XMIParserConfig config = new XMIParserConfig(TEST_DIR, inputDiagramXMI, xmiTrans, metaModel);
         // Filter 1
         XMIParser parser = new XMIParser(config);
         UMLModel model = parser.getOutput();
@@ -44,7 +49,7 @@ public class StateDiagramLinkerTest {
     @Test
     public void testAtomic() throws Exception {
         // Get output
-        SuperState d = runTestPipeline("C2KA-BaseRepresentations/Atomic.uml");
+        SuperState d = runTestPipeline("Atomic.uml");
 
         // Check name
         assert d.name().equals("Atomic Behavior");
@@ -68,7 +73,7 @@ public class StateDiagramLinkerTest {
     @Test
     public void testAtomicAssignment() throws Exception {
         // Get output
-        SuperState d = runTestPipeline("C2KA-BaseRepresentations/Atomic-Assignment.uml");
+        SuperState d = runTestPipeline("Atomic-Assignment.uml");
         // Check name
         assert d.name().equals("Atomic Assignment");
 
@@ -93,7 +98,7 @@ public class StateDiagramLinkerTest {
     @Test
     public void testAtomicConditional() throws Exception {
         // Get output
-        SuperState d = runTestPipeline("C2KA-BaseRepresentations/Atomic-Conditional.uml");
+        SuperState d = runTestPipeline("Atomic-Conditional.uml");
 
         // Check name
         assert d.name().equals("Atomic Conditional");
@@ -121,7 +126,7 @@ public class StateDiagramLinkerTest {
     @Test
     public void testChoice() throws Exception {
         // Get output
-        SuperState d = runTestPipeline("C2KA-BaseRepresentations/Choice.uml");
+        SuperState d = runTestPipeline("Choice.uml");
         // Check name
         assert d.name().equals("Behaviour Choice");
 
@@ -149,7 +154,7 @@ public class StateDiagramLinkerTest {
     @Test
     public void testSequential() throws Exception {
         // Get output
-        SuperState d = runTestPipeline("C2KA-BaseRepresentations/Sequential.uml");
+        SuperState d = runTestPipeline("Sequential.uml");
         // Check name
         assert d.name().equals("Sequential Composition");
 
@@ -191,7 +196,7 @@ public class StateDiagramLinkerTest {
     @Test
     public void testParallel() throws Exception {
         // Get output
-        SuperState d = runTestPipeline("C2KA-BaseRepresentations/Parallel.uml");
+        SuperState d = runTestPipeline("Parallel.uml");
         // Check name
         assert d.name().equals("Parallel Composition");
 
@@ -219,7 +224,7 @@ public class StateDiagramLinkerTest {
     @Test
     public void testNextMapping() throws Exception {
         // Get output
-        SuperState d = runTestPipeline("C2KA-BaseRepresentations/NextMappings.uml");
+        SuperState d = runTestPipeline("NextMappings.uml");
         // Check name
         assert d.name().equals("Next Mapping");
 

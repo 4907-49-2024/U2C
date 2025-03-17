@@ -65,9 +65,9 @@ public record C2KASpecifications(String agentName,
         sb.append("\n\n\t");
 
         // Note: Order is completely random, and no whitespace to separate sections. Hopefully not a problem?
-        for(AtomicBehavior specElement: concreteBehaviorSpec){
+        for(AtomicBehavior specElement: concreteBehaviorSpec.stream().sorted().toList()){
             sb.append(specElement.getConcreteBehavior());
-            sb.append("\n");
+            sb.append("\n\t");
         }
 
         sb.append("\n");
@@ -88,9 +88,9 @@ public record C2KASpecifications(String agentName,
         sb.append("\n\n\t");
 
         // Note: Order is completely random, and no whitespace to separate sections. Hopefully not a problem?
-        for(T specElement: setSpec){
+        for(T specElement: setSpec.stream().sorted().toList()){
             sb.append(specElement.toString());
-            sb.append("\n");
+            sb.append("\n\t");
         }
 
         sb.append("\n");
