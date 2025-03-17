@@ -2,8 +2,8 @@ package sinks;
 
 import pipes.c2ka.behaviors.AtomicBehavior;
 import pipes.c2ka.behaviors.CompositeBehavior;
-import pipes.c2ka.semirings.NextBehaviorMap;
-import pipes.c2ka.semirings.NextStimulusMap;
+import pipes.c2ka.specifications.NextBehaviorSpecification;
+import pipes.c2ka.specifications.NextStimulusSpecification;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -25,6 +25,21 @@ public record C2KASpecifications(String agentName,
                                  Set<AtomicBehavior> concreteBehaviorSpec) {
     private static final String OUTPUT_DIR = "Output/"; // Starts at project root
     private static final String FILETYPE_SUFFIX = ".txt";
+
+    /**
+     * Canonical constructor, extends next mappings with neutral outcomes when they are missing.
+     *
+     * @param agentName The name of the agent the specs are written for
+     * @param abstractBehaviorSpec The abstract behavior specification of the agent
+     * @param nextBehaviorSpec The next behavior specification of the agent
+     * @param nextStimulusSpec The next stimulus specification of the agent
+     * @param concreteBehaviorSpec The concrete behavior specification of the agent
+     */
+    public C2KASpecifications {
+        // Automatically sets fields. The rest is post-processing.
+        nextBehaviorSpec.fillSpecification();
+        nextStimulusSpec.fillSpecification();
+    }
 
     /**
      * @return The filename for this C2KA specification
