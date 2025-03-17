@@ -16,9 +16,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class C2KASpecificationsTest {
+public class ManufacturingCellTest {
     private static final Path projectRoot = Paths.get(System.getProperty("user.dir"));
-    private static final Path TEST_DIR = projectRoot.resolve("src/test/java/TestInputs/C2KA-BaseRepresentations");
+    private static final Path TEST_DIR = projectRoot.resolve("src/test/java/TestInputs/KnownC2KASystems/ManufacturingCell");
 
     /**
      * Define test pipeline
@@ -51,34 +51,23 @@ public class C2KASpecificationsTest {
     }
 
     @Test
-    void testAtomic() throws Exception {
-        // Get output
-        C2KASpecifications specs = runTestPipeline("Atomic.uml");
-        String expectedFormat = "begin AGENT where\n" +
-                "\n" +
-                "\tAtomic Behavior :=  <name> \n" +
-                "\n" +
-                "end\n" +
-                "\n" +
-                "\n" +
-                "begin NEXT_BEHAVIOR  where\n" +
-                "\n" +
-                "\t\n" +
-                "end\n" +
-                "\n" +
-                "\n" +
-                "begin NEXT_STIMULUS  where\n" +
-                "\n" +
-                "\t\n" +
-                "end\n" +
-                "\n" +
-                "\n" +
-                "begin CONCRETE_BEHAVIOR  where\n" +
-                "\n" +
-                "\t<name> => [ <behavior-expression> ]\n\t" +
-                "\n" +
-                "end";
-
-        assert specs.toString().equals(expectedFormat);
+    void testControlAgent() throws Exception {
+        C2KASpecifications specifications = runTestPipeline("Control Agent.uml");
+        specifications.outputToFile(); // TODO: Augment this test with a diff tool/mechanism
+    }
+    @Test
+    void testHandlingAgent() throws Exception {
+        C2KASpecifications specifications = runTestPipeline("Handling Agent.uml");
+        specifications.outputToFile(); // TODO: Augment this test with a diff tool/mechanism
+    }
+    @Test
+    void testProcessingAgent() throws Exception {
+        C2KASpecifications specifications = runTestPipeline("Processing Agent.uml");
+        specifications.outputToFile(); // TODO: Augment this test with a diff tool/mechanism
+    }
+    @Test
+    void testStorageAgent() throws Exception {
+        C2KASpecifications specifications = runTestPipeline("Storage Agent.uml");
+        specifications.outputToFile(); // TODO: Augment this test with a diff tool/mechanism
     }
 }

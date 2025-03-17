@@ -1,5 +1,3 @@
-package sinks;
-
 import com.sdmetrics.model.ModelElement;
 import filters.diagramInterpreters.StateAbstractBehaviorInterpreter;
 import filters.diagramInterpreters.StateConcreteBehaviorInterpreter;
@@ -7,31 +5,58 @@ import filters.diagramInterpreters.StateNextBehaviorInterpreter;
 import filters.diagramInterpreters.StateNextStimInterpreter;
 import filters.diagramLinkers.StateDiagramLinker;
 import filters.xmiParser.XMIParser;
-import org.junit.jupiter.api.Test;
 import pipes.UMLModel;
 import pipes.XMIParserConfig;
 import pipes.diagrams.state.SuperState;
+import sinks.C2KASpecifications;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
-public class C2KASpecificationsTest {
+/**
+ * Main executable flow of the program.
+ * <br>
+ * Reads all files in the input directory, and produces output files for each agent provided.
+ * Precondition: Every file provided in input contains a single state diagram, representing the agent desired.
+ */
+public class Main {
     private static final Path projectRoot = Paths.get(System.getProperty("user.dir"));
+    private static final Path INPUT_DIR = projectRoot.resolve("Input");
     private static final Path TEST_DIR = projectRoot.resolve("src/test/java/TestInputs/C2KA-BaseRepresentations");
 
+    private static List<String> getInputs(){
+        // Get all input files.
+        List<String> input_files = new ArrayList<>();
+
+        File[] files = INPUT_DIR.toFile().listFiles();
+        //If this pathname does not denote a directory, then listFiles() returns null.
+
+//        assert files != null;
+        for (File file : files) {
+            if (file.isFile()) {
+                input_files.add(file.getName());
+            }
+        }
+        // Remove .gitkeep file from inputs
+        input_files.remove(".gitkeep");
+
+        return input_files;
+    }
+
     /**
-     * Define test pipeline
+     * Pipeline producing the specifications data sink. Writes to output directly at the end.
      *
      * @param inputDiagramXMI Reference to input diagram file
-     * @return The data sink (Tested output!)
      * @throws Exception In case of thread or input exceptions
      */
-    private C2KASpecifications runTestPipeline(String inputDiagramXMI) throws Exception {
+    private static void runSpecificationsPipeline(String inputDiagramXMI) throws Exception {
         // Setup Input
         String metaModel = "custom/stateMetaModel.xml";
         String xmiTrans = "custom/xmiStateTrans.xml";
-        XMIParserConfig config = new XMIParserConfig(TEST_DIR, inputDiagramXMI, xmiTrans, metaModel);
+        XMIParserConfig config = new XMIParserConfig(inputDiagramXMI, xmiTrans, metaModel);
         // Filter 1
         XMIParser parser = new XMIParser(config);
         UMLModel model = parser.getOutput();
@@ -45,40 +70,16 @@ public class C2KASpecificationsTest {
         StateNextBehaviorInterpreter nextB = new StateNextBehaviorInterpreter(stateDiagram);
         StateNextStimInterpreter nextS = new StateNextStimInterpreter(stateDiagram);
         StateConcreteBehaviorInterpreter concreteB = new StateConcreteBehaviorInterpreter(stateDiagram);
-        // Sink - Test Output!
-        return new C2KASpecifications(stateDiagram.name(), abstractB.getOutput(),
+        // Sink - Build then output to file!
+        C2KASpecifications specs = new C2KASpecifications(stateDiagram.name(), abstractB.getOutput(),
                 nextB.getOutput(), nextS.getOutput(), concreteB.getOutput());
+        specs.outputToFile();
     }
 
-    @Test
-    void testAtomic() throws Exception {
-        // Get output
-        C2KASpecifications specs = runTestPipeline("Atomic.uml");
-        String expectedFormat = "begin AGENT where\n" +
-                "\n" +
-                "\tAtomic Behavior :=  <name> \n" +
-                "\n" +
-                "end\n" +
-                "\n" +
-                "\n" +
-                "begin NEXT_BEHAVIOR  where\n" +
-                "\n" +
-                "\t\n" +
-                "end\n" +
-                "\n" +
-                "\n" +
-                "begin NEXT_STIMULUS  where\n" +
-                "\n" +
-                "\t\n" +
-                "end\n" +
-                "\n" +
-                "\n" +
-                "begin CONCRETE_BEHAVIOR  where\n" +
-                "\n" +
-                "\t<name> => [ <behavior-expression> ]\n\t" +
-                "\n" +
-                "end";
-
-        assert specs.toString().equals(expectedFormat);
+    public static void main(String[] args) throws Exception {
+        // Produce one output per input file.
+        for (String input : getInputs()) {
+            runSpecificationsPipeline(input);
+        }
     }
 }

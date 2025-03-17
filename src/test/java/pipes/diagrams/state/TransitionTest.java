@@ -24,5 +24,18 @@ public class TransitionTest {
         assert normalState.output().equals("stimOut");
     }
 
-    // TODO: add isSequential test
+    @Test
+    public void testSequentialTransition() {
+        Transition sequentialTransition = new Transition(null, null, "stimulus");
+        assert sequentialTransition.input().equals("stimulus");
+        assert sequentialTransition.output().equals("stimulus");
+        assert Transition.isSequentialTransition(sequentialTransition);
+    }
+
+    @Test
+    public void testWhitespaceParsing() {
+        Transition transitionWithWhitespace = new Transition(null, null, "  stimIn  /  stimOut  ");
+        assert transitionWithWhitespace.input().equals("stimIn");
+        assert transitionWithWhitespace.output().equals("stimOut");
+    }
 }
