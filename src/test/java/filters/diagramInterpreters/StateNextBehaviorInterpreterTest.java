@@ -11,6 +11,8 @@ import pipes.c2ka.behaviors.Behavior;
 import pipes.c2ka.semirings.NextBehaviorMap;
 import pipes.diagrams.state.SuperState;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,6 +21,9 @@ import java.util.Set;
  * Test the StateNextBehaviorInterpreter filter
  */
 public class StateNextBehaviorInterpreterTest {
+    private static final Path projectRoot = Paths.get(System.getProperty("user.dir"));
+    private static final Path TEST_DIR = projectRoot.resolve("src/test/java/TestInputs/C2KA-BaseRepresentations");
+
     /**
      * Define test pipeline
      *
@@ -30,7 +35,7 @@ public class StateNextBehaviorInterpreterTest {
         // Setup Input
         String metaModel = "custom/stateMetaModel.xml";
         String xmiTrans = "custom/xmiStateTrans.xml";
-        XMIParserConfig config = new XMIParserConfig(inputDiagramXMI, xmiTrans, metaModel);
+        XMIParserConfig config = new XMIParserConfig(TEST_DIR, inputDiagramXMI, xmiTrans, metaModel);
         // Filter 1
         XMIParser parser = new XMIParser(config);
         UMLModel model = parser.getOutput();
@@ -48,7 +53,7 @@ public class StateNextBehaviorInterpreterTest {
     @Test
     void testAtomic() throws Exception {
         // Get output
-        Set<NextBehaviorMap> mappings = runTestPipeline("C2KA-BaseRepresentations/Atomic.uml");
+        Set<NextBehaviorMap> mappings = runTestPipeline("Atomic.uml");
         Set<NextBehaviorMap> expected = new HashSet<>();
         assert expected.equals(mappings);
     }
@@ -57,7 +62,7 @@ public class StateNextBehaviorInterpreterTest {
     @Test
     void testNextMappings() throws Exception {
         // Get output
-        Set<NextBehaviorMap> mappings = runTestPipeline("C2KA-BaseRepresentations/NextMappings.uml");
+        Set<NextBehaviorMap> mappings = runTestPipeline("NextMappings.uml");
         Set<NextBehaviorMap> expected = new HashSet<>();
 
         Behavior initial = new AtomicBehavior("Current", "<behavior-expression>");
