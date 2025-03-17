@@ -20,9 +20,9 @@ import java.util.Set;
  * @param concreteBehaviorSpec The concrete behavior specification of the agent
  */
 public record C2KASpecifications(String agentName,
-                             CompositeBehavior abstractBehaviorSpec,
-                             Set<NextBehaviorMap> nextBehaviorSpec, Set<NextStimulusMap> nextStimulusSpec,
-                             Set<AtomicBehavior> concreteBehaviorSpec) {
+                                 CompositeBehavior abstractBehaviorSpec,
+                                 NextBehaviorSpecification nextBehaviorSpec, NextStimulusSpecification nextStimulusSpec,
+                                 Set<AtomicBehavior> concreteBehaviorSpec) {
     private static final String OUTPUT_DIR = "Output/"; // Starts at project root
     private static final String FILETYPE_SUFFIX = ".txt";
 
@@ -109,9 +109,9 @@ public record C2KASpecifications(String agentName,
 
         sb.append(getFormattedAbstractSpec());
         sb.append("\n\n\n");
-        sb.append(getFormattedMapSpec(nextBehaviorSpec, "NEXT_BEHAVIOR"));
+        sb.append(nextBehaviorSpec);
         sb.append("\n\n\n");
-        sb.append(getFormattedMapSpec(nextStimulusSpec, "NEXT_STIMULUS"));
+        sb.append(nextStimulusSpec);
         sb.append("\n\n\n");
         sb.append(getFormattedConcreteSpec());
 
