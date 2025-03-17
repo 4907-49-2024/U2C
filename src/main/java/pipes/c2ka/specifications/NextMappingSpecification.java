@@ -36,4 +36,9 @@ public abstract class NextMappingSpecification<mapType extends NextMapSemiring<?
 
         return sb.toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return toString().equals(obj.toString());
+    }
 }

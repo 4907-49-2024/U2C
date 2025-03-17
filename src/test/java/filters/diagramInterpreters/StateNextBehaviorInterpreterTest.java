@@ -9,6 +9,7 @@ import pipes.XMIParserConfig;
 import pipes.c2ka.behaviors.AtomicBehavior;
 import pipes.c2ka.behaviors.Behavior;
 import pipes.c2ka.semirings.NextBehaviorMap;
+import pipes.c2ka.specifications.NextBehaviorSpecification;
 import pipes.diagrams.state.SuperState;
 
 import java.nio.file.Path;
@@ -31,7 +32,7 @@ public class StateNextBehaviorInterpreterTest {
      * @return Behavior type pipe object (filter under test's output)
      * @throws Exception In case of thread or input exceptions
      */
-    private Set<NextBehaviorMap> runTestPipeline(String inputDiagramXMI) throws Exception {
+    private NextBehaviorSpecification runTestPipeline(String inputDiagramXMI) throws Exception {
         // Setup Input
         String metaModel = "custom/stateMetaModel.xml";
         String xmiTrans = "custom/xmiStateTrans.xml";
@@ -53,8 +54,9 @@ public class StateNextBehaviorInterpreterTest {
     @Test
     void testAtomic() throws Exception {
         // Get output
-        Set<NextBehaviorMap> mappings = runTestPipeline("Atomic.uml");
-        Set<NextBehaviorMap> expected = new HashSet<>();
+        NextBehaviorSpecification mappings = runTestPipeline("Atomic.uml");
+
+        NextBehaviorSpecification expected = new NextBehaviorSpecification(new HashSet<>());
         assert expected.equals(mappings);
     }
 
@@ -62,13 +64,14 @@ public class StateNextBehaviorInterpreterTest {
     @Test
     void testNextMappings() throws Exception {
         // Get output
-        Set<NextBehaviorMap> mappings = runTestPipeline("NextMappings.uml");
-        Set<NextBehaviorMap> expected = new HashSet<>();
+        NextBehaviorSpecification mappings = runTestPipeline("NextMappings.uml");
+        Set<NextBehaviorMap> behaviorMaps = new HashSet<>();
 
         Behavior initial = new AtomicBehavior("Current", "<behavior-expression>");
         Behavior next = new AtomicBehavior("NextBehavior", "<behavior-expression>");
-        expected.add(new NextBehaviorMap("inStim", initial,  next));
+        behaviorMaps.add(new NextBehaviorMap("inStim", initial,  next));
 
+        NextBehaviorSpecification expected = new NextBehaviorSpecification(behaviorMaps);
         assert expected.equals(mappings);
     }
 
