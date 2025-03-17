@@ -90,7 +90,7 @@ public record C2KASpecifications(String agentName,
         // Note: Order is completely random, and no whitespace to separate sections. Hopefully not a problem?
         for(T specElement: setSpec){
             sb.append(specElement.toString());
-            sb.append("\n");
+            sb.append("\n\t");
         }
 
         sb.append("\n");
