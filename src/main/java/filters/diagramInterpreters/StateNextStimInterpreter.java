@@ -29,7 +29,7 @@ public class StateNextStimInterpreter extends Filter<SuperState, NextStimulusSpe
         for(Transition t: input.getAllTransitions()){
             // FIXME: (#101) Implement logic to map composite destinations to AtomicBehaviors
             AtomicBehavior initial = (AtomicBehavior) StateBehaviorConverter.getStateBehavior(t.source());
-            mappings.add(new NextStimulusMap(new Stimulus(t.input()), initial, new Stimulus(t.output())));
+            mappings.add(new NextStimulusMap(t.input(), initial, t.output()));
         }
 
         output = new NextStimulusSpecification(mappings);

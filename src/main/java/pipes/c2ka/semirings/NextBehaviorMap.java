@@ -12,6 +12,11 @@ public class NextBehaviorMap extends NextMapSemiring<AtomicBehavior> {
         super(inputStim, initialBehavior, output);
     }
 
+    // Kept for legacy parity
+    public NextBehaviorMap(String  inputStim, AtomicBehavior initialBehavior, AtomicBehavior output) {
+        this(Stimulus.createStimulus(inputStim), initialBehavior, output);
+    }
+
     /**
      * @param inputStim The initial stimulus for the neutral map
      * @param initialBehavior The initial behavior for the neutral map
