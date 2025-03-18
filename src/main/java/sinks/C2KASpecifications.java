@@ -7,6 +7,8 @@ import pipes.c2ka.specifications.NextStimulusSpecification;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Set;
 
 /**
@@ -29,8 +31,8 @@ public record C2KASpecifications(String agentName,
     /**
      * @return The filename for this C2KA specification
      */
-    private String getFilename(){
-        return OUTPUT_DIR + agentName + FILETYPE_SUFFIX;
+    public Path getFilepath(){
+        return Paths.get(OUTPUT_DIR + agentName + FILETYPE_SUFFIX);
     }
 
     /**
@@ -77,29 +79,6 @@ public record C2KASpecifications(String agentName,
     }
 
     /**
-     * @return The abstract specification formatted in string form
-     */
-    private static <T> String getFormattedMapSpec(Set<T> setSpec, String specName){
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("begin ");
-        sb.append(specName); // Type erasure in java makes this tricky to generalize without passing info
-        sb.append(" where");
-        sb.append("\n\n\t");
-
-        // Note: Order is completely random, and no whitespace to separate sections. Hopefully not a problem?
-        for(T specElement: setSpec.stream().sorted().toList()){
-            sb.append(specElement.toString());
-            sb.append("\n\t");
-        }
-
-        sb.append("\n");
-        sb.append("end");
-
-        return sb.toString();
-    }
-
-    /**
      *  Fills the mapping type specification with their missing neutral outcomes.
      *  Precondition: System has been fully analyzed, no stimuli are missing.
      *  (Should be called once before any format of output processing)
@@ -133,7 +112,7 @@ public record C2KASpecifications(String agentName,
      * Precondition: "fillMappingSpecs" has been called before this, respecting its own preconditions
      */
     public void outputToFile() {
-        try (PrintWriter out = new PrintWriter(getFilename())) {
+        try (PrintWriter out = new PrintWriter(getFilepath().toFile())) {
             out.println(this);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
