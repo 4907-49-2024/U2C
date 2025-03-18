@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import pipelines.Main;
 import pipes.c2ka.Stimulus;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
@@ -23,10 +24,10 @@ public class ManufacturingCellTest {
     @Test
     void testManufacturingCell() throws Exception {
         List<String> inputs = new ArrayList<>();
-        inputs.add(TEST_DIR+"\\Control Agent.uml");
-        inputs.add(TEST_DIR+"\\Handling Agent.uml");
-        inputs.add(TEST_DIR+"\\Processing Agent.uml");
-        inputs.add(TEST_DIR+"\\Storage Agent.uml");
+        inputs.add(TEST_DIR+ File.separator + "Control Agent.uml");
+        inputs.add(TEST_DIR+ File.separator + "Handling Agent.uml");
+        inputs.add(TEST_DIR+ File.separator + "Processing Agent.uml");
+        inputs.add(TEST_DIR+ File.separator + "Storage Agent.uml");
         // Parse system - Generalize main later?
         Set<C2KASpecifications> specs = Main.runMainPipeline(inputs);
 
