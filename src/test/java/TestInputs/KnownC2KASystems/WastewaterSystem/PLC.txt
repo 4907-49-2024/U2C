@@ -1,0 +1,84 @@
+begin AGENT where
+
+	PLC := PID + RATIO
+	
+end
+
+
+begin NEXT_BEHAVIOUR where
+	
+	(start,  PID) = PID
+	(fault,  PID) = RATIO	
+	(eff,    PID) = PID
+	(res,    PID) = PID
+	(rate,   PID) = PID
+	(off1,   PID) = PID
+	(on1,    PID) = PID
+	(off2,   PID) = PID
+	(on2,    PID) = PID
+	(alarm,  PID) = PID
+	(fixed,  PID) = PID
+	(repair, PID) = PID
+	
+	(start,  RATIO) = RATIO
+	(fault,  RATIO) = RATIO	
+	(eff,    RATIO) = RATIO
+	(res,    RATIO) = RATIO
+	(rate,   RATIO) = RATIO
+	(off1,   RATIO) = RATIO
+	(on1,    RATIO) = RATIO
+	(off2,   RATIO) = RATIO
+	(on2,    RATIO) = RATIO
+	(alarm,  RATIO) = RATIO
+	(fixed,  RATIO) = PID
+	(repair, RATIO) = RATIO
+
+end
+
+
+begin NEXT_STIMULUS where
+	
+	(start,  PID) = N
+	(fault,  PID) = alarm	
+	(eff,    PID) = N
+	(res,    PID) = N
+	(rate,   PID) = N
+	(off1,   PID) = N
+	(on1,    PID) = N
+	(off2,   PID) = N
+	(on2,    PID) = N
+	(alarm,  PID) = N
+	(fixed,  PID) = N
+	(repair, PID) = N
+	
+	(start,  RATIO) = N
+	(fault,  RATIO) = N	
+	(eff,    RATIO) = N
+	(res,    RATIO) = N
+	(rate,   RATIO) = N
+	(off1,   RATIO) = N
+	(on1,    RATIO) = N
+	(off2,   RATIO) = N
+	(on2,    RATIO) = N
+	(alarm,  RATIO) = N
+	(fixed,  RATIO) = fixed
+	(repair, RATIO) = N
+
+end
+
+
+begin CONCRETE_BEHAVIOUR where
+			   
+	PID   => [ if (flowRate >= FLOWSETPOINT) -> skip
+			    | (flowRate <  FLOWSETPOINT) -> send alarm
+		       fi;
+			   targetFlow  := residual;
+			   if (targetFlow > MAXPUMPFLOW) -> send on2; leadFlow := MAXPUMPFLOW; lagFlow := targetFlow - MAXPUMPFLOW 
+			    | (targetFlow <= MAXPUMPFLOW && targetFlow >= DEADBAND) -> leadFlow := targetFlow
+				| (targetFlow < DEADBAND) -> send off2; leadFlow := targetFlow
+			   fi
+			   ]			   	
+	
+	RATIO  => [ skip ]
+		
+end

@@ -1,0 +1,76 @@
+begin AGENT where
+
+	SAP := SAMPLE + FAIL
+	
+end
+
+
+begin NEXT_BEHAVIOUR where
+	
+	(start,  SAMPLE) = SAMPLE
+	(fault,  SAMPLE) = FAIL	
+	(eff,    SAMPLE) = SAMPLE
+	(res,    SAMPLE) = SAMPLE
+	(rate,   SAMPLE) = SAMPLE
+	(off1,   SAMPLE) = SAMPLE
+	(on1,    SAMPLE) = SAMPLE
+	(off2,   SAMPLE) = SAMPLE
+	(on2,    SAMPLE) = SAMPLE
+	(alarm,  SAMPLE) = SAMPLE
+	(fixed,  SAMPLE) = SAMPLE
+	(repair, SAMPLE) = SAMPLE
+	
+	(start,  FAIL) = FAIL
+	(fault,  FAIL) = FAIL	
+	(eff,    FAIL) = FAIL
+	(res,    FAIL) = FAIL
+	(rate,   FAIL) = FAIL
+	(off1,   FAIL) = FAIL
+	(on1,    FAIL) = FAIL
+	(off2,   FAIL) = FAIL
+	(on2,    FAIL) = FAIL
+	(alarm,  FAIL) = FAIL
+	(fixed,  FAIL) = SAMPLE
+	(repair, FAIL) = FAIL
+
+end
+
+
+begin NEXT_STIMULUS where
+
+	(start,  SAMPLE) = eff
+	(fault,  SAMPLE) = N	
+	(eff,    SAMPLE) = N
+	(res,    SAMPLE) = N
+	(rate,   SAMPLE) = N
+	(off1,   SAMPLE) = N
+	(on1,    SAMPLE) = N
+	(off2,   SAMPLE) = N
+	(on2,    SAMPLE) = N
+	(alarm,  SAMPLE) = N
+	(fixed,  SAMPLE) = N
+	(repair, SAMPLE) = N
+	
+	(start,  FAIL) = N
+	(fault,  FAIL) = fault	
+	(eff,    FAIL) = N
+	(res,    FAIL) = N
+	(rate,   FAIL) = N
+	(off1,   FAIL) = N
+	(on1,    FAIL) = N
+	(off2,   FAIL) = N
+	(on2,    FAIL) = N
+	(alarm,  FAIL) = N
+	(fixed,  FAIL) = N
+	(repair, FAIL) = N
+
+end
+
+
+begin CONCRETE_BEHAVIOUR where
+
+	SAMPLE => [ effluent := SAMPLE ]
+	
+	FAIL   => [ effluent := SAMPLE ]
+		
+end
