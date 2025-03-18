@@ -32,8 +32,7 @@ public class ManufacturingCellTest {
         Set<C2KASpecifications> specs = Main.runMainPipeline(inputs);
 
         for (C2KASpecifications spec : specs) {
-            // TODO: name specification in assertion
-            specificationDiff(spec);
+            specificationDiff(TEST_DIR, spec);
         }
     }
 }
