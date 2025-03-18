@@ -18,6 +18,8 @@ public record Stimulus(String name) implements Comparable<Stimulus> {
      * @return New stimulus instance
      */
     public static Stimulus createStimulus(String name){
+        if (name.equals(NEUTRAL_STIMULUS.name())) return NEUTRAL_STIMULUS;
+
         Stimulus newStim = new Stimulus(name);
         systemStimuli.add(newStim);
         return newStim;
