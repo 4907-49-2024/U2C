@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_iXD0QAAgEfCvSrFeLTR7qQ" name="Control Agent">
-    <packageImport xmi:type="uml:PackageImport" xmi:id="_iXSdwAAgEfCvSrFeLTR7qQ">
-        <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
-    </packageImport>
-    <packagedElement xmi:type="uml:StateMachine" xmi:id="_8nmv4AAgEfCvSrFeLTR7qQ" name="Control Agent">
-        <region xmi:type="uml:Region" xmi:id="_-H6sEAAgEfCvSrFeLTR7qQ" name="Region1">
-            <transition xmi:type="uml:Transition" xmi:id="_DeeOIAAuEfCvSrFeLTR7qQ" name="start / load" source="_MiUKAAAqEfCvSrFeLTR7qQ" target="_Nag9UAAqEfCvSrFeLTR7qQ"/>
-            <transition xmi:type="uml:Transition" xmi:id="_50bf0AAvEfCvSrFeLTR7qQ" name="loaded / prepare" source="_Nag9UAAqEfCvSrFeLTR7qQ" target="_PcpNIAAqEfCvSrFeLTR7qQ"/>
-            <transition xmi:type="uml:Transition" xmi:id="_IhH9wAAwEfCvSrFeLTR7qQ" name="unloaded / setup" source="_PcpNIAAqEfCvSrFeLTR7qQ" target="_IoAQkAAqEfCvSrFeLTR7qQ"/>
-            <transition xmi:type="uml:Transition" xmi:id="_Wvj88AAxEfCvSrFeLTR7qQ" name="process / done" source="_IoAQkAAqEfCvSrFeLTR7qQ" target="_SZD68AAqEfCvSrFeLTR7qQ"/>
-            <transition xmi:type="uml:Transition" xmi:id="_qWb14AAxEfCvSrFeLTR7qQ" name="processed / end" source="_SZD68AAqEfCvSrFeLTR7qQ" target="_MiUKAAAqEfCvSrFeLTR7qQ"/>
-            <subvertex xmi:type="uml:State" xmi:id="_IoAQkAAqEfCvSrFeLTR7qQ" name="INIT">
-                <doActivity xmi:type="uml:Activity" xmi:id="_OGEw4AAsEfCvSrFeLTR7qQ" name="state := 3"/>
-            </subvertex>
-            <subvertex xmi:type="uml:State" xmi:id="_MiUKAAAqEfCvSrFeLTR7qQ" name="IDLE">
-                <doActivity xmi:type="uml:Activity" xmi:id="_ivhMAAAqEfCvSrFeLTR7qQ" name="state := 0"/>
-            </subvertex>
-            <subvertex xmi:type="uml:State" xmi:id="_Nag9UAAqEfCvSrFeLTR7qQ" name="LOAD">
-                <doActivity xmi:type="uml:Activity" xmi:id="_7fynsAAqEfCvSrFeLTR7qQ" name="state := 1"/>
-            </subvertex>
-            <subvertex xmi:type="uml:State" xmi:id="_PcpNIAAqEfCvSrFeLTR7qQ" name="PREP">
-                <doActivity xmi:type="uml:Activity" xmi:id="_DhSjgAAsEfCvSrFeLTR7qQ" name="state := 2"/>
-            </subvertex>
-            <subvertex xmi:type="uml:State" xmi:id="_SZD68AAqEfCvSrFeLTR7qQ" name="PROC">
-                <doActivity xmi:type="uml:Activity" xmi:id="_SEaOsAAsEfCvSrFeLTR7qQ" name="state := 4"/>
-            </subvertex>
-        </region>
-    </packagedElement>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_iXSdwAAgEfCvSrFeLTR7qQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_8nmv4AAgEfCvSrFeLTR7qQ" name="C">
+    <region xmi:type="uml:Region" xmi:id="_-H6sEAAgEfCvSrFeLTR7qQ" name="Region1">
+      <transition xmi:type="uml:Transition" xmi:id="_DeeOIAAuEfCvSrFeLTR7qQ" name="start / load" source="_MiUKAAAqEfCvSrFeLTR7qQ" target="_Nag9UAAqEfCvSrFeLTR7qQ"/>
+      <transition xmi:type="uml:Transition" xmi:id="_50bf0AAvEfCvSrFeLTR7qQ" name="loaded / prepare" source="_Nag9UAAqEfCvSrFeLTR7qQ" target="_PcpNIAAqEfCvSrFeLTR7qQ"/>
+      <transition xmi:type="uml:Transition" xmi:id="_IhH9wAAwEfCvSrFeLTR7qQ" name="unloaded / setup" source="_PcpNIAAqEfCvSrFeLTR7qQ" target="_IoAQkAAqEfCvSrFeLTR7qQ"/>
+      <transition xmi:type="uml:Transition" xmi:id="_Wvj88AAxEfCvSrFeLTR7qQ" name="process / done" source="_IoAQkAAqEfCvSrFeLTR7qQ" target="_SZD68AAqEfCvSrFeLTR7qQ"/>
+      <transition xmi:type="uml:Transition" xmi:id="_qWb14AAxEfCvSrFeLTR7qQ" name="processed / end" source="_SZD68AAqEfCvSrFeLTR7qQ" target="_MiUKAAAqEfCvSrFeLTR7qQ"/>
+      <subvertex xmi:type="uml:State" xmi:id="_IoAQkAAqEfCvSrFeLTR7qQ" name="INIT">
+        <doActivity xmi:type="uml:Activity" xmi:id="_OGEw4AAsEfCvSrFeLTR7qQ" name="state := 3"/>
+      </subvertex>
+      <subvertex xmi:type="uml:State" xmi:id="_MiUKAAAqEfCvSrFeLTR7qQ" name="IDLE">
+        <doActivity xmi:type="uml:Activity" xmi:id="_ivhMAAAqEfCvSrFeLTR7qQ" name="state := 0"/>
+      </subvertex>
+      <subvertex xmi:type="uml:State" xmi:id="_Nag9UAAqEfCvSrFeLTR7qQ" name="LOAD">
+        <doActivity xmi:type="uml:Activity" xmi:id="_7fynsAAqEfCvSrFeLTR7qQ" name="state := 1"/>
+      </subvertex>
+      <subvertex xmi:type="uml:State" xmi:id="_PcpNIAAqEfCvSrFeLTR7qQ" name="PREP">
+        <doActivity xmi:type="uml:Activity" xmi:id="_DhSjgAAsEfCvSrFeLTR7qQ" name="state := 2"/>
+      </subvertex>
+      <subvertex xmi:type="uml:State" xmi:id="_SZD68AAqEfCvSrFeLTR7qQ" name="PROC">
+        <doActivity xmi:type="uml:Activity" xmi:id="_SEaOsAAsEfCvSrFeLTR7qQ" name="state := 4"/>
+      </subvertex>
+    </region>
+  </packagedElement>
 </uml:Model>
