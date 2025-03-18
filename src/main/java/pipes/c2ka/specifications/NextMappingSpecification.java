@@ -72,7 +72,7 @@ public abstract class NextMappingSpecification<mapType extends NextMapSemiring<?
 
         sb.append("begin ");
         sb.append(getSpecificationName()); // Type erasure in java makes this tricky to generalize without passing info
-        sb.append("  where");
+        sb.append(" where");
         sb.append("\n");
 
         Stimulus lastStim = null;

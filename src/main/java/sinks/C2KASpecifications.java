@@ -60,8 +60,8 @@ public record C2KASpecifications(String agentName,
         StringBuilder sb = new StringBuilder();
 
         sb.append("begin ");
-        sb.append("CONCRETE_BEHAVIOR"); // Type erasure in java makes this tricky to generalize without passing info
-        sb.append("  where");
+        sb.append("CONCRETE_BEHAVIOUR"); // Type erasure in java makes this tricky to generalize without passing info
+        sb.append(" where");
         sb.append("\n\n\t");
 
         // Note: Order is completely random, and no whitespace to separate sections. Hopefully not a problem?
@@ -84,7 +84,7 @@ public record C2KASpecifications(String agentName,
 
         sb.append("begin ");
         sb.append(specName); // Type erasure in java makes this tricky to generalize without passing info
-        sb.append("  where");
+        sb.append(" where");
         sb.append("\n\n\t");
 
         // Note: Order is completely random, and no whitespace to separate sections. Hopefully not a problem?
