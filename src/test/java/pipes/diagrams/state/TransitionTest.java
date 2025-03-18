@@ -2,6 +2,9 @@ package pipes.diagrams.state;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * Test class for transition records.
  * <p>
@@ -37,5 +40,12 @@ public class TransitionTest {
         Transition transitionWithWhitespace = new Transition(null, null, "  stimIn  /  stimOut  ");
         assert transitionWithWhitespace.input().equals("stimIn");
         assert transitionWithWhitespace.output().equals("stimOut");
+    }
+
+    @Test
+    public void testTransitionParsingWithGuard() {
+        Transition transition = new Transition(null, null, "inEvent[guardCondition]/outEvent");
+        assertEquals("inEvent[guardCondition]", transition.input());
+        assertEquals("outEvent", transition.output());
     }
 }
