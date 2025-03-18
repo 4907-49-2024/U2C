@@ -1,3 +1,5 @@
+package pipelines;
+
 import com.sdmetrics.model.ModelElement;
 import filters.diagramInterpreters.StateAbstractBehaviorInterpreter;
 import filters.diagramInterpreters.StateConcreteBehaviorInterpreter;
@@ -81,10 +83,12 @@ public class Main {
                 nextB.getOutput(), nextS.getOutput(), concreteB.getOutput());
     }
 
-    public static void main(String[] args) throws Exception {
+    // TODO: document/rename?
+    public static Set<C2KASpecifications> runMainPipeline(List<String> inputDiagrams) throws Exception {
         Set<C2KASpecifications> specifications = new HashSet<>();
+
         // Produce one specification per input file.
-        for (String input : getInputs()) {
+        for (String input : inputDiagrams) {
             specifications.add(runSpecificationsPipeline(input));
         }
 
@@ -93,5 +97,11 @@ public class Main {
             spec.fillMappingSpecs();
             spec.outputToFile();
         }
+
+        return specifications;
+    }
+
+    public static void main(String[] args) throws Exception {
+        runMainPipeline(getInputs());
     }
 }
