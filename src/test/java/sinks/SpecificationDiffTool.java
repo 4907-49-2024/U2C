@@ -2,20 +2,16 @@ package sinks;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class SpecificationDiffTool {
-    private static final Path projectRoot = Paths.get(System.getProperty("user.dir"));
-    private static final Path TEST_DIR = projectRoot.resolve("src/test/java/TestInputs/KnownC2KASystems/ManufacturingCell");
-
-    public static void specificationDiff(C2KASpecifications specifications) throws Exception {
+    public static void specificationDiff(Path test_dir, C2KASpecifications specifications) throws Exception {
         // Paths to actual and expected files
         Path actualFilePath = specifications.getFilepath();
-        Path expectedFilePath = TEST_DIR.resolve(specifications.agentName()+".txt");
+        Path expectedFilePath = test_dir.resolve(specifications.agentName()+".txt");
 
         // Read actual and expected file content
         String actualContent = Files.readString(actualFilePath).replaceAll("\\r\\n", "\n").trim();
