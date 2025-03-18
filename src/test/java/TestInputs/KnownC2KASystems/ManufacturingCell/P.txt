@@ -114,10 +114,10 @@ end
 begin CONCRETE_BEHAVIOUR where
 
 	STBY => [ skip ]
-	SET  => [ if  (material = 1 && state = 3 && status = 0)  -> ready := 1
-     		   | ~(material = 1 && state = 3 && status = 0)  -> ready := 0
+	SET  => [ if  (material = 1 && state = 2 && status = 0)  -> ready := 1
+     		   | ~(material = 1 && state = 2 && status = 0)  -> := 0
 		      fi ]
-	WORK => [ if  (ready = 1)  -> part := PROCESS
-     		   | ~(ready = 1)  -> part := NULL
+	WORK => [ if  (ready = 1)  -> part := PROCESS()
+     		   | ~(ready = 1)  -> part := null
 		      fi ]
 end

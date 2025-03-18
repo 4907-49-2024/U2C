@@ -89,7 +89,7 @@ end
 
 begin CONCRETE_BEHAVIOUR where
 
-	EMPTY => [ status := 1 ]
-    FULL  => [ status := 0 ]
+	EMPTY => [ status := 0 ]
+    FULL  => [ status := 1 ]
 
 end
