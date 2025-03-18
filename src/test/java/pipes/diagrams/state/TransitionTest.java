@@ -32,7 +32,7 @@ public class TransitionTest {
         Transition sequentialTransition = new Transition(null, null, "stimulus");
         assert sequentialTransition.input().equals("stimulus");
         assert sequentialTransition.output().equals("stimulus");
-        assert Transition.isSequentialTransition(sequentialTransition);
+        assert sequentialTransition.isSequential();
     }
 
     @Test

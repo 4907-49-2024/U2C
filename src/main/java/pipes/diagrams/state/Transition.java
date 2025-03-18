@@ -12,15 +12,15 @@ package pipes.diagrams.state;
  * @param input The transition trigger. Note: Initial state transitions have no triggers!
  * @param output The transition output.
  */
-public record Transition (State source, State target, String input, String output) implements StateDiagramElement {
+public record Transition (State source, State target, String input, String output, boolean isSequential) implements StateDiagramElement {
     /**
      * It's intended at the moment to use this constructor.
-     * Parses the name assuming standard transition notation: input[guard]/output
+     * Parses the name assuming standard transition notation: input/output
      *  - Ignore whitespace.
-     *  - Uses [] and / to identify guard and output
+     *  - Uses / to identify sequential transition
      */
     public Transition(State source, State target, String name){
-        this(source, target, parseInput(name), parseOutput(name));
+        this(source, target, parseInput(name), parseOutput(name), !name.contains("/"));
     }
 
     /**
@@ -55,14 +55,5 @@ public record Transition (State source, State target, String input, String outpu
         if (name.contains("/")) // Normal
             return name.substring(name.indexOf('/')+1).trim();
         return name; // Initial and sequential
-    }
-
-    /**
-     * Sequential transitions defined as stimuli where the inputs != output.
-     * @param transition The transition to check for the sequential composition property
-     * @return True if the transition is sequential, false otherwise.
-     */
-    public static boolean isSequentialTransition(Transition transition){
-        return transition.input.equals(transition.output);
     }
 }
