@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_3sfUMAA1EfCvSrFeLTR7qQ" name="Handling Agent">
-    <packageImport xmi:type="uml:PackageImport" xmi:id="_3s5j4AA1EfCvSrFeLTR7qQ">
-        <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
-    </packageImport>
-    <packagedElement xmi:type="uml:StateMachine" xmi:id="_3snQAAA1EfCvSrFeLTR7qQ" name="Handling Agent">
-        <region xmi:type="uml:Region" xmi:id="_3snQAQA1EfCvSrFeLTR7qQ" name="Region1">
-            <transition xmi:type="uml:Transition" xmi:id="_Cyc8AAA2EfCvSrFeLTR7qQ" name="prepare / unload" source="_-Y0CQAA1EfCvSrFeLTR7qQ" target="_-u_GkAA1EfCvSrFeLTR7qQ"/>
-            <transition xmi:type="uml:Transition" xmi:id="_RqGFsAA2EfCvSrFeLTR7qQ" name="ready / process" source="_-u_GkAA1EfCvSrFeLTR7qQ" target="_-Y0CQAA1EfCvSrFeLTR7qQ"/>
-            <subvertex xmi:type="uml:State" xmi:id="_-Y0CQAA1EfCvSrFeLTR7qQ" name="WAIT">
-                <doActivity xmi:type="uml:Activity" xmi:id="_JDowwAA3EfCvSrFeLTR7qQ" name="skip"/>
-            </subvertex>
-            <subvertex xmi:type="uml:State" xmi:id="_-u_GkAA1EfCvSrFeLTR7qQ" name="MOVE">
-                <doActivity xmi:type="uml:Activity" xmi:id="_apPVgAA3EfCvSrFeLTR7qQ" name=" if (status) = 11 -> material := 1 | (status) = 0)-> material := 0 fi"/>
-            </subvertex>
-        </region>
-    </packagedElement>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_3s5j4AA1EfCvSrFeLTR7qQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_3snQAAA1EfCvSrFeLTR7qQ" name="H">
+    <region xmi:type="uml:Region" xmi:id="_3snQAQA1EfCvSrFeLTR7qQ" name="Region1">
+      <transition xmi:type="uml:Transition" xmi:id="_Cyc8AAA2EfCvSrFeLTR7qQ" name="prepare / unload" source="_-Y0CQAA1EfCvSrFeLTR7qQ" target="_-u_GkAA1EfCvSrFeLTR7qQ"/>
+      <transition xmi:type="uml:Transition" xmi:id="_RqGFsAA2EfCvSrFeLTR7qQ" name="ready / process" source="_-u_GkAA1EfCvSrFeLTR7qQ" target="_-Y0CQAA1EfCvSrFeLTR7qQ"/>
+      <subvertex xmi:type="uml:State" xmi:id="_-Y0CQAA1EfCvSrFeLTR7qQ" name="WAIT">
+        <doActivity xmi:type="uml:Activity" xmi:id="_JDowwAA3EfCvSrFeLTR7qQ" name="skip"/>
+      </subvertex>
+      <subvertex xmi:type="uml:State" xmi:id="_-u_GkAA1EfCvSrFeLTR7qQ" name="MOVE">
+        <doActivity xmi:type="uml:Activity" xmi:id="_apPVgAA3EfCvSrFeLTR7qQ" name=" if (status = 1) -> material := 1 | ~(status = 1)-> material := 0 fi"/>
+      </subvertex>
+    </region>
+  </packagedElement>
 </uml:Model>
