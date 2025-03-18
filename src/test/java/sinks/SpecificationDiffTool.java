@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class SpecificationDiffTool {
     private static final Path projectRoot = Paths.get(System.getProperty("user.dir"));
-    private static final Path TEST_DIR = projectRoot.resolve("src/test/java/TestInputs/KnownC2KASystems/ManufacturingCell");
+    private static final Path TEST_DIR = projectRoot.resolve("src/test/java/TestInputs/KnownC2KASystems/WastewaterSystem");
 
     public static void specificationDiff(C2KASpecifications specifications) throws Exception {
         // Paths to actual and expected files
