@@ -27,7 +27,7 @@ public class SpecificationDiffTool {
         StringBuilder diffReport = new StringBuilder();
         diffReport.append("Testing agent: ");
         diffReport.append(specifications.agentName());
-        diffReport.append("\n---------------------------");
+        diffReport.append("\n---------------------------\n");
         boolean hasDifferences = false;
 
         for (int i = 1; i < expectedSections.length; i++) {
@@ -59,7 +59,7 @@ public class SpecificationDiffTool {
     private static boolean compareNextStimuliAndBehavior(String expected, String actual, StringBuilder diffReport, String sectionName) {
         Set<Set<String>> expectedGroups = parseNextStimuliAndBehaviour(expected);
         Set<Set<String>> actualGroups = parseNextStimuliAndBehaviour(actual);
-
+        // Short-circuit if it matches
         if (expectedGroups.equals(actualGroups)) return true;
 
         Set<Set<String>> missingGroups = new HashSet<>(expectedGroups);
@@ -137,8 +137,9 @@ public class SpecificationDiffTool {
         Map<String, String> actualBehaviors = parseConcreteBehaviour(actual);
 
         boolean pass = true;
-
-        diffReport.append("❌ Differences found in section: ").append(sectionName).append("\n");
+        // Temporarily build diff report for concrete, discard if no mismatch
+        StringBuilder concreteDiffReport = new StringBuilder();
+        concreteDiffReport.append("❌ Differences found in section: ").append(sectionName).append("\n");
 
         for (String state : expectedBehaviors.keySet()) {
             String expectedBehavior = normalizeConcreteBehavior(expectedBehaviors.get(state));
@@ -147,18 +148,22 @@ public class SpecificationDiffTool {
 
             if (!expectedBehavior.equals(actualBehavior)) {
                 pass = false;
-                diffReport.append(String.format("\n❌ Concrete behaviour mismatch for state '%s':\n", state));
-                diffReport.append(String.format("  Expected: %s\n", expectedBehaviors.get(state).trim()));
-                diffReport.append(String.format("  Actual:   %s\n", actualBehaviors.getOrDefault(state, "<missing>").trim()));
+                concreteDiffReport.append(String.format("\n❌ Concrete behaviour mismatch for state '%s':\n", state));
+                concreteDiffReport.append(String.format("  Expected: %s\n", expectedBehaviors.get(state).trim()));
+                concreteDiffReport.append(String.format("  Actual:   %s\n", actualBehaviors.getOrDefault(state, "<missing>").trim()));
             }
         }
 
         for (String unexpectedState : actualBehaviors.keySet()) {
             if (!expectedBehaviors.containsKey(unexpectedState)) {
                 pass = false;
-                diffReport.append(String.format("\n❌ Unexpected concrete behaviour found for state '%s':\n", unexpectedState));
-                diffReport.append(String.format("  Actual: %s\n", actualBehaviors.get(unexpectedState).trim()));
+                concreteDiffReport.append(String.format("\n❌ Unexpected concrete behaviour found for state '%s':\n", unexpectedState));
+                concreteDiffReport.append(String.format("  Actual: %s\n", actualBehaviors.get(unexpectedState).trim()));
             }
+        }
+
+        if (!pass) {
+            diffReport.append(concreteDiffReport);
         }
 
         return pass;
