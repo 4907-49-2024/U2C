@@ -17,13 +17,36 @@
 
     \subsubsection{Architecture Choice}
     % Should these terms be defined here, or earlier?
-    For our particular problem, we believed a pipe and filter architectural pattern could apply very well. The general pattern is as follows: Data comes from a \textbf{source}, it is passed to a \textbf{pipe} which holds some immutable representation of that data while it remains in the pipe. From that point on, data from pipes are passed to \textbf{filters}. Filters take pipe data as input and outputs the transformed data to a different pipe. Thus, filter outputs can get chained as the next filter's inputs through pipes. Eventually, the final filter pipes its output to a \textbf{sink}, which represents the target data representation. From this point forward, we will refer to a \textbf{pipeline} as a function which takes a source as input, processes it with a predefined order of pipes and filters, then outputs a sink.\\
+    For our particular problem, we believed a pipe and filter architectural pattern could apply very well.
+    The general pattern is as follows: Data comes from a \textbf{source},
+    it is passed to a \textbf{pipe} which holds some immutable representation of that data while it remains in the pipe.
+    From that point on, data from pipes are passed to \textbf{filters}.
+    Filters take pipe data as input and outputs the transformed data to a different pipe.
+    Thus, filter outputs can get chained as the next filter's inputs through pipes.
+    Eventually, the final filter pipes its output to a \textbf{sink}, which represents the target data representation.\\
+
+    From this point forward, we will refer to a \textbf{pipeline} as a function which takes a source as input,
+    processes it with a predefined order of pipes and filters, then outputs a sink.
+    We will also define \textbf{sub-pipelines} as pipelines created within another pipeline,
+    taking in a pipe as their source, and output another pipe as their sink.
+    They are useful for selecting alternate paths (choosing one sub-pipeline),
+    or parallelizing a task which can split into independent steps (multiple instances of one pipeline with different inputs).\\
+
+
+    Note, the distinction between a sink, a source, and a pipe can be nebulous.
+    In practice, sources tend to be collections which can be processed by forking into different sub-pipelines.
+    Conversely, sinks will then join these sub-pipeline outputs, with minimal modifications to the collected pipes.
+    Further modifications should instead be done through another filter on this sink.
+    In large pipelines with multiple depths of forking, these labels become confusing.
+    Thus, the sinks/sources we will list refer only to the top level input/output of our program.
+    That is, the inputs and outputs we mentioned in section~\ref{INTERFACE}\\
 
     This suitability of this architecture for our program becomes apparent when we start looking at its usual advantages and disadvantages.\\
     \textbf{Disadvantages:}
     \begin{itemize}
         \item Due to the independence of filters, pipe output/input need to be compatible.
-        \item Difficult to coordinate, and synchronize. Unfit for asynchronous applications, like user interaction.
+        \item Difficult to coordinate, and synchronize.
+        Unfit for asynchronous applications, like user interaction.
         \item Complex path branching logic difficult to implement due to limited information sharing.
     \end{itemize}
     \textbf{Advantages:}
@@ -35,14 +58,15 @@
     \end{itemize}
     To put this in the context of our problem now, we have no user interaction in our system after the input is provided. We want to process our input diagrams, and eventually produce an output specification file. From this description, it already felt natural to try to make a pipeline, but there were many advantages from doing so. It opens the possibility to parallelize our processing easily, improving performance. The loose coupling also allows us to have redundant ways to compute certain pipes to include a model checker feature. Similarly, if we wanted to allow processing other diagram types as input, we could swap a subset of our current pipeline and re-use the rest. In general, it really helps for maintainability and extensibility of our program.
 
-    \subsection{Main Structures}
+    \subsection{Main Structures}\label{subsec:main-structures}
     We will talk about the main structures of our architecture (pipes, filters, sinks, sources) in categories.
     This allows us to discuss what kind of filters could interchange in our existing filters
     rather than our current specific implementation.
     In section~\ref{subsec:main-pipeline}, we will map these categories to their concrete implementations in our current main pipeline.\\
     \textbf{Sources:}
     \begin{itemize}
-        \item None (implicit) - In our prototype, to keep implementation it simple, the parser options are hardcoded and the inputs are all the files in the input folder.
+        \item None (implicit) - In our prototype, to keep implementation simple the source options
+        are hardcoded, as described in section~\ref{INPUTS}.
     \end{itemize}
     \textbf{Pipes:}
     \begin{itemize}
