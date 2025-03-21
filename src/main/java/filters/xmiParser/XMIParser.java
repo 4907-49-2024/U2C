@@ -4,7 +4,7 @@ import com.sdmetrics.model.*;
 import com.sdmetrics.util.XMLParser;
 import filters.Filter;
 import org.xml.sax.SAXException;
-import pipes.XMIParserConfig;
+import pipes.parserConfig.XMIParserConfig;
 import pipes.diagrams.state.StateType;
 
 import javax.xml.parsers.ParserConfigurationException;

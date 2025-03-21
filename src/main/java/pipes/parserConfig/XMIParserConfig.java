@@ -1,4 +1,4 @@
-package pipes;
+package pipes.parserConfig;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
