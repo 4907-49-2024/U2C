@@ -10,6 +10,31 @@
 % Document
 \begin{document}
 
+    \section{Technical Section - NAME TBD}
+    This section will go over the technical specifications of our program, as well as the process behind building it.
+    \subsection{Program Architecture}
+    The architecture of our program refers to the structures used to reason about our program, and how they relate to each other.
+
+    \subsubsection{Architecture Choice}
+% Should these terms be defined here, or earlier?
+    For our particular problem, we believed a pipe and filter architectural pattern could apply very well. The general pattern is as follows: Data comes from a \textbf{source}, it is passed to a \textbf{pipe} which holds some immutable representation of that data while it remains in the pipe. From that point on, data from pipes are passed to \textbf{filters}. Filters take pipe data as input and outputs the transformed data to a different pipe. Thus, filter outputs can get chained as the next filter's inputs through pipes. Eventually, the final filter pipes its output to a \textbf{sink}, which represents the target data representation. From this point forward, we will refer to a \textbf{pipeline} as a function which takes a source as input, processes it with a predefined order of pipes and filters, then outputs a sink.\\
+
+    This suitability of this architecture for our program becomes apparent when we start looking at its usual advantages and disadvantages.\\
+    \textbf{Disadvantages:}
+    \begin{itemize}
+        \item Due to the independence of filters, pipe output/input need to be compatible.
+        \item Difficult to coordinate, and synchronize. Unfit for asynchronous applications, like user interaction.
+        \item Complex path branching logic difficult to implement due to limited information sharing.
+    \end{itemize}
+    \textbf{Advantages:}
+    \begin{itemize}
+        \item Loose coupling: can interchange filters with matching interfaces.
+        \item Filters can be seen as black boxes, pipeline creation can ignore implementation of filters.
+        \item Very easy to parallelize due to high independence.
+        \item Re-usability: can re-use filters in different pipelines easily for different applications.
+    \end{itemize}
+    To put this in the context of our problem now, we have no user interaction in our system after the input is provided. We want to process our input diagrams, and eventually produce an output specification file. From this description, it already felt natural to try to make a pipeline, but there were many advantages from doing so. It opens the possibility to parallelize our processing easily, improving performance. The loose coupling also allows us to have redundant ways to compute certain pipes to include a model checker feature. Similarly, if we wanted to allow processing other diagram types as input, we could swap a subset of our current pipeline and re-use the rest. In general, it really helps for maintainability and extensibility of our program.
+
 
 
 \end{document}
