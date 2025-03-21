@@ -80,7 +80,7 @@ public class Main {
                 nextB.getOutput(), nextS.getOutput(), concreteB.getOutput());
     }
 
-    // TODO: document/rename?
+    // TODO: document/rename? -> report has a good detailed explanation on this.
     public static Set<C2KASpecifications> runMainPipeline(List<String> inputDiagrams) throws Exception {
         Set<C2KASpecifications> specifications = new HashSet<>();
 
