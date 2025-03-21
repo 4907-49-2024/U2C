@@ -89,5 +89,45 @@
     \end{itemize}
 
     \subsection{Main Pipeline}\label{subsec:main-pipeline}
+    In section~\ref{subsec:main-structures} we discussed a high-level view of our components, and their connections.
+    In this section, we will describe how we've implemented the main flow of our program through our main pipeline.
+    \textbf{Forks} refer to steps where we instantiate a sub-pipeline.
+    Conversely, \textbf{Joins} refer to steps where we collect outputs from multiple sub-pipelines.
+
+    \begin{enumerate}
+        \item Source (Implicit in pipeline): Read all files from hard-coded input folder.
+        \item Fork: Instantiate one sub-pipeline per file passed in the source.
+        \begin{enumerate}
+            \item Pipe - XMIParserConfig: Takes in source file, and hard-coded state diagram configuration.
+            \item Filter - XMIParser: Makes use of open source third-party XMI file reader SDMetrics.
+            \item Pipe - ModelElement: SDMetrics representation of a generic model element.
+            We specifically return the element representing the state diagram (which has references to all its sub-elements).
+            \item Filter - StateDiagramLinker: Converts the SDMetrics representation to our internal representation of a state diagram.
+            \item Pipe - SuperState: Generic representation of a superstate, has a name, contained states, transitions and regions.
+            You may notice a state diagram also has all the above elements.
+            We found that representing it the same way generalizes and simplifies interpretation later.
+            \item Fork: Instantiate one sub-pipeline per interpreter filter type.
+            \begin{itemize}
+                \item Filter - StateAbstractBehaviorInterpreter: Reads the state diagram to output the AbstractBehaviorSpecification.
+                \item Filter - StateConcreteBehaviorInterpreter: Reads the state diagram to output the ConcreteBehaviorSpecification.
+                \item Filter - StateNextStimInterpreter: Reads the state diagram to output the NextStimulusSpecification.
+                \item Filter - StateNextBehaviorInterpreter: Reads the state diagram to output the NextBehaviorSpecification.
+            \end{itemize}
+            \item Join: Combine all specifications from previous sub-pipelines into a C2KASpecification sink.
+        \end{enumerate}
+        \item Join: Output each sink to their output file.
+        Note: This has to be done at the end (instead of asynchronously in sub-pipelines),
+        because all system stimuli need to be known to fill the neutral outcomes of next mapping type specifications.
+    \end{enumerate}
+
+    Note that at this concrete level, a few assumptions are relied on, most notably that we only accept state diagrams.
+    To extend our program to include collaboration diagrams like we originally planned,
+    we would need to modify this pipeline for an alternate flow.
+    Before step 2, we would insert a step to identify the diagram type.
+    If the diagram is a state diagram, step 3A would be the same as the current step 2.
+    If it is a collaboration diagram, step 3B would replace the current step 2 and instantiate a different sub-pipeline.
+    The final step would be the same.
+    We may create a new sink type for the new diagram,
+    but it should implement a shared sink interface including a file output method.
 
 \end{document}
