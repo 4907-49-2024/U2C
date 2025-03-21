@@ -1,12 +1,8 @@
 package filters.xmiParser;
 
-import com.sdmetrics.model.ModelElement;
 import org.junit.jupiter.api.Test;
 import pipes.UMLModel;
 import pipes.XMIParserConfig;
-import pipes.diagrams.state.StateType;
-
-import java.util.List;
 
 /**
  * Test that all diagrams have the elements we expect.

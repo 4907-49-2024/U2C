@@ -9,8 +9,6 @@ import pipes.XMIParserConfig;
 import pipes.c2ka.behaviors.AtomicBehavior;
 import pipes.diagrams.state.SuperState;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Set;
 

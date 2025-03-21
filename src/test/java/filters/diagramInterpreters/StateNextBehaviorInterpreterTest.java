@@ -7,13 +7,10 @@ import org.junit.jupiter.api.Test;
 import pipes.UMLModel;
 import pipes.XMIParserConfig;
 import pipes.c2ka.behaviors.AtomicBehavior;
-import pipes.c2ka.behaviors.Behavior;
 import pipes.c2ka.semirings.NextBehaviorMap;
 import pipes.c2ka.specifications.NextBehaviorSpecification;
 import pipes.diagrams.state.SuperState;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

@@ -2,13 +2,14 @@ package filters.diagramLinkers;
 
 import com.sdmetrics.model.ModelElement;
 import filters.xmiParser.XMIParser;
-import pipes.XMIParserConfig;
 import org.junit.jupiter.api.Test;
 import pipes.UMLModel;
-import pipes.diagrams.state.*;
+import pipes.XMIParserConfig;
+import pipes.diagrams.state.AtomicState;
+import pipes.diagrams.state.State;
+import pipes.diagrams.state.SuperState;
+import pipes.diagrams.state.Transition;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

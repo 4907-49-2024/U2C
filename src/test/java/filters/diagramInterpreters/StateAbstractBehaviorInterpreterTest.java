@@ -3,15 +3,13 @@ package filters.diagramInterpreters;
 import com.sdmetrics.model.ModelElement;
 import filters.diagramLinkers.StateDiagramLinker;
 import filters.xmiParser.XMIParser;
-import pipes.XMIParserConfig;
 import org.junit.jupiter.api.Test;
 import pipes.UMLModel;
+import pipes.XMIParserConfig;
 import pipes.c2ka.behaviors.Behavior;
 import pipes.c2ka.behaviors.CompositeBehavior;
 import pipes.diagrams.state.SuperState;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import static testUtils.TestPaths.BASE_C2KA;
