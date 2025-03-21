@@ -4,10 +4,8 @@ import com.sdmetrics.model.ModelElement;
 import filters.diagramLinkers.StateDiagramLinker;
 import filters.xmiParser.XMIParser;
 import org.junit.jupiter.api.Test;
-import pipes.UMLModel;
-import pipes.XMIParserConfig;
+import pipes.parserConfig.XMIParserConfig;
 import pipes.c2ka.behaviors.AtomicBehavior;
-import pipes.c2ka.behaviors.Behavior;
 import pipes.c2ka.semirings.NextBehaviorMap;
 import pipes.c2ka.specifications.NextBehaviorSpecification;
 import pipes.diagrams.state.SuperState;
@@ -39,10 +37,8 @@ public class StateNextBehaviorInterpreterTest {
         XMIParserConfig config = new XMIParserConfig(TEST_DIR, inputDiagramXMI, xmiTrans, metaModel);
         // Filter 1
         XMIParser parser = new XMIParser(config);
-        UMLModel model = parser.getOutput();
+        ModelElement stateDiagramElem = parser.getOutput();
         // Filter 2
-        List<ModelElement> stateDiagramsElems = model.getStateDiagrams();
-        ModelElement stateDiagramElem = stateDiagramsElems.getFirst(); // Assume single state diagram for test case.
         StateDiagramLinker linker = new StateDiagramLinker(stateDiagramElem);
         SuperState stateDiagram = linker.getOutput();
         // Filter 3 - FUT

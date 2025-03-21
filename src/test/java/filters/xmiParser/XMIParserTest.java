@@ -2,11 +2,7 @@ package filters.xmiParser;
 
 import com.sdmetrics.model.ModelElement;
 import org.junit.jupiter.api.Test;
-import pipes.UMLModel;
-import pipes.XMIParserConfig;
-import pipes.diagrams.state.StateType;
-
-import java.util.List;
+import pipes.parserConfig.XMIParserConfig;
 
 /**
  * Test that all diagrams have the elements we expect.
@@ -18,7 +14,7 @@ class XMIParserTest {
      * @return StateDiagram type pipe object (FUT's output)
      * @throws Exception In case of thread or input exceptions
      */
-    private UMLModel runTestPipeline(String inputDiagramXMI) throws Exception{
+    private ModelElement runTestPipeline(String inputDiagramXMI) throws Exception{
         // Setup Input
         String metaModel = "custom/stateMetaModel.xml";
         String xmiTrans = "custom/xmiStateTrans.xml";

@@ -3,9 +3,8 @@ package filters.diagramInterpreters;
 import com.sdmetrics.model.ModelElement;
 import filters.diagramLinkers.StateDiagramLinker;
 import filters.xmiParser.XMIParser;
-import pipes.XMIParserConfig;
+import pipes.parserConfig.XMIParserConfig;
 import org.junit.jupiter.api.Test;
-import pipes.UMLModel;
 import pipes.c2ka.behaviors.AtomicBehavior;
 import pipes.c2ka.semirings.NextStimulusMap;
 import pipes.c2ka.specifications.NextStimulusSpecification;
@@ -38,10 +37,8 @@ public class StateNextStimInterpreterTest {
         XMIParserConfig config = new XMIParserConfig(TEST_DIR, inputDiagramXMI, xmiTrans, metaModel);
         // Filter 1
         XMIParser parser = new XMIParser(config);
-        UMLModel model = parser.getOutput();
+        ModelElement stateDiagramElem = parser.getOutput();
         // Filter 2
-        List<ModelElement> stateDiagramsElems = model.getStateDiagrams();
-        ModelElement stateDiagramElem = stateDiagramsElems.getFirst(); // Assume single state diagram for test case.
         StateDiagramLinker linker = new StateDiagramLinker(stateDiagramElem);
         SuperState stateDiagram = linker.getOutput();
         // Filter 3 - FUT

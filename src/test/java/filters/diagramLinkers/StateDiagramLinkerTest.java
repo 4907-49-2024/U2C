@@ -2,9 +2,8 @@ package filters.diagramLinkers;
 
 import com.sdmetrics.model.ModelElement;
 import filters.xmiParser.XMIParser;
-import pipes.XMIParserConfig;
+import pipes.parserConfig.XMIParserConfig;
 import org.junit.jupiter.api.Test;
-import pipes.UMLModel;
 import pipes.diagrams.state.*;
 
 import java.nio.file.Path;
@@ -33,10 +32,8 @@ public class StateDiagramLinkerTest {
         XMIParserConfig config = new XMIParserConfig(TEST_DIR, inputDiagramXMI, xmiTrans, metaModel);
         // Filter 1
         XMIParser parser = new XMIParser(config);
-        UMLModel model = parser.getOutput();
+        ModelElement stateDiagramElem = parser.getOutput();
         // Filter 2 - FUT
-        List<ModelElement> stateDiagramsElems = model.getStateDiagrams();
-        ModelElement stateDiagramElem = stateDiagramsElems.getFirst(); // Assume single state diagram for test case.
         StateDiagramLinker linker = new StateDiagramLinker(stateDiagramElem);
         return linker.getOutput();
     }

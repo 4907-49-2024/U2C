@@ -7,8 +7,7 @@ import filters.diagramInterpreters.StateNextBehaviorInterpreter;
 import filters.diagramInterpreters.StateNextStimInterpreter;
 import filters.diagramLinkers.StateDiagramLinker;
 import filters.xmiParser.XMIParser;
-import pipes.UMLModel;
-import pipes.XMIParserConfig;
+import pipes.parserConfig.XMIParserConfig;
 import pipes.diagrams.state.SuperState;
 import sinks.C2KASpecifications;
 
@@ -67,10 +66,8 @@ public class Main {
         XMIParserConfig config = new XMIParserConfig(inputDiagramXMI, xmiTrans, metaModel);
         // Filter 1
         XMIParser parser = new XMIParser(config);
-        UMLModel model = parser.getOutput();
+        ModelElement stateDiagramElem = parser.getOutput();
         // Filter 2
-        List<ModelElement> stateDiagramsElems = model.getStateDiagrams();
-        ModelElement stateDiagramElem = stateDiagramsElems.getFirst(); // Assume single state diagram for test case.
         StateDiagramLinker linker = new StateDiagramLinker(stateDiagramElem);
         SuperState stateDiagram = linker.getOutput();
         // Filter 3s
