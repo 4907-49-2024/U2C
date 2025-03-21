@@ -13,13 +13,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static testUtils.TestPaths.BASE_C2KA;
+
 /**
  * Test the stateDiagramLinker filter
  */
 public class StateDiagramLinkerTest {
-    private static final Path projectRoot = Paths.get(System.getProperty("user.dir"));
-    private static final Path TEST_DIR = projectRoot.resolve("src/test/java/TestInputs/C2KA-BaseRepresentations");
-
     /**
      * Define test pipeline for Filter Under Test (FUT)
      * @param inputDiagramXMI Reference to input diagram file
@@ -30,7 +29,7 @@ public class StateDiagramLinkerTest {
         // Setup Input
         String metaModel = "custom/stateMetaModel.xml";
         String xmiTrans = "custom/xmiStateTrans.xml";
-        XMIParserConfig config = new XMIParserConfig(TEST_DIR, inputDiagramXMI, xmiTrans, metaModel);
+        XMIParserConfig config = new XMIParserConfig(BASE_C2KA, inputDiagramXMI, xmiTrans, metaModel);
         // Filter 1
         XMIParser parser = new XMIParser(config);
         UMLModel model = parser.getOutput();
