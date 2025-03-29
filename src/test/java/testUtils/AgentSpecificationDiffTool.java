@@ -11,9 +11,12 @@ import java.util.stream.Collectors;
 
 public class AgentSpecificationDiffTool {
     public static void specificationDiff(Path test_dir, C2KASpecifications specifications) throws Exception {
+        // Aliases
+        String agentName = specifications.abstractBehaviorSpec().getSpecificationName();
+
         // Paths to actual and expected files
         Path actualFilePath = specifications.getFilepath();
-        Path expectedFilePath = test_dir.resolve(specifications.agentName()+".txt");
+        Path expectedFilePath = test_dir.resolve(agentName+".txt");
 
         // Read actual and expected file content
         String actualContent = Files.readString(actualFilePath).replaceAll("\\r\\n", "\n").trim();
@@ -24,7 +27,7 @@ public class AgentSpecificationDiffTool {
 
         StringBuilder diffReport = new StringBuilder();
         diffReport.append("Testing agent: ");
-        diffReport.append(specifications.agentName());
+        diffReport.append(agentName);
         diffReport.append("\n---------------------------\n");
         boolean hasDifferences = false;
 
@@ -42,7 +45,7 @@ public class AgentSpecificationDiffTool {
         if (hasDifferences) {
             throw new AssertionError(diffReport.toString());
         } else {
-            System.out.println("✅ Test passed: " + specifications.agentName());
+            System.out.println("✅ Test passed: " + agentName);
         }
     }
 
