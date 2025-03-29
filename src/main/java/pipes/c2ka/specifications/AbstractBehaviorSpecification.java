@@ -36,4 +36,9 @@ public class AbstractBehaviorSpecification extends Specification {
     public String getSpecificationName() {
         return "AGENT";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj.toString().equals(this.toString());
+    }
 }

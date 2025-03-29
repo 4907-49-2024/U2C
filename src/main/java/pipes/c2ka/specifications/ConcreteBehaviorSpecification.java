@@ -37,4 +37,9 @@ public class ConcreteBehaviorSpecification extends Specification {
     protected String getSpecificationName() {
         return "CONCRETE_BEHAVIOUR";
     }
+
+    @Override
+    public boolean equals(Object o){
+        return o.toString().equals(this.toString());
+    }
 }
