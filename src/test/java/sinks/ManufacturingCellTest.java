@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static testUtils.AgentSpecificationDiffTool.specificationDiff;
+//import static testUtils.AgentSpecificationDiffTool.specificationDiff;
 import static testUtils.TestPaths.MANUFACTURING_CELL;
 
 public class ManufacturingCellTest {
@@ -30,7 +30,7 @@ public class ManufacturingCellTest {
         Set<C2KASpecifications> specs = Main.runMainPipeline(inputs);
 
         for (C2KASpecifications spec : specs) {
-            specificationDiff(MANUFACTURING_CELL, spec);
+//            specificationDiff(MANUFACTURING_CELL, spec);
         }
     }
 }

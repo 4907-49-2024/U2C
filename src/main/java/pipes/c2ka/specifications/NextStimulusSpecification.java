@@ -10,7 +10,7 @@ public class NextStimulusSpecification extends NextMappingSpecification<NextStim
     }
 
     @Override
-    public String getSpecificationName() {
+    protected String getSpecificationName() {
         return "NEXT_STIMULUS";
     }
 }

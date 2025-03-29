@@ -3,7 +3,7 @@ package filters.diagramLinkers;
 import com.sdmetrics.model.ModelElement;
 import filters.Filter;
 import pipes.diagrams.state.*;
-import utils.ModelElementUtils;
+import utils.SDMetricsWrappers;
 
 import java.io.InvalidObjectException;
 import java.security.InvalidParameterException;
@@ -100,7 +100,7 @@ public class StateDiagramLinker extends Filter<ModelElement, SuperState> {
         Set<ModelElement> regions = new HashSet<>(); // Regions containing states
 
         // Get state regions
-        for(ModelElement me : ModelElementUtils.getOwnedElements(stateElement)){
+        for(ModelElement me : SDMetricsWrappers.getOwnedElements(stateElement)){
             if(StateType.getType(me) == StateType.region) {
                 regions.add(me);
             }
@@ -108,7 +108,7 @@ public class StateDiagramLinker extends Filter<ModelElement, SuperState> {
 
         // Search regions for states
         for(ModelElement region: regions){
-            for(ModelElement me : ModelElementUtils.getOwnedElements(region)) {
+            for(ModelElement me : SDMetricsWrappers.getOwnedElements(region)) {
                 if(StateType.getType(me) == StateType.state) {
                     children.add(buildStateRecursive(me));
                 }
@@ -117,7 +117,7 @@ public class StateDiagramLinker extends Filter<ModelElement, SuperState> {
 
         // Search regions for their internal transitions
         for(ModelElement region: regions) {
-            for(ModelElement me : ModelElementUtils.getOwnedElements(region)){
+            for(ModelElement me : SDMetricsWrappers.getOwnedElements(region)){
                 if(StateType.getType(me) == StateType.transition) {
                     try {
                         internalTransitions.add(createTransition(children, me));

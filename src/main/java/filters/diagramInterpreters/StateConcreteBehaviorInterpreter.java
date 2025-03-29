@@ -2,6 +2,7 @@ package filters.diagramInterpreters;
 
 import filters.Filter;
 import pipes.c2ka.behaviors.AtomicBehavior;
+import pipes.c2ka.specifications.ConcreteBehaviorSpecification;
 import pipes.diagrams.state.AtomicState;
 import pipes.diagrams.state.State;
 import pipes.diagrams.state.SuperState;
@@ -14,7 +15,7 @@ import java.util.Set;
  * Each individual AtomicBehavior has a method to get its concrete behavior,
  * combine them all on separate lines to get the full spec.
  */
-public class StateConcreteBehaviorInterpreter extends Filter<SuperState, Set<AtomicBehavior>> {
+public class StateConcreteBehaviorInterpreter extends Filter<SuperState, ConcreteBehaviorSpecification> {
     public StateConcreteBehaviorInterpreter(SuperState input) {
         super(input);
     }
@@ -45,7 +46,7 @@ public class StateConcreteBehaviorInterpreter extends Filter<SuperState, Set<Ato
     @Override
     public void run() {
         // Collect all atomic behaviors.
-        output = new HashSet<>();
+        output = new ConcreteBehaviorSpecification();
         registerAtomicBehaviorRecursive(input);
     }
 }

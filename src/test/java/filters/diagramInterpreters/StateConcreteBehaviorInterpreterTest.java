@@ -4,8 +4,8 @@ import com.sdmetrics.model.ModelElement;
 import filters.diagramLinkers.StateDiagramLinker;
 import filters.xmiParser.XMIParser;
 import org.junit.jupiter.api.Test;
-import pipes.UMLModel;
-import pipes.XMIParserConfig;
+import pipes.c2ka.specifications.ConcreteBehaviorSpecification;
+import pipes.parserConfig.XMIParserConfig;
 import pipes.c2ka.behaviors.AtomicBehavior;
 import pipes.diagrams.state.SuperState;
 
@@ -25,17 +25,15 @@ public class StateConcreteBehaviorInterpreterTest {
      * @return Behavior type pipe object (filter under test's output)
      * @throws Exception In case of thread or input exceptions
      */
-    private Set<AtomicBehavior> runTestPipeline(String inputDiagramXMI) throws Exception {
+    private ConcreteBehaviorSpecification runTestPipeline(String inputDiagramXMI) throws Exception {
         // Setup Input
         String metaModel = "custom/stateMetaModel.xml";
         String xmiTrans = "custom/xmiStateTrans.xml";
         XMIParserConfig config = new XMIParserConfig(BASE_C2KA, inputDiagramXMI, xmiTrans, metaModel);
         // Filter 1
         XMIParser parser = new XMIParser(config);
-        UMLModel model = parser.getOutput();
+        ModelElement stateDiagramElem = parser.getOutput();
         // Filter 2
-        List<ModelElement> stateDiagramsElems = model.getStateDiagrams();
-        ModelElement stateDiagramElem = stateDiagramsElems.getFirst(); // Assume single state diagram for test case.
         StateDiagramLinker linker = new StateDiagramLinker(stateDiagramElem);
         SuperState stateDiagram = linker.getOutput();
         // Filter 3 - FUT
@@ -46,17 +44,13 @@ public class StateConcreteBehaviorInterpreterTest {
     @Test
     void testAtomic() throws Exception {
         // Get output
-        Set<AtomicBehavior> behavior = runTestPipeline("Atomic.uml");
+        ConcreteBehaviorSpecification spec = runTestPipeline("Atomic.uml");
+        // Expected
+        ConcreteBehaviorSpecification specExpect = new ConcreteBehaviorSpecification();
+        specExpect.add(new AtomicBehavior("<name>", "<behavior-expression>"));
 
-        for (AtomicBehavior b: behavior) {
-            // Need to do check a switch every time because of the indeterministic nature of sets.
-            switch (b.toString()){
-                case "<name>" -> {assert b.getConcreteBehavior().equals("<name> => [ <behavior-expression> ]");}
-                default -> {assert false;} // Should not have any extra cases
-            }
-        }
+        assert spec.equals(specExpect);
     }
 
-    // TODO: implement rest of tests... Add cases to switch like above, the final string is deterministic,
-    //  but you don't know the test sequence order!
+    // TODO: implement rest of tests.
 }

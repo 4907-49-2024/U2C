@@ -7,11 +7,11 @@ import java.util.Collection;
 import java.util.Objects;
 
 /**
- * Collection of utility functions related to model elements.
- * Since this is a type from an external library, we cannot fix some issues at the root cause,
- * instead use common wrapper utility functions to address them.
+ * Collection of utility functions related to SDMetrics.
+ * Since this is an external library, we cannot fix some issues at the root cause,
+ * instead use wrapper utility functions to address them.
  */
-public class ModelElementUtils {
+public class SDMetricsWrappers {
     /**
      * Get owned elements of given element, with a null check included (returns empty)
      * @param element The model element to get the owned elements of.

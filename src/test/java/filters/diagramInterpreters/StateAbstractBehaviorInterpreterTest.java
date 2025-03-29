@@ -3,14 +3,14 @@ package filters.diagramInterpreters;
 import com.sdmetrics.model.ModelElement;
 import filters.diagramLinkers.StateDiagramLinker;
 import filters.xmiParser.XMIParser;
+import pipes.c2ka.behaviors.AtomicBehavior;
+import pipes.c2ka.behaviors.ChoiceBehavior;
+import pipes.c2ka.specifications.AbstractBehaviorSpecification;
+import pipes.parserConfig.XMIParserConfig;
 import org.junit.jupiter.api.Test;
-import pipes.UMLModel;
-import pipes.XMIParserConfig;
 import pipes.c2ka.behaviors.Behavior;
 import pipes.c2ka.behaviors.CompositeBehavior;
 import pipes.diagrams.state.SuperState;
-
-import java.util.List;
 
 import static testUtils.TestPaths.BASE_C2KA;
 
@@ -25,17 +25,15 @@ public class StateAbstractBehaviorInterpreterTest {
      * @return Behavior type pipe object (filter under test's output)
      * @throws Exception In case of thread or input exceptions
      */
-    private CompositeBehavior runTestPipeline(String inputDiagramXMI) throws Exception {
+    private AbstractBehaviorSpecification runTestPipeline(String inputDiagramXMI) throws Exception {
         // Setup Input
         String metaModel = "custom/stateMetaModel.xml";
         String xmiTrans = "custom/xmiStateTrans.xml";
         XMIParserConfig config = new XMIParserConfig(BASE_C2KA, inputDiagramXMI, xmiTrans, metaModel);
         // Filter 1
         XMIParser parser = new XMIParser(config);
-        UMLModel model = parser.getOutput();
+        ModelElement stateDiagramElem = parser.getOutput();
         // Filter 2
-        List<ModelElement> stateDiagramsElems = model.getStateDiagrams();
-        ModelElement stateDiagramElem = stateDiagramsElems.getFirst(); // Assume single state diagram for test case.
         StateDiagramLinker linker = new StateDiagramLinker(stateDiagramElem);
         SuperState stateDiagram = linker.getOutput();
         // Filter 3 - FUT
@@ -46,11 +44,14 @@ public class StateAbstractBehaviorInterpreterTest {
     @Test
     void testAtomic() throws Exception {
         // Get output
-        Behavior behavior = runTestPipeline("Atomic.uml");
+        AbstractBehaviorSpecification spec = runTestPipeline("Atomic.uml");
+        // Simulate output
+        CompositeBehavior choice = new ChoiceBehavior();
+        choice.addBehavior(new AtomicBehavior("<name>", "<behavior-expression>"));
+        AbstractBehaviorSpecification specExpect = new AbstractBehaviorSpecification("Atomic Behavior", choice);
 
-        assert behavior.toString().equals("( <name> )");
+        assert spec.equals(specExpect);
     }
 
-    // TODO: implement rest of tests... look at the behavior tests for reference on how to handle indeterministic output!
-    //      There are tricks you need to do because after two behaviors in a choice the order is randomized.
+    // TODO: implement rest of tests.
 }

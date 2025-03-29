@@ -15,15 +15,9 @@ Integration testing is good for filters because it is hard to mock their inputs 
 Implementation notes: The "pipeline" should be a private function called by every test case changing only the input diagram.
 It returns the pipe output of the filter under test. The oracles verify the contents of that pipe.
 
-## Models
+## Sinks
 End to end system test (Validation). 
 
 This is where we test from start (visual model input) to finish (specification file output) the system works as expected.
 We use real IIAT inputs to compare our system output against to validate that our tool works.
 We reproduce the visual models of those systems for the inputs when needed.
-
-## Manual Usecases
-Special test cases not part of validation/verification.
-
-We use these as specialized repeatable execution that is useful for debugging but not needed for actual system operation.
-As such, these usecases are not themselves tested, and should be used with some caution.
