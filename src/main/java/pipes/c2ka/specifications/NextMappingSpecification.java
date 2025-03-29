@@ -69,7 +69,7 @@ public abstract class NextMappingSpecification<mapType extends NextMapSemiring<?
      * @return The contents of the specification, may be multiple lines long.
      */
     @Override
-    public String getSpecificationContents() {
+    protected String getSpecificationContents() {
         StringBuilder sb = new StringBuilder();
         String lineSeparator = "\n\t";
 

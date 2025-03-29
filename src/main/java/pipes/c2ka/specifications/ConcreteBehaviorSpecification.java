@@ -21,7 +21,7 @@ public class ConcreteBehaviorSpecification extends Specification {
     }
 
     @Override
-    public String getSpecificationContents() {
+    protected String getSpecificationContents() {
         StringBuilder sb = new StringBuilder();
 
         // Note: Order is alphabetically sorted, and no whitespace to separate sections.
@@ -34,7 +34,7 @@ public class ConcreteBehaviorSpecification extends Specification {
     }
 
     @Override
-    public String getSpecificationName() {
+    protected String getSpecificationName() {
         return "CONCRETE_BEHAVIOUR";
     }
 }

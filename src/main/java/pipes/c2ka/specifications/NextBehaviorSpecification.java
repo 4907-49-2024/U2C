@@ -10,7 +10,7 @@ public class NextBehaviorSpecification extends NextMappingSpecification<NextBeha
     }
 
     @Override
-    public String getSpecificationName() {
+    protected String getSpecificationName() {
         return "NEXT_BEHAVIOUR";
     }
 }
