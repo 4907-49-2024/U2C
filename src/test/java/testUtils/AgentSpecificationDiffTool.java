@@ -1,4 +1,6 @@
-package sinks;
+package testUtils;
+
+import sinks.C2KASpecifications;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -7,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class SpecificationDiffTool {
+public class AgentSpecificationDiffTool {
     public static void specificationDiff(Path test_dir, C2KASpecifications specifications) throws Exception {
         // Paths to actual and expected files
         Path actualFilePath = specifications.getFilepath();
@@ -97,8 +99,8 @@ public class SpecificationDiffTool {
     }
 
     private static boolean compareAgent(String expected, String actual, StringBuilder diffReport, String sectionName) {
-        Set<String> expectedSet = expected.lines().map(SpecificationDiffTool::normalizeLine).filter(l -> !l.isBlank()).collect(Collectors.toSet());
-        Set<String> actualSet = actual.lines().map(SpecificationDiffTool::normalizeLine).filter(l -> !l.isBlank()).collect(Collectors.toSet());
+        Set<String> expectedSet = expected.lines().map(AgentSpecificationDiffTool::normalizeLine).filter(l -> !l.isBlank()).collect(Collectors.toSet());
+        Set<String> actualSet = actual.lines().map(AgentSpecificationDiffTool::normalizeLine).filter(l -> !l.isBlank()).collect(Collectors.toSet());
 
         if (expectedSet.equals(actualSet)) return true;
 
