@@ -76,7 +76,7 @@ public class Main {
         StateNextStimInterpreter nextS = new StateNextStimInterpreter(stateDiagram);
         StateConcreteBehaviorInterpreter concreteB = new StateConcreteBehaviorInterpreter(stateDiagram);
         // Sink - Build then output to file!
-        return new C2KASpecifications(stateDiagram.name(), abstractB.getOutput(),
+        return new C2KASpecifications(abstractB.getOutput(),
                 nextB.getOutput(), nextS.getOutput(), concreteB.getOutput());
     }
 

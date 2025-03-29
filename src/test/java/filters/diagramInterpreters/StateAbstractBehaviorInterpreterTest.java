@@ -3,6 +3,9 @@ package filters.diagramInterpreters;
 import com.sdmetrics.model.ModelElement;
 import filters.diagramLinkers.StateDiagramLinker;
 import filters.xmiParser.XMIParser;
+import pipes.c2ka.behaviors.AtomicBehavior;
+import pipes.c2ka.behaviors.ChoiceBehavior;
+import pipes.c2ka.specifications.AbstractBehaviorSpecification;
 import pipes.parserConfig.XMIParserConfig;
 import org.junit.jupiter.api.Test;
 import pipes.c2ka.behaviors.Behavior;
@@ -22,7 +25,7 @@ public class StateAbstractBehaviorInterpreterTest {
      * @return Behavior type pipe object (filter under test's output)
      * @throws Exception In case of thread or input exceptions
      */
-    private CompositeBehavior runTestPipeline(String inputDiagramXMI) throws Exception {
+    private AbstractBehaviorSpecification runTestPipeline(String inputDiagramXMI) throws Exception {
         // Setup Input
         String metaModel = "custom/stateMetaModel.xml";
         String xmiTrans = "custom/xmiStateTrans.xml";
@@ -41,11 +44,14 @@ public class StateAbstractBehaviorInterpreterTest {
     @Test
     void testAtomic() throws Exception {
         // Get output
-        Behavior behavior = runTestPipeline("Atomic.uml");
+        AbstractBehaviorSpecification spec = runTestPipeline("Atomic.uml");
+        // Simulate output
+        CompositeBehavior choice = new ChoiceBehavior();
+        choice.addBehavior(new AtomicBehavior("<name>", "<behavior-expression>"));
+        AbstractBehaviorSpecification specExpect = new AbstractBehaviorSpecification("Atomic Behavior", choice);
 
-        assert behavior.toString().equals("( <name> )");
+        assert spec.equals(specExpect);
     }
 
-    // TODO: implement rest of tests... look at the behavior tests for reference on how to handle indeterministic output!
-    //      There are tricks you need to do because after two behaviors in a choice the order is randomized.
+    // TODO: implement rest of tests.
 }
