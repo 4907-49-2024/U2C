@@ -11,7 +11,7 @@ import java.util.Set;
  * Specifications parent class for NextMappings. Takes in sets of NextMap elements to make a specification out of them.
  * @param <mapType> The NextMapping type, nextBehavior or nextStimulus
  */
-public abstract class NextMappingSpecification<mapType extends NextMapSemiring<?>> implements Specification {
+public abstract class NextMappingSpecification<mapType extends NextMapSemiring<?>> extends Specification {
     private final Set<mapType> mappings;
 
     protected NextMappingSpecification(Set<mapType> mappings) {
@@ -56,24 +56,22 @@ public abstract class NextMappingSpecification<mapType extends NextMapSemiring<?
             }
         }
     }
+
     /**
      * @return True if the given key pair does not have a matching map in this specification yet
      */
     private boolean keyInSpec(Stimulus s, AtomicBehavior b) {
-        return mappings.stream().anyMatch(m -> m.isKeyEqual(s, b)); // FIXME: Implement this
+        return mappings.stream().anyMatch(m -> m.isKeyEqual(s, b));
     }
 
 
+    /**
+     * @return The contents of the specification, may be multiple lines long.
+     */
     @Override
-    public String toString() {
-
+    public String getSpecificationContents() {
         StringBuilder sb = new StringBuilder();
         String lineSeparator = "\n\t";
-
-        sb.append("begin ");
-        sb.append(getSpecificationName()); // Type erasure in java makes this tricky to generalize without passing info
-        sb.append(" where");
-        sb.append("\n");
 
         Stimulus lastStim = null;
         // Note: Order is completely random, and no whitespace to separate sections. Hopefully not a problem?
@@ -85,9 +83,6 @@ public abstract class NextMappingSpecification<mapType extends NextMapSemiring<?
             sb.append(mapping);
             sb.append(lineSeparator);
         }
-
-        sb.append("\n");
-        sb.append("end");
 
         return sb.toString();
     }
