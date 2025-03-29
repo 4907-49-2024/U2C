@@ -12,6 +12,13 @@ public class AbstractBehaviorSpecification extends Specification {
         this.agentName = agentName;
     }
 
+    /**
+     * @return The name of the agent associated with this AbstractBehaviorSpecification
+     */
+    public String getAgentName() {
+        return agentName;
+    }
+
     @Override
     public String getSpecificationContents() {
         StringBuilder sb = new StringBuilder();
