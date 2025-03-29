@@ -5,13 +5,9 @@ import filters.diagramLinkers.StateDiagramLinker;
 import filters.xmiParser.XMIParser;
 import pipes.parserConfig.XMIParserConfig;
 import org.junit.jupiter.api.Test;
-import pipes.UMLModel;
-import pipes.XMIParserConfig;
 import pipes.c2ka.behaviors.Behavior;
 import pipes.c2ka.behaviors.CompositeBehavior;
 import pipes.diagrams.state.SuperState;
-
-import java.util.List;
 
 import static testUtils.TestPaths.BASE_C2KA;
 

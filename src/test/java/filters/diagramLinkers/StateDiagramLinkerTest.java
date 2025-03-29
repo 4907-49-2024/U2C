@@ -4,15 +4,12 @@ import com.sdmetrics.model.ModelElement;
 import filters.xmiParser.XMIParser;
 import pipes.parserConfig.XMIParserConfig;
 import org.junit.jupiter.api.Test;
-import pipes.UMLModel;
-import pipes.XMIParserConfig;
 import pipes.diagrams.state.AtomicState;
 import pipes.diagrams.state.State;
 import pipes.diagrams.state.SuperState;
 import pipes.diagrams.state.Transition;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static testUtils.TestPaths.BASE_C2KA;
