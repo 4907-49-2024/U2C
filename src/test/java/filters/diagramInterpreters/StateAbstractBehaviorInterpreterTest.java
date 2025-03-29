@@ -3,24 +3,21 @@ package filters.diagramInterpreters;
 import com.sdmetrics.model.ModelElement;
 import filters.diagramLinkers.StateDiagramLinker;
 import filters.xmiParser.XMIParser;
-import pipes.XMIParserConfig;
 import org.junit.jupiter.api.Test;
 import pipes.UMLModel;
+import pipes.XMIParserConfig;
 import pipes.c2ka.behaviors.Behavior;
 import pipes.c2ka.behaviors.CompositeBehavior;
 import pipes.diagrams.state.SuperState;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
+
+import static testUtils.TestPaths.BASE_C2KA;
 
 /**
  * Test the StateAbstractBehaviorInterpreterTest filter
  */
 public class StateAbstractBehaviorInterpreterTest {
-    private static final Path projectRoot = Paths.get(System.getProperty("user.dir"));
-    private static final Path TEST_DIR = projectRoot.resolve("src/test/java/TestInputs/C2KA-BaseRepresentations");
-
     /**
      * Define test pipeline
      *
@@ -32,7 +29,7 @@ public class StateAbstractBehaviorInterpreterTest {
         // Setup Input
         String metaModel = "custom/stateMetaModel.xml";
         String xmiTrans = "custom/xmiStateTrans.xml";
-        XMIParserConfig config = new XMIParserConfig(TEST_DIR, inputDiagramXMI, xmiTrans, metaModel);
+        XMIParserConfig config = new XMIParserConfig(BASE_C2KA, inputDiagramXMI, xmiTrans, metaModel);
         // Filter 1
         XMIParser parser = new XMIParser(config);
         UMLModel model = parser.getOutput();
