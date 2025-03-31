@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_FNUHgAP9EfCcP8pzFhRo4g" name="Programmable Logic Controller">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_FNl0UAP9EfCcP8pzFhRo4g">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_FNYY8AP9EfCcP8pzFhRo4g" name="PLC">
+    <region xmi:type="uml:Region" xmi:id="_FNZAAAP9EfCcP8pzFhRo4g" name="Region1">
+      <transition xmi:type="uml:Transition" xmi:id="_jdCRoAQBEfCcP8pzFhRo4g" name="fault / alarm" source="_2rHXcAP-EfCcP8pzFhRo4g" target="_3oiB8AP-EfCcP8pzFhRo4g"/>
+      <transition xmi:type="uml:Transition" xmi:id="_r7d2gAQBEfCcP8pzFhRo4g" name="fixed / fixed" source="_3oiB8AP-EfCcP8pzFhRo4g" target="_2rHXcAP-EfCcP8pzFhRo4g"/>
+      <subvertex xmi:type="uml:State" xmi:id="_2rHXcAP-EfCcP8pzFhRo4g" name="PID">
+        <doActivity xmi:type="uml:Activity" xmi:id="_zffTgAP_EfCcP8pzFhRo4g" name="if flowRate >= FLOW_SETPOINT -> 1skip | flowRate &lt; FLOW_SETPOINT -> 1send alarm fi targetFlow := COMPUTE_FLOW(residual); if targetFlow > MAX_PUMP_FLOW -> 1leadFlow := MAX_PUMP_FLOW; 1lagFlow := targetFlow - MAX_PUMP_FLOW | targetFlow > MAX_PUMP_FLOW -> 1leadFlow := targetFlow | targetFlow &lt; DEADBAND -> 1leadFlow := targetFlow fi"/>
+      </subvertex>
+      <subvertex xmi:type="uml:State" xmi:id="_3oiB8AP-EfCcP8pzFhRo4g" name="RATIO">
+        <doActivity xmi:type="uml:Activity" xmi:id="_5oQeAAP-EfCcP8pzFhRo4g" name="skip"/>
+      </subvertex>
+    </region>
+  </packagedElement>
+</uml:Model>

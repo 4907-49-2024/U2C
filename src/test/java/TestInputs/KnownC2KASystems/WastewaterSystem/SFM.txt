@@ -1,0 +1,48 @@
+begin AGENT where
+
+	SFM := GETFLOW
+	
+end
+
+
+begin NEXT_BEHAVIOUR where
+	
+	(start,  GETFLOW) = GETFLOW
+	(fault,  GETFLOW) = GETFLOW	
+	(eff,    GETFLOW) = GETFLOW
+	(res,    GETFLOW) = GETFLOW
+	(rate,   GETFLOW) = GETFLOW
+	(off1,   GETFLOW) = GETFLOW
+	(on1,    GETFLOW) = GETFLOW
+	(off2,   GETFLOW) = GETFLOW
+	(on2,    GETFLOW) = GETFLOW
+	(alarm,  GETFLOW) = GETFLOW
+	(fixed,  GETFLOW) = GETFLOW
+	(repair, GETFLOW) = GETFLOW
+
+end
+
+
+begin NEXT_STIMULUS where
+	
+	(start,  GETFLOW) = N
+	(fault,  GETFLOW) = N
+	(eff,    GETFLOW) = rate
+	(res,    GETFLOW) = N
+	(rate,   GETFLOW) = N
+	(off1,   GETFLOW) = N
+	(on1,    GETFLOW) = N
+	(off2,   GETFLOW) = N
+	(on2,    GETFLOW) = N
+	(alarm,  GETFLOW) = N
+	(fixed,  GETFLOW) = N
+	(repair, GETFLOW) = N
+
+end
+
+
+begin CONCRETE_BEHAVIOUR where
+
+	GETFLOW => [ flowRate := effluent ]
+	
+end

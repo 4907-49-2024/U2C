@@ -1,0 +1,77 @@
+begin AGENT where
+
+	OP := MONITOR + ALARM
+	
+end
+
+
+
+begin NEXT_BEHAVIOUR where
+	
+	(start,  MONITOR) = MONITOR
+	(fault,  MONITOR) = MONITOR	
+	(eff,    MONITOR) = MONITOR
+	(res,    MONITOR) = MONITOR
+	(rate,   MONITOR) = MONITOR
+	(off1,   MONITOR) = MONITOR
+	(on1,    MONITOR) = MONITOR
+	(off2,   MONITOR) = MONITOR
+	(on2,    MONITOR) = MONITOR
+	(alarm,  MONITOR) = ALARM
+	(fixed,  MONITOR) = MONITOR
+	(repair, MONITOR) = MONITOR
+	
+	(start,  ALARM) = ALARM
+	(fault,  ALARM) = ALARM	
+	(eff,    ALARM) = ALARM
+	(res,    ALARM) = ALARM
+	(rate,   ALARM) = ALARM
+	(off1,   ALARM) = ALARM
+	(on1,    ALARM) = ALARM
+	(off2,   ALARM) = ALARM
+	(on2,    ALARM) = ALARM
+	(alarm,  ALARM) = ALARM
+	(fixed,  ALARM) = ALARM
+	(repair, ALARM) = MONITOR
+
+end
+
+
+begin NEXT_STIMULUS where
+
+	(start,  MONITOR) = N
+	(fault,  MONITOR) = N	
+	(eff,    MONITOR) = N
+	(res,    MONITOR) = N
+	(rate,   MONITOR) = N
+	(off1,   MONITOR) = N
+	(on1,    MONITOR) = N
+	(off2,   MONITOR) = N
+	(on2,    MONITOR) = N
+	(alarm,  MONITOR) = N
+	(fixed,  MONITOR) = N
+	(repair, MONITOR) = N
+	
+	(start,  ALARM) = N
+	(fault,  ALARM) = N	
+	(eff,    ALARM) = N
+	(res,    ALARM) = N
+	(rate,   ALARM) = N
+	(off1,   ALARM) = N
+	(on1,    ALARM) = N
+	(off2,   ALARM) = N
+	(on2,    ALARM) = N
+	(alarm,  ALARM) = N
+	(fixed,  ALARM) = N
+	(repair, ALARM) = fixed
+
+end
+
+
+begin CONCRETE_BEHAVIOUR where
+
+	MONITOR => [ mode := PID ]
+	
+	ALARM   => [ mode := RATIO ]
+	
+end
