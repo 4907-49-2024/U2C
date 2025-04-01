@@ -1,0 +1,76 @@
+begin AGENT where
+
+	CFP2 := OFF2 + ON2
+	
+end
+
+
+begin NEXT_BEHAVIOUR where
+	
+	(start,  OFF2) = OFF2
+	(fault,  OFF2) = OFF2	
+	(eff,    OFF2) = OFF2
+	(res,    OFF2) = OFF2
+	(rate,   OFF2) = OFF2
+	(off1,   OFF2) = OFF2
+	(on1,    OFF2) = OFF2
+	(off2,   OFF2) = OFF2
+	(on2,    OFF2) = ON2
+	(alarm,  OFF2) = OFF2
+	(fixed,  OFF2) = OFF2
+	(repair, OFF2) = OFF2
+	
+	(start,  ON2) = ON2
+	(fault,  ON2) = ON2
+	(eff,    ON2) = ON2
+	(res,    ON2) = ON2
+	(rate,   ON2) = ON2
+	(off1,   ON2) = ON2
+	(on1,    ON2) = ON2
+	(off2,   ON2) = OFF2
+	(on2,    ON2) = ON2
+	(alarm,  ON2) = ON2
+	(fixed,  ON2) = ON2
+	(repair, ON2) = ON2
+
+end
+
+
+begin NEXT_STIMULUS where
+
+	(start,  OFF2) = N
+	(fault,  OFF2) = N
+	(eff,    OFF2) = N
+	(res,    OFF2) = N
+	(rate,   OFF2) = N
+	(off1,   OFF2) = N
+	(on1,    OFF2) = N
+	(off2,   OFF2) = N
+	(on2,    OFF2) = N
+	(alarm,  OFF2) = N
+	(fixed,  OFF2) = N
+	(repair, OFF2) = N
+	
+	(start,  ON2) = N
+	(fault,  ON2) = N
+	(eff,    ON2) = N
+	(res,    ON2) = N
+	(rate,   ON2) = N
+	(off1,   ON2) = N
+	(on1,    ON2) = N
+	(off2,   ON2) = N
+	(on2,    ON2) = N
+	(alarm,  ON2) = N
+	(fixed,  ON2) = N
+	(repair, ON2) = N
+
+end
+
+
+begin CONCRETE_BEHAVIOUR where
+
+	OFF2 => [ lagPumpOn := FALSE; pumpRate := 0 ]
+	
+	ON2 => [ lagPumpOn := TRUE; pumpRate := lagFlow ]
+	
+end

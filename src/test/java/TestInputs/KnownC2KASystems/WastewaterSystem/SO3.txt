@@ -1,0 +1,76 @@
+begin AGENT where
+
+	SO3 := GETSO3 + ERROR
+	
+end
+
+
+begin NEXT_BEHAVIOUR where
+
+	(start,  GETSO3) = GETSO3
+	(fault,  GETSO3) = ERROR	
+	(eff,    GETSO3) = GETSO3
+	(res,    GETSO3) = GETSO3
+	(rate,   GETSO3) = GETSO3
+	(off1,   GETSO3) = GETSO3
+	(on1,    GETSO3) = GETSO3
+	(off2,   GETSO3) = GETSO3
+	(on2,    GETSO3) = GETSO3
+	(alarm,  GETSO3) = GETSO3
+	(fixed,  GETSO3) = GETSO3
+	(repair, GETSO3) = GETSO3
+	
+	(start,  ERROR) = ERROR
+	(fault,  ERROR) = ERROR	
+	(eff,    ERROR) = ERROR
+	(res,    ERROR) = ERROR
+	(rate,   ERROR) = ERROR
+	(off1,   ERROR) = ERROR
+	(on1,    ERROR) = ERROR
+	(off2,   ERROR) = ERROR
+	(on2,    ERROR) = ERROR
+	(alarm,  ERROR) = ERROR
+	(fixed,  ERROR) = GETSO3
+	(repair, ERROR) = ERROR
+
+end
+
+
+begin NEXT_STIMULUS where
+
+	(start,  GETSO3) = N
+	(fault,  GETSO3) = N	
+	(eff,    GETSO3) = res
+	(res,    GETSO3) = N
+	(rate,   GETSO3) = N
+	(off1,   GETSO3) = N
+	(on1,    GETSO3) = N
+	(off2,   GETSO3) = N
+	(on2,    GETSO3) = N
+	(alarm,  GETSO3) = N
+	(fixed,  GETSO3) = N
+	(repair, GETSO3) = N
+
+	(start,  ERROR) = N
+	(fault,  ERROR) = fault	
+	(eff,    ERROR) = N
+	(res,    ERROR) = N
+	(rate,   ERROR) = N
+	(off1,   ERROR) = N
+	(on1,    ERROR) = N
+	(off2,   ERROR) = N
+	(on2,    ERROR) = N
+	(alarm,  ERROR) = N
+	(fixed,  ERROR) = N
+	(repair, ERROR) = N
+
+end
+
+
+begin CONCRETE_BEHAVIOUR where
+	
+	GETSO3 => [ residual := effluent ]
+
+	ERROR => [ residual := NULL ]
+	
+end
