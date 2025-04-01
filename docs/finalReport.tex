@@ -7,8 +7,67 @@
 % Packages
 \usepackage{amsmath}
 
+\usepackage{longtable}
+\usepackage[table]{xcolor}
+\usepackage{tabularx} % Package to manage table width automatically
+
 % Document
 \begin{document}
+
+    \section{Software Requirement Specification}
+    \label{sec:SRS}
+    \subsection{Stakeholder Requirements}
+    These are requirements taken from initial discussions with the stakeholder (our supervisor),
+    and interpretations of the problem statement.
+    They represent our original set of requirements, with minimal implementation details, and domain knowledge.
+
+    % Requirement table
+    \begin{longtable}{|l|p{2.6cm}|l|p{4.5cm}|c|}
+        \hline
+        \textbf{ID} & \textbf{Requirement} & \textbf{Type}  & \textbf{Description} & \textbf{State}\\
+        \hline
+        \endfirsthead
+        \hline
+        \textbf{ID} & \textbf{Requirement} & \textbf{Type}  & \textbf{Description} & \textbf{State}\\
+        \hline
+        \endhead
+        \hline
+        % Requirements here
+        1 & Input & Functional & U2C shall accept visual system models as input. & \cellcolor{green!30}  \\
+        \hline
+        2 & C2KA Specifications & Functional & U2C shall interpret given inputs to derive a complete C2KA specification. & \cellcolor{green!30}  \\
+        \hline
+        3 & IIAT Parameters & Functional & U2C shall interpret given inputs to derive the other required IIAT inputs. & \cellcolor{gray!30}  \\
+        \hline
+        4 & Output & Functional & U2C shall output its computed inputs as text files. & \cellcolor{green!30}  \\
+        \hline
+        5 & Minimal User Actions & Usability & U2C shall require no additional inputs from the user apart from those required to provide system models. & \cellcolor{green!30}  \\
+        \hline
+        6 & Modelling Tool Support & Compatibility & U2C shall support models produced by at least one chosen modelling tool (Papyrus, LucidChart, StarUML). & \cellcolor{green!30}  \\
+        \hline
+        7 & Modelling Language Support & Compatibility & U2C shall support visual models drawn in at least one type of modelling language (ex: UML, SysML, BPMN). & \cellcolor{green!30}  \\
+        \hline
+        8 & Diagram Type Support & Compatibility & U2C shall support diagrams corresponding to at least one chosen type (ex: state, collaboration, etc.). & \cellcolor{green!30}  \\
+        \hline
+        9 & Cross Tool Integration & Compatibility & U2C should provide options to integrate directly into tools it depends on (input producer, and output consumers). & \cellcolor{gray!30}  \\
+        \hline
+        10 & OS Support & Portability & U2C shall run on at least one chosen OS distribution. & \cellcolor{green!30}  \\
+        \hline
+        11 & Simple System Analysis Speed & Performance & U2C shall produce outputs within one minute of execution in a simple system.
+        A simple system is defined as having up to five agents, twenty stimuli, and five behaviors per agent. & \cellcolor{gray!30}  \\
+        \hline
+        12 & Worst Case Mitigation & Scalability & U2C should scale at a smaller rate than O($n^3$). The scaling factors should be agents, stimuli, and agent behaviors. & \cellcolor{gray!30}  \\
+        \hline
+        13 & User Documentation & Maintainability & U2C shall provide a user manual detailing expected user interactions, and input formats. & \cellcolor{gray!30}  \\
+        \hline
+        14 & Maintainer Documentation & Maintainability & U2C shall provide a documentation detailing implementation details for maintainers. & \cellcolor{green!30}  \\
+        \hline
+        15 & Accurate Outputs & Reliability & U2C shall provide deterministic outputs representing accurately what the inputs contain. & \cellcolor{green!30}  \\
+        \hline
+        16 & No False Positives & Reliability & U2C shall not provide outputs if it cannot find a deterministic interpretation of the given inputs. & \cellcolor{green!30}  \\
+        \hline
+    \end{longtable}
+
 
     \section{Technical Section - NAME TBD}
     This section will go over the technical specifications of our program, as well as the process behind building it.
