@@ -52,68 +52,68 @@ public class SpecificationDiffTool {
         };
     }
 
-//    private static boolean compareNextStimuliAndBehavior(String expected, String actual, StringBuilder diffReport, String sectionName) {
-//        Set<Set<String>> expectedGroups = parseNextStimuliAndBehaviour(expected);
-//        Set<Set<String>> actualGroups = parseNextStimuliAndBehaviour(actual);
-//        // Short-circuit if it matches
-//        if (expectedGroups.equals(actualGroups)) return true;
-//
-//        Set<Set<String>> missingGroups = new HashSet<>(expectedGroups);
-//        missingGroups.removeAll(actualGroups);
-//
-//        Set<Set<String>> unexpectedGroups = new HashSet<>(actualGroups);
-//        unexpectedGroups.removeAll(expectedGroups);
-//
-//        diffReport.append("❌ Differences found in section: ").append(sectionName).append("\n\n");
-//
-//        if (!missingGroups.isEmpty()) {
-//            diffReport.append("Missing groupings:\n");
-//            missingGroups.forEach(group -> {
-//                diffReport.append("\n");
-//                group.forEach(line -> diffReport.append("\t").append(line).append("\n"));
-//            });
-//            diffReport.append("\n");
-//        }
-//
-//        if (!unexpectedGroups.isEmpty()) {
-//            diffReport.append("Unexpected groupings:\n");
-//            unexpectedGroups.forEach(group -> {
-//                diffReport.append("\n");
-//                group.forEach(line -> diffReport.append("\t").append(line).append("\n"));
-//            });
-//            diffReport.append("\n");
-//        }
-//
-//        return false;
-//    }
-
     private static boolean compareNextStimuliAndBehavior(String expected, String actual, StringBuilder diffReport, String sectionName) {
-        Set<String> expectedLines = expected.lines()
-                .map(String::trim)
-                .filter(line -> !line.isBlank() && !line.startsWith("begin") && !line.startsWith("end"))
-                .map(line -> line.replaceAll("\s=\s", "=").replaceAll("\s,\s", ","))
-                .collect(Collectors.toSet());
+        Set<Set<String>> expectedGroups = parseNextStimuliAndBehaviour(expected);
+        Set<Set<String>> actualGroups = parseNextStimuliAndBehaviour(actual);
+        // Short-circuit if it matches
+        if (expectedGroups.equals(actualGroups)) return true;
 
-        Set<String> actualLines = actual.lines()
-                .map(String::trim)
-                .filter(line -> !line.isBlank() && !line.startsWith("begin") && !line.startsWith("end"))
-                .map(line -> line.replaceAll("\s=\s", "=").replaceAll("\s,\s", ","))
-                .collect(Collectors.toSet());
+        Set<Set<String>> missingGroups = new HashSet<>(expectedGroups);
+        missingGroups.removeAll(actualGroups);
 
-        Set<String> missingLines = actualLines.stream()
-                .filter(line -> !expectedLines.contains(line))
-                .collect(Collectors.toSet());
+        Set<Set<String>> unexpectedGroups = new HashSet<>(actualGroups);
+        unexpectedGroups.removeAll(expectedGroups);
 
-        if (!missingLines.isEmpty()) {
-            diffReport.append(" Differences found in section: ").append(sectionName).append("\n\n");
-            diffReport.append("The following lines were found in actual output but missing from expected:\n");
-            missingLines.forEach(line -> diffReport.append("\t").append(line).append("\n"));
+        diffReport.append("❌ Differences found in section: ").append(sectionName).append("\n\n");
+
+        if (!missingGroups.isEmpty()) {
+            diffReport.append("Missing groupings:\n");
+            missingGroups.forEach(group -> {
+                diffReport.append("\n");
+                group.forEach(line -> diffReport.append("\t").append(line).append("\n"));
+            });
             diffReport.append("\n");
-            return false;
         }
 
-        return true;
+        if (!unexpectedGroups.isEmpty()) {
+            diffReport.append("Unexpected groupings:\n");
+            unexpectedGroups.forEach(group -> {
+                diffReport.append("\n");
+                group.forEach(line -> diffReport.append("\t").append(line).append("\n"));
+            });
+            diffReport.append("\n");
+        }
+
+        return false;
     }
+
+//    private static boolean compareNextStimuliAndBehavior(String expected, String actual, StringBuilder diffReport, String sectionName) {
+//        Set<String> expectedLines = expected.lines()
+//                .map(String::trim)
+//                .filter(line -> !line.isBlank() && !line.startsWith("begin") && !line.startsWith("end"))
+//                .map(line -> line.replaceAll("\s=\s", "=").replaceAll("\s,\s", ","))
+//                .collect(Collectors.toSet());
+//
+//        Set<String> actualLines = actual.lines()
+//                .map(String::trim)
+//                .filter(line -> !line.isBlank() && !line.startsWith("begin") && !line.startsWith("end"))
+//                .map(line -> line.replaceAll("\s=\s", "=").replaceAll("\s,\s", ","))
+//                .collect(Collectors.toSet());
+//
+//        Set<String> missingLines = actualLines.stream()
+//                .filter(line -> !expectedLines.contains(line))
+//                .collect(Collectors.toSet());
+//
+//        if (!missingLines.isEmpty()) {
+//            diffReport.append(" Differences found in section: ").append(sectionName).append("\n\n");
+//            diffReport.append("The following lines were found in actual output but missing from expected:\n");
+//            missingLines.forEach(line -> diffReport.append("\t").append(line).append("\n"));
+//            diffReport.append("\n");
+//            return false;
+//        }
+//
+//        return true;
+//    }
 
     private static Set<Set<String>> parseNextStimuliAndBehaviour(String content) {
         return Arrays.stream(content.trim().split("\\n\\s*\\n"))
