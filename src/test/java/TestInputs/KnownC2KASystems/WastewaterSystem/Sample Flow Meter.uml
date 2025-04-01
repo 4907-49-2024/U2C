@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_-vGG4AP8EfCcP8pzFhRo4g" name="Sample Flow Meter">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_-vYawAP8EfCcP8pzFhRo4g">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_-vJKMAP8EfCcP8pzFhRo4g" name="SFM">
+    <region xmi:type="uml:Region" xmi:id="_-vJxQAP8EfCcP8pzFhRo4g" name="Region1">
+      <transition xmi:type="uml:Transition" xmi:id="_hRix0AP-EfCcP8pzFhRo4g" name="eff / rate" source="_ZwEkcAP-EfCcP8pzFhRo4g" target="_ZwEkcAP-EfCcP8pzFhRo4g"/>
+      <subvertex xmi:type="uml:State" xmi:id="_ZwEkcAP-EfCcP8pzFhRo4g" name="GETFLOW">
+        <doActivity xmi:type="uml:Activity" xmi:id="_tQNjQAP-EfCcP8pzFhRo4g" name="flowRate := effluent"/>
+      </subvertex>
+    </region>
+  </packagedElement>
+</uml:Model>
