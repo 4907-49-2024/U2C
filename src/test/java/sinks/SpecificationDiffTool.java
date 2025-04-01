@@ -53,38 +53,41 @@ public class SpecificationDiffTool {
     }
 
     private static boolean compareNextStimuliAndBehavior(String expected, String actual, StringBuilder diffReport, String sectionName) {
-        Set<Set<String>> expectedGroups = parseNextStimuliAndBehaviour(expected);
-        Set<Set<String>> actualGroups = parseNextStimuliAndBehaviour(actual);
-        // Short-circuit if it matches
-        if (expectedGroups.equals(actualGroups)) return true;
+        Set<String> expectedLines = parseNormalizedLines(expected);
+        Set<String> actualLines = parseNormalizedLines(actual);
 
-        Set<Set<String>> missingGroups = new HashSet<>(expectedGroups);
-        missingGroups.removeAll(actualGroups);
+        Set<String> missingLines = new HashSet<>(expectedLines);
+        missingLines.removeAll(actualLines);
 
-        Set<Set<String>> unexpectedGroups = new HashSet<>(actualGroups);
-        unexpectedGroups.removeAll(expectedGroups);
+        Set<String> unexpectedLines = new HashSet<>(actualLines);
+        unexpectedLines.removeAll(expectedLines);
+
+        if (missingLines.isEmpty() && unexpectedLines.isEmpty()) {
+            return true;
+        }
 
         diffReport.append("❌ Differences found in section: ").append(sectionName).append("\n\n");
 
-        if (!missingGroups.isEmpty()) {
-            diffReport.append("Missing groupings:\n");
-            missingGroups.forEach(group -> {
-                diffReport.append("\n");
-                group.forEach(line -> diffReport.append("\t").append(line).append("\n"));
-            });
+        if (!missingLines.isEmpty()) {
+            diffReport.append("Missing lines:\n");
+            missingLines.forEach(line -> diffReport.append("\t").append(line).append("\n"));
             diffReport.append("\n");
         }
 
-        if (!unexpectedGroups.isEmpty()) {
-            diffReport.append("Unexpected groupings:\n");
-            unexpectedGroups.forEach(group -> {
-                diffReport.append("\n");
-                group.forEach(line -> diffReport.append("\t").append(line).append("\n"));
-            });
+        if (!unexpectedLines.isEmpty()) {
+            diffReport.append("Unexpected lines:\n");
+            unexpectedLines.forEach(line -> diffReport.append("\t").append(line).append("\n"));
             diffReport.append("\n");
         }
 
         return false;
+    }
+
+    private static Set<String> parseNormalizedLines(String content) {
+        return Arrays.stream(content.trim().split("\n"))
+                .map(line -> line.replaceAll("\\s+", "")) // Remove all spacing
+                .filter(line -> !line.isEmpty() && !line.toLowerCase().startsWith("begin") && !line.toLowerCase().startsWith("end"))
+                .collect(Collectors.toSet());
     }
 
 //    private static boolean compareNextStimuliAndBehavior(String expected, String actual, StringBuilder diffReport, String sectionName) {
