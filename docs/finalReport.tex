@@ -71,13 +71,15 @@
         \hline
         12 & Worst Case Mitigation & Scalability & U2C should scale at a smaller rate than O($n^3$). The expected scaling factors are agents, stimuli, and agent behaviors. & \cellcolor{gray!30}  \\
         \hline
-        13 & User Documentation & Maintainability & U2C shall provide a user manual detailing expected user interactions, and input formats. & \cellcolor{gray!30}  \\
+        13 & User Documentation & Maintainability & The U2C code repository shall contain a user manual detailing expected user interactions, and input formats. & \cellcolor{gray!30}  \\
         \hline
-        14 & Maintainer Documentation & Maintainability & U2C shall provide a documentation detailing implementation details for maintainers. & \cellcolor{green!30}  \\
+        14 & Maintainer Documentation & Maintainability & The U2C code repository shall contain documentation detailing implementation details for maintainers. & \cellcolor{green!30}  \\
         \hline
-        15 & Accurate Outputs & Reliability & U2C shall provide deterministic outputs representing accurately what the inputs contain. & \cellcolor{green!30}  \\
+        15 & Verification Testing & The U2C code repository shall contain automated regression tests providing adequate coverage of the program source code. & \cellcolor{gray!30}  \\
         \hline
-        16 & No False Positives & Reliability & U2C shall not provide outputs if it cannot find a deterministic interpretation of the given inputs. & \cellcolor{green!30}  \\
+        16 & Accurate Outputs & Reliability & U2C shall provide deterministic outputs representing accurately what the inputs contain. & \cellcolor{green!30}  \\
+        \hline
+        17 & No False Positives & Reliability & U2C shall not provide outputs if it cannot find a deterministic interpretation of the given inputs. & \cellcolor{green!30}  \\
         \hline
     \end{longtable}
     %TODO add caption?
@@ -276,6 +278,16 @@
     \subsubsection{Architecture Description}\label{subsubsec:arch-desc}
 
     \newpage
+    \subsubsection{Project Management}\label{subsubsec:proj-mngmnt}
+
+    \newpage
+    \subsubsection{Testing Strategy}\label{subsubsec:tests-strat}
+
+    \newpage
+    \subsubsection{Validation Results}\label{subsubsec:test-validation}
+
+
+    \newpage
     \subsubsection{Unsatisfied Requirements} \label{subsubsec:unsat-reqs}
     % Remove / rework later
     Out of Scope
@@ -290,10 +302,11 @@
     \begin{enumerate}
         \item Simple System Analysis Speed
         \item Worst Case Mitigation
+        \item ~Verification tests
         \item ~Accurate Outputs
         \item ~False Positives
     \end{enumerate}
-    Missing Docs
+    Missing Docs % TODO: this could get completed before the report
     \begin{enumerate}
         \item User docs
         \item ~(cover above?) Maintainer docs
