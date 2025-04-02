@@ -32,7 +32,8 @@ Checking coverage is done manually at the moment, we make issues if we notice mi
 We also lack system test (validation tests) variety.
 It would have been nice to have system tests to test other metrics than ``accuracy'' of our system.
 We have no stress tests for performance for example.
-This is partially due to a weak definition of our non-functional requirements, as mentioned in \ref{REQ MANAGEMENT}. \\
+This is partially due to a late definition of our non-functional requirements,
+as explained later in section~\ref{subsubsec:req-elicit-refl}.
 
 In general, more tests.
 We are currently lacking coverage (verification).
@@ -69,12 +70,14 @@ The hope is that we may not be able to output everything, but what we do produce
 
 
 \subsection{Reflections}\label{subsec:reflections}
-\subsubsection{Requirement Elicitation Phase}
+\subsubsection{Requirement Elicitation Phase}\label{subsubsec:req-elicit-refl}
 This section refers to how we collected background information, and determined our requirements from there.
 This does not refer to how we managed requirements after we started the implementation.
 The issue with this phase is two-fold.
 We took way too much time (we did not start implementation work until after the progress report),
-and it was not productive given the time spent in it.\\
+and it was not productive given the time spent in it.
+Although the User Requirement list in section~\ref{subsubsec:user-reqs} is adequate,
+it was never formally defined until the report was written.
 
 At multiple times during implementation, progress halted due to a lack of C2KA knowledge,
 or we had to rewrite code from a poor initial understanding.
@@ -88,8 +91,6 @@ not an objective metric measured against non-functional requirements.\\
 
 Our requirement elicitation should have been more targeted, and produced a Software Requirement Specification document
 that we verified, and agreed to conform to.
-Although the User Requirement list in section~\ref{subsubsec:user-reqs} is good,
-it was never formally defined until the report was written.
 We should have made a process for ongoing requirement elicitation during development.
 In the case of a knowledge gap being identified, we would research or ask questions to fill this gap,
 then produce requirements and update our SRS accordingly.
@@ -103,12 +104,12 @@ it is better to fail and identify knowledge gaps earlier than be as inefficient 
 There were a few problems with the initial timeline.
 The first one was keeping an optional objective and excluding it from our timeline.
 Our timeline represented the worst case scenario to still deliver a prototype.
-This meant our target of a high-quality project required us to outperform the timeline we proposed.\\
+This meant our target of a high-quality project required us to outperform the timeline we proposed.
 
 We also did not include any slack-time in our project, we included it by allocating extra time instead.
 This meant components that had six weeks allocated
 to them were really supposed to be implemented in potentially a week or two in normal circumstances.
-This, and keeping the optional objective implicit made us quite lax in the early stages of the project.\\
+This, and keeping the optional objective implicit made us quite lax in the early stages of the project.
 
 The timeline was also based on two assumptions which did not hold and made it impossible to achieve.
 We had agreed as a team to spend a set amount of hours regularly on the project.
