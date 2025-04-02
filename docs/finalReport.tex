@@ -20,7 +20,7 @@
 
     \label{subsec:system-development}
     % Change to User requirements?
-    \subsubsection{User Requirements}
+    \subsubsection{User Requirements}\label{subsubsec:user-reqs}
 
     These User Requirements represent our original set of requirements, with minimal implementation details, and domain knowledge.
     They are elicited from initial discussions with our supervisor,
@@ -497,121 +497,7 @@
     \end{enumerate}
     % TODO: talk possible improvements on quality attributes
 
-    \section{Conclusion}
-    We wanted to find a way to produce C2KA system specifications in an easier way.
-    C2KA specifications are a useful formalism to analyze systems, but they take time and knowledge to produce.
-    As such, other methods to gain assurance in a system are used.
-    These are typically lower in cost, but cannot provide the same degree of assurance (like unit testing code).\\
-
-    We believed that we could leverage a more universal skill than C2KA specification writing:
-    creating visual diagram representations of the system.
-    Visual diagrams have the added benefit of being artefacts useful on their own already.
-    This means users of our tool may already be using them, or benefit from their creation.\\
-
-    The prototype we've built takes in UML state diagrams and can produce C2KA specification files for each agent in the system.
-    On their own, they can provide a comprehensive overview of the possible behaviors of an agent in the system.
-    When fed to other analysis tools like the IIAT,
-    these specifications can also be used to analyze the system for implicit interactions.
-    These implicit interactions may be the source of hidden vulnerabilities in the system,
-    which we can now help detect easily.
-
-    \subsection{Further Recommendations}
-    There are a few gaps in our prototype compared to our requirements.
-    For an up-to-date detailed account, our GitHub issues should be the best source in case of any changes after this report was written.
-    For consistency, we will follow the issue categories we used in GitHub to discuss our recommendations.
-    See section~\ref{} for precise definitions on these categories.
-
-    \subsubsection{Verification \& Validation}
-    We are lacking a formal definition of coverage criteria.
-    The test strategy we defined does a good job at capturing the idea behind how we try to cover tests.
-    Formalizing coverage criteria would be taking these ideas and formulating them in a way that we can systematically
-    test our code coverage, and build a report to see if we conform to our desired coverage.
-    This report would also be an important baseline for assurance in our software.
-    Checking coverage is done manually at the moment, we make issues if we notice missing coverage (easy to miss). \\
-
-    We also lack system test (validation tests) variety.
-    It would have been nice to have system tests to test other metrics than ``accuracy'' of our system.
-    We have no stress tests for performance for example.
-    This is partially due to a weak definition of our non-functional requirements, as mentioned in \ref{REQ MANAGEMENT}. \\
-    % (TODO: I want to justify this in the requirements section, but it is important to talk about its drawbacks here)
-
-    In general, more tests.
-    We are currently lacking coverage (verification).
-    More system tests increase assurance in our system (validation), we have very few of them at the moment.
-
-    \subsubsection{Enhancements}
-    The main feature we are lacking is collaboration diagram processing.
-    We cannot produce an intended sequence of inputs for the IIAT, which was part of our initial set of functional requirements.
-
-    Another notable mention was performance improvement related fixes.
-    Our testing did not yet support proper analysis for these changes, thus work on them did not get started either.
-
-    We entertained the idea of having a separate model checker module as part of our tool.
-    We could have a separate pipeline that could be called independently if desired to check the validity of the inputs.
-    We would define rules in the module to check the assumptions we defined in \ref{INPUTS}.
-    This would help prevent potential unexpected behaviors (false positive outputs),
-    and it could help improve the error messages we give to users to make fixing user diagrams easier.
-    The side benefit is by trying to make the artefacts work for our tool,
-    we may improve diagram quality by automatically reviewing them through our model checker.
-
-
-    \subsubsection{Bugs}
-    There are none (that we know of!).
-
-    In this context, we will count bugs as faults which could lead to an incorrect output being produced.
-    If the program crashes before producing the output, we may count it as a missing feature depending on the cause.
-    A well-formed input which crashes means we have not developed the tools to process it yet.
-    Collaboration diagrams could fall in this category, although we have not yet defined what is a well-formed collaboration diagram either.
-    Otherwise, it is good if the program crashes because it means that it detected a fault in the input.
-    If it did not, it would be a bug because the output is faulty (false positive output).
-
-    Our philosophy as we were finishing our prototype was to focus on fully functional essential features over many potentially broken features.
-    The hope is that we may not be able to output everything, but what we do produce can be relied on.
-
-
-    \subsection{Reflections}
-    \subsubsection{Requirement Elicitation Phase}
-    This section refers to how we collected background information, and determined our requirements from there.
-    This does not refer to how we managed requirements after we started the implementation.
-    The issue with this phase is two-fold.
-    We took way too much time (we did not start implementation work until after the progress report),
-    and it was not productive given the time spent in it.\\
-
-    At multiple times during implementation, progress halted due to a lack of C2KA knowledge,
-    or we had to rewrite code from a poor initial understanding.
-    We also did not put any effort into approving and tracing any requirements other than our functional objectives.
-    These functional objectives were based on a specific pipeline configuration which we decided to change later,
-    and thus were too low-level to base our functional requirements on them.
-    The non-functional objectives of our system became even more implicit, and were subject to change based on
-    since there was no traceability for them.
-    This means any decisions regarding trade-offs in the program were decided based off of what felt best at the time,
-    not an objective metric measured against non-functional requirements.\\
-
-    Our requirement elicitation should have been more targeted, and produced a Software Requirement Specification document
-    that we verified, and agreed to conform to.
-    We should have made a process for ongoing requirement elicitation during development.
-    In the case of a knowledge gap being identified, we would research or ask questions to fill this gap,
-    then produce requirements and update our SRS accordingly.
-    This turnaround should not take more than a week to avoid blocking or reverting changes in the implementation.
-    The initial requirement elicitation phase may warrant a bit more time allocated.
-    It takes time to develop this process and learn about the problem domain.
-    It should not have taken us more than a month,
-    it is better to fail and identify knowledge gaps earlier than be as inefficient as we were.
-
-    \subsubsection{Timelines}
-    There were a few problems with the initial timeline.
-    The first one was keeping an optional objective and excluding it from our timeline.
-    Our timeline represented the worst case scenario to still deliver a prototype.
-    This meant our target of a high-quality project required us to outperform the timeline we proposed.\\
-
-    We also did not include any slack-time in our project, we included it by allocating extra time instead.
-    This meant components that had six weeks allocated
-    to them were really supposed to be implemented in potentially a week or two in normal circumstances.
-    This, and keeping the optional objective implicit made us quite lax in the early stages of the project.\\
-
-    The timeline was also based on two assumptions which did not hold and made it impossible to achieve.
-    We had agreed as a team to have
-
-    %
+    \section{Conclusion}\label{sec:conclusion}
+    \input{sections/conclusion}
 
 \end{document}
