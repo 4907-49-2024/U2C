@@ -30,7 +30,7 @@
     Some limitations of this process is a lack of explicit detail, priorities, or levels of satisfaction for non-functional requirements.
     Instead, we will use later stages of the system development to trace design decisions taken for these requirements.
     We will also touch on priorities and possible improvements when we explain
-    which requirements were skipped in our prototype in section~\ref{subsubsec:unsat-reqs}.
+    which requirements were skipped for our current release in section~\ref{subsubsec:unsat-reqs}.
 
     The table of requirements contains a list of User Requirements for our system,
     with green states indicating satisfactory completion, and gray indicating unsatisfactory:
@@ -69,7 +69,7 @@
         11 & Simple System Analysis Speed & Performance & U2C shall produce outputs within one minute of execution in a simple system.
         A simple system is defined as having up to five agents, twenty stimuli, and five behaviors per agent. & \cellcolor{gray!30}  \\
         \hline
-        12 & Worst Case Mitigation & Scalability & U2C should scale at a smaller rate than O($n^3$). The scaling factors should be agents, stimuli, and agent behaviors. & \cellcolor{gray!30}  \\
+        12 & Worst Case Mitigation & Scalability & U2C should scale at a smaller rate than O($n^3$). The expected scaling factors are agents, stimuli, and agent behaviors. & \cellcolor{gray!30}  \\
         \hline
         13 & User Documentation & Maintainability & U2C shall provide a user manual detailing expected user interactions, and input formats. & \cellcolor{gray!30}  \\
         \hline
@@ -83,14 +83,13 @@
     %TODO add caption?
 
     \subsubsection{Chosen Inputs}
-    This section details the decisions taken relating to input requirements.
-    The first decision to take is the specific diagram type to support because it has cascading impacts on other requirements.
-    This decision impacts the language, the diagram type may be specific to one or a small set of languages.
+    The first decision to take concerning inputs was the specific diagram type to support.
+    This decision impacts the language, since the diagram type may be specific to one or a small set of languages.
     It also impacts the modelling tool because it needs to support creating that diagram type.
     Most importantly, if the diagram does not have the information we require, there is no purpose in processing it.
     Recall that the information we require is related to creating C2KA agent specifications.
     It turns out, it is possible to make one \textbf{UML State Diagram} per agent to simply capture its complete specification.
-    More details on this later when we explain how to make a well-formed State Diagram for our inputs in section~\ref{subsubsec:input-example}.
+    More details on this later when we break down relevant components of state diagrams in section~\ref{subsubsec:input-example}.
 
     By choosing UML State Diagrams, we also choose \textbf{UML} as our modelling language.
     SysML could have been a close viable alternative, but we decided to choose a language we were more familiar with.
@@ -156,11 +155,12 @@
 
     The first element in our state diagram is a \textbf{state}.
     States describe a discrete behavior where an invariant condition holds.
-    They map directly to abstract behaviors in C2KA\@.
+    They map directly to \textit{Abstract Behaviors} in C2KA\@.
     \textbf{Atomic States} are states which do not contain other states.
     % TODO: (add C2KA base figures after each paragraph?)
 
-    Atomic States always have a \textbf{doActivity} property, as they are needed for C2KA Concrete Behaviors.
+    Atomic States always have a \textbf{doActivity} property,
+    as they are needed for C2KA \textit{Concrete Behaviors}.
     doActivities need to follow Dijkstra's Guarded Command Language (GCL) notation.
     They are used to assign environmental shared variable values,
     with the option to use conditional flows based on the current environment state.
@@ -170,9 +170,11 @@
     % TODO: Add GCL table
 
     \textbf{Transitions} are links between states which describe how changes in state occur.
+    We use these transitions and their associated behaviors to compute \textit{Next Behavior} and \textit{Next Stimuli} functions.
     For C2KA, we have defined a precise labelling format to follow \{input-stimuli\}/\{output-stimuli\}.
-    This follows state diagram convention, but it does not allow for guards,and enforces input and output on all transitions.
-    \textit{sequential transitions} are special transitions with this labelling format: \{in-and-out-stimuli\}.
+    This follows state diagram convention, but it does not allow for guards,
+    and enforces input and output on all transitions.
+    \textit{sequential transitions} are special transitions with a single stimuli, their labelling format is: \{in-and-out-stimuli\}.
     This is because sequential states use the output of one state as the input of the next state in the sequence.
     This allows us to uniquely identify sequential compositions by using a single stimuli as the key identifying property.
 
@@ -198,6 +200,8 @@
 %            Do Activity & Concrete Program executed while in state (Using \textbf{Dijkstra's GCL notation}) & Concrete Behavior \\ \hline
 %        \end{tabularx}\label{tab:diagram-element-table}
 %    \end{table}
+
+    \subsubsection{Architecture Choice (new)}
 
 
     \subsubsection{Unsatisfied Requirements} \label{subsubsec:unsat-reqs}
