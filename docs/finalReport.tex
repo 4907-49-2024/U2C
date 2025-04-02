@@ -417,8 +417,55 @@
 
     \newpage
     \subsubsection{Testing Strategy}\label{subsubsec:tests-strat}
+    Although we never defined a formal test selection criteria,
+    we defined informal guidelines to define how to verify our code.
 
+    For our simplest code unit, \textit{pipes}, we can \textbf{unit test} it.
+    After construction, we verify public attributes are as expected.
 
+    For \textit{filters}, we did \textbf{integration tests} to more closely simulate a real program environment.
+    For these tests, we called all the filters up to and including the filter under test then evaluated the output.
+    This allowed us to do iterative development when we developed new filters,
+    ensuring new filter implementations were not breaking any previously implemented filters.
+    The following diagram shows how an integration test would like when testing the State Diagram Linker.
+    % TODO Make a diagram to show a test on XMI parser
+
+    For integration test inputs, we defined a group of elementary C2KA representations which implement
+    all the elements specified as part of our input specification.
+    The diagrams used are the same diagrams included in the input specification section~\ref{subsubsec:input-specification}.
+
+    For the complete \textit{C2KASpecification} we did end to end \textbf{system tests}, with a \textbf{custom diff tool}.
+    To do this, we needed a system with known C2KA outputs.
+    We got analyzed systems from our supervisor, which we treated as the source of truth.
+    Then, we also needed to model diagrams representing those specifications.
+    Finally, we create a test with the diagrams as inputs, the analyzed system as expected outputs,
+    and compare them with our diff tool.
+
+    The reason we needed a custom diff tool is due to the inevitable differences between manual C2KA analysis,
+    and our automated analysis.
+    There may be some whitespace differences or a different ordering of lines
+    which are both semantically irrelevant to the specification.
+    This is why our diff tool checks for an exact match for lines in a specification type,
+    regardless of their location within the block or any whitespace.
+    This means that if our actual produced output is missing a line, the diff raises an error,
+    but it also raises one if our output has an extra line which is not in the expected output.
+
+    % TODO show output differences
+
+    The table below traces user requirements to our testing strategy concepts refining them in this section.
+    \begin{table}[htbp]
+        \centering
+        \begin{tabularx}{\textwidth}{| l | l | X |}
+            % Header
+            \hline
+            \textbf{ID} & \textbf{User Requirement} & \textbf{Refinement} \\
+            % Header end
+            \hline
+            15 & Verification Testing & Unit tests, Integration tests provided confidence that our code was continuously functional as we progressed. \\ \hline
+            16 & Accurate Outputs & The system tests and diff tool were part of our validation activities to verify output accuracy. \\ \hline
+            17 & No False Positives & The system tests should show failures if an output could not be completed, otherwise the diff tool should raise an error. \\ \hline
+        \end{tabularx}\label{tab:test-strat-table}
+    \end{table}
     \newpage
     \subsubsection{Validation Results}\label{subsubsec:test-validation}
 
@@ -438,6 +485,7 @@
     \begin{enumerate}
         \item Simple System Analysis Speed
         \item Worst Case Mitigation
+        \item Verification of our diff tool
         \item ~Verification tests
         \item ~Accurate Outputs
         \item ~False Positives
