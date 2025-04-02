@@ -77,6 +77,7 @@
         \hline
         17 & No False Positives & Reliability & U2C shall not provide outputs if it cannot find a deterministic interpretation of the given inputs. & \cellcolor{green!30}  \\
         \hline
+        \label{tab:user-reqs}
     \end{longtable}
     %TODO add caption?
 
@@ -131,11 +132,11 @@
 %        \endhead
         % Header end
         \hline
-        8 & Diagram Type Support & The chosen input diagram type is UML State Diagrams. \\ \hline
-        7 & Modelling Language Support & The chosen modelling language is UML. \\ \hline
-        6 & Modelling Tool Support & The chosen modelling tool is Papyrus. \\ \hline
         1 & Input & Visual Diagrams are given to the system through XMI file exports from supported modelling tool(s). \\ \hline
         5 & Minimal User Actions & The user puts files in an input folder, then executes the program.  \\ \hline
+        6 & Modelling Tool Support & The chosen modelling tool is Papyrus. \\ \hline
+        7 & Modelling Language Support & The chosen modelling language is UML. \\ \hline
+        8 & Diagram Type Support & The chosen input diagram type is UML State Diagrams. \\ \hline
     \end{tabularx}\label{tab:input-table}
     \end{table}
     % TODO table caption?... how to, should we?
@@ -473,6 +474,23 @@
     \newpage
     \subsubsection{Validation Results}\label{subsubsec:test-validation}
     % TODO: Complete validation tests before doing this section
+
+    The table below traces user requirements to our testing results refining them in this section.
+    \begin{table}[htbp]
+        \centering
+        \begin{tabularx}{\textwidth}{| l | l | X |}
+            % Header
+            \hline
+            \textbf{ID} & \textbf{User Requirement} & \textbf{Refinement} \\
+            % Header end
+            \hline
+            1 & Input & Function part of the end to end testing.
+            2 & C2KA Specification & Function part of the end to end testing.
+            4 & Output & Function part of the end to end testing.
+            16 & Accurate Outputs & User . \\ \hline %TODO, fill
+            17 & No False Positives & . \\ \hline %TODO, fill
+        \end{tabularx}\label{tab:test-res-table}
+    \end{table}
 
     \newpage
     \subsubsection{Unsatisfied Requirements} \label{subsubsec:unsat-reqs}
