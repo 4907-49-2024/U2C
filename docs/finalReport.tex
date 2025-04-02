@@ -187,6 +187,10 @@
     There is a clear initial state with no incoming transitions.
     There is a clear final state with no outgoing transitions.
 
+    Note: We explicitly decided not cover C2KA \textit{parallel compositions} to simplify modelling and parsing.
+    Instead, a modeller should consider making two different agents which communicate
+    with each other to model parallel behavior.
+
     \subsubsection{XMI Parsing}\label{subsubsec:parsing}
     % TODO: look at overlap between this and technical background
     Having chosen our input format, we needed to find a way to parse it to be able to process it.
