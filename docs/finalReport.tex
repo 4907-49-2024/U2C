@@ -307,6 +307,29 @@
 
     \newpage
     \subsubsection{Architecture Description}\label{subsubsec:arch-desc}
+    To describe the concrete implementation of our design,
+    we will break down the responsibilities of our filters, and the pipes in our system through a visual representation.
+    In these representations, the filters are the named rounded rectangles.
+    The directional associations show data flow between filters.
+    Annotations on the data flows specify what data is contained in the pipe.
+    We also have forks, which are flows going into a black vertical bar and splitting, showing when data is re-used in parallel.
+    Joins are the opposite operation, collecting data from independent parallel operations back into one centralized point.
+    Finally, we have the cloud to indicate a simplification in the diagram.
+    It explains which details were omitted from the model to make it easier to understand.
+
+    The first part of our architecture model focuses on converting our expected input to a StateDiagram internally.
+    % TODO: Model P1 here
+    When the program starts execution, it reads all the model files at once from a known input address.
+    It forks once for each model to process them all in parallel.
+    The first transformation step is to parse the \textit{XMI file} with our \textbf{XMI Parser}.
+    The parser uses the SDMetrics library to extract generic UML \textit{ModelElements}.
+
+    These elements need to be passed to our \textbf{State Diagram Linker}
+    to build an internal representation of a \textit{state diagram} for our program.
+    Specifically, we strongly type model elements according to our internally defined types (states, and transitions).
+    Super states can be thought of as tree roots, and a state diagram can also be represented as a super state.
+    This allows us to recursively interpret our diagram just like a tree during the following \textbf{diagram interpretation} stage.
+
 
     \newpage
     \subsubsection{Project Management}\label{subsubsec:proj-mngmnt}
