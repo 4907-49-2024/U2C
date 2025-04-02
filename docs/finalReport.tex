@@ -494,30 +494,41 @@
 
     \newpage
     \subsubsection{Unsatisfied Requirements} \label{subsubsec:unsat-reqs}
-    % Remove / rework later
-    Out of Scope
-    \begin{enumerate}
-        \item Cross tool integration
-        \item IIAT Parameters
-        \item ~Modelling Tool Support
-        \item ~Modelling Language Support
-        \item ~Diagram Type Support
-    \end{enumerate}
-    Missing Tests
-    \begin{enumerate}
-        \item Simple System Analysis Speed
-        \item Worst Case Mitigation
-        \item Verification of our diff tool
-        \item ~Verification tests
-        \item ~Accurate Outputs
-        \item ~False Positives
-    \end{enumerate}
-    Missing Docs % TODO: this could get completed before the report
-    \begin{enumerate}
-        \item User docs
-        \item ~(cover above?) Maintainer docs
-    \end{enumerate}
-    % TODO: talk possible improvements on quality attributes
+    As we progressed in the project, some lower priority requirements had to be cut to reduce the scope.
+
+    For functional requirements, this meant the \textbf{IIAT Parameters}.
+    Although these are nice to have, they may have required support for an additional diagram type for small benefits.
+    The core goal of our program was producing the C2KA Specification transformation.
+
+    For non-functional requirements, we completely dropped \textbf{cross tool integration}.
+    It seemed complex, yet not essential to prove one version of our program was functional.
+    We also cannot claim \textbf{performance} nor \textbf{scalability} of our program due to lack of testing or proofs.
+    In theory, these properties should hold with our current design, but we did not take the time to prove it.
+    % TODO: Fix this req and move it later, hopefully
+    We did not complete \textbf{User Documentation}, instead focusing on building a comprehensive report.
+    The user manual should have been the essential sections of the report a user should be aware of,
+    formatted in a way which makes it easy to learn about and use our project.
+
+    We also completed some non-functional requirements but in a way that could be improved.
+    Our parser allows for multiple \textbf{modelling tool support}, but it still needs to be tested.
+    Similarly, we could have potentially supported multiple \textbf{modelling languages} with little extra effort.
+    The same may apply to \textbf{diagram types}.
+    All of this requires additional tests, and may lead to small tweaks increasing our scope beyond what we could handle.
+
+    \textbf{Maintainer documentation} is good, but it is not systematic.
+    There is no automatic way to detect missing documentation to ensure full functional coverage.
+    It may also have been good to have a maintainer manual alongside the user manual.
+    It could explain design decisions and the program architecture at a lower level than the report for overarching context.
+    For now, this report serves adequately for a system specification.
+
+    Our custom diff tool was also not systematically tested.
+    This means the reports we rely on for accuracy validation may be inaccurate themselves due to an unknown fault in the diff tool.
+    If we had more time, getting better assurance of our diff tool itself would increase our assurance in the program's overall
+    \textbf{Reliability}.
+
+    In summary, OS Support and the main functions are the only requirements we have fully covered (green).
+    All other requirements are either adequately covered (also green), or not covered (gray),
+    as seen in our user requirement table, table~\ref{tab:user-reqs}.
 
 
     \subsection{Usage}\label{subsec:usage}
