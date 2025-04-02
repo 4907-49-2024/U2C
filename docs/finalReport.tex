@@ -202,6 +202,33 @@
 %    \end{table}
 
     \newpage
+    \subsubsection{Target Deployment}
+    One of our user requirements requires us to target an Operating System.
+    Just like the choice of modelling tool, we want to avoid the OS target to be a barrier to our tool.
+    We also want to avoid incurring costs attempting to port our tool across multiple Operating Systems.
+    \textbf{Java} is a great language which allows us to run the same program on any OS due to the Java Virtual Machine.
+
+    We considered \textit{C}, but it is not as simple to make platform independent.
+    \textit{Python} was also a valid alternative because it is also platform independent.
+    The deciding factor was the availability of third party libraries.
+    We found a key library for our system implemented in Java needed to process XMI files.
+    We were not able to make any alternatives work in Python.
+
+    The table below traces user requirements to the deployment choices refining them in this section.
+    \begin{table}[htbp]
+        \centering
+        \begin{tabularx}{\textwidth}{| l | l | X |}
+            % Header
+            \hline
+            \textbf{ID} & \textbf{User Requirement} & \textbf{Refinement} \\
+            % Header end
+            \hline
+            10 & OS Support & Use java for platform independence. \\ \hline
+        \end{tabularx}\label{tab:os-choice-table}
+    \end{table}
+    % TODO table caption?... how to, should we?
+
+    \newpage
     \subsubsection{Architecture Choice}
     Choosing how to structure our code depends strongly on our functional requirements,
     but quality attributes can play a role as well.
@@ -248,7 +275,6 @@
     \newpage
     \subsubsection{Architecture Description}\label{subsubsec:arch-desc}
 
-    \subsubsection{Target Deployment}
 
 
 
