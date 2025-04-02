@@ -13,14 +13,27 @@
 
 % Document
 \begin{document}
+    \section{Technical Details}\label{sec:technical-details}
+    \subsection{Usage}\label{subsec:usage}
 
-    \section{Software Requirement Specification}
-    \label{sec:SRS}
-    \subsection{Stakeholder Requirements}
-    These are requirements taken from initial discussions with the stakeholder (our supervisor),
+    \subsection{System Development}
+
+    \label{subsec:system-development}
+    % Change to User requirements?
+    \subsubsection{User Requirements}
+
+    These User Requirements represent our original set of requirements, with minimal implementation details, and domain knowledge.
+    They are elicited from initial discussions with our supervisor,
     and interpretations of the problem statement.
-    They represent our original set of requirements, with minimal implementation details, and domain knowledge.
+    We did not establish a procedure for explicit lower level requirements after this stage.
 
+    Some limitations of this process is a lack of explicit detail, priorities, or levels of satisfaction for non-functional requirements.
+    Instead, we will use later stages of the system development to trace design decisions taken for these requirements.
+    We will also touch on priorities and possible improvements when we explain
+    which requirements were skipped in our prototype in section~\ref{subsubsec:unsat-reqs}.
+
+    The table of requirements contains a list of User Requirements for our system,
+    with green states indicating satisfactory completion, and gray indicating unsatisfactory:
     % Requirement table
     \begin{longtable}{|l|p{2.6cm}|l|p{4.5cm}|c|}
         \hline
@@ -35,7 +48,7 @@
         % Requirements here
         1 & Input & Functional & U2C shall accept visual system models as input. & \cellcolor{green!30}  \\
         \hline
-        2 & C2KA Specifications & Functional & U2C shall interpret given inputs to derive a complete C2KA specification. & \cellcolor{green!30}  \\
+        2 & C2KA Specifications & Functional & U2C shall interpret given inputs to derive a complete C2KA agent specification. & \cellcolor{green!30}  \\
         \hline
         3 & IIAT Parameters & Functional & U2C shall interpret given inputs to derive the other required IIAT inputs. & \cellcolor{gray!30}  \\
         \hline
