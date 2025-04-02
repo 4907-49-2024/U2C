@@ -140,7 +140,7 @@
     \end{table}
     % TODO table caption?... how to, should we?
 
-    \subsubsection{Well-Formed Diagrams}\label{subsubsec:input-example}
+    \subsubsection{Input Diagram Specification}\label{subsubsec:input-specification}
     Although we accept UML State diagrams, there are specific elements that our interpreter cares about.
     The primary goal was to make use of essential model elements only, specifically states and transitions,
     to avoid extra modelling requirements.
@@ -172,13 +172,13 @@
     % TODO: Add GCL table
 
     \textbf{Transitions} are links between states which describe how changes in state occur.
-    We use these transitions and their associated behaviors to compute \textit{Next Behavior} and \textit{Next Stimuli} functions.
-    For C2KA, we have defined a precise labelling format to follow \{input-stimuli\}/\{output-stimuli\}.
+    We use these transitions and their associated behaviors to compute \textit{Next Behavior} and \textit{Next Stimulus} functions.
+    For C2KA, we have defined a precise labelling format to follow \{input-stimulus\}/\{output-stimulus\}.
     This follows state diagram convention, but it does not allow for guards,
     and enforces input and output on all transitions.
-    \textit{sequential transitions} are special transitions with a single stimuli, their labelling format is: \{in-and-out-stimuli\}.
+    \textit{sequential transitions} are special transitions with a single stimulus, their labelling format is: \{in-and-out-stimulus\}.
     This is because sequential states use the output of one state as the input of the next state in the sequence.
-    This allows us to uniquely identify sequential compositions by using a single stimuli as the key identifying property.
+    This allows us to uniquely identify sequential compositions by using a single stimulus as the key identifying property.
 
     \textbf{Sequential States} are super states (state compositions) with a specific composition pattern.
     There are at least two inner states.
@@ -329,6 +329,36 @@
     Specifically, we strongly type model elements according to our internally defined types (states, and transitions).
     Super states can be thought of as tree roots, and a state diagram can also be represented as a super state.
     This allows us to recursively interpret our diagram just like a tree during the following \textbf{diagram interpretation} stage.
+
+    The second part of our model completes the process, going from internal StateDiagram to the desired output.
+    % TODO Model P2
+    From our \textit{state diagram}, we can perform different analyses in parallel to find parts of the C2KA specification.
+    The \textbf{abstract behavior interpreter} looks at super states to find sequential compositions,
+    and atomic state names to build a C2KA \textit{abstract behavior specification}.
+    States which are not sequentially linked are composed by choice.
+
+    The \textbf{concrete behavior interpreter} simply collects all the atomic behaviors and their doActivities.
+    The doActivities should already be formatted as the concrete behavior according to our input specification (section~\ref{subsubsec:input-specification}).
+    The C2KA \textit{concrete behavior specification} produced is just a formatted collection of the doActivities of the agent.
+
+    The \textbf{next behavior interpreter} checks transitions to find next behavior mappings.
+    A mapping is an initial behavior, an input stimulus, and the resulting behavior of the transition.
+    The \textit{next behavior specification} is the set of all next behavior mappings found for that agent.
+
+    The \textbf{next stimulus interpreter} is essentially the same as next behavior,
+    but instead of the resulting behavior, we check the output stimulus on the transition.
+    The \textit{next stimulus specification} is the set of all next stimulus mappings found for that agent.
+
+    Once all the interpretation is complete, it gets joined into a complete \textit{C2KA Specification}.
+    We then need to wait at a barrier for all other models to complete analysis before writing our final \textit{output} to a file.
+
+    The reason for the barrier is due to a limitation inherent in C2KA of the next stimulus, and next behavior functions.
+    They need to be complete functions,
+    meaning behaviors in an agent need to have defined neutral mappings for all stimuli in the system.
+    Neutral mappings being outcomes where nothing changes, a neutral stimulus is sent or the behavior remains the same.
+    However, since the view of our system is fragmented across our input set,
+    we cannot identify all stimuli in the system until we analyze all agent inputs to get a complete view of our system.
+
 
 
     \newpage
