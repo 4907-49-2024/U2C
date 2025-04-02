@@ -85,9 +85,13 @@
     This decision impacts the language, since the diagram type may be specific to one or a small set of languages.
     It also impacts the modelling tool because it needs to support creating that diagram type.
     Most importantly, if the diagram does not have the information we require, there is no purpose in processing it.
+    
     Recall that the information we require is related to creating C2KA agent specifications.
-    It turns out, it is possible to make one \textbf{UML State Diagram} per agent to simply capture its complete specification.
-    More details on this later when we break down relevant components of state diagrams in section~\ref{subsubsec:input-example}.
+    Our initial diagram choice was \textit{collaboration diagrams}, due to their simplicity. 
+    When we learned more about C2KA, we realized they do not model agent behavior very well.
+    Collaboration diagrams are more suited to describe a specific scenario on an entire system.
+    Instead, we found that having one \textbf{UML State Diagram} per agent is enough to simply capture agent specifications.
+    More details on this later when we break down relevant components of state diagrams in section~\ref{subsubsec:input-specification}.
 
     By choosing UML State Diagrams, we also choose \textbf{UML} as our modelling language.
     SysML could have been a close viable alternative, but we decided to choose a language we were more familiar with.
