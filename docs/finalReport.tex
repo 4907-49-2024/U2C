@@ -66,7 +66,7 @@
         \hline
         10 & OS Support & Portability & U2C shall run on at least one chosen OS distribution. & \cellcolor{green!30}  \\
         \hline
-        11 & Simple System Analysis Speed & Performance & U2C shall produce outputs within one minute of execution in a simple system.
+        11 & Simple System Analysis Speed & Performance & U2C shall produce outputs for a simple system within one minute of execution on a chosen platform specification.
         A simple system is defined as having up to five agents, twenty stimuli, and five behaviors per agent. & \cellcolor{gray!30}  \\
         \hline
         12 & Worst Case Mitigation & Scalability & U2C should scale at a smaller rate than O($n^3$). The expected scaling factors are agents, stimuli, and agent behaviors. & \cellcolor{gray!30}  \\
@@ -201,7 +201,55 @@
 %        \end{tabularx}\label{tab:diagram-element-table}
 %    \end{table}
 
-    \subsubsection{Architecture Choice (new)}
+    \newpage
+    \subsubsection{Architecture Choice}
+    Choosing how to structure our code depends strongly on our functional requirements,
+    but quality attributes can play a role as well.
+    The most relevant quality attributes for the architecture for are scalability and performance.
+    The other requirements are addressed at different steps of the design process.
+
+    To begin with, we can think about what our program does not need, like user interaction during execution.
+    This already gets rid of the need for user interaction focused patterns like \textit{Model-View-Controller} and its variants.
+    We also have no need for a server or decentralized processing unless we failed to meet our performance goal on one computer.
+    We did not expect performance to be an issue big enough to require decentralized processing.
+    Thus, we can eliminate any server patterns, including \textit{microservice} and \textit{service oriented} architectures.
+
+    The initial architecture we chose was the \textit{Layer Pattern}, because it fits quite well with the flow of our program.
+    We are provided an input, and do a series of unidirectional transformations on it to produce an output at the end.
+    We believed these transformations made sense as different layers of our program.
+    Layers could pass their outputs through defined input interfaces of the next layer.
+    This is great for separation of concerns and maintainability.
+    It is also a great way to reason about the system allowing us to convert our understanding of C2KA transformation to code easily.
+
+    That said, we then realized we were starting to describe a \textbf{Pipe and Filter} architecture.
+    Instead of layers to transform data, we use filters.
+    We use pipes as our interface to communicate between them.
+    We still have great separation of concerns, and the same straightforward reasoning for implementation.
+%    In fact, we can still informally categorize filters into layers for organization as we will see in section~\ref{subsubsec:arch-desc}
+    The advantage we gain from this pivot is the ability to increase parallelization of processing compared to the layered architecture.
+    This allows us to directly improve our \textbf{performance} and \textbf{scalability} by reducing the impact of increased data set sizes.
+
+    The table below traces user requirements to the architecture choices refining them in this section.
+
+    \begin{table}[htbp]
+        \centering
+        \begin{tabularx}{\textwidth}{| l | l | X |}
+            % Header
+            \hline
+            \textbf{ID} & \textbf{User Requirement} & \textbf{Refinement} \\
+            % Header end
+            \hline
+            11 & Simple System Analysis Speed & Use parallelization enabled by Pipe and Filter to improve performance. \\ \hline
+            12 & Worst Case Mitigation & Use parallelization enabled by Pipe and Filter to reduce scaling costs.  \\ \hline
+        \end{tabularx}\label{tab:arch-choice-table}
+    \end{table}
+    % TODO table caption?... how to, should we?
+
+    \newpage
+    \subsubsection{Architecture Description}\label{subsubsec:arch-desc}
+
+    \subsubsection{Target Deployment}
+
 
 
     \subsubsection{Unsatisfied Requirements} \label{subsubsec:unsat-reqs}
@@ -213,7 +261,7 @@
     \subsection{Program Architecture}
     The architecture of our program refers to the structures used to reason about our program, and how they relate to each other.
 
-    \subsubsection{Architecture Choice}
+    \subsubsection{Architecture Choice (old)}
     % Should these terms be defined here, or earlier?
     For our particular problem, we believed a pipe and filter architectural pattern could apply very well.
     The general pattern is as follows: Data comes from a \textbf{source},
@@ -244,7 +292,7 @@
     \begin{itemize}
         \item Due to the independence of filters, pipe output/input need to be compatible.
         \item Difficult to coordinate, and synchronize.
-        Unfit for asynchronous applications, like user interaction.
+        Unfit for asynchronous applications, like useraWDas interaction.
         \item Complex path branching logic difficult to implement due to limited information sharing.
     \end{itemize}
     \textbf{Advantages:}
@@ -275,7 +323,7 @@
         \item Specifications: Collections of other C2KA concepts building up a particular C2KA specification.
     \end{itemize}
     \textbf{Filters:}
-    \begin{itemize}
+    \begin{itemize}a
         \item InputParser: Takes in an InputConfig, returns it as a RawInput.
         \item DiagramLinker: Takes in a RawInput, and returns it as a Diagram.
         \item DiagramInterpreter: Takes in a Diagram, returns a C2KA Specification.
@@ -296,7 +344,7 @@
         \item Source (Implicit in pipeline): Read all files from hard-coded input folder.
         \item Fork: Instantiate one sub-pipeline per file passed in the source.
         \begin{enumerate}
-            \item Pipe - XMIParserConfig: Takes in source file, and hard-coded state diagram configuration.
+            \item Pipe - XMIParserConfig: Takes in soasdurce file, and hard-coded state diagram configuration.
             \item Filter - XMIParser: Makes use of open source third-party XMI file reader SDMetrics.
             \item Pipe - ModelElement: SDMetrics representation of a generic model element.
             We specifically return the element representing the state diagram (which has references to all its sub-elements).
