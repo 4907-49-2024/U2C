@@ -360,6 +360,21 @@
     we cannot identify all stimuli in the system until we analyze all agent inputs to get a complete view of our system.
 
 
+    The table below traces user requirements to the architecture implementations refining them in this section.
+    \begin{table}[htbp]
+        \centering
+        \begin{tabularx}{\textwidth}{| l | l | X |}
+            % Header
+            \hline
+            \textbf{ID} & \textbf{User Requirement} & \textbf{Refinement} \\
+            % Header end
+            \hline
+            1 & Input & XMI Parser, and State Diagram Linker used to convert input to a diagram format we can interpret. \\ \hline
+            2 & C2KA Specifications & Interpreter filters are used to convert a diagram to partial C2KA specifications.
+            They are then combined into a full C2KA specification. \\ \hline
+            4 & Output & The complete C2KA Specification to output conversion allows us to extract agent text files as output.  \\ \hline
+        \end{tabularx}\label{tab:arch-description-table}
+    \end{table}
 
     \newpage
     \subsubsection{Project Management}\label{subsubsec:proj-mngmnt}
