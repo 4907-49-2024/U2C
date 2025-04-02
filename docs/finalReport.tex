@@ -187,7 +187,33 @@
     There is a clear initial state with no incoming transitions.
     There is a clear final state with no outgoing transitions.
 
+    \subsubsection{XMI Parsing}\label{subsubsec:parsing}
+    % TODO: look at overlap between this and technical background
+    Having chosen our input format, we needed to find a way to parse it to be able to process it.
+    Although XMI is supposed to be a standardized format,
+    many modelling tools will have slight differences for specific components.
+    Therefore, creating a parser which can be extended generally to support many tools can be challenging.
 
+    Thankfully, this is a general problem others have attempted to solve before, and third-party free libraries exist.
+    We searched for libraries which supported the most recent UML standards, and we were able to make work.
+    The libraries we tested were \textit{SDMetrics OpenCore},
+    \textit{eclipse UML2}, \textit{Apache Xerces}, \textit{XMIParser, by cqframework}, \textit{xmiparser, python}.
+    We only managed to get the \textbf{SDMetrics} Java library to work within our research period.
+    Since it adequately met our needs, we did not extend the research period to find other alternatives.
+
+    The table below traces user requirements to the parsing choices refining them in this section.
+    \begin{table}[htbp]
+        \centering
+        \begin{tabularx}{\textwidth}{| l | l | X |}
+            % Header
+            \hline
+            \textbf{ID} & \textbf{User Requirement} & \textbf{Refinement} \\
+            % Header end
+            \hline
+            1 & Input & Use SD Metrics OpenCore library to parse XMI file inputs. \\ \hline
+        \end{tabularx}\label{tab:parse-choice-table}
+    \end{table}
+    % TODO table caption?... how to, should we?
     % Table mapping Diagram Elem, Purpose, C2KA Map
 %    \begin{table}[htbp]
 %        \centering
@@ -213,8 +239,9 @@
     We considered \textit{C}, but it is not as simple to make platform independent.
     \textit{Python} was also a valid alternative because it is also platform independent.
     The deciding factor was the availability of third party libraries.
-    We found a key library for our system implemented in Java needed to process XMI files.
+    As mentioned in section~\ref{subsubsec:parsing} The SD Metrics library we use for XMI parsing in our system was implemented in Java.
     We were not able to make any alternatives work in Python.
+    With no particular need for other languages, we decided to keep it simple by only using Java in our program.
 
     The table below traces user requirements to the deployment choices refining them in this section.
     \begin{table}[htbp]
