@@ -80,6 +80,69 @@
         16 & No False Positives & Reliability & U2C shall not provide outputs if it cannot find a deterministic interpretation of the given inputs. & \cellcolor{green!30}  \\
         \hline
     \end{longtable}
+    %TODO add caption?
+
+    \subsubsection{Expected Inputs}
+    This section details the decisions taken relating to input requirements.
+    The first decision to take is the specific diagram type to support because it has cascading impacts on other requirements.
+    This decision impacts the language, the diagram type may be specific to one or a small set of languages.
+    It also impacts the modelling tool because it needs to support creating that diagram type.
+    Most importantly, if the diagram does not have the information we require, there is no purpose in processing it.
+    Recall that the information we require is related to creating C2KA agent specifications.
+    It turns out, it is possible to make one \textbf{UML State Diagram} per agent to simply capture its complete specification.
+    More details on this later when we explain how to make a well-formed State Diagram for our inputs in section~\ref{subsubsec:input-example}.
+
+    By choosing UML State Diagrams, we also choose \textbf{UML} as our modelling language.
+    SysML could have been a close viable alternative, but we decided to choose a language we were more familiar with.
+    This makes it easier to implement properly for us,
+    but it is also related to our problem statement aiming to use modelling languages already familiar to system designers to reduce the learning curve.
+    Admittedly outside of software system design SysML is more prevalent, and it is feasible to support both, but we had to limit our scope.
+
+    For our modelling tool, we chose \textbf{Papyrus}.
+    We established evaluation criteria to evaluate different tools, and compared the most popular ones we found.
+    The most important requirement was machine readability.
+    We needed to be able to export some representation of the diagram our system could read outside the modelling tool.
+    Additionally, it was an advantage if it was free, popular, and had ongoing support.
+    We did not want the modelling tool we depended on to become a hurdle to adopt our program,
+    ideally we chose a tool which was already in use.
+    Other tools we looked at were lucidchart, draw.io, creately, gliffy, UMLLet, PlantUML (all had poor export functions),
+    Modelio (felt hard to use), Astah UML (unpopular),
+    StarUML and Visual Paradigm (seemed like good alternatives, but we figured out how to use Papyrus first).
+
+    To export diagrams from Papyrus, there is an option to export \textbf{XMI files}.
+    They technically have a .uml file extension in papyrus, but they function the same as XMI files from other tools.
+    Once a diagram for an agent is finished in papyrus, we can add its XMI file to our program's \textbf{input folder}.
+    Once all agents are done, we can execute the program.
+    The user does not need to provide additional inputs.
+    A full workflow using our program is described in section~\ref{subsec:usage}.
+
+    The table below is a traceability summary mapping our original user requirements to the concepts refining them.
+    Requirements are shown in the order their refinements appear in this section.
+    Refinements can be correlated by the bolded terms above.
+
+    \begin{table}[htbp]
+    \centering
+    \begin{tabularx}{\textwidth}{| l | l | X |}
+        % Header
+        \hline
+        \textbf{ID} & \textbf{User Requirement} & \textbf{Refinement} \\
+%        \hline
+%        \endhead
+        % Header end
+        \hline
+        8 & Diagram Type Support & The chosen input diagram type is UML State Diagrams. \\ \hline
+        7 & Modelling Language Support & The chosen modelling language is UML. \\ \hline
+        6 & Modelling Tool Support & The chosen modelling tool is Papyrus. \\ \hline
+        1 & Input & Visual Diagrams are given to the system through XMI file exports from supported modelling tool(s). \\ \hline
+        5 & Minimal User Actions & The user puts files in an input folder, then executes the program.  \\ \hline
+    \end{tabularx}\label{tab:table}
+    \end{table}
+    % TODO table caption?... how to, should we?
+
+    \subsubsection{Input Example}\label{subsubsec:input-example}
+
+    \subsubsection{Unsatisfied Requirements} \label{subsubsec:unsat-reqs}
+
 
 
     \section{Technical Section - NAME TBD}
