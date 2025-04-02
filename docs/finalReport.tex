@@ -279,7 +279,46 @@
 
     \newpage
     \subsubsection{Project Management}\label{subsubsec:proj-mngmnt}
+    After user requirements, we described our design choices to cover them.
+    From design, we needed to create tasks to trace the design to specific code implementation.
+    To do so, we used \textbf{GitHub Issues} to build a list of upcoming tasks for the project.
+    This allowed us to assign them when resources were available, and communicate task dependencies easily.
+    Work done by individuals can be tracked through issues,
+    preventing multiple people from working on a task simultaneously unaware.
+    The transition from weekly meetings to asynchronous communication through issues improved our efficiency immensely.
+    % TODO sample issue list
 
+    We also customized issue tags to categorize issues
+    according to our major development concerns, as seen in our repository:
+    % TODO: Insert issue types
+    \textit{Enhancements} and \textit{bugs} both relate to implementing our design,
+    but bugs are errors we found after merging the initial enhancement implementation.
+    \textit{Verification \& Validation} (V\&V) Tasks related to verifying our code, and validating it.
+    Usually through creating new tests, but it can also include creating tools for testing,
+    or establishing and documenting V\&V requirements or strategies.
+
+    \textit{Questions} are typically related to clarifications on requirements,
+    or designs which require research or input from our supervisor.
+    Once a question is answered, we typically reply directly in the question issue and close it.
+    Usually, questions have a purpose and can create new issues or unblock existing ones as well.
+    \textit{Documentation} Tasks related to documenting our project, for any audience.
+    This includes documentation like this report, function descriptions in code, and a user manual.
+
+    \textit{Out of scope} Marks tasks which we identified as out of scope for our current release.
+    These can include requirements we create to explicitly exclude from the start,
+    or existing issues we drop later due to time constraints.
+    In the case where an issue is deemed irrelevant, we do not mark it out of scope.
+    Instead, we close the issue with a comment for rationale and stop tracking it.
+    On release, we reset the scope constraints by removing this label on all issues.
+    After an evaluation of the goals of the next release,
+    maintainers can decide which issues should stay within the scope of the next release.
+
+    We did not develop a great way to automatically trace issues to design,
+    and we have too many issues to go through them all (over 60 closed issues currently).
+    Unfortunately, this means we cannot rely on design to code traceability.
+    Instead, we rely only on testing for validation.
+    We can, however, demonstrate how we could attempt to manually show traceability through a specific issue.
+    %TODO add specific issue, explain
     \newpage
     \subsubsection{Testing Strategy}\label{subsubsec:tests-strat}
 
