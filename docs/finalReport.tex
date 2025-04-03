@@ -7,6 +7,9 @@
 % Packages
 \usepackage{amsmath}
 
+\usepackage{caption}
+\captionsetup[table]{skip=10pt}
+
 \usepackage{longtable}
 \usepackage[table]{xcolor}
 \usepackage{tabularx} % Package to manage table width automatically
@@ -36,6 +39,8 @@
     with green states indicating satisfactory completion, and gray indicating unsatisfactory:
     % Requirement table
     \begin{longtable}{|l|p{2.6cm}|l|p{4.5cm}|c|}
+        \caption{Set of User Requirements for U2C}
+        \label{tab:user-reqs}
         \hline
         \textbf{ID} & \textbf{Requirement} & \textbf{Type}  & \textbf{Description} & \textbf{State}\\
         \hline
@@ -77,9 +82,7 @@
         \hline
         17 & No False Positives & Reliability & U2C shall not provide outputs if it cannot find a deterministic interpretation of the given inputs. & \cellcolor{green!30}  \\
         \hline
-        \label{tab:user-reqs}
     \end{longtable}
-    %TODO add caption?
 
     \subsubsection{Chosen Inputs}
     The first decision to take concerning inputs was the specific diagram type to support.
@@ -119,28 +122,24 @@
     A full workflow using our program is described in section~\ref{subsec:usage}.
 
     The table below is a traceability summary mapping our original user requirements to the concepts refining them.
-    Requirements are shown in the order their refinements appear in this section.
     Refinements can be correlated by the bolded terms above.
 
     \begin{table}[htbp]
     \centering
+    \caption{Input Decision Requirement Traceability}\label{tab:input-table}\\
     \begin{tabularx}{\textwidth}{| l | l | X |}
-        % Header
         \hline
         \textbf{ID} & \textbf{User Requirement} & \textbf{Refinement} \\
-%        \hline
-%        \endhead
-        % Header end
         \hline
         1 & Input & Visual Diagrams are given to the system through XMI file exports from supported modelling tool(s). \\ \hline
         5 & Minimal User Actions & The user puts files in an input folder, then executes the program.  \\ \hline
         6 & Modelling Tool Support & The chosen modelling tool is Papyrus. \\ \hline
         7 & Modelling Language Support & The chosen modelling language is UML. \\ \hline
         8 & Diagram Type Support & The chosen input diagram type is UML State Diagrams. \\ \hline
-    \end{tabularx}\label{tab:input-table}
+    \end{tabularx}
     \end{table}
-    % TODO table caption?... how to, should we?
 
+    \newpage
     \subsubsection{Input Diagram Specification}\label{subsubsec:input-specification}
     Although we accept UML State diagrams, there are specific elements that our interpreter cares about.
     The primary goal was to make use of essential model elements only, specifically states and transitions,
@@ -209,6 +208,7 @@
     The table below traces user requirements to the parsing choices refining them in this section.
     \begin{table}[htbp]
         \centering
+        \caption{Parser Requirement Traceability}\label{tab:parse-choice-table}\\
         \begin{tabularx}{\textwidth}{| l | l | X |}
             % Header
             \hline
@@ -216,7 +216,7 @@
             % Header end
             \hline
             1 & Input & Use SD Metrics OpenCore library to parse XMI file inputs. \\ \hline
-        \end{tabularx}\label{tab:parse-choice-table}
+        \end{tabularx}
     \end{table}
     % TODO table caption?... how to, should we?
     % Table mapping Diagram Elem, Purpose, C2KA Map
@@ -251,6 +251,7 @@
     The table below traces user requirements to the deployment choices refining them in this section.
     \begin{table}[htbp]
         \centering
+        \caption{Deployment Requirement Traceability}\label{tab:os-choice-table}\\
         \begin{tabularx}{\textwidth}{| l | l | X |}
             % Header
             \hline
@@ -258,7 +259,7 @@
             % Header end
             \hline
             10 & OS Support & Use java for platform independence. \\ \hline
-        \end{tabularx}\label{tab:os-choice-table}
+        \end{tabularx}
     \end{table}
     % TODO table caption?... how to, should we?
 
@@ -294,6 +295,7 @@
 
     \begin{table}[htbp]
         \centering
+        \caption{Architecture Choice Requirement Traceability}\label{tab:arch-choice-table}\\
         \begin{tabularx}{\textwidth}{| l | l | X |}
             % Header
             \hline
@@ -302,7 +304,7 @@
             \hline
             11 & Simple System Analysis Speed & Use parallelization enabled by Pipe and Filter to improve performance. \\ \hline
             12 & Worst Case Mitigation & Use parallelization enabled by Pipe and Filter to reduce scaling costs.  \\ \hline
-        \end{tabularx}\label{tab:arch-choice-table}
+        \end{tabularx}
     \end{table}
     % TODO table caption?... how to, should we?
 
@@ -364,6 +366,7 @@
     The table below traces user requirements to the architecture implementations refining them in this section.
     \begin{table}[htbp]
         \centering
+        \caption{Architecture Description Requirement Traceability}\label{tab:arch-description-table}\\
         \begin{tabularx}{\textwidth}{| l | l | X |}
             % Header
             \hline
@@ -374,7 +377,7 @@
             2 & C2KA Specifications & Interpreter filters are used to convert a diagram to partial C2KA specifications.
             They are then combined into a full C2KA specification. \\ \hline
             4 & Output & The complete C2KA Specification to output conversion allows us to extract agent text files as output.  \\ \hline
-        \end{tabularx}\label{tab:arch-description-table}
+        \end{tabularx}
     \end{table}
 
     \newpage
@@ -460,6 +463,7 @@
     The table below traces user requirements to our testing strategy concepts refining them in this section.
     \begin{table}[htbp]
         \centering
+        \caption{Testing Strategy Requirement Traceability}\label{tab:test-strat-table}\\
         \begin{tabularx}{\textwidth}{| l | l | X |}
             % Header
             \hline
@@ -469,7 +473,7 @@
             15 & Verification Testing & Unit tests, Integration tests provided confidence that our code was continuously functional as we progressed. \\ \hline
             16 & Accurate Outputs & The system tests and diff tool were part of our validation activities to verify output accuracy. \\ \hline
             17 & No False Positives & The system tests should show failures if an output could not be completed, otherwise the diff tool should raise an error. \\ \hline
-        \end{tabularx}\label{tab:test-strat-table}
+        \end{tabularx}
     \end{table}
     \newpage
     \subsubsection{Validation Results}\label{subsubsec:test-validation}
@@ -478,18 +482,19 @@
     The table below traces user requirements to our testing results refining them in this section.
     \begin{table}[htbp]
         \centering
+        \caption{Validation Requirement Traceability}\label{tab:test-res-table}\\
         \begin{tabularx}{\textwidth}{| l | l | X |}
             % Header
             \hline
             \textbf{ID} & \textbf{User Requirement} & \textbf{Refinement} \\
             % Header end
             \hline
-            1 & Input & Function part of the end to end testing.
-            2 & C2KA Specification & Function part of the end to end testing.
-            4 & Output & Function part of the end to end testing.
+            1 & Input & Functional part of the end to end testing. \\ \hline
+            2 & C2KA Specification & Functional part of the end to end testing.\\ \hline
+            4 & Output & Functional part of the end to end testing.\\ \hline
             16 & Accurate Outputs & User . \\ \hline %TODO, fill
             17 & No False Positives & . \\ \hline %TODO, fill
-        \end{tabularx}\label{tab:test-res-table}
+        \end{tabularx}
     \end{table}
 
     \newpage
