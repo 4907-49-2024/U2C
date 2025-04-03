@@ -265,7 +265,6 @@
     Instead of layers to transform data, we use filters.
     We use pipes as our interface to communicate between them.
     We still have great separation of concerns, and the same straightforward reasoning for implementation.
-%    In fact, we can still informally categorize filters into layers for organization as we will see in section~\ref{subsubsec:arch-desc}
     The advantage we gain from this pivot is the ability to increase parallelization of processing compared to the layered architecture.
     This allows us to directly improve our \textbf{performance} and \textbf{scalability} by reducing the impact of increased data set sizes.
 
@@ -362,15 +361,27 @@
     After user requirements, we described our design choices to cover them.
     From design, we needed to create tasks to trace the design to specific code implementation.
     To do so, we used \textbf{GitHub Issues} to build a list of upcoming tasks for the project.
-    This allowed us to assign them when resources were available, and communicate task dependencies easily.
+    In figure~\ref{fig:sampleIssueList}, we show a small sample of these issues completed over the course of the project.
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.8\textwidth]{issueSample}
+        \caption{Sample Set of completed issues in our repository}
+        \label{fig:sampleIssueList}
+    \end{figure}
+
+    These issues allowed us to assign them when resources were available, and communicate task dependencies easily.
     Work done by individuals can be tracked through issues,
     preventing multiple people from working on a task simultaneously unaware.
     The transition from weekly meetings to asynchronous communication through issues improved our efficiency immensely.
-    % TODO sample issue list
-
     We also customized issue tags to categorize issues
-    according to our major development concerns, as seen in our repository:
-    % TODO: Insert issue types
+    according to our major development concerns, as seen in our repository in figure~\ref{fig:issueTypes}.
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.8\textwidth]{issueTypes}
+        \caption{Types of issues defined in our GitHub repository}
+        \label{fig:issueTypes}
+    \end{figure}
+
     \textit{Enhancements} and \textit{bugs} both relate to implementing our design,
     but bugs are errors we found after merging the initial enhancement implementation.
     \textit{Verification \& Validation} (V\&V) Tasks related to verifying our code, and validating it.
@@ -398,7 +409,16 @@
     Unfortunately, this means we cannot rely on design to code traceability.
     Instead, we rely only on testing for validation.
     We can, however, demonstrate how we could attempt to manually show traceability through a specific issue.
-    %TODO add specific issue, explain
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=1\textwidth]{specificIssue}
+        \caption{An annotated enhancement type issue}
+        \label{fig:specificIssue}
+    \end{figure}
+    In figure~\ref{fig:specificIssue} we can identify from the title (1) the user requirement the issue contributes to.
+    In this case, it contributes to the C2KA Specification transformations (User Requirement 2).
+    Then we can look at the description (2) to see a lower level, but informal explanation to guide the code implementation.
+    Finally, we see the merged branch (3) linking the issue to merged code changes.
 
     \newpage
     \subsubsection{Testing Strategy}\label{subsubsec:tests-strat}
@@ -486,8 +506,7 @@
     It seemed complex, yet not essential to prove one version of our program was functional.
     We also cannot claim \textbf{performance} nor \textbf{scalability} of our program due to lack of testing or proofs.
     In theory, these properties should hold with our current design, but we did not take the time to prove it.
-    % TODO: Fix this req and move it later, hopefully
-    We did not complete \textbf{User Documentation}, instead focusing on building a comprehensive report.
+    We did not complete \textbf{User Documentation} adequately, instead focusing on building a comprehensive report.
     The user manual should have been the essential sections of the report a user should be aware of,
     formatted in a way which makes it easy to learn about and use our project.
 
@@ -523,7 +542,7 @@
 
     The demonstration will be using inputs generated to simulate the system from % TODO: inlcude appendix or reference?
 
-    % TODO: make sure to name our tool somewhere
+    % TODO: make sure to name our tool early in the report
     \subsubsection{Exporting Inputs from Papyrus}
     The first step in providing inputs is to export them from Papyrus.
     The following figures will demonstrate the steps required to do so:
