@@ -9,37 +9,37 @@ begin NEXT_BEHAVIOUR where
 
 	(start,WAIT)  = WAIT
 	(start,MOVE)  = MOVE
-
+	
 	(load,WAIT)  = WAIT
 	(load,MOVE)  = MOVE
-
+	
 	(loaded,WAIT)  = WAIT
 	(loaded,MOVE)  = MOVE
-
+	
 	(prepare,WAIT)  = MOVE
 	(prepare,MOVE)  = MOVE
-
+	
 	(done,WAIT)  = WAIT
 	(done,MOVE)  = MOVE
-
+	
 	(setup,WAIT)  = WAIT
 	(setup,MOVE)  = MOVE
-
+	
 	(unload,WAIT)  = WAIT
 	(unload,MOVE)  = MOVE
-
+	
 	(unloaded,WAIT)  = WAIT
 	(unloaded,MOVE)  = MOVE
 
 	(ready,WAIT)  = WAIT
 	(ready,MOVE)  = WAIT
-
+	
 	(process,WAIT)  = WAIT
 	(process,MOVE)  = MOVE
 
 	(processed,WAIT)  = WAIT
 	(processed,MOVE)  = MOVE
-
+	
 	(end,WAIT)  = WAIT
 	(end,MOVE)  = MOVE
 
@@ -50,48 +50,48 @@ begin NEXT_STIMULUS where
 
 	(start,WAIT)  = N
 	(start,MOVE)  = N
-
+	
 	(load,WAIT)  = N
 	(load,MOVE)  = N
-
+	
 	(loaded,WAIT)  = N
 	(loaded,MOVE)  = N
-
-	(prepare,WAIT)  = unload
+	
+	(prepare,WAIT)  = unload 
 	(prepare,MOVE)  = N
-
+	
 	(done,WAIT)  = N
 	(done,MOVE)  = N
-
+	
 	(setup,WAIT)  = N
 	(setup,MOVE)  = N
-
+	
 	(unload,WAIT)  = N
 	(unload,MOVE)  = N
-
+	
 	(unloaded,WAIT)  = N
 	(unloaded,MOVE)  = N
-
+	
 	(ready,WAIT)  = N
 	(ready,MOVE)  = process
-
+	
 	(process,WAIT)  = N
 	(process,MOVE)  = N
 
 	(processed,WAIT)  = N
 	(processed,MOVE)  = N
-
+	
 	(end,WAIT)  = N
 	(end,MOVE)  = N
-
+	
 end
 
 
 begin CONCRETE_BEHAVIOUR where
 
 	WAIT => [ skip ]
-	MOVE => [ if  (status = 1) -> material := 1
+	MOVE => [ if  (status = 1) -> material := 1 
 			   | ~(status = 1) -> material := 0
-			  fi ]
-
+			  fi ]	
+	
 end
