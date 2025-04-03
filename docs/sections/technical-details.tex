@@ -545,9 +545,27 @@
     % TODO: make sure to name our tool early in the report
     \subsubsection{Exporting Inputs from Papyrus}
     The first step in providing inputs is to export them from Papyrus.
-    The following figures will demonstrate the steps required to do so:
-    % TODO describe figures, export 1-3
+    Figure~\ref{fig:export-1}, Figure~\ref{fig:export-2} and Figure~\ref{fig:export-3} will demonstrate the steps required to do so:
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{export-1}
+        \caption{Step 1, open export wizard in papyrus]}
+        \label{fig:export-1}
+    \end{figure}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{export-2}
+        \caption{Step 2, select file system export}
+        \label{fig:export-2}
+    \end{figure}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{export-3}
+        \caption{Step 3, Select an output directory, and optionally unneeded files.}
+        \label{fig:export-3}
+    \end{figure}
 
+    \newpage
     \subsubsection{Executing U2C}
     To use our program, the first step is to download the 1.0 zip release from GitHub.
     Then, extract the zip as is to a folder.
@@ -569,4 +587,5 @@
     Execute the program, then collect the output files generated, they will be needed later.
 
     \subsubsection{Providing Outputs to Model Checker}
+    aaa
     % TODO: run IIAT, issue #139
