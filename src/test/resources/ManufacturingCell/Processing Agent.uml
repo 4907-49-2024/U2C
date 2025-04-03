@@ -12,10 +12,10 @@
         <doActivity xmi:type="uml:Activity" xmi:id="_FCpyIAA4EfCvSrFeLTR7qQ" name="skip"/>
       </subvertex>
       <subvertex xmi:type="uml:State" xmi:id="_5XhAsAA3EfCvSrFeLTR7qQ" name="SET">
-        <doActivity xmi:type="uml:Activity" xmi:id="_Z1vmkAA4EfCvSrFeLTR7qQ" name="if (material = 1 &amp;&amp; state = 2 &amp;&amp; status = 0) -> ready:= 1 | ~ (material = 1 &amp;&amp; state = 2 &amp;&amp; status = 0) -> := 0 fi"/>
+        <doActivity xmi:type="uml:Activity" xmi:id="_Z1vmkAA4EfCvSrFeLTR7qQ" name="if (material = 1 &amp;&amp; state = 3 &amp;&amp; status = 0) -> ready := 1 | ~ (material = 1 &amp;&amp; state = 3 &amp;&amp; status = 0) -> ready := 0 fi"/>
       </subvertex>
       <subvertex xmi:type="uml:State" xmi:id="_8V-88AA3EfCvSrFeLTR7qQ" name="WORK">
-        <doActivity xmi:type="uml:Activity" xmi:id="_wBOxUAA4EfCvSrFeLTR7qQ" name="if (ready = 1) -> part := PROCESS() | ~ (ready = 1) -> part := null fi"/>
+        <doActivity xmi:type="uml:Activity" xmi:id="_wBOxUAA4EfCvSrFeLTR7qQ" name="if (ready = 1) -> part := PROCESS | ~ (ready = 1) -> part := NULL fi"/>
       </subvertex>
     </region>
   </packagedElement>
