@@ -8,10 +8,10 @@
       <transition xmi:type="uml:Transition" xmi:id="_ohXDQAA0EfCvSrFeLTR7qQ" name="load / loaded" source="_FngIcAA0EfCvSrFeLTR7qQ" target="_IgUIoAA0EfCvSrFeLTR7qQ"/>
       <transition xmi:type="uml:Transition" xmi:id="_yZCTAAA0EfCvSrFeLTR7qQ" name="unload / unloaded" source="_IgUIoAA0EfCvSrFeLTR7qQ" target="_FngIcAA0EfCvSrFeLTR7qQ"/>
       <subvertex xmi:type="uml:State" xmi:id="_FngIcAA0EfCvSrFeLTR7qQ" name="EMPTY">
-        <doActivity xmi:type="uml:Activity" xmi:id="_Srwo8AA0EfCvSrFeLTR7qQ" name="status := 0"/>
+        <doActivity xmi:type="uml:Activity" xmi:id="_Srwo8AA0EfCvSrFeLTR7qQ" name="status := 1"/>
       </subvertex>
       <subvertex xmi:type="uml:State" xmi:id="_IgUIoAA0EfCvSrFeLTR7qQ" name="FULL">
-        <doActivity xmi:type="uml:Activity" xmi:id="_XprUcAA0EfCvSrFeLTR7qQ" name="status := 1"/>
+        <doActivity xmi:type="uml:Activity" xmi:id="_XprUcAA0EfCvSrFeLTR7qQ" name="status := 0"/>
       </subvertex>
     </region>
   </packagedElement>
