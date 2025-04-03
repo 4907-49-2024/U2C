@@ -1,7 +1,7 @@
 package pipes.c2ka.semirings;
 
 import pipes.c2ka.Stimulus;
-import pipes.c2ka.behaviors.AtomicBehavior;
+import pipes.c2ka.behaviours.AtomicBehavior;
 
 public abstract class NextMapSemiring<outT> implements Comparable<NextMapSemiring<outT>> {
     private final outT output;

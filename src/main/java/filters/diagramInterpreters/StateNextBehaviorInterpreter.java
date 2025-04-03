@@ -2,7 +2,7 @@ package filters.diagramInterpreters;
 
 import filters.Filter;
 import filters.diagramInterpreters.utils.StateBehaviorConverter;
-import pipes.c2ka.behaviors.*;
+import pipes.c2ka.behaviours.*;
 import pipes.c2ka.semirings.NextBehaviorMap;
 import pipes.c2ka.specifications.NextBehaviorSpecification;
 import pipes.diagrams.state.SuperState;

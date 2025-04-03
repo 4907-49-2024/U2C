@@ -1,4 +1,4 @@
-package pipes.c2ka.behaviors;
+package pipes.c2ka.behaviours;
 /**
  * Representation of an atomic C2KA Behavior
  */

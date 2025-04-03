@@ -2,11 +2,9 @@ package filters.diagramInterpreters;
 
 import filters.Filter;
 import filters.diagramInterpreters.utils.StateBehaviorConverter;
-import pipes.c2ka.behaviors.*;
+import pipes.c2ka.behaviours.*;
 import pipes.c2ka.specifications.AbstractBehaviorSpecification;
 import pipes.diagrams.state.*;
-
-import java.util.Set;
 
 
 /**

@@ -1,7 +1,7 @@
 package pipes.c2ka.specifications;
 
 import pipes.c2ka.Stimulus;
-import pipes.c2ka.behaviors.AtomicBehavior;
+import pipes.c2ka.behaviours.AtomicBehavior;
 import pipes.c2ka.semirings.NextMapSemiring;
 
 import java.util.HashSet;

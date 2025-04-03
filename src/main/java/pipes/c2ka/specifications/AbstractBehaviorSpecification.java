@@ -1,6 +1,6 @@
 package pipes.c2ka.specifications;
 
-import pipes.c2ka.behaviors.CompositeBehavior;
+import pipes.c2ka.behaviours.CompositeBehavior;
 
 
 public class AbstractBehaviorSpecification extends Specification {

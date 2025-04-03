@@ -1,6 +1,4 @@
-package pipes.c2ka.behaviors;
-
-import pipes.c2ka.semirings.NextBehaviorMap;
+package pipes.c2ka.behaviours;
 
 /**
  * Representation of a C2KA Behavior

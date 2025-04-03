@@ -2,8 +2,8 @@ package filters.diagramInterpreters;
 
 import filters.Filter;
 import filters.diagramInterpreters.utils.StateBehaviorConverter;
-import pipes.c2ka.behaviors.AtomicBehavior;
-import pipes.c2ka.behaviors.Behavior;
+import pipes.c2ka.behaviours.AtomicBehavior;
+import pipes.c2ka.behaviours.Behavior;
 import pipes.c2ka.semirings.NextStimulusMap;
 import pipes.c2ka.specifications.NextStimulusSpecification;
 import pipes.diagrams.state.SuperState;

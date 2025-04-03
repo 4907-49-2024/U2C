@@ -1,6 +1,6 @@
 package pipes.c2ka.specifications;
 
-import pipes.c2ka.behaviors.AtomicBehavior;
+import pipes.c2ka.behaviours.AtomicBehavior;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,7 +1,7 @@
 package pipes.c2ka.semirings;
 
 import pipes.c2ka.Stimulus;
-import pipes.c2ka.behaviors.AtomicBehavior;
+import pipes.c2ka.behaviours.AtomicBehavior;
 
 /**
  * Individual map of a NextStimulus, the full NextStimulus specification is a set of these.

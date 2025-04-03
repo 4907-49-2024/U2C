@@ -1,4 +1,4 @@
-package pipes.c2ka.behaviors;
+package pipes.c2ka.behaviours;
 
 import java.util.Collection;
 

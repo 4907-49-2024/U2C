@@ -1,6 +1,6 @@
 package filters.diagramInterpreters.utils;
 
-import pipes.c2ka.behaviors.*;
+import pipes.c2ka.behaviours.*;
 
 import java.util.function.Function;
 
