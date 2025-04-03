@@ -24,7 +24,7 @@ public class XMIParser extends Filter<XMIParserConfig, ModelElement> {
         List<ModelElement> diagramElems = model.getAcceptedElements(type);
 
         // Assumption - only one diagram per file (should hold, according to our input specification)
-        return  diagramElems.getFirst();
+        return  diagramElems.get(0);
     }
 
     /**
