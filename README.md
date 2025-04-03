@@ -7,8 +7,8 @@ UML to C2KA Converter (U2C) converts UML State Diagrams to C2KA agent specificat
 See our V1.0 report's introduction section for more background.
 
 # Pre-Requisites
-Java Version 16 (or Higher)
-Precise folder structure as included in the zip file, folder names kept as is.
+- Java Version 16 (or Higher)
+- Precise folder structure as included in the zip file, folder names kept as is.
 
 # Usage
 Download the V1.0 zip from the releases section.
