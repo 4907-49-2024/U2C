@@ -65,7 +65,7 @@
         \hline
     \end{longtable}
 
-    \subsubsection{Chosen Inputs}
+    \subsubsection{Chosen Input Type}
     The first decision to take concerning inputs was the specific diagram type to support.
     This decision impacts the language, since the diagram type may be specific to one or a small set of languages.
     It also impacts the modelling tool because it needs to support creating that diagram type.
@@ -91,7 +91,7 @@
     Additionally, it was an advantage if it was free, popular, and had ongoing support.
     We did not want the modelling tool we depended on to become a hurdle to adopt our program,
     ideally we chose a tool which was already in use.
-    Other tools we looked at were lucidchart, draw.io, creately, gliffy, UMLLet, PlantUML (all had poor export functions),
+    Other tools we looked at were Lucidchart, draw.io, Creately, Gliffy, UMLLet, PlantUML (all had poor export functions),
     Modelio (felt hard to use), Astah UML (unpopular),
     StarUML and Visual Paradigm (seemed like good alternatives, but we figured out how to use Papyrus first).
 
@@ -121,7 +121,7 @@
     \end{table}
 
     \newpage
-    \subsubsection{Input Diagram Specification}\label{subsubsec:input-specification}
+    \subsubsection{Input Specifications}\label{subsubsec:input-specification}
     Although we accept UML State diagrams, there are specific elements that our interpreter cares about.
     The primary goal was to make use of essential model elements only, specifically states and transitions,
     to avoid extra modelling requirements.
@@ -144,13 +144,26 @@
 
     Atomic States always have a \textbf{doActivity} property,
     as they are needed for C2KA \textit{Concrete Behaviors}.
-    doActivities need to follow Dijkstra's Guarded Command Language (GCL) notation.
+    doActivities need to follow Dijkstra's Guarded Command Language (GCL) notation (see ??). % TODO: ref or appendix? what to ref
     They are used to assign environmental shared variable values,
     with the option to use conditional flows based on the current environment state.
-    Due to typesetting constraints, we had to convert some GCL operands.
-    The full list of supported operands and their GCL notation equivalent is listed in the table below:
+    Due to typesetting constraints, we had to convert the GCL operands listed in table~\ref{tab:gcl-equivalence}.
+    \begin{table}[htbp]
+          \centering
+          \caption{GCL Conversions for Modelling Tools}\label{tab:gcl-equivalence}\\
+          \begin{tabular}{| l | l |}
+              % Header
+              \hline
+              \textbf{Original GCL} & \textbf{Modelling Tool} \\
+              % Header end
+              \hline
+              $\land$ & \&\& \\ \hline
+              $\square$ & $|$ \\ \hline
+              $\lor$ & $||$ \\ \hline
+              $\rightarrow$ & $->$ \\ \hline
+          \end{tabular}
+    \end{table}
     \\
-    % TODO: Add GCL table
 
     \textbf{Transitions} are links between states which describe how changes in state occur.
     We use these transitions and their associated behaviors to compute \textit{Next Behavior} and \textit{Next Stimulus} functions.
@@ -199,21 +212,6 @@
             1 & Input & Use SD Metrics OpenCore library to parse XMI file inputs. \\ \hline
         \end{tabularx}
     \end{table}
-    % TODO table caption?... how to, should we?
-    % Table mapping Diagram Elem, Purpose, C2KA Map
-%    \begin{table}[htbp]
-%        \centering
-%        \begin{tabularx}{\textwidth}{| p{2cm} | X | p{2cm} |}
-%            \hline
-%            % Header
-%            \textbf{Diagram Element} & \textbf{Modelling Purpose} & \textbf{C2KA Concept} \\ \hline
-%            % Header end
-%            State & Describes a discrete behavior where an invariant condition holds & Abstract Behavior \\ \hline
-%            Super State & Used to show groups of related inner states, we specifically use them to show sequentially linked behaviors & \textbf{Sequential Behavior} \\ \hline
-%            Transition & Represents inputs causing state changes, and outputs between state changes & Input and Output stimuli \\ \hline
-%            Do Activity & Concrete Program executed while in state (Using \textbf{Dijkstra's GCL notation}) & Concrete Behavior \\ \hline
-%        \end{tabularx}\label{tab:diagram-element-table}
-%    \end{table}
 
     \newpage
     \subsubsection{Target Deployment}
@@ -242,7 +240,6 @@
             10 & OS Support & Use java for platform independence. \\ \hline
         \end{tabularx}
     \end{table}
-    % TODO table caption?... how to, should we?
 
     \newpage
     \subsubsection{Architecture Choice}
@@ -287,7 +284,6 @@
             12 & Worst Case Mitigation & Use parallelization enabled by Pipe and Filter to reduce scaling costs.  \\ \hline
         \end{tabularx}
     \end{table}
-    % TODO table caption?... how to, should we?
 
     \newpage
     \subsubsection{Architecture Description}\label{subsubsec:arch-desc}
