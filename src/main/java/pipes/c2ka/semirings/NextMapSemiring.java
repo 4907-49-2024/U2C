@@ -1,15 +1,15 @@
 package pipes.c2ka.semirings;
 
 import pipes.c2ka.Stimulus;
-import pipes.c2ka.behaviours.AtomicBehavior;
+import pipes.c2ka.behaviours.AtomicBehaviour;
 
 public abstract class NextMapSemiring<outT> implements Comparable<NextMapSemiring<outT>> {
     private final outT output;
     //Assumption: We only care to map atomic behaviors
-    private final AtomicBehavior initialBehavior;
+    private final AtomicBehaviour initialBehavior;
     private final Stimulus inputStim;
 
-    protected NextMapSemiring(Stimulus inputStim, AtomicBehavior initialBehavior, outT output) {
+    protected NextMapSemiring(Stimulus inputStim, AtomicBehaviour initialBehavior, outT output) {
         this.initialBehavior = initialBehavior;
         this.inputStim = inputStim;
         this.output = output;
@@ -18,12 +18,12 @@ public abstract class NextMapSemiring<outT> implements Comparable<NextMapSemirin
     /**
      * @return A map with the neutral output for the given output type
      */
-    public abstract NextMapSemiring<?> createNeutralMap(Stimulus inputStim, AtomicBehavior initialBehavior);
+    public abstract NextMapSemiring<?> createNeutralMap(Stimulus inputStim, AtomicBehaviour initialBehavior);
 
     /**
      * @return initial behavior of this mapping
      */
-    public AtomicBehavior getInitialBehavior() {
+    public AtomicBehaviour getInitialBehavior() {
         return initialBehavior;
     }
 
@@ -40,7 +40,7 @@ public abstract class NextMapSemiring<outT> implements Comparable<NextMapSemirin
      * @param initialBehavior The initial Behavior to check
      * @return True IFF the given pair matches the mapping input
      */
-    public boolean isKeyEqual(Stimulus inputStim, AtomicBehavior initialBehavior) {
+    public boolean isKeyEqual(Stimulus inputStim, AtomicBehaviour initialBehavior) {
         return inputStim.equals(this.inputStim) && initialBehavior.equals(this.initialBehavior);
     }
 

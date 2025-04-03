@@ -11,13 +11,13 @@ import java.util.Set;
  * For composites: tests string representations, and nesting behavior
  * For Atomic: tests string representations, and concrete details
  */
-public class BehaviorTest {
+public class BehaviourTest {
 
     @Test
     public void testAtomicBehavior() {
         // We just want to make sure in = out. It should have no other unexpected behavior.
         // Try using some special chars to see if anything breaks
-        AtomicBehavior b = new AtomicBehavior("name_opsdhoipu21370!)@(#*&", "cd_>}|QW{E\">?\".");
+        AtomicBehaviour b = new AtomicBehaviour("name_opsdhoipu21370!)@(#*&", "cd_>}|QW{E\">?\".");
         assert b.toString().equals("name_opsdhoipu21370!)@(#*&");
         assert b.getConcreteBehavior().equals("name_opsdhoipu21370!)@(#*& => [ cd_>}|QW{E\">?\". ]");
     }
@@ -25,7 +25,7 @@ public class BehaviorTest {
 
     @Test
     public void testChoiceBehavior() {
-        ChoiceBehavior behavior = new ChoiceBehavior();
+        ChoiceBehaviour behavior = new ChoiceBehaviour();
         // Due to set collection, the order of the string may be non-deterministic. Cannot check equality always
         Set<String> containedStrings = new HashSet<>();
 
@@ -38,7 +38,7 @@ public class BehaviorTest {
         }
 
         // One
-        behavior.addBehavior(new AtomicBehavior("A", "_"));
+        behavior.addBehavior(new AtomicBehaviour("A", "_"));
         containedStrings.add("A");
         assert behavior.toString().equals("( A )");
         for (String string : containedStrings) {
@@ -46,7 +46,7 @@ public class BehaviorTest {
         }
 
         // Two
-        behavior.addBehavior(new AtomicBehavior("B", "_"));
+        behavior.addBehavior(new AtomicBehaviour("B", "_"));
         containedStrings.add("+");
         containedStrings.add("B");
         for (String string : containedStrings) {
@@ -54,8 +54,8 @@ public class BehaviorTest {
         }
 
         // Many
-        behavior.addBehavior(new AtomicBehavior("C", "_"));
-        behavior.addBehavior(new AtomicBehavior("D", "_"));
+        behavior.addBehavior(new AtomicBehaviour("C", "_"));
+        behavior.addBehavior(new AtomicBehaviour("D", "_"));
         containedStrings.add("C");
         containedStrings.add("D");
         for (String string : containedStrings) {
@@ -63,8 +63,8 @@ public class BehaviorTest {
         }
 
         // Nested Choice
-        ChoiceBehavior behaviorNested = new ChoiceBehavior();
-        behaviorNested.addBehavior(new AtomicBehavior("F", "_"));
+        ChoiceBehaviour behaviorNested = new ChoiceBehaviour();
+        behaviorNested.addBehavior(new AtomicBehaviour("F", "_"));
         behavior.addBehavior(behaviorNested);
         containedStrings.add("( F )");
         assert behaviorNested.toString().equals("( F )");
@@ -75,7 +75,7 @@ public class BehaviorTest {
 
     @Test
     public void testParallelBehavior() {
-        ParallelBehavior behavior = new ParallelBehavior();
+        ParallelBehaviour behavior = new ParallelBehaviour();
         // Due to set collection, the order of the string may be non-deterministic. Cannot check equality always
         Set<String> containedStrings = new HashSet<>();
 
@@ -88,7 +88,7 @@ public class BehaviorTest {
         }
 
         // One
-        behavior.addBehavior(new AtomicBehavior("A", "_"));
+        behavior.addBehavior(new AtomicBehaviour("A", "_"));
         containedStrings.add("A");
         assert behavior.toString().equals("( A )");
         for (String string : containedStrings) {
@@ -96,7 +96,7 @@ public class BehaviorTest {
         }
 
         // Two
-        behavior.addBehavior(new AtomicBehavior("B", "_"));
+        behavior.addBehavior(new AtomicBehaviour("B", "_"));
         containedStrings.add("||");
         containedStrings.add("B");
         for (String string : containedStrings) {
@@ -104,8 +104,8 @@ public class BehaviorTest {
         }
 
         // Many
-        behavior.addBehavior(new AtomicBehavior("C", "_"));
-        behavior.addBehavior(new AtomicBehavior("D", "_"));
+        behavior.addBehavior(new AtomicBehaviour("C", "_"));
+        behavior.addBehavior(new AtomicBehaviour("D", "_"));
         containedStrings.add("C");
         containedStrings.add("D");
         for (String string : containedStrings) {
@@ -113,8 +113,8 @@ public class BehaviorTest {
         }
 
         // Nested Behavior
-        ChoiceBehavior behaviorNested = new ChoiceBehavior();
-        behaviorNested.addBehavior(new AtomicBehavior("F", "_"));
+        ChoiceBehaviour behaviorNested = new ChoiceBehaviour();
+        behaviorNested.addBehavior(new AtomicBehaviour("F", "_"));
         behavior.addBehavior(behaviorNested);
         containedStrings.add("( F )");
         assert behaviorNested.toString().equals("( F )");
@@ -125,34 +125,34 @@ public class BehaviorTest {
 
     @Test
     public void testSequentialBehavior() {
-        SequentialBehavior behavior = new SequentialBehavior();
+        SequentialBehaviour behavior = new SequentialBehaviour();
 
         // Empty
         assert behavior.toString().equals("( )");
 
         // One
-        behavior.addBehavior(new AtomicBehavior("A", "_"));
+        behavior.addBehavior(new AtomicBehaviour("A", "_"));
         assert behavior.toString().equals("( A )");
 
         // Two
-        behavior.addBehavior(new AtomicBehavior("B", "_"));
+        behavior.addBehavior(new AtomicBehaviour("B", "_"));
         assert behavior.toString().equals("( A ; B )");
 
         // Many
-        behavior.addBehavior(new AtomicBehavior("C", "_"));
-        behavior.addBehavior(new AtomicBehavior("D", "_"));
+        behavior.addBehavior(new AtomicBehaviour("C", "_"));
+        behavior.addBehavior(new AtomicBehaviour("D", "_"));
         assert behavior.toString().equals("( A ; B ; C ; D )");
 
         // Nested Behavior
-        ChoiceBehavior behaviorNested = new ChoiceBehavior();
-        behaviorNested.addBehavior(new AtomicBehavior("F", "_"));
+        ChoiceBehaviour behaviorNested = new ChoiceBehaviour();
+        behaviorNested.addBehavior(new AtomicBehaviour("F", "_"));
         behavior.addBehavior(behaviorNested);
         assert behavior.toString().equals("( A ; B ; C ; D ; ( F ) )");
 
         // Nested Sequential
-        SequentialBehavior sequentialNested = new SequentialBehavior();
-        sequentialNested.addBehavior(new AtomicBehavior("G", "_"));
-        sequentialNested.addBehavior(new AtomicBehavior("H", "_"));
+        SequentialBehaviour sequentialNested = new SequentialBehaviour();
+        sequentialNested.addBehavior(new AtomicBehaviour("G", "_"));
+        sequentialNested.addBehavior(new AtomicBehaviour("H", "_"));
         behavior.addBehavior(sequentialNested);
         assert behavior.toString().equals("( A ; B ; C ; D ; ( F ) ; ( G ; H ) )");
     }

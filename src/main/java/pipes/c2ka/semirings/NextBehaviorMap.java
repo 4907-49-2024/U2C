@@ -1,18 +1,18 @@
 package pipes.c2ka.semirings;
 
 import pipes.c2ka.Stimulus;
-import pipes.c2ka.behaviours.AtomicBehavior;
+import pipes.c2ka.behaviours.AtomicBehaviour;
 
 /**
  * Individual map of a NextBehavior, the full NextBehavior specification is a set of these.
  */
-public class NextBehaviorMap extends NextMapSemiring<AtomicBehavior> {
-    public NextBehaviorMap(Stimulus inputStim, AtomicBehavior initialBehavior, AtomicBehavior output) {
+public class NextBehaviorMap extends NextMapSemiring<AtomicBehaviour> {
+    public NextBehaviorMap(Stimulus inputStim, AtomicBehaviour initialBehavior, AtomicBehaviour output) {
         super(inputStim, initialBehavior, output);
     }
 
     // Kept for legacy parity
-    public NextBehaviorMap(String  inputStim, AtomicBehavior initialBehavior, AtomicBehavior output) {
+    public NextBehaviorMap(String  inputStim, AtomicBehaviour initialBehavior, AtomicBehaviour output) {
         this(Stimulus.createStimulus(inputStim), initialBehavior, output);
     }
 
@@ -22,7 +22,7 @@ public class NextBehaviorMap extends NextMapSemiring<AtomicBehavior> {
      * @return A map with the neutral output for the given output type
      */
     @Override
-    public NextBehaviorMap createNeutralMap(Stimulus inputStim, AtomicBehavior initialBehavior) {
+    public NextBehaviorMap createNeutralMap(Stimulus inputStim, AtomicBehaviour initialBehavior) {
         return new NextBehaviorMap(inputStim, initialBehavior, initialBehavior);
     }
 }

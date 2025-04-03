@@ -1,7 +1,7 @@
 package filters.diagramInterpreters;
 
 import filters.Filter;
-import pipes.c2ka.behaviours.AtomicBehavior;
+import pipes.c2ka.behaviours.AtomicBehaviour;
 import pipes.c2ka.specifications.ConcreteBehaviorSpecification;
 import pipes.diagrams.state.AtomicState;
 import pipes.diagrams.state.State;
@@ -27,7 +27,7 @@ public class StateConcreteBehaviorInterpreter extends Filter<SuperState, Concret
     private void registerAtomicBehaviorRecursive(State state){
         // Base Case
         if(state instanceof AtomicState atomic) {
-            output.add(new AtomicBehavior(atomic.name(), atomic.doActivity()));
+            output.add(new AtomicBehaviour(atomic.name(), atomic.doActivity()));
         }
         // Recursive Case
         else if(state instanceof SuperState superState) {

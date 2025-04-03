@@ -26,11 +26,11 @@ public class StateNextBehaviorInterpreter extends Filter<SuperState, NextBehavio
     public void run() {
         Set<NextBehaviorMap> mappings = new HashSet<>();
         for(Transition t: input.getAllTransitions()){
-            Behavior source = StateBehaviorConverter.getStateBehavior(t.source());
-            Behavior target = StateBehaviorConverter.getStateBehavior(t.target());
+            Behaviour source = StateBehaviorConverter.getStateBehavior(t.source());
+            Behaviour target = StateBehaviorConverter.getStateBehavior(t.target());
 
-            AtomicBehavior initial = getSourceAtomic(source);
-            AtomicBehavior next = getTargetAtomic(target);
+            AtomicBehaviour initial = getSourceAtomic(source);
+            AtomicBehaviour next = getTargetAtomic(target);
             mappings.add(new NextBehaviorMap(t.input(), initial, next));
         }
 

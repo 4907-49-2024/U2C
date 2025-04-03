@@ -5,8 +5,8 @@ import java.util.HashSet;
 /**
  * Representation of a choice composite of C2KA behaviors
  */
-public class ChoiceBehavior extends CompositeBehavior {
-    public ChoiceBehavior() {
+public class ChoiceBehaviour extends CompositeBehaviour {
+    public ChoiceBehaviour() {
         super(new HashSet<>()); // Choice order does not matter
     }
 

@@ -16,18 +16,18 @@ public class TransitionBehaviorHandler {
      * @param search The recursive function to search the sequential state.
      * @return The atomic behavior representing the target behavior.
      */
-    private static AtomicBehavior getAtomicBehavior(Behavior target, Function<SequentialBehavior, Behavior> search) {
+    private static AtomicBehaviour getAtomicBehavior(Behaviour target, Function<SequentialBehaviour, Behaviour> search) {
         // Error cases
-        if (target instanceof ChoiceBehavior)
+        if (target instanceof ChoiceBehaviour)
             throw new IllegalArgumentException("Unsupported choice transition - avoid source from choice composite, indeterministic behavior.");
-        if (target instanceof ParallelBehavior)
+        if (target instanceof ParallelBehaviour)
             throw new IllegalArgumentException("unsupported parallel composition - can make another agent instead of modelling parallel composition.");
         // Find first behavior in sequence
-        if (target instanceof SequentialBehavior seqTarget)
+        if (target instanceof SequentialBehaviour seqTarget)
             return getAtomicBehavior(search.apply(seqTarget), search) ;
 
         // Has to be atomic
-        return (AtomicBehavior) target;
+        return (AtomicBehaviour) target;
     }
 
     /**
@@ -40,8 +40,8 @@ public class TransitionBehaviorHandler {
      * @param source The source behavior
      * @return The atomic behavior representing the initial state
      */
-    public static AtomicBehavior getSourceAtomic(Behavior source) {
-        return getAtomicBehavior(source, SequentialBehavior::getLastBehavior);
+    public static AtomicBehaviour getSourceAtomic(Behaviour source) {
+        return getAtomicBehavior(source, SequentialBehaviour::getLastBehavior);
     }
 
     /**
@@ -54,7 +54,7 @@ public class TransitionBehaviorHandler {
      * @param source The target behavior
      * @return The atomic behavior representing the initial state
      */
-    public static AtomicBehavior getTargetAtomic(Behavior source) {
-        return getAtomicBehavior(source, SequentialBehavior::getInitialBehavior);
+    public static AtomicBehaviour getTargetAtomic(Behaviour source) {
+        return getAtomicBehavior(source, SequentialBehaviour::getInitialBehavior);
     }
 }

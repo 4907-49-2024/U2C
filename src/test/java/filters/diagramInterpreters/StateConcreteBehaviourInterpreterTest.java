@@ -6,7 +6,7 @@ import filters.xmiParser.XMIParser;
 import org.junit.jupiter.api.Test;
 import pipes.c2ka.specifications.ConcreteBehaviorSpecification;
 import pipes.parserConfig.XMIParserConfig;
-import pipes.c2ka.behaviours.AtomicBehavior;
+import pipes.c2ka.behaviours.AtomicBehaviour;
 import pipes.diagrams.state.SuperState;
 
 import static testUtils.TestPaths.BASE_C2KA;
@@ -14,7 +14,7 @@ import static testUtils.TestPaths.BASE_C2KA;
 /**
  * Test the StateAbstractBehaviorInterpreterTest filter
  */
-public class StateConcreteBehaviorInterpreterTest {
+public class StateConcreteBehaviourInterpreterTest {
     /**
      * Define test pipeline
      *
@@ -44,7 +44,7 @@ public class StateConcreteBehaviorInterpreterTest {
         ConcreteBehaviorSpecification spec = runTestPipeline("Atomic.uml");
         // Expected
         ConcreteBehaviorSpecification specExpect = new ConcreteBehaviorSpecification();
-        specExpect.add(new AtomicBehavior("<name>", "<behavior-expression>"));
+        specExpect.add(new AtomicBehaviour("<name>", "<behavior-expression>"));
 
         assert spec.equals(specExpect);
     }

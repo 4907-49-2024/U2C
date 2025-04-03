@@ -22,7 +22,7 @@ public class StateAbstractBehaviorInterpreter extends Filter<SuperState, Abstrac
     @Override
     public void run() {
         // Can assume the input given is a composite because the input is a SuperState
-        CompositeBehavior topLevelBehavior = (CompositeBehavior) StateBehaviorConverter.getStateBehavior(input);
+        CompositeBehaviour topLevelBehavior = (CompositeBehaviour) StateBehaviorConverter.getStateBehavior(input);
         output = new AbstractBehaviorSpecification(input.name(), topLevelBehavior);
     }
 }

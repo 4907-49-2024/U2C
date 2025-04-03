@@ -3,12 +3,12 @@ package filters.diagramInterpreters;
 import com.sdmetrics.model.ModelElement;
 import filters.diagramLinkers.StateDiagramLinker;
 import filters.xmiParser.XMIParser;
-import pipes.c2ka.behaviours.AtomicBehavior;
-import pipes.c2ka.behaviours.ChoiceBehavior;
+import pipes.c2ka.behaviours.AtomicBehaviour;
+import pipes.c2ka.behaviours.ChoiceBehaviour;
 import pipes.c2ka.specifications.AbstractBehaviorSpecification;
 import pipes.parserConfig.XMIParserConfig;
 import org.junit.jupiter.api.Test;
-import pipes.c2ka.behaviours.CompositeBehavior;
+import pipes.c2ka.behaviours.CompositeBehaviour;
 import pipes.diagrams.state.SuperState;
 
 import static testUtils.TestPaths.BASE_C2KA;
@@ -16,7 +16,7 @@ import static testUtils.TestPaths.BASE_C2KA;
 /**
  * Test the StateAbstractBehaviorInterpreterTest filter
  */
-public class StateAbstractBehaviorInterpreterTest {
+public class StateAbstractBehaviourInterpreterTest {
     /**
      * Define test pipeline
      *
@@ -45,8 +45,8 @@ public class StateAbstractBehaviorInterpreterTest {
         // Get output
         AbstractBehaviorSpecification spec = runTestPipeline("Atomic.uml");
         // Simulate output
-        CompositeBehavior choice = new ChoiceBehavior();
-        choice.addBehavior(new AtomicBehavior("<name>", "<behavior-expression>"));
+        CompositeBehaviour choice = new ChoiceBehaviour();
+        choice.addBehavior(new AtomicBehaviour("<name>", "<behavior-expression>"));
         AbstractBehaviorSpecification specExpect = new AbstractBehaviorSpecification("Atomic Behavior", choice);
 
         assert spec.equals(specExpect);
