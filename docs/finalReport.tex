@@ -548,10 +548,27 @@
     % TODO describe figures, export 1-3
 
     \subsubsection{Executing U2C}
-    % TODO: Compile program
-    Once the inputs are exported,
-    \subsubsection{Providing Outputs to Model Checker}
+    To use our program, the first step is to download the 1.0 zip release from GitHub.
+    Then, extract the zip as is to a folder.
+    Double-click the jar file to execute it (Java 16+ required).
+    Open the Output folder, there should be four output files corresponding to the sample input.
 
+    If the output does not get generated, the program did not succeed.
+    This is most likely due to an improper java installation.
+    Attempt to run the Jar file in the console, for example on Windows the command is:
+    \begin{verbatim}
+        java -jar U2C.jar
+    \end{verbatim}
+    This should display some error message which is hopefully helpful enough to troubleshoot.
+    Otherwise, raise a bug on GitHub with steps to reproduce it.
+    Optionally, contact an individual currently maintaining the tool for help.
+
+    If you had no issues, clean the output and input folders.
+    Then, add your sample diagram inputs to the Input folder.
+    Execute the program, then collect the output files generated, they will be needed later.
+
+    \subsubsection{Providing Outputs to Model Checker}
+    % TODO: run IIAT, issue #139
 
     \section{Conclusion}\label{sec:conclusion}
     \input{sections/conclusion}
