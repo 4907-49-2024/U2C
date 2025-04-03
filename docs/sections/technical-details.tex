@@ -132,15 +132,26 @@
     In the worst case, an inaccurate specification may be generated without warning.
 
     For the safest behavior, we have defined a known set of valid model elements, along with usage guidelines.
-    At a high level, it can be summarized with the following class diagram:
+    At a high level, it can be summarized with the class diagram in figure~\ref{fig:supportedElems}.
+    \begin{figure}[h]
+              \centering
+              \includegraphics[width=0.5\textwidth]{supportedStateElems.drawio}
+              \caption{The class diagram representation of supported diagram elements}
+              \label{fig:supportedElems}
+    \end{figure}
     \\
-    % TODO: Insert supported state elems figure here
-
     The first element in our state diagram is a \textbf{state}.
     States describe a discrete behavior where an invariant condition holds.
     They map directly to \textit{Abstract Behaviors} in C2KA\@.
     \textbf{Atomic States} are states which do not contain other states.
-    % TODO: (add C2KA base figures after each paragraph?)
+    We can see an example atomic behavior in figure~\ref{fig:atomicBehavior}.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{AtomicBehavior}
+        \caption{A generic atomic behavior representation}
+        \label{fig:atomicBehavior}
+    \end{figure}
 
     Atomic States always have a \textbf{doActivity} property,
     as they are needed for C2KA \textit{Concrete Behaviors}.
@@ -173,6 +184,14 @@
     \textit{sequential transitions} are special transitions with a single stimulus, their labelling format is: \{in-and-out-stimulus\}.
     This is because sequential states use the output of one state as the input of the next state in the sequence.
     This allows us to uniquely identify sequential compositions by using a single stimulus as the key identifying property.
+    We can see an example of transitions and how we interpret mappings from them in figure~\ref{fig:transition}.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{transitions}
+        \caption{A representation of next mappings and their relation to transtions}
+        \label{fig:transition}
+    \end{figure}
 
     \textbf{Sequential States} are super states (state compositions) with a specific composition pattern.
     There are at least two inner states.
@@ -180,8 +199,16 @@
     The sequence has no cycles.
     There is a clear initial state with no incoming transitions.
     There is a clear final state with no outgoing transitions.
+    We can see an example sequential state in figure~\ref{fig:sequential}.
 
-    Note: We explicitly decided not cover C2KA \textit{parallel compositions} to simplify modelling and parsing.
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{SequentialBehavior}
+        \caption{A C2KA sequential composition represented in a state diagram}
+        \label{fig:sequential}
+    \end{figure}
+
+    Note: We explicitly decided not to cover C2KA \textit{parallel compositions} to simplify modelling and parsing.
     Instead, a modeller should consider making two different agents which communicate
     with each other to model parallel behavior.
 
