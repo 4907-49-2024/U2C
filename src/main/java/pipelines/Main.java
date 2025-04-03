@@ -28,6 +28,7 @@ import java.util.Set;
 public class Main {
     private static final Path projectRoot = Paths.get(System.getProperty("user.dir"));
     private static final Path INPUT_DIR = projectRoot.resolve("Input");
+    private static final Path OUTPUT_DIR = projectRoot.resolve("Output");
 
     private static List<String> getInputs(){
         // Get all input files.
@@ -99,6 +100,8 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
+        System.out.println("Reading agent files from " + INPUT_DIR);
         runMainPipeline(getInputs());
+        System.out.println("Finished writing output to " + OUTPUT_DIR);
     }
 }
