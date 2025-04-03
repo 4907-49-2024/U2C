@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class AgentSpecificationDiffTool {
     public static void specificationDiff(Path test_dir, C2KASpecifications specifications) throws Exception {
         // Aliases
-        String agentName = specifications.abstractBehaviorSpec().getSpecificationName();
+        String agentName = specifications.abstractBehaviorSpec().getAgentName();
 
         // Paths to actual and expected files
         Path actualFilePath = specifications.getFilepath();
