@@ -73,10 +73,11 @@ public abstract class NextMappingSpecification<mapType extends NextMapSemiring<?
         StringBuilder sb = new StringBuilder();
         String lineSeparator = "\n\t";
 
-        Stimulus lastStim = null;
+        // Get first stim to prevent null case
+        Stimulus lastStim = mappings.stream().sorted().toList().get(0).getInputStim();
         // Note: Order is completely random, and no whitespace to separate sections. Hopefully not a problem?
         for(mapType mapping: mappings.stream().sorted().toList()){
-            if (lastStim == null || !lastStim.equals(mapping.getInputStim())) {
+            if (!lastStim.equals(mapping.getInputStim())) {
                 lastStim = mapping.getInputStim();
                 sb.append(lineSeparator);
             }

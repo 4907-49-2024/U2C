@@ -28,6 +28,7 @@ public class AbstractBehaviorSpecification extends Specification {
         sb.append(agentName);
         sb.append(" := ");
         sb.append(rightSide);
+        sb.append("\n");
 
         return sb.toString();
     }
