@@ -1,6 +1,6 @@
 package filters.diagramInterpreters.utils;
 
-import pipes.c2ka.behaviors.*;
+import pipes.c2ka.behaviours.*;
 import pipes.diagrams.state.AtomicState;
 import pipes.diagrams.state.State;
 import pipes.diagrams.state.SuperState;
@@ -21,7 +21,7 @@ public class StateBehaviorConverter {
      *
      * @throws IllegalStateException If properties for parallel and sequential composition are found at the same time.
      */
-    private static CompositeBehavior instantiateComposite(SuperState superState) throws IllegalStateException {
+    private static CompositeBehaviour instantiateComposite(SuperState superState) throws IllegalStateException {
         boolean isParallel  = superState.numRegions() > 1;
         // If any transitions are sequential, should be a sequential state
         boolean isSequential  = superState.innerTransitions().stream().anyMatch(Transition::isSequential);
@@ -38,12 +38,12 @@ public class StateBehaviorConverter {
 
         // Assume model is valid here, return result based on bools evaluated earlier
         if(isSequential){
-            return new SequentialBehavior();
+            return new SequentialBehaviour();
         }
         if(isParallel){
-            return new ParallelBehavior();
+            return new ParallelBehaviour();
         }
-        return new ChoiceBehavior(); // Default
+        return new ChoiceBehaviour(); // Default
     }
 
     /**
@@ -54,15 +54,15 @@ public class StateBehaviorConverter {
      * @param state The state to convert to a behavior
      * @return The behavior representation of the given state
      */
-    public static Behavior getStateBehavior(State state){
+    public static Behaviour getStateBehavior(State state){
         // Base case
         if (state instanceof AtomicState atState) {
-            return new AtomicBehavior(atState.name(), atState.doActivity());
+            return new AtomicBehaviour(atState.name(), atState.doActivity());
         }
         // Recursive case, add composite (and recursively fill it)
         if (state instanceof SuperState supState) {
             // Get composite type
-            CompositeBehavior composite = instantiateComposite(supState);
+            CompositeBehaviour composite = instantiateComposite(supState);
             // Fill composite
             for (State child : supState.children()) {
                 composite.addBehavior(getStateBehavior(child));

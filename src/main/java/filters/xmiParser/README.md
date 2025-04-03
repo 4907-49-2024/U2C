@@ -29,7 +29,7 @@ Transformations: xmiStateTrans.xml
    - We use state machine names as a key to associate elements to their diagram. 
 2. Transition Names follow this format: inputStim\[guard(optional)]/outStim
    - This is to simplify implementation, and model tool use. "Proper" field setting is tedious.
-3. We do not handle "regions" for concurrent behavior.
+3. We do not handle "regions" for concurrent behaviour.
    - Scope reduction
 4. We do not handle "regular" superstates
    - We use superstates to model guarded clauses.

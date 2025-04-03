@@ -3,13 +3,10 @@ package filters.diagramInterpreters;
 import com.sdmetrics.model.ModelElement;
 import filters.diagramLinkers.StateDiagramLinker;
 import filters.xmiParser.XMIParser;
-import pipes.c2ka.behaviors.AtomicBehavior;
-import pipes.c2ka.behaviors.ChoiceBehavior;
-import pipes.c2ka.specifications.AbstractBehaviorSpecification;
-import pipes.parserConfig.XMIParserConfig;
 import org.junit.jupiter.api.Test;
-import pipes.c2ka.behaviors.Behavior;
-import pipes.c2ka.behaviors.CompositeBehavior;
+import pipes.c2ka.specifications.ConcreteBehaviorSpecification;
+import pipes.parserConfig.XMIParserConfig;
+import pipes.c2ka.behaviours.AtomicBehaviour;
 import pipes.diagrams.state.SuperState;
 
 import static testUtils.TestPaths.BASE_C2KA;
@@ -17,7 +14,7 @@ import static testUtils.TestPaths.BASE_C2KA;
 /**
  * Test the StateAbstractBehaviorInterpreterTest filter
  */
-public class StateAbstractBehaviorInterpreterTest {
+public class StateConcreteBehaviourInterpreterTest {
     /**
      * Define test pipeline
      *
@@ -25,7 +22,7 @@ public class StateAbstractBehaviorInterpreterTest {
      * @return Behavior type pipe object (filter under test's output)
      * @throws Exception In case of thread or input exceptions
      */
-    private AbstractBehaviorSpecification runTestPipeline(String inputDiagramXMI) throws Exception {
+    private ConcreteBehaviorSpecification runTestPipeline(String inputDiagramXMI) throws Exception {
         // Setup Input
         String metaModel = "custom/stateMetaModel.xml";
         String xmiTrans = "custom/xmiStateTrans.xml";
@@ -37,18 +34,17 @@ public class StateAbstractBehaviorInterpreterTest {
         StateDiagramLinker linker = new StateDiagramLinker(stateDiagramElem);
         SuperState stateDiagram = linker.getOutput();
         // Filter 3 - FUT
-        StateAbstractBehaviorInterpreter interpreter = new StateAbstractBehaviorInterpreter(stateDiagram);
+        StateConcreteBehaviorInterpreter interpreter = new StateConcreteBehaviorInterpreter(stateDiagram);
         return interpreter.getOutput();
     }
 
     @Test
     void testAtomic() throws Exception {
         // Get output
-        AbstractBehaviorSpecification spec = runTestPipeline("Atomic.uml");
-        // Simulate output
-        CompositeBehavior choice = new ChoiceBehavior();
-        choice.addBehavior(new AtomicBehavior("<name>", "<behavior-expression>"));
-        AbstractBehaviorSpecification specExpect = new AbstractBehaviorSpecification("Atomic Behavior", choice);
+        ConcreteBehaviorSpecification spec = runTestPipeline("Atomic.uml");
+        // Expected
+        ConcreteBehaviorSpecification specExpect = new ConcreteBehaviorSpecification();
+        specExpect.add(new AtomicBehaviour("<name>", "<behavior-expression>"));
 
         assert spec.equals(specExpect);
     }

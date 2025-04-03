@@ -5,13 +5,12 @@ import filters.diagramLinkers.StateDiagramLinker;
 import filters.xmiParser.XMIParser;
 import org.junit.jupiter.api.Test;
 import pipes.parserConfig.XMIParserConfig;
-import pipes.c2ka.behaviors.AtomicBehavior;
+import pipes.c2ka.behaviours.AtomicBehaviour;
 import pipes.c2ka.semirings.NextBehaviorMap;
 import pipes.c2ka.specifications.NextBehaviorSpecification;
 import pipes.diagrams.state.SuperState;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static testUtils.TestPaths.BASE_C2KA;
@@ -19,7 +18,7 @@ import static testUtils.TestPaths.BASE_C2KA;
 /**
  * Test the StateNextBehaviorInterpreter filter
  */
-public class StateNextBehaviorInterpreterTest {
+public class StateNextBehaviourInterpreterTest {
     /**
      * Define test pipeline
      *
@@ -60,8 +59,8 @@ public class StateNextBehaviorInterpreterTest {
         NextBehaviorSpecification mappings = runTestPipeline("NextMappings.uml");
         Set<NextBehaviorMap> behaviorMaps = new HashSet<>();
 
-        AtomicBehavior initial = new AtomicBehavior("Current", "<behavior-expression>");
-        AtomicBehavior next = new AtomicBehavior("NextBehavior", "<behavior-expression>");
+        AtomicBehaviour initial = new AtomicBehaviour("Current", "<behavior-expression>");
+        AtomicBehaviour next = new AtomicBehaviour("NextBehavior", "<behavior-expression>");
         behaviorMaps.add(new NextBehaviorMap("inStim", initial,  next));
 
         NextBehaviorSpecification expected = new NextBehaviorSpecification(behaviorMaps);

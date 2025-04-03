@@ -1,19 +1,19 @@
-package pipes.c2ka.behaviors;
+package pipes.c2ka.behaviours;
 
 import java.util.Collection;
 
 /**
  * Representation of a composite of C2KA behaviors
  */
-public abstract class CompositeBehavior extends Behavior {
-    protected final Collection<Behavior> behaviors;
+public abstract class CompositeBehaviour extends Behaviour {
+    protected final Collection<Behaviour> behaviours;
 
-    protected CompositeBehavior(Collection<Behavior> behaviors) {
-        this.behaviors = behaviors;
+    protected CompositeBehaviour(Collection<Behaviour> behaviours) {
+        this.behaviours = behaviours;
     }
 
-    public void addBehavior(Behavior behavior) {
-        behaviors.add(behavior);
+    public void addBehavior(Behaviour behaviour) {
+        behaviours.add(behaviour);
     }
 
     @Override
@@ -23,8 +23,8 @@ public abstract class CompositeBehavior extends Behavior {
         // Every composite encapsulated in ()
         sb.append("(");
         sb.append(" ");
-        for(Behavior behavior : behaviors) {
-            sb.append(behavior.toString()); // Recursively build inner behaviors
+        for(Behaviour behaviour : behaviours) {
+            sb.append(behaviour.toString()); // Recursively build inner behaviors
             sb.append(" ");
             sb.append(getCompositeOperator());
             sb.append(" ");

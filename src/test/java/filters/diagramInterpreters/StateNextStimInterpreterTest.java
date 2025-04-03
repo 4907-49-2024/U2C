@@ -5,13 +5,12 @@ import filters.diagramLinkers.StateDiagramLinker;
 import filters.xmiParser.XMIParser;
 import pipes.parserConfig.XMIParserConfig;
 import org.junit.jupiter.api.Test;
-import pipes.c2ka.behaviors.AtomicBehavior;
+import pipes.c2ka.behaviours.AtomicBehaviour;
 import pipes.c2ka.semirings.NextStimulusMap;
 import pipes.c2ka.specifications.NextStimulusSpecification;
 import pipes.diagrams.state.SuperState;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static testUtils.TestPaths.BASE_C2KA;
@@ -60,7 +59,7 @@ public class StateNextStimInterpreterTest {
         NextStimulusSpecification mappings = runTestPipeline("NextMappings.uml");
 
         Set<NextStimulusMap> expected = new HashSet<>();
-        expected.add(new NextStimulusMap("inStim", new AtomicBehavior("Current", "<behavior-expression>"), "nextStim"));
+        expected.add(new NextStimulusMap("inStim", new AtomicBehaviour("Current", "<behavior-expression>"), "nextStim"));
 
         NextStimulusSpecification expectedSpec = new NextStimulusSpecification(expected);
         assert mappings.equals(expectedSpec);

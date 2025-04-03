@@ -1,7 +1,7 @@
 package pipes.c2ka.specifications;
 
 import pipes.c2ka.Stimulus;
-import pipes.c2ka.behaviors.AtomicBehavior;
+import pipes.c2ka.behaviours.AtomicBehaviour;
 import pipes.c2ka.semirings.NextMapSemiring;
 
 import java.util.HashSet;
@@ -24,8 +24,8 @@ public abstract class NextMappingSpecification<mapType extends NextMapSemiring<?
      *
      * @return Set of behaviors of the agent for this specification
      */
-    protected Set<AtomicBehavior> getAgentBehaviours() {
-        Set<AtomicBehavior> agentBehaviours = new HashSet<>();
+    protected Set<AtomicBehaviour> getAgentBehaviours() {
+        Set<AtomicBehaviour> agentBehaviours = new HashSet<>();
         // Add atomic behaviors found in the mapping
         for (mapType m : mappings) {
             agentBehaviours.add(m.getInitialBehavior());
@@ -44,10 +44,10 @@ public abstract class NextMappingSpecification<mapType extends NextMapSemiring<?
         // Limitation of java with static inheritance, need to cheat it by getting an instance
         mapType map = mappings.iterator().next();
 
-        Set<AtomicBehavior> agentBehaviors = getAgentBehaviours();
+        Set<AtomicBehaviour> agentBehaviors = getAgentBehaviours();
         Set<Stimulus> systemStimuli = Stimulus.getSystemStimuli();
 
-        for (AtomicBehavior b : agentBehaviors) {
+        for (AtomicBehaviour b : agentBehaviors) {
             for (Stimulus s : systemStimuli) {
                 if(!keyInSpec(s, b)){
                     // Casting should work
@@ -60,7 +60,7 @@ public abstract class NextMappingSpecification<mapType extends NextMapSemiring<?
     /**
      * @return True if the given key pair does not have a matching map in this specification yet
      */
-    private boolean keyInSpec(Stimulus s, AtomicBehavior b) {
+    private boolean keyInSpec(Stimulus s, AtomicBehaviour b) {
         return mappings.stream().anyMatch(m -> m.isKeyEqual(s, b));
     }
 

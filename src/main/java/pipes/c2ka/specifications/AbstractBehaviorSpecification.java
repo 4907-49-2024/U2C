@@ -1,13 +1,13 @@
 package pipes.c2ka.specifications;
 
-import pipes.c2ka.behaviors.CompositeBehavior;
+import pipes.c2ka.behaviours.CompositeBehaviour;
 
 
 public class AbstractBehaviorSpecification extends Specification {
-    private final CompositeBehavior topLevelBehavior;
+    private final CompositeBehaviour topLevelBehavior;
     private final String agentName;
 
-    public AbstractBehaviorSpecification(String agentName, CompositeBehavior topLevelBehavior) {
+    public AbstractBehaviorSpecification(String agentName, CompositeBehaviour topLevelBehavior) {
         this.topLevelBehavior = topLevelBehavior;
         this.agentName = agentName;
     }

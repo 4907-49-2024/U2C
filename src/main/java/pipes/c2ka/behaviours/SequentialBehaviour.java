@@ -1,4 +1,4 @@
-package pipes.c2ka.behaviors;
+package pipes.c2ka.behaviours;
 
 import java.util.ArrayList;
 import java.util.function.Function;
@@ -6,8 +6,8 @@ import java.util.function.Function;
 /**
  * Representation of a sequential composite of C2KA behaviors
  */
-public class SequentialBehavior extends CompositeBehavior {
-    public SequentialBehavior() {
+public class SequentialBehaviour extends CompositeBehaviour {
+    public SequentialBehaviour() {
         super(new ArrayList<>()); // Choice order does not matter
     }
 
@@ -29,19 +29,19 @@ public class SequentialBehavior extends CompositeBehavior {
      * @return The first atomic behavior in sequence.
      * @throws IllegalStateException If an indeterministic behavior is found in the diagram due to composition.
      */
-    private static AtomicBehavior getAtomicBehavior(Behavior target, Function<SequentialBehavior, Behavior> searchType) {
+    private static AtomicBehaviour getAtomicBehavior(Behaviour target, Function<SequentialBehaviour, Behaviour> searchType) {
         // Error cases
-        if (target instanceof ChoiceBehavior)
-            throw new IllegalStateException("Unsupported choice composition placement - indeterministic behavior.");
-        if (target instanceof ParallelBehavior)
-            throw new IllegalStateException("unsupported parallel composition placement  - indeterministic behavior.");
+        if (target instanceof ChoiceBehaviour)
+            throw new IllegalStateException("Unsupported choice composition placement - indeterministic behaviour.");
+        if (target instanceof ParallelBehaviour)
+            throw new IllegalStateException("unsupported parallel composition placement  - indeterministic behaviour.");
 
         // It's a bit silly to nest a sequential behavior in another, but it's possible.
-        if (target instanceof SequentialBehavior seqFirst)
+        if (target instanceof SequentialBehaviour seqFirst)
             return getAtomicBehavior(searchType.apply(seqFirst), searchType);
 
         // Has to be atomic now
-        return (AtomicBehavior) target;
+        return (AtomicBehaviour) target;
     }
 
     /**
@@ -53,8 +53,8 @@ public class SequentialBehavior extends CompositeBehavior {
      * @return The first atomic behavior in sequence.
      * @throws IllegalStateException If an indeterministic behavior is found in the diagram due to composition.
      */
-    public static AtomicBehavior getInitialBehavior(SequentialBehavior target) {
-        Function<SequentialBehavior, Behavior> findFirst = t -> t.behaviors.iterator().next();
+    public static AtomicBehaviour getInitialBehavior(SequentialBehaviour target) {
+        Function<SequentialBehaviour, Behaviour> findFirst = t -> t.behaviours.iterator().next();
 
         return getAtomicBehavior(findFirst.apply(target), findFirst);
     }
@@ -69,9 +69,9 @@ public class SequentialBehavior extends CompositeBehavior {
      * @return The last atomic behavior in sequence.
      * @throws IllegalStateException If an indeterministic behavior is found in the diagram due to composition.
      */
-    public static AtomicBehavior getLastBehavior(SequentialBehavior target) {
-        Function<SequentialBehavior, Behavior> findLast =
-                t -> ((ArrayList<Behavior>) t.behaviors).get(t.behaviors.size()-1);
+    public static AtomicBehaviour getLastBehavior(SequentialBehaviour target) {
+        Function<SequentialBehaviour, Behaviour> findLast =
+                t -> ((ArrayList<Behaviour>) t.behaviours).get(t.behaviours.size()-1);
 
         return getAtomicBehavior(findLast.apply(target), findLast);
     }

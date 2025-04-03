@@ -2,11 +2,9 @@ package filters.diagramInterpreters;
 
 import filters.Filter;
 import filters.diagramInterpreters.utils.StateBehaviorConverter;
-import pipes.c2ka.behaviors.*;
+import pipes.c2ka.behaviours.*;
 import pipes.c2ka.specifications.AbstractBehaviorSpecification;
 import pipes.diagrams.state.*;
-
-import java.util.Set;
 
 
 /**
@@ -24,7 +22,7 @@ public class StateAbstractBehaviorInterpreter extends Filter<SuperState, Abstrac
     @Override
     public void run() {
         // Can assume the input given is a composite because the input is a SuperState
-        CompositeBehavior topLevelBehavior = (CompositeBehavior) StateBehaviorConverter.getStateBehavior(input);
+        CompositeBehaviour topLevelBehavior = (CompositeBehaviour) StateBehaviorConverter.getStateBehavior(input);
         output = new AbstractBehaviorSpecification(input.name(), topLevelBehavior);
     }
 }

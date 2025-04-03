@@ -1,7 +1,5 @@
 package pipes.c2ka.specifications;
 
-import pipes.c2ka.behaviors.AtomicBehavior;
-
 /**
  * Specifications represent collections of some C2KA atomic elements (Stimuli, behaviors, semi-ring maps).
  * <br>
