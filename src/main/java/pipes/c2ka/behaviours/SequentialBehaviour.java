@@ -32,9 +32,9 @@ public class SequentialBehaviour extends CompositeBehaviour {
     private static AtomicBehaviour getAtomicBehavior(Behaviour target, Function<SequentialBehaviour, Behaviour> searchType) {
         // Error cases
         if (target instanceof ChoiceBehaviour)
-            throw new IllegalStateException("Unsupported choice composition placement - indeterministic behavior.");
+            throw new IllegalStateException("Unsupported choice composition placement - indeterministic behaviour.");
         if (target instanceof ParallelBehaviour)
-            throw new IllegalStateException("unsupported parallel composition placement  - indeterministic behavior.");
+            throw new IllegalStateException("unsupported parallel composition placement  - indeterministic behaviour.");
 
         // It's a bit silly to nest a sequential behavior in another, but it's possible.
         if (target instanceof SequentialBehaviour seqFirst)
