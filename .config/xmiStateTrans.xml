@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!DOCTYPE xmitransformations SYSTEM '..\xmitrans.dtd'> <!-- Not sure if this works, and what it's for... -->
+<!-- Copyright (c) 2002-2020 Juergen Wuest
+
+The MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this SDMetrics project file (the "Project File"), to deal in the Project File
+without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Project File, and to permit persons to whom the Project File is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Project File.
+
+THE PROJECT FILE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE PROJECT FILE.
+
+Note: this license grant only applies to this Project File, and not to any
+other part of SDMetrics.
+-->
+
+
+<!-- xmiStateTrans.xml
+Custom XMI transformations for the C2KA extractor (Temp name).
+
+Meta Model base:
+    - stateMetaModel (Based on UML2.x, XMI2.x source files. Focused on state diagrams)
+Modelling tools supported:
+    - Papyrus
+Diagrams supported:
+    - State
+-->
+<xmitransformations version="2.0">
+
+    <!-- base element -->
+    <xmitransformation modelelement="sdmetricsbase" xmipattern="sdmetricsbase" recurse="true">
+        <trigger name="id" type="attrval" attr="xmi:id" />
+        <trigger name="name" type="attrval" attr="name" />
+        <trigger name="name" type="ctext" src="name" />
+    </xmitransformation>
+
+    <!-- state machines -->
+    <xmitransformation modelelement="statemachine" xmipattern="uml:StateMachine" recurse="true"/>
+
+    <xmitransformation modelelement="state" xmipattern="uml:State" recurse="true">
+        <trigger name="kind" type="constant" attr="state"/>
+
+        <trigger name="doactivity" type="xmi2assoc" attr="doActivity"/>
+    </xmitransformation>
+    <!-- Mostly for initial states - They have an empty "kind" field -->
+    <xmitransformation modelelement="state" xmipattern="uml:Pseudostate">
+        <trigger name="kind" type="attrval" attr="kind" />
+        <trigger name="kind" type="ctext" src="kind" />
+    </xmitransformation>
+
+    <xmitransformation modelelement="transition" xmipattern="uml:Transition" recurse="true">
+        <trigger name="source" type="attrval" attr="source" />
+        <trigger name="target" type="attrval" attr="target" />
+    </xmitransformation>
+
+    <xmitransformation modelelement="region" xmipattern="uml:Region" recurse="true"/>
+
+    <!-- do activities -->
+    <xmitransformation modelelement="activity" xmipattern="uml:Activity"/>
+
+</xmitransformations>

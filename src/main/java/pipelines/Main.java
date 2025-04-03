@@ -29,6 +29,7 @@ public class Main {
     private static final Path projectRoot = Paths.get(System.getProperty("user.dir"));
     private static final Path INPUT_DIR = projectRoot.resolve("Input");
     private static final Path OUTPUT_DIR = projectRoot.resolve("Output");
+    private static final Path CONFIG_DIR = projectRoot.resolve(".config");
 
     private static List<String> getInputs(){
         // Get all input files.
@@ -62,9 +63,9 @@ public class Main {
      */
     private static C2KASpecifications runSpecificationsPipeline(String inputDiagramXMI) throws Exception {
         // Setup Input
-        String metaModel = "custom/stateMetaModel.xml";
-        String xmiTrans = "custom/xmiStateTrans.xml";
-        XMIParserConfig config = new XMIParserConfig(inputDiagramXMI, xmiTrans, metaModel);
+        String metaModel = "stateMetaModel.xml";
+        String xmiTrans = "xmiStateTrans.xml";
+        XMIParserConfig config = new XMIParserConfig(inputDiagramXMI, CONFIG_DIR, xmiTrans, metaModel);
         // Filter 1
         XMIParser parser = new XMIParser(config);
         ModelElement stateDiagramElem = parser.getOutput();

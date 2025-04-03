@@ -29,6 +29,19 @@ public class XMIParserConfig {
         this.metaModelFile = resourcesDir.resolve(metaModelFile).toString();
     }
 
+    // FIXME: This many constructors has to be some form of code smell
+    /**
+     * @param configDir The config directory for the xmi transform/model files
+     * @param xmiInputFile The file name of the XMI file as seen in the input folder (name + extension only, not full path).
+     * @param xmiTransformsFile The xmi Transformations configuration file.
+     * @param metaModelFile The metamodel configuration file.
+     */
+    public XMIParserConfig(String xmiInputFile, Path configDir, String xmiTransformsFile, String metaModelFile){
+        this.xmiInputFile = DEFAULT_INPUT_DIR.resolve(xmiInputFile).toString();
+        this.xmiTransformsFile = configDir.resolve(xmiTransformsFile).toString();
+        this.metaModelFile = configDir.resolve(metaModelFile).toString();
+    }
+
     // Default input dir
     public XMIParserConfig(String xmiInputFile, String xmiTransformsFile, String metaModelFile){
         this.xmiInputFile = DEFAULT_INPUT_DIR.resolve(xmiInputFile).toString();
