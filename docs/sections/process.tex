@@ -40,6 +40,24 @@ After 8 hours of work without breaks writing a report, hands start aching and yo
 % subsection  (end)
 
 \subsection{Engineering Professionalism}\label{subsec:engineering-professionalism}
+In ECOR4995, we learned that safety was paramount.
+
+Our first step in addressing this was to analyze the security concerns of our tool.
+We do not believe there to be any security vulnerabilities.
+This is because it is completely local to the machine, with no internet connection.
+We do not believe someone using our tool can harm someone other than themselves by intentionally misusing it.
+The only concern would be if an individual delivers falsifies the outputs to provide to someone else.
+However, we provide no guarantee for this.
+We create text files that can be spoofed without our tool even existing, we decided this concern to be out of scope.
+
+The next question is are there safety concerns, were users can cause harm unintentionally?
+We believe there is a way to do so, if our outputs provide false information to a designer.
+If the analyzed system is safety critical this can become a safety concern.
+The analysis done with our faulty outputs would then compromise the analysis of the safety critical system.
+To guard against this, accuracy of our outputs became a critical requirement in our user requirements (see section~\ref{subsubsec:user-reqs}).
+We even have a second requirement preferring failure over false positive outputs.
+
+We also made sure to properly licence our program, since we learned that intellectual property was pretty important.
 
 \subsection{Project Management}\label{subsec:project-management}
 We started the project by defining some processes for baseline communication and work hours.
