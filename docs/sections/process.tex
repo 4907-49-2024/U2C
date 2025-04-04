@@ -129,8 +129,41 @@ The Goal of this project is to streamline and reduce error by creating an automa
 
 \subsection{Individual Project Contributions}\label{subsec:individual-project-contributions}
 \subsubsection{Alexandre Marques}
+% TODO: A lot more!!!
+\begin{itemize}
+    \item TODO: I did everything not included by them, their sections are comprehensive.
+    It will take a while to write mine, taking a break.
+    \item Fixed draft Manufacturing Cell diagrams in Papyrus to be accurate and testable according to our input specifications
+    \item Analyzed state diagrams and drew conclusions on elements of interest for our C2KA transformations.
+    Later, revisited this idea by trying to formalize it through C2KA base representations.
+    \item Researched C2KA to develop a deep understanding of possible transformations,
+    and attempted to form a solid testing basis by creating C2KA Base Representation diagrams % TODO ref paper here
+    \item Documented rules and possible mappings of C2KA in an internal wiki, using the Base Representations for reference. % TODO Add wiki as appendix?
+    \item Code reviewed all the pull requests in the repository, providing meaningful feedback to improve code quality.
+    \item Refactored integration tests and streamlined testing by creating reusable pipelines.
+    \item Refactored tests to import test paths, and the diff tool as re-usable utilities.
+\end{itemize}
+
 \subsubsection{Michael Rochefort}
+\begin{itemize}
+    \item Helped figure out comment parsing in diagrams (dropped feature).
+We did use this knowledge later to understand how to configure the parser for our needs.
+    \item Did research on Dijkstra's Guarded Command Language (GCL), and the transformations between its syntax and the IIAT.
+    Documented these findings in an internal wiki.
+    \item Drew the C2KA base model diagram in Papyrus related to concrete behavior containing a conditional statement written in GCL.
+    \item Wrote an integration test case for StateDiagramLinker using the C2KA base model with the GCL concrete behavior.
+    \item Created the accuracy validation diff tool which matches agent specification irrespective of order, with the same semantic meaning.
+\end{itemize}
+
 \subsubsection{Ahmed Babar}
+\begin{itemize}
+    \item Created draft Manufacturing Cell diagrams in Papyrus for all agents (with many errors)
+    \item Did research on State Diagrams, with no clear goal or conclusion.
+    Documented a lot of irrelevant information making it unclear how to use state diagrams for C2KA derivations.
+    \item Started adding integration test cases to StateDiagramLinker according to a template,
+    but could not complete them to an adequate level of quality in time.
+    \item Started (but failed to complete) creation of Wastewater system diagram inputs in Papyrus for a second system test.
+\end{itemize}
 
 \subsection{Individual Final Report Contributions}\label{subsec:individual-final-report-contributions}
 Ahmed wrote section~\ref{subsubsec:ahmed-deg}
@@ -139,6 +172,10 @@ However, the work to port both sections to LaTeX from the draft report was done 
 
 Everything else was written by Alexandre Marques.
 This includes all formatting, figure creation, setting up the LaTeX environment, etc.
-All sections from the draft unless otherwise mentioned above were re-written from scratch to incorporate the feedback.
+Figure creation does include creating new diagrams, running the IIAT tool,
+figuring out why it was breaking, etc.
+All the work relating to formally defining requirements and tracing their fulfillment was done as a part of this report.
+
+All sections from the draft unless otherwise mentioned above were re-written from scratch by Alexandre Marques to incorporate the feedback.
 As a disclaimer, this includes project contributions in section~\ref{subsec:individual-project-contributions}
 which were edited from the draft report for accuracy by Alexandre Marques.
