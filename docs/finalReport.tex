@@ -2,7 +2,15 @@
 %! Date = 2025-03-18
 
 % Preamble
-\documentclass[11pt]{article}
+\documentclass[12pt]{article}
+% Formatting: Margins
+\usepackage[
+    paper=a4paper,
+    top=1in,
+    bottom=1in,
+    left=1.5in,
+    right=1in
+]{geometry}
 
 % Packages
 \usepackage{amsmath}
@@ -19,8 +27,8 @@
 
 % Document
 \begin{document}
-    \input{frontmatter/frontmatter}
 
+    \input{frontmatter/frontmatter}
 
     \section{Introduction}\label{sec:intro}
     \input{sections/introduction}
