@@ -3,7 +3,7 @@
 
 % Preamble
 \documentclass[12pt]{article}
-% Formatting: Margins
+% Formatting imports
 \usepackage[
     paper=a4paper,
     top=1in,
@@ -11,10 +11,11 @@
     left=1.5in,
     right=1in
 ]{geometry}
+\usepackage{setspace}
+\doublespacing
+% changes the text to double-line spacing
 
-% Packages
 \usepackage{amsmath}
-
 \usepackage{caption}
 \captionsetup[table]{skip=10pt}
 
@@ -24,6 +25,7 @@
 \usepackage{amssymb}
 \usepackage{graphicx} % Package to manage table width automatically
 \graphicspath{ {figures/} }
+
 
 % Document
 \begin{document}
