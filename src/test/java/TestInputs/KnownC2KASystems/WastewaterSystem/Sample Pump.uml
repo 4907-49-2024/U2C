@@ -5,13 +5,15 @@
   </packageImport>
   <packagedElement xmi:type="uml:StateMachine" xmi:id="_vOSAgAKgEfCdoO8-_6Iw2Q" name="SAP">
     <region xmi:type="uml:Region" xmi:id="_vOrCEAKgEfCdoO8-_6Iw2Q" name="Region1">
-      <transition xmi:type="uml:Transition" xmi:id="_rgay4AP5EfCcP8pzFhRo4g" name="start / eff" source="_1c10gAKgEfCdoO8-_6Iw2Q" target="_3QotYAKgEfCdoO8-_6Iw2Q"/>
-      <transition xmi:type="uml:Transition" xmi:id="_kMg1gAP7EfCcP8pzFhRo4g" name="fixed / N" source="_3QotYAKgEfCdoO8-_6Iw2Q" target="_1c10gAKgEfCdoO8-_6Iw2Q"/>
+      <transition xmi:type="uml:Transition" xmi:id="_Z2RHoBEmEfC73aJmpZAT2Q" name="fault / N" source="_1c10gAKgEfCdoO8-_6Iw2Q" target="_3QotYAKgEfCdoO8-_6Iw2Q"/>
+      <transition xmi:type="uml:Transition" xmi:id="_eobPEBEmEfC73aJmpZAT2Q" name="fault / fault" source="_3QotYAKgEfCdoO8-_6Iw2Q" target="_3QotYAKgEfCdoO8-_6Iw2Q"/>
+      <transition xmi:type="uml:Transition" xmi:id="_rNQooBEmEfC73aJmpZAT2Q" name="fixed / N" source="_3QotYAKgEfCdoO8-_6Iw2Q" target="_1c10gAKgEfCdoO8-_6Iw2Q"/>
+      <transition xmi:type="uml:Transition" xmi:id="_5EXiYBEmEfC73aJmpZAT2Q" name="start / eff" source="_1c10gAKgEfCdoO8-_6Iw2Q" target="_1c10gAKgEfCdoO8-_6Iw2Q"/>
       <subvertex xmi:type="uml:State" xmi:id="_1c10gAKgEfCdoO8-_6Iw2Q" name="SAMPLE">
-        <doActivity xmi:type="uml:Activity" xmi:id="_uyNB0AP7EfCcP8pzFhRo4g" name="effluent := SAMPLE()"/>
+        <doActivity xmi:type="uml:Activity" xmi:id="_uyNB0AP7EfCcP8pzFhRo4g" name="effluent := SAMPLE"/>
       </subvertex>
       <subvertex xmi:type="uml:State" xmi:id="_3QotYAKgEfCdoO8-_6Iw2Q" name="FAIL">
-        <doActivity xmi:type="uml:Activity" xmi:id="_zfvH8AP7EfCcP8pzFhRo4g" name="effluent := SAMPLE()"/>
+        <doActivity xmi:type="uml:Activity" xmi:id="_zfvH8AP7EfCcP8pzFhRo4g" name="effluent := SAMPLE"/>
       </subvertex>
     </region>
   </packagedElement>

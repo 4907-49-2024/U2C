@@ -8,7 +8,7 @@
       <transition xmi:type="uml:Transition" xmi:id="_jdCRoAQBEfCcP8pzFhRo4g" name="fault / alarm" source="_2rHXcAP-EfCcP8pzFhRo4g" target="_3oiB8AP-EfCcP8pzFhRo4g"/>
       <transition xmi:type="uml:Transition" xmi:id="_r7d2gAQBEfCcP8pzFhRo4g" name="fixed / fixed" source="_3oiB8AP-EfCcP8pzFhRo4g" target="_2rHXcAP-EfCcP8pzFhRo4g"/>
       <subvertex xmi:type="uml:State" xmi:id="_2rHXcAP-EfCcP8pzFhRo4g" name="PID">
-        <doActivity xmi:type="uml:Activity" xmi:id="_zffTgAP_EfCcP8pzFhRo4g" name="if flowRate >= FLOW_SETPOINT -> 1skip | flowRate &lt; FLOW_SETPOINT -> 1send alarm fi targetFlow := COMPUTE_FLOW(residual); if targetFlow > MAX_PUMP_FLOW -> 1leadFlow := MAX_PUMP_FLOW; 1lagFlow := targetFlow - MAX_PUMP_FLOW | targetFlow > MAX_PUMP_FLOW -> 1leadFlow := targetFlow | targetFlow &lt; DEADBAND -> 1leadFlow := targetFlow fi"/>
+        <doActivity xmi:type="uml:Activity" xmi:id="_zffTgAP_EfCcP8pzFhRo4g" name="if (flowRate >= FLOWSETPOINT) -> skip&#xA; | (flowRate &lt;  FLOWSETPOINT) -> send alarm fi;&#xA; targetFlow := residual; if (targetFlow > MAXPUMPFLOW) -> send on2; leadFlow := MAXPUMPFLOW; lagFlow := targetFlow - MAXPUMPFLOW &#xA;| (targetFlow &lt;= MAXPUMPFLOW &amp;&amp; targetFlow >= DEADBAND) -> leadFlow := targetFlow&#xA; | (targetFlow &lt; DEADBAND) -> send off2; leadFlow := targetFlow&#xA; fi"/>
       </subvertex>
       <subvertex xmi:type="uml:State" xmi:id="_3oiB8AP-EfCcP8pzFhRo4g" name="RATIO">
         <doActivity xmi:type="uml:Activity" xmi:id="_5oQeAAP-EfCcP8pzFhRo4g" name="skip"/>

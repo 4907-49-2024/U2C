@@ -7,7 +7,7 @@
     <region xmi:type="uml:Region" xmi:id="_-vJxQAP8EfCcP8pzFhRo4g" name="Region1">
       <transition xmi:type="uml:Transition" xmi:id="_hRix0AP-EfCcP8pzFhRo4g" name="eff / rate" source="_ZwEkcAP-EfCcP8pzFhRo4g" target="_ZwEkcAP-EfCcP8pzFhRo4g"/>
       <subvertex xmi:type="uml:State" xmi:id="_ZwEkcAP-EfCcP8pzFhRo4g" name="GETFLOW">
-        <doActivity xmi:type="uml:Activity" xmi:id="_tQNjQAP-EfCcP8pzFhRo4g" name="flowRate := MEASURE_FLOW_RATE(effluent)"/>
+        <doActivity xmi:type="uml:Activity" xmi:id="_tQNjQAP-EfCcP8pzFhRo4g" name="flowRate := effluent"/>
       </subvertex>
     </region>
   </packagedElement>
