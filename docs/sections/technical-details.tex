@@ -560,14 +560,21 @@
 
 
     \subsection{Usage}\label{subsec:usage}
-    \subsubsection{Demonstration Scope}
+    \subsubsection{Demonstration Scope}\label{subsubsec:scope}
+    The demonstration will be using inputs generated to simulate the system from the Manufacturing Cell example system.% TODO: inlcude appendix or reference?
+    The IIAT tool is pre-configured for this system, and the sample inputs from our V1 release is for this system as well.
+
     To use our tool, we will show the full process from how to generate the inputs,
     up to how to provide to our target model checker (IIAT), and the output generated.
     We will assume the reader is familiar with the input specification from section~\ref{subsubsec:input-specification},
     and how to create their desired state diagram following the specification.
     Therefore, we will start by showing how to export an existing state diagram in Papyrus.
 
-    The demonstration will be using inputs generated to simulate the system from % TODO: inlcude appendix or reference?
+    Recall that we already deemed the IIAT specific properties out of scope in table section~\ref{subsubsec:unsat-reqs}.
+    For this version of our program, we do not take responsibility for IIAT configurations to run any Model.
+    We only wish to demonstrate the C2KA specifications are accurate, and can be used irrespective of the modelling tool.
+    Showing parity with the existing samples for IIAT is the limit of our demonstration.
+
 
     % TODO: make sure to name our tool early in the report
     \subsubsection{Exporting Inputs from Papyrus}
@@ -593,8 +600,8 @@
     \end{figure}
 
     \newpage
-    \subsubsection{Executing U2C}
-    To use our program, the first step is to download the 1.0 zip release from GitHub.
+    \subsubsection{Executing U2C}\label{subsubsec:exec}
+    To use our program, download the 1.0 zip release from GitHub.
     Then, extract the zip as is to a folder.
     Double-click the jar file to execute it (Java 16+ required).
     Open the Output folder, there should be four output files corresponding to the sample input.
@@ -609,10 +616,57 @@
     Otherwise, raise a bug on GitHub with steps to reproduce it.
     Optionally, contact an individual currently maintaining the tool for help.
 
-    If you had no issues, clean the output and input folders.
-    Then, add your sample diagram inputs to the Input folder.
-    Execute the program, then collect the output files generated, they will be needed later.
+    If you had no issues, collect the output for use in later steps of this demonstration.
+    We will use the sample inputs for reproducibility of the demonstration.
+    To analyze your own system, you would remove all files in Input, Output then put your own ``.uml'' files in Input.
+    Then, execute the program, collect the outputs, just as we did with the sample.
 
-    \subsubsection{Providing Outputs to Model Checker}
-    aaa
-    % TODO: run IIAT, issue #139
+    \subsubsection{Running the target Model Checker, IIAT}
+    To build and run the IIAT, follow the instructions on the IIAT repository to install its dependencies first. % TODO: reference to repo here?
+    We personally recommend avoiding windows, it tends to be more difficult to work with.
+    The next section assumes you have completed the \textit{Installation} section of the IIAT repository's readme file.
+
+    Before running the program, it needs to be compiled locally.
+    When we tried to do so on our Linux installation, the compiler was having trouble loading \textit{hidden} packages.
+    These were packages which were installed, but not explicit dependencies of the project.
+    To fix this issue, we went into the Makefile, and changed the HSFlags variable to add the hidden packages:
+    \begin{verbatim}HSFlags = -O2 --make -w -package parsec -package vector -package split\end{verbatim}
+    Admittedly, there must be better fixes, but this was the first time we touched Haskell.
+    This solution worked well enough to compile and run the program.
+
+    Before execution, we also need to configure maude.
+    Again, we followed the instructions in the source repository.
+    The only trouble we had this time was finding the file.
+    It is not specified, but it is located at /src/MaudeInterface.lhs.
+
+    For our particular linux installation, we also had to add a missing library.
+    Specifically, we were missing ``libtinfo.so.5''.
+    For Arch Linux, we get a ``libtinfo.so.6'' library as a dependency of ncurses (which we already had installed).
+    It is backwards compatible with the old version, so the solution was to create a symbolic link like so:
+    \begin{verbatim}sudo link /lib/libtinfo.so.6 /lib/libtinfo.so.5\end{verbatim}
+
+    To verify the program works, run the executable with:
+    \begin{verbatim}./ImplicitsInteractionsAnalysisTool\end{verbatim}
+    The pre-configured system should be the manufacturing cell.
+    The first output line should look like so:
+    \begin{verbatim}
+        SoCA : MANUFACTURING
+    \end{verbatim}
+
+    Note: We did not manage to pipe the output to a file, it has to be observed as it prints currently.
+    It seems to spawn sub-processes which direct the output to the console directly after the Intended Interactions are printed.
+    What we did manage to pipe lost its formatting and became difficult to read.
+    Whichever the case, it seems to be a limitation of the linux implementation.
+    There may be a way through shell commands to redirect the output, but we are not familiar enough with bash.
+
+    \subsubsection{Providing generated specifications to IIAT}
+    Since the IIAT is pre-configured for the Manufacturing Cell,
+    we can take advantage of that for this demonstration.
+    Grab the outputs we generated in section~\ref{subsubsec:exec}.
+    Replace the files under specs/ManufacturingCell with the outputs generated from our sample input diagrams.
+    The sample input models the Manufacturing Cell, therefore they should be semantically the same.
+
+    To analyze different models, additional inputs need to be provided to the IIAT\@.
+    It does not seem that the IIAT tool explains how to configure the system in the readme.
+    As such, doing it ourselves for demonstration may require significant exploration.
+    This is why we deemed it out of scope when we discussed the demonstration scope in section~\ref{subsubsec:scope}.
