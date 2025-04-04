@@ -31,10 +31,28 @@ This gave us confidence that our project would be feasible, and useful.
 % Precise difference between statement, motivation, proposed solution, accomplishments?
 \subsection{Problem Statement}\label{subsec:problem-statement}
 %This project attempts to reduce the difficulty in creating formal C2KA models by creating them directly from UML State Diagrams.
+Our project aims to convert UML State Diagram visual models into C2KA agent specifications.
+The goal is to use these agent specifications in our C2KA model checker of interest, the Implicit Interactions Analysis Tool (IIAT).
+By targeting a specific model checker, it is easier to prove the function and usefulness of our tool.
 
 \subsection{Proposed Solution}\label{subsec:proposed-solution}
+To achieve this, we decided to find transformation patterns manually first.
+Once we understood how to convert it manually, we would encode the rules in a deterministic fashion.
+That is, we wanted our program to behave like a pure function.
+It should map one given input to exactly one reproducible output.
+The output in question would be the agent specification files the IIAT uses.
+The input would be some machine-readable version of a set of UML State Diagram.
 
 \subsection{Accomplishments}\label{subsec:accomplishments}
+\begin{enumerate}
+    \item We found deterministic transformation rules for visual models to C2KA specifications.
+    \item We managed to read a textual representation of the graphical models.
+    \item We re-created a diagram structure to easily parse state diagram information in code.
+    \item We used our custom structure to simply implement the transformation rules we determined.
+    \item We formatted and serialized our specifications in a format the IIAT could use.
+    \item We have created a diff tool to validate our outputs given a trusted C2KA specification written by hand.
+    \item We have validated our tool against one known C2KA system, using our diff tool, and by observing parity in the IIAT\@.
+\end{enumerate}
 
 \subsection{Document Overview}\label{subsec:document-overview}
 The remainder of this report is organized as follows.
