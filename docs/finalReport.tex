@@ -12,8 +12,21 @@
     right=1in
 ]{geometry}
 \usepackage{setspace}
-\doublespacing
 % changes the text to double-line spacing
+\doublespacing
+
+% Bibliography backend setup
+\usepackage[
+    backend=biber,
+    sortlocale=de_DE,
+    natbib=true,
+    url=true,
+    doi=false,
+    eprint=false
+]{biblatex}
+\addbibresource{refs.bib}
+
+
 
 \usepackage{amsmath}
 \usepackage{caption}
@@ -46,11 +59,8 @@
 
     \section{Conclusion}\label{sec:conclusion}
     \input{sections/conclusion}
+    \newpage
 
-    % Bibliography
-    % Set style
-    \bibliographystyle{plain}
-    % Import references
-    \bibliography{refs}
+    \printbibliography
 
 \end{document}
