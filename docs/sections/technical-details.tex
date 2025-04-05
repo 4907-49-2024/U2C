@@ -88,12 +88,12 @@ Although this is not our purpose, we still need this property to perform our ana
 % Change to User requirements?
 \subsubsection{User Requirements}\label{subsubsec:user-reqs}
 
-These User Requirements represent our original set of requirements, with minimal implementation details, and domain knowledge.
+These User Requirements represent our original set of requirements, with minimal implementation details and domain knowledge.
 They are elicited from initial discussions with our supervisor,
 and interpretations of the problem statement.
-We did not establish a procedure for explicit lower level requirements after this stage.
+We did not establish a procedure for explicit lower-level requirements after this stage.
 
-Some limitations of this process is a lack of explicit detail, priorities, or levels of satisfaction for non-functional requirements.
+Some limitations of this process are a lack of explicit detail, priorities, or levels of satisfaction for non-functional requirements.
 Instead, we will use later stages of the system development to trace design decisions taken for these requirements.
 We will also touch on priorities and possible improvements when we explain
 which requirements were skipped for our current release in section~\ref{subsubsec:unsat-reqs}.
@@ -138,7 +138,7 @@ with green states indicating satisfactory completion, and gray indicating unsati
     \hline
     12 & Worst Case Mitigation & Scalability & U2C should scale at a smaller rate than O($n^3$). The expected scaling factors are agents, stimuli, and agent behaviours. & \cellcolor{gray!30}  \\
     \hline
-    13 & User Documentation & Maintainability & The U2C code repository shall contain a user manual detailing expected user interactions, and input formats. & \cellcolor{gray!30}  \\
+    13 & User Documentation & Maintainability & The U2C code repository shall contain a user manual detailing expected user interactions and input formats. & \cellcolor{gray!30}  \\
     \hline
     14 & Maintainer Documentation & Maintainability & The U2C code repository shall contain documentation detailing implementation details for maintainers. & \cellcolor{green!30}  \\
     \hline
@@ -152,33 +152,33 @@ with green states indicating satisfactory completion, and gray indicating unsati
 
 \subsubsection{Chosen Input Type}
 The first decision to take concerning inputs was the specific diagram type to support.
-This decision impacts the language, since the diagram type may be specific to one or a small set of languages.
+This decision impacts the language since the diagram type may be specific to one or a small set of languages.
 It also impacts the modelling tool because it needs to support creating that diagram type.
 Most importantly, if the diagram does not have the information we require, there is no purpose in processing it.
 
 Recall that the information we require is related to creating C2KA agent specifications.
-Our initial diagram choice was \textit{collaboration diagrams}, due to their simplicity.
+Our initial diagram choice was \textit{collaboration diagrams} due to their simplicity.
 When we learned more about C2KA, we realized they do not model agent behaviour very well.
-Collaboration diagrams are more suited to describe a specific scenario on an entire system.
-Instead, we found that having one \textbf{UML State Diagram} per agent is enough to simply capture agent specifications.
+Collaboration diagrams are more suited to describe a specific scenario in an entire system.
+Instead, we found that having one \textbf{UML State Diagram} per agent is enough to capture agent specifications.
 More details on this later when we break down relevant components of state diagrams in section~\ref{subsubsec:input-specification}.
 
 By choosing UML State Diagrams, we also choose \textbf{UML} as our modelling language.
-SysML could have been a close viable alternative, but we decided to choose a language we were more familiar with.
+SysML could have been a viable alternative, but we decided to choose a language with which we were more familiar.
 This makes it easier to implement properly for us,
-but it is also related to our problem statement aiming to use modelling languages already familiar to system designers to reduce the learning curve.
-Admittedly outside of software system design SysML is more prevalent, and it is feasible to support both, but we had to limit our scope.
+but it is also related to our problem statement, aiming to use modelling languages already familiar to system designers to reduce the learning curve.
+Admittedly, outside of software system design, SysML is more prevalent, and it is feasible to support both, but we had to limit our scope.
 
 For our modelling tool, we chose \textbf{Papyrus}.
-We established evaluation criteria to evaluate different tools, and compared the most popular ones we found.
+We established evaluation criteria to evaluate different tools and compared the most popular ones we found.
 The most important requirement was machine readability.
-We needed to be able to export some representation of the diagram our system could read outside the modelling tool.
+We needed to be able to export some representation of the diagram so our system could read outside the modelling tool.
 Additionally, it was an advantage if it was free, popular, and had ongoing support.
-We did not want the modelling tool we depended on to become a hurdle to adopt our program,
-ideally we chose a tool which was already in use.
-Other tools we looked at were Lucidchart, draw.io, Creately, Gliffy, UMLLet, PlantUML (all had poor export functions),
+We did not want the modelling tool we depended on to become a hurdle to adopting our program.
+Ideally, we chose a tool that had widespread appeal.
+Other tools we looked at were Lucidchart, draw.io, Creately, Gliffy, UMLLet, and PlantUML (all had poor export functions).
 Modelio (felt hard to use), Astah UML (unpopular),
-StarUML and Visual Paradigm (seemed like good alternatives, but we figured out how to use Papyrus first).
+StarUML and Visual Paradigm seemed like good alternatives, but we figured out how to use Papyrus first.
 
 To export diagrams from Papyrus, there is an option to export \textbf{XMI files}.
 They technically have a .uml file extension in papyrus, but they function the same as XMI files from other tools.
@@ -191,18 +191,18 @@ The table below is a traceability summary mapping our original user requirements
 Refinements can be correlated by the bolded terms above.
 
 \begin{table}[htbp]
-\centering
-\caption{Input Decision Requirement Traceability}\label{tab:input-table}
-\begin{tabularx}{\textwidth}{| l | l | X |}
-    \hline
-    \textbf{ID} & \textbf{User Requirement} & \textbf{Refinement} \\
-    \hline
-    1 & Input & Visual Diagrams are given to the system through XMI file exports from supported modelling tool(s). \\ \hline
-    5 & Minimal User Actions & The user puts files in an input folder, then executes the program.  \\ \hline
-    6 & Modelling Tool Support & The chosen modelling tool is Papyrus. \\ \hline
-    7 & Modelling Language Support & The chosen modelling language is UML. \\ \hline
-    8 & Diagram Type Support & The chosen input diagram type is UML State Diagrams. \\ \hline
-\end{tabularx}
+    \centering
+    \caption{Input Decision Requirement Traceability}\label{tab:input-table}
+    \begin{tabularx}{\textwidth}{| l | l | X |}
+        \hline
+        \textbf{ID} & \textbf{User Requirement} & \textbf{Refinement} \\
+        \hline
+        1 & Input & Visual Diagrams are given to the system through XMI file exports from supported modelling tool(s). \\ \hline
+        5 & Minimal User Actions & The user puts files in an input folder, then executes the program.  \\ \hline
+        6 & Modelling Tool Support & The chosen modelling tool is Papyrus. \\ \hline
+        7 & Modelling Language Support & The chosen modelling language is UML. \\ \hline
+        8 & Diagram Type Support & The chosen input diagram type is UML State Diagrams. \\ \hline
+    \end{tabularx}
 \end{table}
 
 \newpage
@@ -213,23 +213,23 @@ to avoid extra modelling requirements.
 Unfortunately, modelling expressiveness was a smaller priority, as such
 other elements may cause unexpected behaviour.
 Ideally, they are ignored.
-The next best case is a descriptive error gets raised and crashes the program preventing a faulty output.
+The next best case is a descriptive error gets raised and crashes the program, preventing a faulty output.
 In the worst case, an inaccurate specification may be generated without warning.
 
 For the safest behaviour, we have defined a known set of valid model elements, along with usage guidelines.
 At a high level, it can be summarized with the class diagram in figure~\ref{fig:supportedElems}.
 \begin{figure}[ht]
-          \centering
-          \includegraphics[width=0.5\textwidth]{supportedStateElems.drawio}
-          \caption{The class diagram representation of supported diagram elements}
-          \label{fig:supportedElems}
+    \centering
+    \includegraphics[width=0.5\textwidth]{supportedStateElems.drawio}
+    \caption{The class diagram representation of supported diagram elements}
+    \label{fig:supportedElems}
 \end{figure}
 \\
 The first element in our state diagram is a \textbf{state}.
 States describe a discrete behaviour where an invariant condition holds.
 They map directly to \textit{Abstract behaviours} in C2KA\@.
-\textbf{Atomic States} are states which do not contain other states.
-We can see an example atomic behaviour in figure~\ref{fig:atomicbehaviour}.
+\textbf{Atomic States} are states that do not contain other states.
+We can see an example of atomic behaviour in figure~\ref{fig:atomicbehaviour}.
 
 \begin{figure}[ht]
     \centering
@@ -245,28 +245,27 @@ They are used to assign environmental shared variable values,
 with the option to use conditional flows based on the current environment state.
 Due to typesetting constraints, we had to convert the GCL operands listed in table~\ref{tab:gcl-equivalence}.
 \begin{table}[htbp]
-      \centering
-      \caption{GCL Conversions for Modelling Tools}\label{tab:gcl-equivalence}
-      \begin{tabular}{| l | l |}
-          % Header
-          \hline
-          \textbf{Original GCL} & \textbf{Modelling Tool} \\
-          % Header end
-          \hline
-          $\land$ & \&\& \\ \hline
-          $\square$ & $|$ \\ \hline
-          $\lor$ & $||$ \\ \hline
-          $\rightarrow$ & $->$ \\ \hline
-      \end{tabular}
+    \centering
+    \caption{GCL Conversions for Modelling Tools}\label{tab:gcl-equivalence}
+    \begin{tabular}{| l | l |}
+        % Header
+        \hline
+        \textbf{Original GCL} & \textbf{Modelling Tool} \\
+        % Header end
+        \hline
+        $\land$ & \&\& \\ \hline
+        $\square$ & $|$ \\ \hline
+        $\lor$ & $||$ \\ \hline
+        $\rightarrow$ & $->$ \\ \hline
+    \end{tabular}
 \end{table}
 \\
 
-\textbf{Transitions} are links between states which describe how changes in state occur.
+\textbf{Transitions} are links between states that describe how state changes occur.
 We use these transitions and their associated behaviours to compute \textit{Next behaviour} and \textit{Next Stimulus} functions.
 For C2KA, we have defined a precise labelling format to follow \{input-stimulus\}/\{output-stimulus\}.
-This follows state diagram convention, but it does not allow for guards,
-and enforces input and output on all transitions.
-\textit{sequential transitions} are special transitions with a single stimulus, their labelling format is: \{in-and-out-stimulus\}.
+This follows state diagram convention, but it does not allow for guards; instead, it enforces input and output on all transitions.
+\textit{sequential transitions} are special transitions with a single stimulus, and their labelling format is: \{in-and-out-stimulus\}.
 This is because sequential states use the output of one state as the input of the next state in the sequence.
 This allows us to uniquely identify sequential compositions by using a single stimulus as the key identifying property.
 We can see an example of transitions and how we interpret mappings from them in figure~\ref{fig:transition}.
@@ -284,7 +283,7 @@ All inner states are linked by \textit{sequential transitions}.
 The sequence has no cycles.
 There is a clear initial state with no incoming transitions.
 There is a clear final state with no outgoing transitions.
-We can see an example sequential state in figure~\ref{fig:sequential}.
+We can see an example of a sequential state in figure~\ref{fig:sequential}.
 
 \begin{figure}[ht]
     \centering
@@ -294,23 +293,24 @@ We can see an example sequential state in figure~\ref{fig:sequential}.
 \end{figure}
 
 Note: We explicitly decided not to cover C2KA \textit{parallel compositions} to simplify modelling and parsing.
-Instead, a modeller should consider making two different agents which communicate
+Instead, a modeller should consider making two different agents that communicate
 with each other to model parallel behaviour.
 
 \subsubsection{XMI Parsing}\label{subsubsec:parsing}
 Having chosen our input format, we needed to find a way to parse it to be able to process it.
 Although XMI is supposed to be a standardized format,
 many modelling tools will have slight differences for specific components.
-Therefore, creating a parser which can be extended generally to support many tools can be challenging.
+Therefore, creating a parser that can be extended generally to support many tools can be challenging.
 
 Thankfully, this is a general problem others have attempted to solve before, and third-party free libraries exist.
-We searched for libraries which supported the most recent UML standards, and we were able to make work.
+We searched for libraries that supported the most recent UML standards.
+Making them work was the second hurdle, and it was a significant one.
 The libraries we tested were \textit{SDMetrics OpenCore},
 \textit{eclipse UML2}, \textit{Apache Xerces}, \textit{XMIParser, by cqframework}, \textit{xmiparser, python}.
 We only managed to get the \textbf{SDMetrics} Java library to work within our research period.
 Since it adequately met our needs, we did not extend the research period to find other alternatives.
 
-The table below traces user requirements to the parsing choices refining them in this section.
+The table below traces user requirements to the parsing choices, refining them in this section.
 \begin{table}[htbp]
     \centering
     \caption{Parser Requirement Traceability}\label{tab:parse-choice-table}
@@ -329,16 +329,16 @@ The table below traces user requirements to the parsing choices refining them in
 One of our user requirements requires us to target an Operating System.
 Just like the choice of modelling tool, we want to avoid the OS target to be a barrier to our tool.
 We also want to avoid incurring costs attempting to port our tool across multiple Operating Systems.
-\textbf{Java} is a great language which allows us to run the same program on any OS due to the Java Virtual Machine.
+\textbf{Java} is a great language that allows us to run the same program on any OS due to the Java Virtual Machine.
 
-We considered \textit{C}, but it is not as simple to make platform independent.
-\textit{Python} was also a valid alternative because it is also platform independent.
-The deciding factor was the availability of third party libraries.
-As mentioned in section~\ref{subsubsec:parsing} The SD Metrics library we use for XMI parsing in our system was implemented in Java.
-We were not able to make any alternatives work in Python.
+We considered \textit{C}, but it is not as simple to make platform-independent.
+\textit{Python} was also a valid alternative because it is also platform-independent.
+The deciding factor was the availability of third-party libraries.
+As mentioned in section~\ref{subsubsec:parsing}, the SD Metrics library we use for XMI parsing in our system was implemented in Java.
+We were not able to make any alternative work in Python.
 With no particular need for other languages, we decided to keep it simple by only using Java in our program.
 
-The table below traces user requirements to the deployment choices refining them in this section.
+The table below traces user requirements to the deployment choices, refining them in this section.
 \begin{table}[htbp]
     \centering
     \caption{Deployment Requirement Traceability}\label{tab:os-choice-table}
@@ -348,7 +348,7 @@ The table below traces user requirements to the deployment choices refining them
         \textbf{ID} & \textbf{User Requirement} & \textbf{Refinement} \\
         % Header end
         \hline
-        10 & OS Support & Use java for platform independence. \\ \hline
+        10 & OS Support & Use Java for platform independence. \\ \hline
     \end{tabularx}
 \end{table}
 
@@ -356,30 +356,30 @@ The table below traces user requirements to the deployment choices refining them
 \subsubsection{Architecture Choice}
 Choosing how to structure our code depends strongly on our functional requirements,
 but quality attributes can play a role as well.
-The most relevant quality attributes for the architecture for are scalability and performance.
+The most relevant quality attributes for the architecture are scalability and performance.
 The other requirements are addressed at different steps of the design process.
 
 To begin with, we can think about what our program does not need, like user interaction during execution.
-This already gets rid of the need for user interaction focused patterns like \textit{Model-View-Controller} and its variants.
-We also have no need for a server or decentralized processing unless we failed to meet our performance goal on one computer.
+This already gets rid of the need for user interaction-focused patterns like \textit{Model-View-Controller} and its variants.
+We also did not need a server or decentralized processing unless we failed to meet our performance goal on one computer.
 We did not expect performance to be an issue big enough to require decentralized processing.
-Thus, we can eliminate any server patterns, including \textit{microservice} and \textit{service oriented} architectures.
+Thus, we can eliminate any server patterns, including \textit{microservice} and \textit{service-oriented} architectures.
 
-The initial architecture we chose was the \textit{Layer Pattern}, because it fits quite well with the flow of our program.
-We are provided an input, and do a series of unidirectional transformations on it to produce an output at the end.
+The initial architecture we chose was the \textit{Layer Pattern} because it fits quite well with the flow of our program.
+We are provided an input and do a series of unidirectional transformations on it to produce an output at the end.
 We believed these transformations made sense as different layers of our program.
 Layers could pass their outputs through defined input interfaces of the next layer.
 This is great for separation of concerns and maintainability.
-It is also a great way to reason about the system allowing us to convert our understanding of C2KA transformation to code easily.
+It is also a great way to reason about the system, allowing us to convert our understanding of C2KA transformation to code easily.
 
 That said, we then realized we were starting to describe a \textbf{Pipe and Filter} architecture.
 Instead of layers to transform data, we use filters.
 We use pipes as our interface to communicate between them.
-We still have great separation of concerns, and the same straightforward reasoning for implementation.
-The advantage we gain from this pivot is the ability to increase parallelization of processing compared to the layered architecture.
+We still have great separation of concerns and the same straightforward reasoning for implementation.
+The advantage we gain from this pivot is the ability to increase the parallelization of processing compared to the layered architecture.
 This allows us to directly improve our \textbf{performance} and \textbf{scalability} by reducing the impact of increased data set sizes.
 
-The table below traces user requirements to the architecture choices refining them in this section.
+The table below traces user requirements to the architecture choices, refining them in this section.
 
 \begin{table}[htbp]
     \centering
@@ -398,7 +398,7 @@ The table below traces user requirements to the architecture choices refining th
 \newpage
 \subsubsection{Architecture Description}\label{subsubsec:arch-desc}
 To describe the concrete implementation of our design,
-we will break down the responsibilities of our filters, and the pipes in our system through a visual representation.
+we will break down the responsibilities of our filters and the pipes in our system through a visual representation.
 In these representations, the filters are the named rounded rectangles.
 The directional associations show data flow between filters.
 Annotations on the data flows specify what data is contained in the pipe.
@@ -407,7 +407,7 @@ Joins are the opposite operation, collecting data from independent parallel oper
 Finally, we have the cloud to indicate a simplification in the diagram.
 It explains which details were omitted from the model to make it easier to understand.
 
-Figure~\ref{fig:pipe-1} shows the first part of our architecture model focuses on converting our expected input to a StateDiagram internally.
+Figure~\ref{fig:pipe-1} shows the first part of our architecture model, which focuses on converting our expected input to a StateDiagram internally.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{pipe-p1.drawio}
@@ -422,11 +422,11 @@ The parser uses the SDMetrics library to extract generic UML \textit{ModelElemen
 
 These elements need to be passed to our \textbf{State Diagram Linker}
 to build an internal representation of a \textit{state diagram} for our program.
-Specifically, we strongly type model elements according to our internally defined types (states, and transitions).
+Specifically, we strongly type model elements according to our internally defined types (states and transitions).
 Super states can be thought of as tree roots, and a state diagram can also be represented as a super state.
 This allows us to recursively interpret our diagram just like a tree during the following \textbf{diagram interpretation} stage.
 
-Figure~\ref{fig:pipe-2} shows the  second part of our model completes the process, going from internal StateDiagram to the desired output.
+Figure~\ref{fig:pipe-2} shows the second part of our model completes the process, going from the internal StateDiagram to the desired output.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{pipe-p2.drawio}
@@ -435,34 +435,34 @@ Figure~\ref{fig:pipe-2} shows the  second part of our model completes the proces
 \end{figure}
 
 From our \textit{state diagram}, we can perform different analyses in parallel to find parts of the C2KA specification.
-The \textbf{abstract behaviour interpreter} looks at super states to find sequential compositions,
+The \textbf{abstract behaviour interpreter} looks at super states to find sequential compositions
 and atomic state names to build a C2KA \textit{abstract behaviour specification}.
-States which are not sequentially linked are composed by choice.
+States that are not sequentially linked are composed by choice.
 
 The \textbf{concrete behaviour interpreter} simply collects all the atomic behaviours and their doActivities.
 The doActivities should already be formatted as the concrete behaviour according to our input specification (section~\ref{subsubsec:input-specification}).
 The C2KA \textit{concrete behaviour specification} produced is just a formatted collection of the doActivities of the agent.
 
-The \textbf{next behaviour interpreter} checks transitions to find next behaviour mappings.
+The \textbf{next behaviour interpreter} checks transitions to find the next behaviour mappings.
 A mapping is an initial behaviour, an input stimulus, and the resulting behaviour of the transition.
 The \textit{next behaviour specification} is the set of all next behaviour mappings found for that agent.
 
-The \textbf{next stimulus interpreter} is essentially the same as next behaviour,
+The \textbf{next stimulus interpreter} is nearly the same as the next behaviour interpreter,
 but instead of the resulting behaviour, we check the output stimulus on the transition.
 The \textit{next stimulus specification} is the set of all next stimulus mappings found for that agent.
 
 Once all the interpretation is complete, it gets joined into a complete \textit{C2KA Specification}.
 We then need to wait at a barrier for all other models to complete analysis before writing our final \textit{output} to a file.
 
-The reason for the barrier is due to a limitation inherent in C2KA of the next stimulus, and next behaviour functions.
+The reason for the barrier is due to a limitation inherent in C2KA of the next stimulus and next behaviour functions.
 They need to be complete functions,
 meaning behaviours in an agent need to have defined neutral mappings for all stimuli in the system.
-Neutral mappings being outcomes where nothing changes, a neutral stimulus is sent or the behaviour remains the same.
+Neutral mappings are outcomes where nothing changes; a neutral stimulus is sent, or the behaviour remains the same.
 However, since the view of our system is fragmented across our input set,
 we cannot identify all stimuli in the system until we analyze all agent inputs to get a complete view of our system.
 
 
-The table below traces user requirements to the architecture implementations refining them in this section.
+The table below traces user requirements to the architecture implementations, refining them in this section.
 \begin{table}[htbp]
     \centering
     \caption{Architecture Description Requirement Traceability}\label{tab:arch-description-table}
@@ -484,7 +484,7 @@ The table below traces user requirements to the architecture implementations ref
 After user requirements, we described our design choices to cover them.
 From design, we needed to create tasks to trace the design to specific code implementation.
 To do so, we used \textbf{GitHub Issues} to build a list of upcoming tasks for the project.
-In figure~\ref{fig:sampleIssueList}, we show a small sample of these issues completed over the course of the project.
+In figure~\ref{fig:sampleIssueList}, we show a small sample of these issues completed throughout the project.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\textwidth]{issueSample}
@@ -492,7 +492,7 @@ In figure~\ref{fig:sampleIssueList}, we show a small sample of these issues comp
     \label{fig:sampleIssueList}
 \end{figure}
 
-These issues allowed us to assign them when resources were available, and communicate task dependencies easily.
+These issues allowed us to assign them when resources were available and communicate task dependencies easily.
 Work done by individuals can be tracked through issues,
 preventing multiple people from working on a task simultaneously unaware.
 The transition from weekly meetings to asynchronous communication through issues improved our efficiency immensely.
@@ -507,23 +507,23 @@ according to our major development concerns, as seen in our repository in figure
 
 \textit{Enhancements} and \textit{bugs} both relate to implementing our design,
 but bugs are errors we found after merging the initial enhancement implementation.
-\textit{Verification \& Validation} (V\&V) Tasks related to verifying our code, and validating it.
+\textit{Verification \& Validation} (V\&V) Tasks related to verifying our code and validating it.
 Usually through creating new tests, but it can also include creating tools for testing,
 or establishing and documenting V\&V requirements or strategies.
 
 \textit{Questions} are typically related to clarifications on requirements,
-or designs which require research or input from our supervisor.
-Once a question is answered, we typically reply directly in the question issue and close it.
+or designs that require research or input from our supervisor.
+Once a question is answered, we typically reply directly to the question issue and close it.
 Usually, questions have a purpose and can create new issues or unblock existing ones as well.
-\textit{Documentation} Tasks related to documenting our project, for any audience.
+\textit{Documentation} Tasks related to documenting our project for any audience.
 This includes documentation like this report, function descriptions in code, and a user manual.
 
-\textit{Out of scope} Marks tasks which we identified as out of scope for our current release.
-These can include requirements we create to explicitly exclude from the start,
+\textit{Out of scope} Marks tasks that we identified as out of scope for our current release.
+These can include requirements we create to explicitly exclude from the start
 or existing issues we drop later due to time constraints.
 In the case where an issue is deemed irrelevant, we do not mark it out of scope.
 Instead, we close the issue with a comment for rationale and stop tracking it.
-On release, we reset the scope constraints by removing this label on all issues.
+On release, we reset the scope constraints by removing this label from all issues.
 After an evaluation of the goals of the next release,
 maintainers can decide which issues should stay within the scope of the next release.
 
@@ -531,31 +531,31 @@ We did not develop a great way to automatically trace issues to design,
 and we have too many issues to go through them all (over 60 closed issues currently).
 Unfortunately, this means we cannot rely on design to code traceability.
 Instead, we rely only on testing for validation.
-We can, however, demonstrate how we could attempt to manually show traceability through a specific issue.
+We can, however, demonstrate how we could attempt to show traceability manually through a specific issue.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.9\textwidth]{specificIssue}
     \caption{An annotated enhancement type issue}
     \label{fig:specificIssue}
 \end{figure}
-In figure~\ref{fig:specificIssue} we can identify from the title (1) the user requirement the issue contributes to.
+In figure~\ref{fig:specificIssue}, we can identify from the title (1) the user requirement the issue contributes to.
 In this case, it contributes to the C2KA Specification transformations (User Requirement 2).
 Then we can look at the description (2) to see a lower level, but informal explanation to guide the code implementation.
 Finally, we see the merged branch (3) linking the issue to merged code changes.
 
 \newpage
 \subsubsection{Testing Strategy}\label{subsubsec:tests-strat}
-Although we never defined a formal test selection criteria,
-we defined informal guidelines to define how to verify our code.
+Although we never defined formal test selection criteria,
+We defined informal guidelines to define how to verify our code.
 
 For our simplest code unit, \textit{pipes}, we can \textbf{unit test} it.
-After construction, we verify public attributes are as expected.
+After construction, we verify that public attributes are as expected.
 
-For \textit{filters}, we did \textbf{integration tests} to more closely simulate a real program environment.
-For these tests, we called all the filters up to and including the filter under test then evaluated the output.
+For \textit{filters}, we did \textbf{integration tests} to simulate a real program environment more closely.
+For these tests, we called all the filters up to and including the filter under test and then evaluated the output.
 This allowed us to do iterative development when we developed new filters,
 ensuring new filter implementations were not breaking any previously implemented filters.
-Figure~\ref{fig:testShowcase} shows how an integration test would like when testing the State Diagram Linker.
+Figure~\ref{fig:testShowcase} shows the design behind the implementation of an integration test for the State Diagram Linker.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{testPipeline.drawio}
@@ -563,16 +563,15 @@ Figure~\ref{fig:testShowcase} shows how an integration test would like when test
     \label{fig:testShowcase}
 \end{figure}
 
-For integration test inputs, we defined a group of elementary C2KA representations which implement
+For integration test inputs, we defined a group of elementary C2KA representations that implement
 all the elements specified as part of our input specification.
 The key diagrams used are the same diagrams included in the input specification section~\ref{subsubsec:input-specification}.
 
-For the complete \textit{C2KASpecification} we did end to end \textbf{system tests}, with a \textbf{custom diff tool}.
+For the complete \textit{C2KASpecification}, we did end-to-end \textbf{system tests} with a \textbf{custom diff tool}.
 To do this, we needed a system with known C2KA outputs.
 We got analyzed systems from our supervisor, which we treated as the source of truth.
 Then, we also needed to model diagrams representing those specifications.
-Finally, we create a test with the diagrams as inputs, the analyzed system as expected outputs,
-and compare them with our diff tool.
+Finally, we create a test with the diagrams as inputs and the analyzed system as expected outputs and compare them with our diff tool.
 
 \begin{figure}
     \centering
@@ -580,13 +579,12 @@ and compare them with our diff tool.
     \caption{An example of the formatting differences between an actual output (left), and its expected output (right)}
     \label{fig:out-diff}
 \end{figure}
-In figure~\ref{fig:out-diff}, we see that our produced output files are not exactly the same as the expected output files.
+In figure~\ref{fig:out-diff}, we see that our produced output files are not the same as the expected output files.
 The most glaring difference is the ordering of lines in the NEXT\_BEHAVIOUR spec.
 Our tool respects a strict alphabetical order, while the given expected output follows a different formatting rule.
 This difference is why we need the diff tool.
 Manual C2KA analysis does not follow deterministic formatting rules.
-There may be some whitespace differences or a different ordering of lines
-which are both semantically irrelevant to the specification.
+There may be some whitespace differences or a different ordering of lines, which are both semantically irrelevant to the specification.
 This is why our diff tool checks for an exact match for lines in a specification type,
 regardless of their location within the block or any whitespace.
 
@@ -602,10 +600,10 @@ We can observe the success case at the top, displaying a checkmark for agent P\@
 When failing, if our actual produced output is missing a line, the diff mentions a grouping is missing.
 If we have an additional unexpected line, the diff adds it to the unexpected grouping display.
 In the case of a modified line, it will appear in both categories.
-A limitation of the current diff tool is it displays errors in groupings instead of displaying specific lines.
-Only the (start,IDLE) line was modified in Figure~\ref{fig:faultinjection}, but all start responses got flagged at once.
+A limitation of the current diff tool is that it displays errors in groupings instead of displaying specific lines.
+Only the (start, IDLE) line was modified in Figure~\ref{fig:faultinjection}, but all start responses got flagged at once.
 
-The table below traces user requirements to our testing strategy concepts refining them in this section.
+The table below traces user requirements to our testing strategy concepts, refining them in this section.
 \begin{table}[htbp]
     \centering
     \caption{Testing Strategy Requirement Traceability}\label{tab:test-strat-table}
@@ -617,7 +615,7 @@ The table below traces user requirements to our testing strategy concepts refini
         \hline
         15 & Verification Testing & Unit tests, Integration tests provided confidence that our code was continuously functional as we progressed. \\ \hline
         16 & Accurate Outputs & The system tests and diff tool were part of our validation activities to verify output accuracy. \\ \hline
-        17 & No False Positives & The system tests should show failures if an output could not be completed, otherwise the diff tool should raise an error. \\ \hline
+        17 & No False Positives & The system tests should show failures if an output could not be completed, otherwise, the diff tool should raise an error. \\ \hline
     \end{tabularx}
 \end{table}
 \newpage
@@ -634,17 +632,17 @@ For our current scope, we were satisfied with the assumption that
 
 For our \textit{Usability} requirement, we can verify it by looking at the usage instructions.
 As we will describe in section~\ref{subsubsec:exec}, the user only needs to \textbf{double-click} the executable to run the program.
-To provide the models, they simply drop them in an Input folder, before even executing the program.
+To provide the models, they simply drop them in an Input folder before executing the program.
 We deemed this requirement fully fulfilled from this simple analysis.
 
 For \textit{Compatability} requirements,
 we will verify them by generating our \textbf{test inputs} from our supported choices.
-As long as our tests work using these inputs, and we have sufficient tests, we prove the compatibility.
-It is only to prove support for multiple tools for example that we need to generate more test case inputs from those other tools.
-We were not able to add support for multiple options for any of the compatability requirements.
+As long as our tests work using these inputs and we have sufficient tests, we prove the compatibility.
+It is only when we decide to support multiple tools that we need to generate more test case inputs from those other tools.
+We were not able to add support for multiple options for any of the compatibility requirements.
 
 For the \textit{Accuracy} requirement, this is where our \textbf{diff tool} comes into play.
-We created accuracy focused \textbf{system tests} as described in section~\ref{subsubsec:tests-strat}.
+We created accuracy-focused \textbf{system tests} as described in section~\ref{subsubsec:tests-strat}.
 With a trusted expected output, if we prove an equivalency with the files our tool generates, we can trust it is accurate (at least for that test case).
 Unfortunately, we only managed to complete one system test.
 Although we marked accuracy as adequately fulfilled, the assurance level is not very high.
@@ -659,18 +657,18 @@ In figure~\ref{fig:acc-test}, we can see our diff tool reporting a successful C2
     \label{fig:acc-test}
 \end{figure}
 
-We did not manage to write test cases for our diff tool itself, therefore it is valid to doubt the report accuracy.
-When debugging, or when we were trying to initially gain confidence in the diff tool, we did manual diffs.
+We did not manage to write test cases for our diff tool itself, therefore, it is valid to doubt the report accuracy.
+When debugging or when we were trying to initially gain confidence in the diff tool, we did manual diffs.
 This is a tedious process, and it is very easy to miss things.
 To verify the raw diagrams, we can look in the test folder's resources as uml files under ManufacturingCell.
 The test folder has the expected outputs as text files, which are the same as the ones from the IIAT repository~\cite{repo_iiat}.
 We have a diagrams repository to store the additional files required to load them in papyrus for visual inspection if needed~\cite{repo_diagram}.
-If we wished to compare the actual outputs generated in testing, they are generated under the Output folder.
+If we wish to compare the actual outputs generated in testing, they are generated under the Output folder.
 It is unsustainable for new users to do this as well to gain confidence.
-Tests for the diff tool itself are important as well.
+Tests for the diff tool itself are important.
 It is a critical part of the tool chain, and validating it should not be ignored in future work.
 
-The table below traces user requirements to our testing results refining them in this section.
+The table below traces user requirements to our testing results, refining them in this section.
 \begin{table}[htbp]
     \centering
     \caption{Validation Requirement Traceability}\label{tab:test-res-table}
@@ -694,36 +692,35 @@ The table below traces user requirements to our testing results refining them in
 
 \newpage
 \subsubsection{Unsatisfied Requirements} \label{subsubsec:unsat-reqs}
-As we progressed in the project, some lower priority requirements had to be cut to reduce the scope.
+As we progressed in the project, some lower-priority requirements had to be cut to reduce the scope.
 
 For functional requirements, this meant the \textbf{IIAT Parameters}.
 Although these are nice to have, they may have required support for an additional diagram type for small benefits.
-The core goal of our program was producing the C2KA Specification transformation.
+The core goal of our program was to produce the C2KA Specification transformation.
 
 For non-functional requirements, we completely dropped \textbf{cross tool integration}.
-It seemed complex, yet not essential to prove one version of our program was functional.
+It seemed complex, yet not essential to prove that one version of our program was functional.
 We also cannot claim \textbf{performance} nor \textbf{scalability} of our program due to lack of testing or proofs.
 In theory, these properties should hold with our current design, but we did not take the time to prove it.
 We did not complete \textbf{User Documentation} adequately, instead focusing on building a comprehensive report.
 The user manual should have been the essential sections of the report a user should be aware of,
-formatted in a way which makes it easy to learn about and use our project.
+formatted in a way that makes it easy to learn about and use our project.
 We did not prove that we prevent \textbf{False Positives} either.
-False positives are concerned with preventing indeterministic outputs from generating.
-This means to satisfy this requirement,
-we needed to prove errors get raised in diagrams which lead to indeterministic interpretations.
+False positives are concerned with preventing indeterministic outputs from being generated.
+This means that to satisfy this requirement, we needed to prove that errors get raised in diagrams, which lead to indeterministic interpretations.
 Our system tests are only focused on accuracy; they assume an output is generated but may be inaccurate.
 
 We also completed some non-functional requirements but in a way that could be improved.
 Our parser allows for multiple \textbf{modelling tool support}, but it still needs to be tested.
 Similarly, we could have potentially supported multiple \textbf{modelling languages} with little extra effort.
 The same may apply to \textbf{diagram types}.
-All of this requires additional tests, and may lead to small tweaks increasing our scope beyond what we could handle.
+All of this requires additional tests and may lead to small tweaks, increasing our scope beyond what we could handle.
 
 \textbf{Maintainer documentation} is good, but it is not systematic.
 There is no automatic way to detect missing documentation to ensure full functional coverage.
 It may also have been good to have a maintainer manual alongside the user manual.
 It could explain design decisions and the program architecture at a lower level than the report for overarching context.
-For now, this report serves adequately for a system specification.
+For now, this report serves adequately for context behind the design and goals of the system.
 
 Our custom diff tool was also not systematically tested.
 This means the reports we rely on for accuracy validation may be inaccurate themselves due to an unknown fault in the diff tool.
@@ -731,7 +728,7 @@ If we had more time, getting better assurance of our diff tool itself would incr
 \textbf{Accuracy}.
 
 In summary, OS Support, Usability, and the main functions are the only requirements we have fully covered (green).
-All other requirements are either adequately covered (also green), or not covered (gray),
+All other requirements are either adequately covered (also green) or not covered (gray),
 as seen in our user requirement table, table~\ref{tab:user-reqs}.
 
 
