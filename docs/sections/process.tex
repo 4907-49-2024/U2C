@@ -129,16 +129,75 @@ The Goal of this project is to streamline and reduce errors by creating an autom
 \subsubsection{Alexandre Marques}
 %TODO: A lot more!!!
 \begin{itemize}
-    \item TO DO: I did everything not included by them; their sections are comprehensive.
-    It will take a while to write mine; I'm taking a break.
-    \item Fixed draft Manufacturing Cell diagrams in Papyrus to be accurate and testable according to our input specifications
+    \item Created a knowledge base in Notion for the team to share information and document decisions as we progress.
+    \item Defined team process for Communication, ensuring some minimal standard of communication is agreed on.
+    \item Defined team process for Work Hours based on expected total work hours for the project and availability
+    of the team to have established a shared expectation of regular work effort.
+    \item Organized regular weekly meetings until the progress report, writing an agenda beforehand and writing meeting notes afterward.
+    \item Assigned appropriate tasks to delegate work equitably at weekly meetings.
+    \item Presented and incorporated feedback for processes to teammates to approve them and make them official for the whole team.
+    \item Performed preliminary research on how to derive C2KA specifications for a system, and documented a detailed modelling methodology in Notion.
+    \item Defined review criteria for modelling tool selection.
+    \item Tested and reviewed four modelling tools.
+    \item Selected the modelling tool which seemed the most appropriate for our needs by comparing all reviews.
+    \item Wrote a set of unofficial requirements for the project to help determine objectives, and initial architecture.
+    \item Suggested edits for the introduction, background, proposed solution, and risks sections of the proposal.
+    \item Determined and wrote initial project objectives in the proposal.
+    \item Designed the first iteration of our program architecture, and linked it to the project objectives in the proposal.
+    \item Rewrote the initial timeline in the proposal to be more realistic, and congruent with the project objectives.
+    \item Defined review criteria for XMI Library, and methodology to test them and communicate their suitability.
+    \item Tested two XMI parsing libraries, one of which being SDMetrics, the only XMI library we managed to use.
+    \item Wrote the initial code allowing us to use SDMetrics, and show extracted model data from a file.
+    \item Rewrote Summary, Progress Summary, and conclusion in the Progress Report to remove inaccuracies, add relevant details, and improve quality to an adequate level.
+    \item Suggested edits for the Background in the Progress Report.
+    \item Wrote challenges faced section in the Progress Report and used it as a way to reflect and improve methodologies in the project.
+    \item Rewrote timeline to be more realistic with our lost time, and implemented lessons learned from the first timeline.
+    \item Changed project management approach to be asynchronous, established a system based on GitHub issues that can be created by anyone, and self-assigned improving our efficiency massively.
+    \item Researched collaboration diagrams to understand what they are used for, what are their model elements,
+    and how can we use those elements to map them to C2KA specifications.
+    \item Defined and implemented a pull request template in GitHub to guide our review communications and establish rules.
+    \item Created an interface to configure the XMI Parsing library for different inputs, and parsing modes.
+    \item Implemented initial test strategy for unit testing, by creating tests for the XMI Parser config.
+    \item Implemented a proof of concept to find all system agents, and stimuli in a collaboration diagram.
+    \item Unit tested functions to find agents and stimuli in the diagram.
+    \item Set up a continuous integration pipeline with GitHub actions to automatically test our code before merging.
+    \item Code reviewed all the pull requests in the repository, providing meaningful feedback to improve code quality.
+    \item Suggested comments as a way to read annotations compensating for the lack of behavior information in collaboration diagrams.
+    \item Modified parser config files to be able to read comments.
     \item Analyzed state diagrams and identified elements of interest for our C2KA transformations.
     Later, revisited this idea by trying to formalize it through C2KA base representations.
-    \item Read a paper on the foundations of C2KA \cite{c2ka_foundations} to develop a deep understanding of possible ways of representing systems in C2KA. % TODO ref paper here
-    \item Documented rules and possible mappings of C2KA in an internal wiki, using the Base Representations for reference. %TODO Add wiki as appendix?
-    \item Code reviewed all the pull requests in the repository, providing meaningful feedback to improve code quality.
+    \item Rewrote design completely after the parsing stage when we realized State Diagrams were a better fit for our uses after discussing with our Supervisor.
+    \item Created initial state diagrams to explore C2KA mappings.
+    \item Revised our initial architecture to classify our program into pipes and filters.
+    \item Wrote and presented slides for Collaboration Diagrams, Implementation (Current, Future), and Project Statem.
+    \item Edited the challenges section to make sense in the newer context of our project,
+    as they were originally copied from my work in the progress report.
+    \item Took notes of presentation feedback, to improve future presentation and reports.
+    \item Implemented a filter to extract stimuli from state diagram transitions.
+    \item Read a paper on the foundations of C2KA~\cite{c2ka_foundations} to develop a deep understanding of possible ways of representing systems in C2KA\@.
+    \item Documented rules and possible mappings of C2KA in an internal wiki, using the Base Representations for reference.
+    \item Revised our architecture to add a transformation step before we interpret C2KA transformations: the ``diagram linking'' step~\ref{subsubsec:arch-desc}.
+    \item Broke down C2KA interpretation step into filters for each part of the specification, and changed their inputs to be the linked diagram instead of primitives.
+    \item Frequently discussed with our supervisor to find the best ways to represent concrete behavior,
+    and composition of behaviors in state diagrams, as well as finding directions for research to answer these questions.
+    \item Implemented all pipes, and all filters incrementally, adding integration tests and unit tests for them before merging them.
+    \item Defined test strategy, describing when to do unit tests, integration tests, or system tests.
     \item Refactored integration tests and streamlined testing by creating reusable pipelines.
+    \item Fixed draft Manufacturing Cell diagrams in Papyrus to be accurate and testable according to our input specifications
     \item Refactored tests to import test paths and the diff tool as reusable utilities.
+    \item Wrote specification formatting classes to output our collected information in the same syntax as the IIAT\@.
+    \item Debugged and fixed specific niche cases relating to sequential states, or other assumptions which did not hold during system tests.
+    One example, we assumed only sequential states had the same input/output stimuli.
+    This did not hold for the waste water system, instead we used the missing ``/'' of sequential transitions to identify them.
+    \item Managed the team during the last two week before the fair to frequently check status, set deadlines, and assign tasks when possible.
+    \item Pushed team to write a draft final report to get crucial feedback for creation of the final report.
+    \item Designed poster layout, and formated slides.
+    \item Wrote an updated architecture figure with inputs / outputs of filters, incorporating feedback from the presentation.
+    \item Wrote a subset of our formal requirements to include in our poster, and the Future Work slide.
+    \item Designed motivation and solution slide to be visually descriptive and concise.
+    \item Reviewed and gave feedback to teammates to help focus and reduce our text, and punctuate with visual aids (Presentation, and Poster Fair).
+    \item (Final Issues)
+    \item Wrote the Final Report.
 \end{itemize}
 
 \subsubsection{Michael Rochefort}
