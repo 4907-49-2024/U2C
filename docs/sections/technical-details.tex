@@ -1,12 +1,12 @@
 \subsection{Background \& Terminology}\label{subsec:background-&-terminology}
 \subsubsection{C2KA Agents}\label{subsubsec:c2ka-agents}
 Communicating Concurrent Kleene Algebra (C2KA) is a formal language intended to support analysis of concurrent systems with communicating agents. % TODO: Ref here
-\textbf{Agents} are any systems whose \textbf{behaviour} consists of discrete actions.
+\textbf{Agents} are any systems whose \textbf{behaviour} consists of discrete actions ~\cite{c2ka_foundations}.
 \textbf{Stimuli} are messages passed between agents to communicate and cause changes in their behaviours.
 We won't delve much farther in the formal definition of C2KA and its goals,
-as there are better resources for that~\cite{c2ka_foundations}. % TODO add ref
+as there are better resources for that~\cite{c2ka_foundations, implicit_interactions}.
 
-Instead, we will take a look at a C2KA analysis on a real system.
+Instead, we will take a look at a C2KA analysis that was performed on a real system~\cite{manu_cell}.
 Our system of interest is a Manufacturing Cell, shown by the collaboration diagram in figure~\ref{fig:manucell-collab}.
 \begin{figure}
     \centering
@@ -214,7 +214,7 @@ We can see an example atomic behaviour in figure~\ref{fig:atomicbehaviour}.
 
 Atomic States always have a \textbf{doActivity} property,
 as they are needed for C2KA \textit{Concrete behaviours}.
-doActivities need to follow Dijkstra's Guarded Command Language (GCL) notation (see ??). % TODO: ref or appendix? what to ref
+doActivities need to follow Dijkstra's Guarded Command Language (GCL) notation~\cite{gcl}.
 They are used to assign environmental shared variable values,
 with the option to use conditional flows based on the current environment state.
 Due to typesetting constraints, we had to convert the GCL operands listed in table~\ref{tab:gcl-equivalence}.
@@ -637,8 +637,8 @@ We did not manage to write test cases for our diff tool itself, therefore it is 
 When debugging, or when we were trying to initially gain confidence in the diff tool, we did manual diffs.
 This is a tedious process, and it is very easy to miss things.
 To verify the raw diagrams, we can look in the test folder's resources as uml files under ManufacturingCell.
-The test folder has the expected outputs as text files, which are the same as the ones from the IIAT repository. % TODO ref here
-We have a diagrams repository to store the additional files required to load them in papyrus for visual inspection if needed. % TODO Link here
+The test folder has the expected outputs as text files, which are the same as the ones from the IIAT repository~\cite{repo_iiat}.
+We have a diagrams repository to store the additional files required to load them in papyrus for visual inspection if needed~\cite{repo_diagram}.
 If we wished to compare the actual outputs generated in testing, they are generated under the Output folder.
 It is unsustainable for new users to do this as well to gain confidence.
 Tests for the diff tool itself are important as well.
@@ -750,7 +750,7 @@ Figure~\ref{fig:export-1}, Figure~\ref{fig:export-2} and Figure~\ref{fig:export-
 
 \newpage
 \subsubsection{Executing U2C}\label{subsubsec:exec}
-To use our program, download the 1.0 zip release from GitHub. % TODO: Repo ref here
+To use our program, download the 1.0 zip release from our GitHub~\cite{repo_u2c}.
 Then, extract the zip as is to a folder.
 Double-click the jar file to execute it (Java 16+ required).
 Open the Output folder, there should be four output files corresponding to the sample input.
@@ -771,7 +771,7 @@ To analyze your own system, you would remove all files in Input, Output then put
 Then, execute the program, collect the outputs, just as we did with the sample.
 
 \subsubsection{Running the target Model Checker, IIAT}\label{subsubsec:iiat-run}
-To build and run the IIAT, follow the instructions on the IIAT repository to install its dependencies first. % TODO: reference to repo here?
+To build and run the IIAT, follow the instructions on the IIAT repository~\cite{repo_iiat} to install its dependencies first.
 We personally recommend avoiding windows, it tends to be more difficult to work with.
 The next section assumes you have completed the \textit{Installation} section of the IIAT repository's readme file.
 
