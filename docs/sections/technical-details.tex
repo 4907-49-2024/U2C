@@ -114,9 +114,9 @@ with green states indicating satisfactory completion, and gray indicating unsati
     \hline
     15 & Verification Testing & Maintainability & The U2C code repository shall contain automated regression tests providing adequate coverage of the program source code. & \cellcolor{green!30}  \\
     \hline
-    16 & Accurate Outputs & Reliability & U2C shall provide deterministic outputs representing accurately what the inputs contain. & \cellcolor{green!30}  \\
+    16 & Accurate Outputs & Accuracy & U2C shall provide deterministic outputs representing accurately what the inputs contain. & \cellcolor{green!30}  \\
     \hline
-    17 & No False Positives & Reliability & U2C shall not provide outputs if it cannot find a deterministic interpretation of the given inputs. & \cellcolor{green!30}  \\
+    17 & No False Positives & Reliability & U2C shall not provide outputs if it cannot find a deterministic interpretation of the given inputs. & \cellcolor{gray!30}  \\
     \hline
 \end{longtable}
 
@@ -592,7 +592,53 @@ The table below traces user requirements to our testing strategy concepts refini
 \end{table}
 \newpage
 \subsubsection{Validation Results}\label{subsubsec:test-validation}
-% TODO: Complete validation tests before doing this section
+For our actual system \textit{functionality}, it only makes sense to test it \textbf{transitively}.
+That is, we test it indirectly, in the context of other non-functional requirements.
+They serve as the metrics against which to evaluate how well that functionality is fulfilled.
+As such, we will analyze our validation strategies for the requirements we managed to fulfill.
+
+We can safely assume our \textit{Portability} is working if we manage to run the application.
+Ideally, we should have set up a continuous deployment environment for multiple target operating systems to ensure this property.
+For our current scope, we were satisfied with the assumption that
+\textbf{Java's JVM} was enough to ensure cross-platform support.
+
+For our \textit{Usability} requirement, we can verify it by looking at the usage instructions.
+As we will describe in section~\ref{subsubsec:exec}, the user only needs to \textbf{double-click} the executable to run the program.
+To provide the models, they simply drop them in an Input folder, before even executing the program.
+We deemed this requirement fully fulfilled from this simple analysis.
+
+For \textit{Compatability} requirements,
+we will verify them by generating our \textbf{test inputs} from our supported choices.
+As long as our tests work using these inputs, and we have sufficient tests, we prove the compatibility.
+It is only to prove support for multiple tools for example that we need to generate more test case inputs from those other tools.
+We were not able to add support for multiple options for any of the compatability requirements.
+
+For the \textit{Accuracy} requirement, this is where our \textbf{diff tool} comes into play.
+We created accuracy focused \textbf{system tests} as described in section~\ref{subsubsec:tests-strat}.
+With a trusted expected output, if we prove an equivalency with the files our tool generates, we can trust it is accurate (at least for that test case).
+Unfortunately, we only managed to complete one system test.
+Although we marked accuracy as adequately fulfilled, the assurance level is not very high.
+Still, at least our accuracy validation is reproducible.
+To validate this test case yourself in our repository, run the file located under ``src/test/java/sinks/ManufacturingCellTest''.
+In figure~\ref{fig:acc-test}, we can see our diff tool reporting a successful C2KA generation for the Manufacturing Cell system.
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.35]{systemTestSuccess}
+    \caption{The accuracy system test for the Manufacturing Cell reporting a full success.}
+    \label{fig:acc-test}
+\end{figure}
+
+We did not manage to write test cases for our diff tool itself, therefore it is valid to doubt the report accuracy.
+When debugging, or when we were trying to initially gain confidence in the diff tool, we did manual diffs.
+This is a tedious process, and it is very easy to miss things.
+To verify the raw diagrams, we can look in the test folder's resources as uml files under ManufacturingCell.
+The test folder has the expected outputs as text files, which are the same as the ones from the IIAT repository. % TODO ref here
+We have a diagrams repository to store the additional files required to load them in papyrus for visual inspection if needed. % TODO Link here
+If we wished to compare the actual outputs generated in testing, they are generated under the Output folder.
+It is unsustainable for new users to do this as well to gain confidence.
+Tests for the diff tool itself are important as well.
+It is a critical part of the tool chain, and validating it should not be ignored in future work.
 
 The table below traces user requirements to our testing results refining them in this section.
 \begin{table}[htbp]
@@ -604,11 +650,15 @@ The table below traces user requirements to our testing results refining them in
         \textbf{ID} & \textbf{User Requirement} & \textbf{Refinement} \\
         % Header end
         \hline
-        1 & Input & Functional part of the end to end testing. \\ \hline
-        2 & C2KA Specification & Functional part of the end to end testing.\\ \hline
-        4 & Output & Functional part of the end to end testing.\\ \hline
-        16 & Accurate Outputs & User . \\ \hline %TODO, fill
-        17 & No False Positives & . \\ \hline %TODO, fill
+        1 & Input & Tested transitively as part of other validation activities. \\ \hline
+        2 & C2KA Specification & Tested transitively as part of other validation activities.\\ \hline
+        4 & Output & Tested transitively as part of other validation activities.\\ \hline
+        5 & Minimal User Actions & User simply double-clicks to fully execute the program once configured.\\ \hline
+        6 & Modelling Tool Support & Test inputs generated using chosen modelling tool.\\ \hline
+        7 & Modelling Language Support  & Test inputs generated using chosen modelling language.\\ \hline
+        8 & Diagram Type Support  & Test inputs generated using chosen diagram type.\\ \hline
+        10 & OS Support & Rely on the Java JVM for built-in cross-platform support.\\ \hline
+        16 & Accurate Outputs & System tests using the diff tool for comparison checks against expected verified outputs. \\ \hline
     \end{tabularx}
 \end{table}
 
@@ -627,6 +677,11 @@ In theory, these properties should hold with our current design, but we did not 
 We did not complete \textbf{User Documentation} adequately, instead focusing on building a comprehensive report.
 The user manual should have been the essential sections of the report a user should be aware of,
 formatted in a way which makes it easy to learn about and use our project.
+We did not prove that we prevent \textbf{False Positives} either.
+False positives are concerned with preventing indeterministic outputs from generating.
+This means to satisfy this requirement,
+we needed to prove errors get raised in diagrams which lead to indeterministic interpretations.
+Our system tests are only focused on accuracy; they assume an output is generated but may be inaccurate.
 
 We also completed some non-functional requirements but in a way that could be improved.
 Our parser allows for multiple \textbf{modelling tool support}, but it still needs to be tested.
@@ -642,10 +697,10 @@ For now, this report serves adequately for a system specification.
 
 Our custom diff tool was also not systematically tested.
 This means the reports we rely on for accuracy validation may be inaccurate themselves due to an unknown fault in the diff tool.
-If we had more time, getting better assurance of our diff tool itself would increase our assurance in the program's overall
-\textbf{Reliability}.
+If we had more time, getting better assurance of our diff tool itself would increase our assurance in the program's
+\textbf{Accuracy}.
 
-In summary, OS Support and the main functions are the only requirements we have fully covered (green).
+In summary, OS Support, Usability, and the main functions are the only requirements we have fully covered (green).
 All other requirements are either adequately covered (also green), or not covered (gray),
 as seen in our user requirement table, table~\ref{tab:user-reqs}.
 
