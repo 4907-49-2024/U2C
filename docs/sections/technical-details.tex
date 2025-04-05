@@ -258,7 +258,7 @@ We can see an example sequential state in figure~\ref{fig:sequential}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{Sequentialbehaviour}
+    \includegraphics[width=0.5\textwidth]{SequentialBehavior}
     \caption{A C2KA sequential composition represented in a state diagram}
     \label{fig:sequential}
 \end{figure}
@@ -378,8 +378,14 @@ Joins are the opposite operation, collecting data from independent parallel oper
 Finally, we have the cloud to indicate a simplification in the diagram.
 It explains which details were omitted from the model to make it easier to understand.
 
-The first part of our architecture model focuses on converting our expected input to a StateDiagram internally.
-% TODO: Model P1 here
+Figure~\ref{fig:pipe-1} shows the first part of our architecture model focuses on converting our expected input to a StateDiagram internally.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{pipe-p1.drawio}
+    \caption{Converting an XMI file to an internal state diagram representation}
+    \label{fig:pipe-1}
+\end{figure}
+
 When the program starts execution, it reads all the model files at once from a known input address.
 It forks once for each model to process them all in parallel.
 The first transformation step is to parse the \textit{XMI file} with our \textbf{XMI Parser}.
@@ -391,8 +397,14 @@ Specifically, we strongly type model elements according to our internally define
 Super states can be thought of as tree roots, and a state diagram can also be represented as a super state.
 This allows us to recursively interpret our diagram just like a tree during the following \textbf{diagram interpretation} stage.
 
-The second part of our model completes the process, going from internal StateDiagram to the desired output.
-% TODO Model P2
+Figure~\ref{fig:pipe-2} shows the  second part of our model completes the process, going from internal StateDiagram to the desired output.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{pipe-p2.drawio}
+    \caption{Interpret a state diagram to derive a complete C2KA specification}
+    \label{fig:pipe-2}
+\end{figure}
+
 From our \textit{state diagram}, we can perform different analyses in parallel to find parts of the C2KA specification.
 The \textbf{abstract behaviour interpreter} looks at super states to find sequential compositions,
 and atomic state names to build a C2KA \textit{abstract behaviour specification}.
