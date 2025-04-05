@@ -11,23 +11,50 @@ Our system of interest is a Manufacturing Cell, shown by the collaboration diagr
 \begin{figure}
     \centering
     \includegraphics[scale=0.35]{manucellCollab}
-    \caption{The collaboration diagram representing the Manufacturing Cell}
+    \caption{The collaboration diagram representing the Manufacturing Cell~\cite{manu_cell}}
     \label{fig:manucell-collab}
 \end{figure}
 
 In the boxes, we see the possible discrete agent behaviours, denoted by the ``+'' choice operator.
-This is also how we define the \textbf{Abstract Behaviour Specification}. % TODO: Appendix
+This is also how we define the \textbf{Abstract Behaviour Specification}, as seen in figure~\ref{fig:abstractmc}.
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.6]{abs_manucell}
+    \caption{The abstract behavior specification for the system~\cite{manu_cell}}
+    \label{fig:abstractmc}
+\end{figure}
 
 The solid communication arrows represent stimuli.
-The stimuli are relevant for the Stimulus-Response Specification. % TODO: Appendix - 1 per next mapping
-We break it down into its components and refer to them in this report as \textbf{Next Behaviour Mapping}, and \textbf{Next Stimulus Mapping}.
+The stimuli are relevant for the Stimulus-Response Specification.
+We break it down into its components and refer to them in this report as \textbf{Next Behaviour Mapping} (figure~\ref{fig:manucell_behav}),
+and \textbf{Next Stimulus Mapping} (figure~\ref{fig:manucell_stim}).
 As the names may imply, these are functions which map an initial behaviour, and an input stimuli to the Agent's next behaviour, or next stimulus (respectively).
 These have to be complete functions, but some papers may leave \textit{neutral mappings} empty.
 These are outcomes where a \textit{neutral stimulus} which has no impact on agents is sent out, or the behavior remains the same.
 
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.6]{manucell_stim}
+    \caption{The next stimulus mapping for agent C~\cite{manu_cell}}
+    \label{fig:manucell_stim}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.6]{manucell_behav}
+    \caption{The next behavior mapping for agent C~\cite{manu_cell}}
+    \label{fig:manucell_behav}
+\end{figure}
+
 The dashed arrows represent shared environmental variable information being passed.
-The way these values get checked and set is defined in the \textbf{Concrete Behaviour Specification}. % TODO: Appendix
+The way these values get checked and set is defined in the \textbf{Concrete Behaviour Specification}.
 These are concrete programs associated to specific behaviour, defined in Dijkstra's Guarded Command Language (GCL).
+An example of this specification can be seen in figure~\ref{fig:manu_concrete}, for agent C of the Manufacturing Cell.
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.6]{manucell_concretejpg}
+    \caption{The Concrete Behavior Specification for agent C~\cite{manu_cell}}
+    \label{fig:manu_concrete}
+\end{figure}
 
 \subsubsection{Agents as State Diagrams}\label{subsubsec:diagram-agents}
 UML State Diagrams are an informal way to represent finite state machines.
@@ -51,7 +78,6 @@ It is a standard used to exchange metadata information through XML, mainly for U
 The first goal was to be able to model in one tool and be able to pass it around to different tools.
 Unfortunately, in practice the imports do not always work cleanly.
 Even our chosen modelling tool encodes additional information outside the ``.uml'' files to be able to fully import the diagram back in Papyrus.
-% TODO: appendice XMI file example?
 
 The second and more relevant goal for us is its use in model-driven engineering.
 This is the idea that the models should be machine-readable to be able to generate code from them.
