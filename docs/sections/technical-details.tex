@@ -1,4 +1,60 @@
-    \subsection{Background \& Terminology}\label{subsec:background-&-terminology}
+\subsection{Background \& Terminology}\label{subsec:background-&-terminology}
+\subsubsection{C2KA Agents}\label{subsubsec:c2ka-agents}
+Communicating Concurrent Kleene Algebra (C2KA) is a formal language intended to support analysis of concurrent systems with communicating agents. % TODO: Ref here
+\textbf{Agents} are any systems whose \textbf{behaviour} consists of discrete actions.
+\textbf{Stimuli} are messages passed between agents to communicate and cause changes in their behaviours.
+We won't delve much farther in the formal definition of C2KA and its goals, there are better resources for that. % TODO add ref
+
+Instead, we will take a look at a C2KA analysis on a real system.
+Our system of interest is a Manufacturing Cell, shown by the collaboration diagram in figure~\ref{fig:manucell-collab}.
+\begin{figure}
+    \centering
+    \includegraphics{manucellCollab}
+    \caption{The collaboration diagram representing the Manufacturing Cell}
+    \label{fig:manucell-collab}
+\end{figure}
+
+In the boxes, we see the possible discrete agent behaviours, denoted by the ``+'' choice operator.
+This is also how we define the \textbf{Abstract Behaviour Specification}. % TODO: Appendix
+
+The solid communication arrows represent stimuli.
+The stimuli are relevant for the Stimulus-Response Specification. % TODO: Appendix - 1 per next mapping
+We break it down into its components and refer to them in this report as \textbf{Next Behaviour Mapping}, and \textbf{Next Stimulus Mapping}.
+As the names may imply, these are functions which map an initial behaviour, and an input stimuli to the Agent's next behaviour, or next stimulus (respectively).
+These have to be complete functions, but some papers may leave \textit{neutral mappings} empty.
+These are outcomes where a \textit{neutral stimulus} which has no impact on agents is sent out, or the behavior remains the same.
+
+The dashed arrows represent shared environmental variable information being passed.
+The way these values get checked and set is defined in the \textbf{Concrete Behaviour Specification}. % TODO: Appendix
+These are concrete programs associated to specific behaviour, defined in Dijkstra's Guarded Command Language (GCL).
+
+\subsubsection{Agents as State Diagrams}\label{subsubsec:diagram-agents}
+UML State Diagrams are an informal way to represent finite state machines.
+These are abstract machines which can only be in one \textbf{state} among a finite set of possible states.
+To change between states, the machine establishes possible transitions, triggered by \textbf{inputs}.
+
+When we interchange state with behaviour, and inputs with stimuli, we observe many similarities with C2KA\@.
+A set of states of a state diagram corresponds quite well with the Abstract Behaviour Specification.
+Transitions between states indicate which behaviours a stimulus can induce on a behaviour.
+Paired with the ability to show outputs on a transition, we can also show the next stimulus directly on the transition.
+
+There is even a concept for concrete programs in UML State Diagrams.
+\textbf{Do Activities} refer to a concrete action which is executed while in the state.
+This means we can encode the GCL in the do activity of a state to describe its Concrete Behaviour.
+
+\subsubsection{XMI Model Exports}
+To start processing a graphical model, we need a way for the computer to read it deterministically.
+This is where the XML Metadata Interchange (XMI) format helps.
+It is a standard used to exchange metadata information through XML, mainly for UML models.
+
+The first goal was to be able to model in one tool and be able to pass it around to different tools.
+Unfortunately, in practice the imports do not always work cleanly.
+Even our chosen modelling tool encodes additional information outside the ``.uml'' files to be able to fully import the diagram back in Papyrus.
+% TODO: appendice XMI file example?
+
+The second and more relevant goal for us is its use in model-driven engineering.
+This is the idea that the models should be machine-readable to be able to generate code from them.
+Although this is not our purpose, we still need this property to perform our analysis and generate specifications instead.
 
 \subsection{System Development}
 \label{subsec:system-development}
