@@ -3,7 +3,8 @@
 Communicating Concurrent Kleene Algebra (C2KA) is a formal language intended to support analysis of concurrent systems with communicating agents. % TODO: Ref here
 \textbf{Agents} are any systems whose \textbf{behaviour} consists of discrete actions.
 \textbf{Stimuli} are messages passed between agents to communicate and cause changes in their behaviours.
-We won't delve much farther in the formal definition of C2KA and its goals, there are better resources for that. % TODO add ref
+We won't delve much farther in the formal definition of C2KA and its goals,
+as there are better resources for that~\cite{c2ka_foundations}. % TODO add ref
 
 Instead, we will take a look at a C2KA analysis on a real system.
 Our system of interest is a Manufacturing Cell, shown by the collaboration diagram in figure~\ref{fig:manucell-collab}.
@@ -76,18 +77,14 @@ with green states indicating satisfactory completion, and gray indicating unsati
 % Requirement table
 \begin{longtable}{|l|p{2.6cm}|l|p{4.5cm}|c|}
     % First header, with label
-    \caption{Set of User Requirements for U2C}\label{tab:user-reqs}
-    \hline
-    \textbf{ID} & \textbf{Requirement} & \textbf{Type}  & \textbf{Description} & \textbf{State} \\
-    \hline
+    \caption{Set of User Requirements for U2C}\label{tab:user-reqs}\\ \hline
+    \textbf{ID} & \textbf{Requirement} & \textbf{Type}  & \textbf{Description} & \textbf{State} \\ \hline
     \endfirsthead
     % Other headers, without label
-    \caption{Set of User Requirements for U2C}
-    \hline
+    \caption{Set of User Requirements for U2C} \\ \hline
     \textbf{ID} & \textbf{Requirement} & \textbf{Type}  & \textbf{Description} & \textbf{State} \\
     \hline
     \endhead
-
     \hline
     % Requirements here
     1 & Input & Functional & U2C shall accept visual system models as input. & \cellcolor{green!30}  \\
@@ -195,7 +192,7 @@ In the worst case, an inaccurate specification may be generated without warning.
 
 For the safest behaviour, we have defined a known set of valid model elements, along with usage guidelines.
 At a high level, it can be summarized with the class diagram in figure~\ref{fig:supportedElems}.
-\begin{figure}[h]
+\begin{figure}[ht]
           \centering
           \includegraphics[width=0.5\textwidth]{supportedStateElems.drawio}
           \caption{The class diagram representation of supported diagram elements}
@@ -208,7 +205,7 @@ They map directly to \textit{Abstract behaviours} in C2KA\@.
 \textbf{Atomic States} are states which do not contain other states.
 We can see an example atomic behaviour in figure~\ref{fig:atomicbehaviour}.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{Atomicbehavior}
     \caption{A generic atomic behaviour representation}
@@ -248,7 +245,7 @@ This is because sequential states use the output of one state as the input of th
 This allows us to uniquely identify sequential compositions by using a single stimulus as the key identifying property.
 We can see an example of transitions and how we interpret mappings from them in figure~\ref{fig:transition}.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{transitions}
     \caption{A representation of next mappings and their relation to transtions}
@@ -263,7 +260,7 @@ There is a clear initial state with no incoming transitions.
 There is a clear final state with no outgoing transitions.
 We can see an example sequential state in figure~\ref{fig:sequential}.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{SequentialBehavior}
     \caption{A C2KA sequential composition represented in a state diagram}
@@ -385,7 +382,7 @@ Finally, we have the cloud to indicate a simplification in the diagram.
 It explains which details were omitted from the model to make it easier to understand.
 
 Figure~\ref{fig:pipe-1} shows the first part of our architecture model focuses on converting our expected input to a StateDiagram internally.
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{pipe-p1.drawio}
     \caption{Converting an XMI file to an internal state diagram representation}
@@ -404,7 +401,7 @@ Super states can be thought of as tree roots, and a state diagram can also be re
 This allows us to recursively interpret our diagram just like a tree during the following \textbf{diagram interpretation} stage.
 
 Figure~\ref{fig:pipe-2} shows the  second part of our model completes the process, going from internal StateDiagram to the desired output.
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{pipe-p2.drawio}
     \caption{Interpreting a state diagram to derive a complete C2KA specification}
@@ -462,7 +459,7 @@ After user requirements, we described our design choices to cover them.
 From design, we needed to create tasks to trace the design to specific code implementation.
 To do so, we used \textbf{GitHub Issues} to build a list of upcoming tasks for the project.
 In figure~\ref{fig:sampleIssueList}, we show a small sample of these issues completed over the course of the project.
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\textwidth]{issueSample}
     \caption{Sample Set of completed issues in our repository}
@@ -475,7 +472,7 @@ preventing multiple people from working on a task simultaneously unaware.
 The transition from weekly meetings to asynchronous communication through issues improved our efficiency immensely.
 We also customized issue tags to categorize issues
 according to our major development concerns, as seen in our repository in figure~\ref{fig:issueTypes}.
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\textwidth]{issueTypes}
     \caption{Types of issues defined in our GitHub repository}
@@ -509,7 +506,7 @@ and we have too many issues to go through them all (over 60 closed issues curren
 Unfortunately, this means we cannot rely on design to code traceability.
 Instead, we rely only on testing for validation.
 We can, however, demonstrate how we could attempt to manually show traceability through a specific issue.
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.9\textwidth]{specificIssue}
     \caption{An annotated enhancement type issue}
@@ -533,7 +530,7 @@ For these tests, we called all the filters up to and including the filter under 
 This allowed us to do iterative development when we developed new filters,
 ensuring new filter implementations were not breaking any previously implemented filters.
 Figure~\ref{fig:testShowcase} shows how an integration test would like when testing the State Diagram Linker.
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{testPipeline.drawio}
     \caption{A visualization of the integration test design for State Diagram Linker}
@@ -729,23 +726,22 @@ We only wish to demonstrate the C2KA specifications are accurate, and can be use
 Showing parity with the existing samples for IIAT is the limit of our demonstration.
 
 
-% TODO: make sure to name our tool early in the report
 \subsubsection{Exporting Inputs from Papyrus}
 The first step in providing inputs is to export them from Papyrus.
 Figure~\ref{fig:export-1}, Figure~\ref{fig:export-2} and Figure~\ref{fig:export-3} will demonstrate the steps required to do so:
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{export-1}
     \caption{Step 1, open export wizard in papyrus}
     \label{fig:export-1}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{export-2}
     \caption{Step 2, select file system export}
     \label{fig:export-2}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{export-3}
     \caption{Step 3, Select an output directory, and optionally unneeded files.}
@@ -806,7 +802,7 @@ Afterward, the IIAT starts computing the implicit interactions and printing them
 The tool is very verbose, as such we only show the output up to the intended interactions in figure~\ref{fig:iiat-out}.
 Note, the figure may look strange, but it is the real output.
 We had to copy the output from our shell because we did not have a way to screenshot it in our host.
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.6\textwidth]{iiat-out-1}
     \caption{The intended interactions found by the IIAT on the expected input (text copied)}
@@ -828,7 +824,7 @@ The sample input models the Manufacturing Cell, therefore they should be semanti
 You should be able to observe the same outputs from section~\ref{subsubsec:iiat-run} when executing the program again.
 Again due to the verbosity, we only check and display the intended interactions in figure~\ref{fig:iiat-out2}.
 The output observed was identical from the expected output in figure~\ref{fig:iiat-out}.
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.6\textwidth]{iiat-out-2}
     \caption{The intended interactions found by the IIAT on our generated specifications (text copied)}
