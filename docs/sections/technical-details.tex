@@ -75,12 +75,19 @@ The table of requirements contains a list of User Requirements for our system,
 with green states indicating satisfactory completion, and gray indicating unsatisfactory:
 % Requirement table
 \begin{longtable}{|l|p{2.6cm}|l|p{4.5cm}|c|}
+    % First header, with label
+    \caption{Set of User Requirements for U2C}\label{tab:user-reqs}
+    \hline
+    \textbf{ID} & \textbf{Requirement} & \textbf{Type}  & \textbf{Description} & \textbf{State} \\
+    \hline
+    \endfirsthead
+    % Other headers, without label
     \caption{Set of User Requirements for U2C}
-    \label{tab:user-reqs}
     \hline
     \textbf{ID} & \textbf{Requirement} & \textbf{Type}  & \textbf{Description} & \textbf{State} \\
     \hline
     \endhead
+
     \hline
     % Requirements here
     1 & Input & Functional & U2C shall accept visual system models as input. & \cellcolor{green!30}  \\
