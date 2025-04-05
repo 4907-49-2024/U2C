@@ -203,7 +203,7 @@ We can see an example atomic behaviour in figure~\ref{fig:atomicbehaviour}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{Atomicbehaviour}
+    \includegraphics[width=0.5\textwidth]{Atomicbehavior}
     \caption{A generic atomic behaviour representation}
     \label{fig:atomicbehaviour}
 \end{figure}
@@ -268,7 +268,6 @@ Instead, a modeller should consider making two different agents which communicat
 with each other to model parallel behaviour.
 
 \subsubsection{XMI Parsing}\label{subsubsec:parsing}
-% TODO: look at overlap between this and technical background
 Having chosen our input format, we needed to find a way to parse it to be able to process it.
 Although XMI is supposed to be a standardized format,
 many modelling tools will have slight differences for specific components.
@@ -526,12 +525,17 @@ For \textit{filters}, we did \textbf{integration tests} to more closely simulate
 For these tests, we called all the filters up to and including the filter under test then evaluated the output.
 This allowed us to do iterative development when we developed new filters,
 ensuring new filter implementations were not breaking any previously implemented filters.
-The following diagram shows how an integration test would like when testing the State Diagram Linker.
-% TODO Make a diagram to show a test on XMI parser
+Figure~\ref{fig:testShowcase} shows how an integration test would like when testing the State Diagram Linker.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{testPipeline.drawio}
+    \caption{A visualization of the integration test design for State Diagram Linker}
+    \label{fig:testShowcase}
+\end{figure}
 
 For integration test inputs, we defined a group of elementary C2KA representations which implement
 all the elements specified as part of our input specification.
-The diagrams used are the same diagrams included in the input specification section~\ref{subsubsec:input-specification}.
+The key diagrams used are the same diagrams included in the input specification section~\ref{subsubsec:input-specification}.
 
 For the complete \textit{C2KASpecification} we did end to end \textbf{system tests}, with a \textbf{custom diff tool}.
 To do this, we needed a system with known C2KA outputs.
