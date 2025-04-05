@@ -9,7 +9,7 @@ Instead, we will take a look at a C2KA analysis on a real system.
 Our system of interest is a Manufacturing Cell, shown by the collaboration diagram in figure~\ref{fig:manucell-collab}.
 \begin{figure}
     \centering
-    \includegraphics{manucellCollab}
+    \includegraphics[scale=0.35]{manucellCollab}
     \caption{The collaboration diagram representing the Manufacturing Cell}
     \label{fig:manucell-collab}
 \end{figure}
@@ -400,7 +400,7 @@ Figure~\ref{fig:pipe-2} shows the  second part of our model completes the proces
 \begin{figure}[h]
     \centering
     \includegraphics[width=1\textwidth]{pipe-p2.drawio}
-    \caption{Interpret a state diagram to derive a complete C2KA specification}
+    \caption{Interpreting a state diagram to derive a complete C2KA specification}
     \label{fig:pipe-2}
 \end{figure}
 
@@ -504,7 +504,7 @@ Instead, we rely only on testing for validation.
 We can, however, demonstrate how we could attempt to manually show traceability through a specific issue.
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1\textwidth]{specificIssue}
+    \includegraphics[width=0.9\textwidth]{specificIssue}
     \caption{An annotated enhancement type issue}
     \label{fig:specificIssue}
 \end{figure}
@@ -544,16 +544,36 @@ Then, we also needed to model diagrams representing those specifications.
 Finally, we create a test with the diagrams as inputs, the analyzed system as expected outputs,
 and compare them with our diff tool.
 
-The reason we needed a custom diff tool is due to the inevitable differences between manual C2KA analysis,
-and our automated analysis.
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.35]{outputDiff}
+    \caption{An example of the formatting differences between an actual output (left), and its expected output (right)}
+    \label{fig:out-diff}
+\end{figure}
+In figure~\ref{fig:out-diff}, we see that our produced output files are not exactly the same as the expected output files.
+The most glaring difference is the ordering of lines in the NEXT\_BEHAVIOUR spec.
+Our tool respects a strict alphabetical order, while the given expected output follows a different formatting rule.
+This difference is why we need the diff tool.
+Manual C2KA analysis does not follow deterministic formatting rules.
 There may be some whitespace differences or a different ordering of lines
 which are both semantically irrelevant to the specification.
 This is why our diff tool checks for an exact match for lines in a specification type,
 regardless of their location within the block or any whitespace.
-This means that if our actual produced output is missing a line, the diff raises an error,
-but it also raises one if our output has an extra line which is not in the expected output.
 
-% TODO show output differences
+Figure~\ref{fig:faultinjection} displays what happens when we inject a fault to force a failure.
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.35]{faultinjection}
+    \caption{The test result after injecting a fault by modifying a line of the expected output}
+    \label{fig:faultinjection}
+\end{figure}
+
+We can observe the success case at the top, displaying a checkmark for agent P\@.
+When failing, if our actual produced output is missing a line, the diff mentions a grouping is missing.
+If we have an additional unexpected line, the diff adds it to the unexpected grouping display.
+In the case of a modified line, it will appear in both categories.
+A limitation of the current diff tool is it displays errors in groupings instead of displaying specific lines.
+Only the (start,IDLE) line was modified in Figure~\ref{fig:faultinjection}, but all start responses got flagged at once.
 
 The table below traces user requirements to our testing strategy concepts refining them in this section.
 \begin{table}[htbp]
@@ -654,7 +674,7 @@ Figure~\ref{fig:export-1}, Figure~\ref{fig:export-2} and Figure~\ref{fig:export-
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{export-1}
-    \caption{Step 1, open export wizard in papyrus]}
+    \caption{Step 1, open export wizard in papyrus}
     \label{fig:export-1}
 \end{figure}
 \begin{figure}[h]
