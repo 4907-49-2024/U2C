@@ -28,15 +28,17 @@
 
 
 
+\usepackage[toc,page]{appendix}
 \usepackage{amsmath}
 \usepackage{caption}
 \captionsetup[table]{skip=10pt}
 
 \usepackage{longtable}
 \usepackage[table]{xcolor}
-\usepackage{tabularx}
+\usepackage{tabularx} % Package to manage table width automatically
 \usepackage{amssymb}
-\usepackage{graphicx} % Package to manage table width automatically
+\usepackage{graphicx}
+\usepackage{pdfpages} % Import pdf, used for appendices
 \graphicspath{ {figures/} }
 
 
@@ -62,5 +64,9 @@
     \newpage
 
     \printbibliography
+    \newpage
+
+    \input{appendices/appendices}
+
 
 \end{document}
