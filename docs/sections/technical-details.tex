@@ -8,22 +8,24 @@ as there are better resources for that~\cite{c2ka_foundations, implicit_interact
 
 Instead, we will identify relevant terms from a C2KA analysis that was performed on a real system~\cite{manu_cell}.
 Our system of interest is a Manufacturing Cell, shown by the collaboration diagram in Figure~\ref{fig:manucell-collab}.
-\begin{figure}
+
+\begin{figure}[h]
     \centering
-    \includegraphics[scale=0.35]{manucellCollab}
+    \includegraphics[scale=0.4]{manucellCollab}
     \caption{The collaboration diagram representing the Manufacturing Cell~\cite{manu_cell}}
     \label{fig:manucell-collab}
 \end{figure}
 
 In the boxes, we see the possible discrete agent behaviours, denoted by the ``+'' choice operator.
 This is also how we define the \textbf{Abstract Behaviour Specification}, as seen in Figure~\ref{fig:abstractmc}.
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \includegraphics[scale=0.6]{abs_manucell}
+    \includegraphics[scale=0.55]{abs_manucell}
     \caption{The abstract behavior specification for the system~\cite{manu_cell}}
     \label{fig:abstractmc}
 \end{figure}
 
+\newpage
 The solid communication arrows represent stimuli.
 The stimuli are relevant for the Stimulus-Response Specification.
 We break it down into its components and refer to them in this report as \textbf{Next Behaviour Mapping} (Figure~\ref{fig:manucell_behav})
@@ -32,16 +34,16 @@ As the names may imply, these are functions which map an initial behaviour, and 
 These have to be complete functions, but some papers may leave \textit{neutral mappings} empty.
 These are mappings where a \textit{neutral stimulus} with no impact on agents is sent out, or the behavior remains the same.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \includegraphics[scale=0.6]{manucell_stim}
-    \caption{The next stimulus mapping for agent C~\cite{manu_cell}}
+    \includegraphics[scale=0.55]{manucell_stim}
+    \caption{The next stimulus mapping function for agent C~\cite{manu_cell}}
     \label{fig:manucell_stim}
 \end{figure}
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \includegraphics[scale=0.6]{manucell_behav}
-    \caption{The next behavior mapping for agent C~\cite{manu_cell}}
+    \includegraphics[scale=0.55]{manucell_behav}
+    \caption{The next behavior mapping function for agent C~\cite{manu_cell}}
     \label{fig:manucell_behav}
 \end{figure}
 
@@ -205,7 +207,6 @@ Refinements can be correlated by the bolded terms above.
     \end{tabularx}
 \end{table}
 
-\newpage
 \subsubsection{Input Specifications}\label{subsubsec:input-specification}
 Although we accept UML State diagrams, there are specific elements that our interpreter cares about.
 The primary goal was to make use of essential model elements only, specifically states and transitions,
@@ -220,11 +221,12 @@ For the safest behaviour, we have defined a known set of valid model elements, a
 At a high level, it can be summarized with the class diagram in Figure~\ref{fig:supportedElems}.
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{supportedStateElems.drawio}
+    \includegraphics[width=0.9\textwidth]{supportedStateElems.drawio}
     \caption{The class diagram representation of supported diagram elements}
     \label{fig:supportedElems}
 \end{figure}
-\\
+\newpage
+
 The first element in our state diagram is a \textbf{state}.
 States describe a discrete behaviour where an invariant condition holds.
 They map directly to \textit{Abstract behaviours} in C2KA\@.
@@ -233,11 +235,12 @@ We can see an example of atomic behaviour in Figure~\ref{fig:atomicbehaviour}.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{Atomicbehavior}
+    \includegraphics[width=0.8\textwidth]{Atomicbehavior}
     \caption{A generic atomic behaviour representation}
     \label{fig:atomicbehaviour}
 \end{figure}
 
+\newpage
 Atomic States always have a \textbf{doActivity} property,
 as they are needed for C2KA \textit{Concrete behaviours}.
 doActivities need to follow Dijkstra's Guarded Command Language (GCL) notation~\cite{gcl}.
@@ -259,7 +262,6 @@ Due to typesetting constraints, we had to convert the GCL operands listed in tab
         $\rightarrow$ & $->$ \\ \hline
     \end{tabular}
 \end{table}
-\\
 
 \textbf{Transitions} are links between states that describe how state changes occur.
 We use these transitions and their associated behaviours to compute \textit{next behaviour} and \textit{next stimulus} functions.
@@ -272,7 +274,7 @@ We can see an example of transitions and how we interpret mappings from them in 
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{transitions}
+    \includegraphics[width=0.8\textwidth]{transitions}
     \caption{A representation of next mappings and their relation to transtions}
     \label{fig:transition}
 \end{figure}
@@ -287,14 +289,14 @@ We can see an example of a sequential state in Figure~\ref{fig:sequential}.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{SequentialBehavior}
+    \includegraphics[width=0.8\textwidth]{SequentialBehavior}
     \caption{A C2KA sequential composition represented in a state diagram}
     \label{fig:sequential}
 \end{figure}
 
 Note: We explicitly decided not to cover C2KA \textit{parallel compositions} to simplify modelling and parsing.
-Instead, a modeller should consider making two different agents that communicate
-with each other to model parallel behaviour.
+To model parallel behaviour, it is possible to model two different agents that communicate
+with each other instead.
 
 \subsubsection{XMI Parsing}\label{subsubsec:parsing}
 Having chosen our input format, we needed to find a way to parse it to be able to process it.
@@ -324,7 +326,6 @@ The table below traces user requirements to the parsing choices, refining them i
     \end{tabularx}
 \end{table}
 
-\newpage
 \subsubsection{Target Deployment}
 One of our user requirements requires us to target an Operating System.
 Just like the choice of modelling tool, we want to avoid the OS target to be a barrier to our tool.
@@ -352,7 +353,6 @@ The table below traces user requirements to the deployment choices, refining the
     \end{tabularx}
 \end{table}
 
-\newpage
 \subsubsection{Architecture Choice}
 Choosing how to structure our code depends strongly on our functional requirements,
 but quality attributes can play a role as well.
@@ -407,7 +407,6 @@ Joins are the opposite operation, collecting data from independent parallel oper
 Finally, we have the cloud to indicate a simplification in the diagram.
 It explains which details were omitted from the model to make it easier to understand.
 
-Figure~\ref{fig:pipe-1} shows the first part of our architecture model, which focuses on converting our expected input to a state diagram internally.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{pipe-p1.drawio}
@@ -415,6 +414,7 @@ Figure~\ref{fig:pipe-1} shows the first part of our architecture model, which fo
     \label{fig:pipe-1}
 \end{figure}
 
+Figure~\ref{fig:pipe-1} shows the first part of our architecture model, which focuses on converting our expected input to a state diagram internally.
 When the program starts execution, it reads all the model files at once from a known input address.
 It forks once for each model to process them all in parallel.
 The first transformation step is to parse the \textit{XMI file} with our \textbf{XMI Parser}.
@@ -426,7 +426,6 @@ Specifically, we strongly type model elements according to our internally define
 Super states can be thought of as tree roots, and a state diagram can also be represented as a super state.
 This allows us to recursively interpret our diagram just like a tree during the following \textbf{diagram interpretation} stage.
 
-Figure~\ref{fig:pipe-2} shows the second part of our model completes the process, going from the internal state diagram to the desired output.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{pipe-p2.drawio}
@@ -434,6 +433,7 @@ Figure~\ref{fig:pipe-2} shows the second part of our model completes the process
     \label{fig:pipe-2}
 \end{figure}
 
+Figure~\ref{fig:pipe-2} shows the second part of our model completes the process, going from the internal state diagram to the desired output.
 From our \textit{state diagram}, we can perform different analyses in parallel to find parts of the C2KA specification.
 The \textbf{abstract behaviour interpreter} looks at super states to find sequential compositions
 and atomic state names to build a C2KA \textit{abstract behaviour specification}.
@@ -487,7 +487,7 @@ To do so, we used \textbf{GitHub Issues} to build a list of upcoming tasks for t
 In Figure~\ref{fig:sampleIssueList}, we show a small sample of these issues completed throughout the project.
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\textwidth]{issueSample}
+    \includegraphics[width=0.9\textwidth]{issueSample}
     \caption{Sample Set of completed issues in our repository}
     \label{fig:sampleIssueList}
 \end{figure}
@@ -500,7 +500,7 @@ We also customized issue tags to categorize issues
 according to our major development concerns, as seen in our repository in Figure~\ref{fig:issueTypes}.
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\textwidth]{issueTypes}
+    \includegraphics[width=0.9\textwidth]{issueTypes}
     \caption{Types of issues defined in our GitHub repository}
     \label{fig:issueTypes}
 \end{figure}
@@ -545,7 +545,6 @@ In this case, it contributes to the C2KA Specification transformations (User Req
 Then we can look at the description (2) to see a lower level, but informal explanation to guide the code implementation.
 Finally, we see the merged branch (3) linking the issue to merged code changes.
 
-\newpage
 \subsubsection{Testing Strategy}\label{subsubsec:tests-strat}
 Although we never defined formal test selection criteria,
 We defined informal guidelines to define how to verify our code.
@@ -561,7 +560,7 @@ Figure~\ref{fig:testShowcase} shows the design behind the implementation of an i
 The oracle object is a logical representation of our test cases, which define the expected outputs and compare them against the actual produced outputs.
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=1\textwidth]{testPipeline.drawio}
+    \includegraphics[width=1.1\textwidth]{testPipeline.drawio}
     \caption{A visualization of the integration test design for State Diagram Linker}
     \label{fig:testShowcase}
 \end{figure}
@@ -576,9 +575,9 @@ We got analyzed systems from our supervisor, which we treated as the source of t
 Then, we also needed to model diagrams representing those specifications.
 Finally, we create a test with the diagrams as inputs and the analyzed system as expected outputs and compare them with our diff tool.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \includegraphics[scale=0.35]{outputDiff}
+    \includegraphics[scale=0.38]{outputDiff}
     \caption{An example of the formatting differences between an actual output (left), and its expected output (right)}
     \label{fig:out-diff}
 \end{figure}
@@ -605,7 +604,7 @@ In the case of a modified line, it will appear in both categories.
 A limitation of the current diff tool is that it displays errors in groupings instead of displaying specific lines.
 Only the (start, IDLE) line was modified in Figure~\ref{fig:faultinjection}, but all start responses got flagged at once.
 
-The table below traces user requirements to our testing strategy concepts, refining them in this section.
+The Table~\ref{tab:test-strat-table} traces user requirements to our testing strategy concepts, refining them in this section.
 \begin{table}[htbp]
     \centering
     \caption{Testing Strategy Requirement Traceability}\label{tab:test-strat-table}
@@ -648,16 +647,16 @@ We created accuracy-focused \textbf{system tests} as described in Section~\ref{s
 With a trusted expected output, if we prove an equivalency with the files our tool generates, we can trust it is accurate (at least for that test case).
 Unfortunately, we only managed to complete one system test.
 Although we marked accuracy as adequately fulfilled, one sample test is not enough to be strongly assured of this property.
-Still, at least our accuracy validation is reproducible.
+Still, at least our accuracy validation is reproducible with our automated system test located in our repository under:
+\begin{verbatim}src/test/java/sinks/ManufacturingCellTest\end{verbatim}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \includegraphics[scale=0.7]{systemTestSuccess}
+    \includegraphics[scale=1]{systemTestSuccess}
     \caption{The accuracy system test for the Manufacturing Cell reporting a full success.}
     \label{fig:acc-test}
 \end{figure}
-To validate this test case yourself in our repository, run the file located under:
-\begin{verbatim}src/test/java/sinks/ManufacturingCellTest\end{verbatim}
+
 In Figure~\ref{fig:acc-test}, we can see our diff tool reporting a successful C2KA generation for the Manufacturing Cell system.
 We did not manage to write test cases for our diff tool itself, therefore, it is valid to doubt the report accuracy.
 When debugging or when we were trying to initially gain confidence in the diff tool, we did manual diffs.
@@ -692,7 +691,6 @@ The table below traces user requirements to our testing results, refining them i
     \end{tabularx}
 \end{table}
 
-\newpage
 \subsubsection{Unsatisfied Requirements} \label{subsubsec:unsat-reqs}
 As we progressed in the project, some lower-priority requirements had to be cut to reduce the scope.
 
@@ -760,20 +758,22 @@ Figure~\ref{fig:export-1}, Figure~\ref{fig:export-2} and Figure~\ref{fig:export-
     \caption{Step 1, open export wizard in Papyrus}
     \label{fig:export-1}
 \end{figure}
+
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{export-2}
     \caption{Step 2, select file system export}
     \label{fig:export-2}
 \end{figure}
-\begin{figure}[ht]
+
+\begin{figure}[p!]
     \centering
-    \includegraphics[width=0.5\textwidth]{export-3}
+    \includegraphics[width=1\textwidth]{export-3}
     \caption{Step 3, Select an output directory, and optionally unneeded files.}
     \label{fig:export-3}
 \end{figure}
+\clearpage % IDK how this works but this does exactly what I want
 
-\newpage
 \subsubsection{Executing U2C}\label{subsubsec:exec}
 To use our program, download the 1.0 zip release from our GitHub~\cite{repo_u2c}.
 Then, extract the zip as is to a folder.
@@ -827,11 +827,12 @@ The pre-configured system should be the manufacturing cell.
 If it worked, it should display the intended interactions.
 Afterward, the IIAT starts computing the implicit interactions and printing them as it goes.
 The tool is very verbose; as such, we only show the output up to the intended interactions in Figure~\ref{fig:iiat-out}.
-Note that the figure may look strange, but it shows the contents of the real output.
-We had to copy the output from our shell because we did not have a way to screenshot it in our host.
+Note although the figure does not capture the shell, it shows the contents of the real output.
+We were lacking a screenshot feature in our host, we copied the output text instead.
+
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.6\textwidth]{iiat-out-1}
+    \includegraphics[width=1\textwidth]{iiat-out-1}
     \caption{The intended interactions found by the IIAT on the expected input (text copied)}
     \label{fig:iiat-out}
 \end{figure}
@@ -853,7 +854,7 @@ Again, due to the verbosity, we only check and display the intended interactions
 The output observed was identical to the expected output in Figure~\ref{fig:iiat-out}.
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.6\textwidth]{iiat-out-2}
+    \includegraphics[width=1\textwidth]{iiat-out-2}
     \caption{The intended interactions found by the IIAT on our generated specifications (text copied)}
     \label{fig:iiat-out2}
 \end{figure}
