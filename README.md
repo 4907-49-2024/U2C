@@ -1,6 +1,8 @@
 # Contributors
 
 Alexandre Marques - alexandremarques@cmail.carleton.ca
+Michael Rochefort - michaelrochefort@cmail.carleton.ca
+Ahmed Babar - ahmedbabar@cmail.carleton.ca
 
 # Purpose
 UML to C2KA Converter (U2C) converts UML State Diagrams to C2KA agent specifications.
