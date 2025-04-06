@@ -8,7 +8,7 @@ but they tend to be written with informal modelling languages due to their simpl
 This means the semantic meaning of the model is nondeterministic, and computers cannot interpret most graphical models.
 In contrast, formal modelling languages like C2KA (Communicating Concurrent Kleene Algebra) have a defined semantics.
 This allows computers to perform rigorous automated model checking on formal models of the system.
-Critical system properties like safety and liveness can be proven at the model level before any system implementation starts.
+Critical system properties like safety and security can be proven at the model level before any system implementation starts.
 
 System descriptions can vary in quality, especially across different stages of design.
 They can range from informal and incomplete natural language descriptions
@@ -21,7 +21,7 @@ This means formal models cannot easily replace informal models, they typically s
 
 \subsection{Problem Motivation}\label{subsec:problem-motivation}
 We wanted to take advantage of the benefits of formal modelling methodologies without facing the barriers they typically impose.
-We believed we could use the informal models typically created to derive formal models with minimal additional cost.
+We believed we could use the informal models typically created to derive formal models with minimal additional time cost.
 We were specifically interested in the C2KA formalism for a few reasons.
 The language is suitable for model checking system properties relating to interactions between components, which is an increasing concern in complex systems with many components.
 The language is new and has poor support from existing tools.
@@ -47,14 +47,14 @@ The input would be some machine-readable version of a set of UML State Diagrams.
 
 \subsection{Accomplishments}\label{subsec:accomplishments}
 \begin{enumerate}
-    \item We found deterministic transformation rules for visual models
+    \item Found deterministic transformation rules for visual models
     to C2KA specifications.
-    \item We managed to read a textual representation of the graphical models.
-    \item We re-created a diagram structure internally to easily parse state diagram information in code.
-    \item We used our custom structure to simply implement the transformation rules we determined.
-    \item We formatted and serialized our specifications in a format the IIAT could use.
-    \item We have created a diff tool to validate our outputs given a trusted C2KA specification written by hand.
-    \item We have validated our tool against one known C2KA system,
+    \item Managed to read a textual representation of the graphical models.
+    \item Re-created a diagram structure internally to easily parse state diagram information in code.
+    \item Used our custom structure to simply implement the transformation rules we determined.
+    \item Formatted and serialized our specifications in a format the IIAT could use.
+    \item Created a diff tool to validate our outputs given a trusted C2KA specification written by hand.
+    \item Validated our tool against one known C2KA system,
     using our diff tool, and by observing parity in the IIAT\@.
 \end{enumerate}
 

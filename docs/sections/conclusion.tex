@@ -27,7 +27,7 @@ The test strategy we defined does a good job of capturing the idea behind how we
 Formalizing coverage criteria would be taking these ideas and formulating them in a way that we can systematically
 test our code coverage and build a report to see if we conform to our desired coverage.
 This report would also be an important baseline for assurance in our software.
-Checking coverage is done manually at the moment, we make issues if we notice missing coverage (easy to miss).
+Checking coverage is done manually at the moment, we create GitHub issues if we notice missing coverage (easy to miss).
 
 We also lack system test (validation tests) variety.
 It would have been nice to have system tests to test other metrics than the ``Accuracy'' of our system.
@@ -35,7 +35,7 @@ We have no stress tests for performance, for example.
 This is partially due to a late definition of our non-functional requirements,
 as explained later in section~\ref{subsubsec:req-elicit-refl}.
 
-In general, more tests.
+In general, more tests are needed.
 We are currently lacking coverage (verification).
 More system tests increase assurance in our system (validation); we have very few of them at the moment.
 
@@ -64,29 +64,30 @@ Collaboration diagrams could fall in this category, although we have not yet def
 Otherwise, it is good if the program crashes because it means that it detected a fault in the input.
 If it did not, it would be a bug because the output is faulty (false positive output).
 
-Our philosophy as we were finishing our prototype was to focus on fully functional essential features over many potentially broken features.
-The hope is that we may not be able to output everything, but what we do produce can be relied on.
-
+Our philosophy as we were finishing our prototype was to focus on a minimum viable product with well-tested essential features.
+We did not want to add many unessential features.
+We knew we would not have the proper time to identify faults if we increased our scope.
+This could have led to unsatisfied critical non-functional requirements, like accuracy.
+The goal is that we may not be able to output everything, but what we do produce can be relied on (no false positive).
 
 \subsection{Reflections}\label{subsec:reflections}
 \subsubsection{Requirement Elicitation Phase}\label{subsubsec:req-elicit-refl}
 This section refers to how we collected background information and determined our requirements from there.
 This does not refer to how we managed requirements after we started the implementation.
-The issue with this phase is two-fold.
-We took way too much time (we did not start implementation work until after the progress report), and it was not productive given the time spent on it.
+The issue with our approach is two-fold.
+We took too much time (we did not start implementation work until after the progress report), and it was not productive given the time spent on it.
 Although the User Requirement list in section~\ref{subsubsec:user-reqs} is adequate, it was never formally defined until the report was written.
 
 At multiple times during implementation, progress halted due to a lack of C2KA knowledge,
 or we had to rewrite code from a poor initial understanding.
-We also did not put any effort into approving and tracing any requirements other than our functional objectives.
+We also did not approve or trace any requirements other than our functional objectives.
 These functional objectives were based on a specific pipeline configuration, which we decided to change later,
 and thus were too low-level to base our functional requirements on them.
-The non-functional objectives of our system became even more implicit and were subject to change based on
-since there was no traceability for them.
+The non-functional objectives of our system became even more implicit and were subject to change since there was no traceability for them.
 This means any decisions regarding trade-offs in the program were decided based on what felt best at the time,
 not an objective metric measured against non-functional requirements.
 
-Our requirement elicitation should have been more targeted and produced a Software Requirement Specification document that we verified and agreed to conform to.
+Upon reflection, we learned that our requirement elicitation should have been more targeted and produced a Software Requirement Specification document that we verified and agreed to conform to.
 We should have made a process for ongoing requirement elicitation during development.
 In the case of a knowledge gap being identified, we would research or ask questions to fill this gap,
 then produce requirements and update our SRS accordingly.
@@ -105,6 +106,7 @@ This meant our target of a high-quality project required us to outperform the ti
 We also did not include any slack-time in our project, we included it by allocating extra time instead.
 This meant components that had six weeks allocated to them were intended to be implemented in potentially a week or two in reality.
 This, and keeping the optional objective implicit, made us quite lax in the early stages of the project.
+It ultimately affected the timeline negatively and impacted the feasibility of the project.
 
 The timeline was also based on two assumptions that did not hold and made it impossible to achieve.
 We had agreed as a team to spend a set amount of hours regularly on the project.

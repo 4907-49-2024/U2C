@@ -53,7 +53,7 @@ The next question is, are there safety concerns where users can cause harm unint
 We believe there is a way to do so if our outputs provide false information to a designer.
 If the analyzed system is safety-critical, this can become a safety concern.
 The analysis done with our faulty outputs would then compromise the analysis of the safety-critical system.
-To guard against this, the accuracy of our outputs became a critical requirement in our user requirements (see section~\ref{subsubsec:user-reqs}).
+To guard against this, the accuracy of our outputs became a critical requirement in our user requirements (see Section~\ref{subsubsec:user-reqs}).
 We even have a second requirement preferring failure over false positive outputs.
 
 We also made sure to properly license our program since we learned that intellectual property was pretty important.
@@ -64,7 +64,7 @@ That strategy did not work well because we still faced long periods without any 
 We had weekly meetings at first, but we wasted time because we had multiple weeks with no work.
 
 The crux of our recovery from this disastrous start came from a pivot towards asynchronous project management with \textbf{GitHub Issues}.
-We will look at their purpose in more detail in section~\ref{subsubsec:proj-mngmnt}.
+We will look at their purpose in more detail in Section~\ref{subsubsec:proj-mngmnt}.
 In summary, they were used to formulate task units at a lower level than our requirements.
 We could also self-assign the tasks we wanted to do to show everyone we started work on it.
 This is to have a person to contact for status updates or permission to collaborate on it and avoid duplicating work.
@@ -76,7 +76,9 @@ Project Management went back to synchronous meetings with dedicated task assignm
 We also defined timelines, but they were not respected either.
 They only served as a reminder that we were permanently behind schedule, even when we revised our timeline later.
 When we switched to Issues, we ended up somewhat ignoring timelines.
-We were already working as much as possible until we got blocked, typically due to some lack of understanding of C2KA\@.
+We were already working as much as possible until we got blocked.
+Usually this was because we had trouble completing or understanding a C2KA transformation.
+During our meetings with our supervisor, we would get the opportunity to discuss these issues to unblock us or give us a source to look into for research.
 
 Having said that, we still had a clear roadmap of features to follow and a target date for a prototype (the fair).
 When we were planning tasks, we asked ourselves the feasibility of completion.
@@ -86,28 +88,28 @@ As we went, we also made sure to mark out-of-scope features whenever possible (w
 \subsection{Degree Suitability}\label{subsec:deg-suit}
 
 \subsubsection{Alexandre Marques}
-This project was suitable to my degree because it touches on many concepts I've learned in class.
+This project was suitable to my degree because it touches on many concepts I have learned in class.
 It is an engineering project, and it is a software project, so naturally, it should fit my Software Engineering degree.
-More specifically, the skills and knowledge I've applied from my courses are as follows:
+More specifically, the skills and knowledge I have applied from my courses are as follows:
 \begin{itemize}
-    \item I've applied Project Management techniques from SYSC4106 to increase the chances of completing the project
-    \item I've applied Object-Oriented design patterns from SYSC3110 to improve program maintainability and capabilities
-    \item I've applied Verification \& Validation concepts from SYSC4101 to increase quality
-    \item I've applied CI/CD concepts from SYSC4806 to streamline our development process
-    \item I've applied program architecture pattern knowledge from SYSC4120 to select and implement the Pipe and Filter pattern as the best architecture for our goals.
-    \item I've applied my knowledge of programming languages from SYSC3101 to select the best language for our needs.
-    \item I've applied requirement engineering techniques from SYSC3120 to write a set of functional and non-functional requirements for our program.
-    \item I've applied induction rules from COMP2804 and COM1805 to implement the recursive logic needed to convert C2KA diagrams (technically learned in SYSC2100, but discrete math taught me recursion much better).
-    \item I've applied my Operating System knowledge from SYSC4001 to work on multiple OS hosts and make the IIAT work.
-    \item I've applied my knowledge of formal methods from SYSC4111 to identify the importance of formal languages and understand C2KA better.
-    \item I've applied my knowledge of modelling from SYSC5805 and SYSC5104 to understand the importance of models in the engineering process.
-    \item I've applied my experience in writing technical reports from an academic research internship I've done before the degree,
-    combined with the LaTeX skills I've learned during the degree submitting assignments in various classes.
+    \item I have applied induction rules from COM1805 and COMP2804 to implement the recursive logic needed to convert C2KA diagrams (technically learned in SYSC2100, but discrete math taught me recursion much better).
+    \item I have applied my knowledge of UML intially learned from SYSC2004 to understand the composition of State Diagrams, and their purpose.
+    \item I have applied my knowledge of programming languages from SYSC3101 to select the best language for our needs.
+    \item I have applied Object-Oriented design patterns from SYSC3110 to improve program maintainability and capabilities
+    \item I have applied requirement engineering techniques from SYSC3120 to write a set of functional and non-functional requirements for our program.
+    \item I have applied my Operating System knowledge from SYSC4001 to work on multiple OS hosts and make the IIAT work.
+    \item I have applied Verification \& Validation concepts from SYSC4101 to increase quality
+    \item I have applied Project Management techniques from SYSC4106 to increase the chances of completing the project
+    \item I have applied my knowledge of formal methods from SYSC4111 to identify the importance of formal languages and understand C2KA better.
+    \item I have applied program architecture pattern knowledge from SYSC4120 to select and implement the Pipe and Filter pattern as the best architecture for our goals.
+    \item I have applied CI/CD concepts from SYSC4806 to streamline our development process
+    \item I have applied my knowledge of modelling from SYSC5805 and SYSC5104 to understand the importance of models in the engineering process.
+    \item I have applied my experience in writing technical reports from an academic research internship I've done before the degree,
+    combined with the LaTeX skills I have learned during the degree submitting assignments in various classes.
     Although the internship was not part of my degree, it was valuable, relevant experience in this domain.
     I was only offered the opportunity because I aimed to do something related to software before even starting the degree.
-    \item I've omitted some pre-requisite classes which were not directly relevant,
+    \item I have omitted some pre-requisite classes which were not directly relevant,
     but they also contributed to giving me the capabilities to complete this project.
-    \item I don't remember when we learned UML and state diagrams.
     It feels like we see them all the time in different classes.
     That was important pre-requisite knowledge, too.
 \end{itemize}
@@ -216,14 +218,14 @@ The Goal of this project is to streamline and reduce errors by creating an autom
     \item Created draft Manufacturing Cell diagrams in Papyrus for all agents (with many errors)
     \item Did research on State Diagrams, with no clear goal or conclusion.
     Documented a lot of irrelevant information, making it unclear how to use state diagrams for C2KA derivations.
-    \item Started adding integration test cases to StateDiagramLinker according to a template,
+    \item Started adding integration test cases to StateDiagramLinker according to a template written by Alexandre,
     but could not complete them to an adequate level of quality in time.
     \item Started (but failed to complete) creation of Wastewater system diagram inputs in Papyrus for a second system test.
 \end{itemize}
 
 \subsection{Individual Final Report Contributions}\label{subsec:individual-final-report-contributions}
-Ahmed wrote section~\ref{subsubsec:ahmed-deg}
-Micheal wrote section~\ref{subsubsec:mike-deg}.
+Ahmed wrote Section~\ref{subsubsec:ahmed-deg}
+Micheal wrote Section~\ref{subsubsec:mike-deg}.
 However, the work to port both sections to LaTeX from the draft report was done by Alexandre Marques.
 
 Everything else was written by Alexandre Marques.
@@ -233,5 +235,5 @@ figuring out why it was breaking, etc.
 All the work relating to formally defining requirements and tracing their fulfillment was done as a part of this report.
 
 All sections from the draft unless otherwise mentioned above were re-written from scratch by Alexandre Marques to incorporate the feedback.
-As a disclaimer, this includes project contributions in section~\ref{subsec:individual-project-contributions}
+As a disclaimer, this includes project contributions in Section~\ref{subsec:individual-project-contributions}
 which were edited from the draft report for accuracy by Alexandre Marques.
