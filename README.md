@@ -1,7 +1,9 @@
 # Contributors
 
 Alexandre Marques - alexandremarques@cmail.carleton.ca
+
 Michael Rochefort - michaelrochefort@cmail.carleton.ca
+
 Ahmed Babar - ahmedbabar@cmail.carleton.ca
 
 # Purpose
