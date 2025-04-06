@@ -18,3 +18,16 @@ Execute the program by double-clicking U2C.jar should run the program and produc
 To analyze your own system, replace the input files with your set of agents, and execute the program again.
 
 For detailed input specifications, see the V1.0 report in this repository's docs folder.
+
+# Resources
+## Other Repositories
+IIAT tool repo: https://gitlab.com/CyberSEA-Public/ImplicitInteractionsAnalysisTool
+
+Test diagram repo: https://github.com/4907-49-2024/diagrams
+
+SDMetrics compilation repo: https://github.com/4907-49-2024/SDMetricsOpenLib
+
+## C2KA Reference Papers
+Foundations of C2KA: https://carleton.ca/jaskolka/wp-content/uploads/CAS-13-07-RK.pdf
+
+Maufacturing cell specifications: https://gitlab.com/CyberSEA-Public/ImplicitInteractionsAnalysisTool/-/blob/master/doc/ManufacturingCell/ManufacturingCell.pdf
