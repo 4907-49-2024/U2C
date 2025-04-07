@@ -3,6 +3,9 @@ package filters.diagramInterpreters;
 import com.sdmetrics.model.ModelElement;
 import filters.diagramLinkers.StateDiagramLinker;
 import filters.xmiParser.XMIParser;
+import pipes.c2ka.semirings.NextBehaviorMap;
+import pipes.c2ka.specifications.ConcreteBehaviorSpecification;
+import pipes.c2ka.specifications.NextBehaviorSpecification;
 import pipes.parserConfig.XMIParserConfig;
 import org.junit.jupiter.api.Test;
 import pipes.c2ka.behaviours.AtomicBehaviour;
@@ -62,20 +65,59 @@ public class StateNextStimInterpreterTest {
         expected.add(new NextStimulusMap("inStim", new AtomicBehaviour("Current", "<behavior-expression>"), "nextStim"));
 
         NextStimulusSpecification expectedSpec = new NextStimulusSpecification(expected);
+
         assert mappings.equals(expectedSpec);
     }
 
-    // Sequential also has a special transition example
-    // FIXME: Ignored sequential mappings for now, still unsure how they work
-//    @Test
-//    void testSequential() throws Exception {
-//        // Get output
-//        Set<NextStimulusMap> mappings = runTestPipeline("C2KA-BaseRepresentations/Sequential.uml");
-//        Set<NextStimulusMap> expected = new HashSet<>();
-        // We're missing info, will need to update diagram at some point. I think I understand sequential better now
-        // Nevermind I'm still lost somewhat. That's okay though.
-//        expected.add(new NextStimulusMap(new AtomicBehavior("a", "<behavior-expression>"), "stimulus (a out, b in)", "stimulus (a out, b in)"));
+    @Test
+    void testChoice() throws Exception {
+        // Get output
+        NextStimulusSpecification mappings = runTestPipeline("Choice.uml");
+        Set<NextStimulusMap> behaviorMaps = new HashSet<>();
 
-//        assert expected.equals(mappings);
-//    }
+        NextStimulusSpecification expected = new NextStimulusSpecification(behaviorMaps);
+        assert expected.equals(mappings);
+    }
+
+    @Test
+    void testAtomicAssignment() throws Exception {
+        // Get output
+        NextStimulusSpecification mappings = runTestPipeline("Atomic-Assignment.uml");
+        Set<NextStimulusMap> behaviorMaps = new HashSet<>();
+
+        NextStimulusSpecification expected = new NextStimulusSpecification(behaviorMaps);
+        assert expected.equals(mappings);
+    }
+
+    @Test
+    void testAtomicConditional() throws Exception {
+        // Get output
+        NextStimulusSpecification mappings = runTestPipeline("Atomic-Conditional.uml");
+        Set<NextStimulusMap> behaviorMaps = new HashSet<>();
+
+        NextStimulusSpecification expected = new NextStimulusSpecification(behaviorMaps);
+        assert expected.equals(mappings);
+    }
+
+    @Test
+    void testParallel() throws Exception {
+        // Get output
+        NextStimulusSpecification mappings = runTestPipeline("Parallel.uml");
+        Set<NextStimulusMap> behaviorMaps = new HashSet<>();
+
+        NextStimulusSpecification expected = new NextStimulusSpecification(behaviorMaps);
+        assert expected.equals(mappings);
+    }
+
+    @Test
+    void testSequential() throws Exception {
+        NextStimulusSpecification spec = runTestPipeline("Sequential.uml");
+        Set<NextStimulusMap> behaviorMaps = new HashSet<>();
+
+        NextStimulusSpecification expected = new NextStimulusSpecification(behaviorMaps);
+        behaviorMaps.add(new NextStimulusMap("stimulus (a out, b in)", new AtomicBehaviour("a",
+                "<behavior-expression>"), "stimulus (a out, b in)"));
+
+        assert spec.equals(expected);
+    }
 }
