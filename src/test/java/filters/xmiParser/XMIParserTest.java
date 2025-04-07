@@ -1,67 +1,120 @@
 package filters.xmiParser;
 
 import com.sdmetrics.model.ModelElement;
+import com.sdmetrics.model.MetaModel;
+import com.sdmetrics.model.Model;
+import com.sdmetrics.model.XMITransformations;
+import com.sdmetrics.model.XMIReader;
+import com.sdmetrics.util.XMLParser;
 import org.junit.jupiter.api.Test;
+import pipes.diagrams.state.StateType;
 import pipes.parserConfig.XMIParserConfig;
 
-/**
- * Test that all diagrams have the elements we expect.
- */
-class XMIParserTest {
-    /**
-     * Define test pipeline for Filter Under Test (FUT)
-     * @param inputDiagramXMI Reference to input diagram file
-     * @return StateDiagram type pipe object (FUT's output)
-     * @throws Exception In case of thread or input exceptions
-     */
-    private ModelElement runTestPipeline(String inputDiagramXMI) throws Exception{
-        // Setup Input
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static testUtils.TestPaths.BASE_C2KA;
+
+public class XMIParserTest {
+
+    private Model runAndGetModel(String inputDiagramXMI) throws Exception {
         String metaModel = "custom/stateMetaModel.xml";
         String xmiTrans = "custom/xmiStateTrans.xml";
-        XMIParserConfig config = new XMIParserConfig(inputDiagramXMI, xmiTrans, metaModel);
-        // Filter 1 - FUT
-        XMIParser parser = new XMIParser(config);
-        return parser.getOutput();
+
+        XMIParserConfig config = new XMIParserConfig(BASE_C2KA, inputDiagramXMI, xmiTrans, metaModel);
+
+        // Build and parse model
+        XMLParser parser = new XMLParser();
+        MetaModel mm = new MetaModel();
+        parser.parse(config.metaModel(), mm.getSAXParserHandler());
+
+        XMITransformations trans = new XMITransformations(mm);
+        parser.parse(config.xmiTrans(), trans.getSAXParserHandler());
+
+        Model model = new Model(mm);
+        XMIReader reader = new XMIReader(trans, model);
+        parser.parse(config.xmiInputFile(), reader);
+
+        return model;
     }
 
-    /**
-     * Test for state diagram elements
-     */
     @Test
-    void testStateElements() throws Exception {
-        // TODO: use another diagram to test this
-//        // Collect output
-//        UMLModel model = runTestPipeline("superState.uml");
-//        List<ModelElement> states = model.getTypedElements(StateType.state.name());
-//        List<ModelElement> transitions = model.getTypedElements(StateType.transition.name());
-//        List<ModelElement> activity = model.getTypedElements(StateType.activity.name());
-//        List<ModelElement> statemachines = model.getTypedElements(StateType.statemachine.name());
-//        List<ModelElement> regions = model.getTypedElements(StateType.region.name());
-//
-//        // Test States
-//        assert states.size() == 5; // Includes pseudo-states
-//        assert states.stream().anyMatch(s -> s.getName().equals("State1"));
-//        assert states.stream().anyMatch(s -> s.getName().equals("State4"));
-//        assert states.stream().anyMatch(s -> s.getName().equals("Inner1"));
-//        assert states.stream().anyMatch(s -> s.getName().equals("Inner2"));
-//        assert states.stream().anyMatch(s -> s.getName().isEmpty());
-//
-//        // Test Transitions
-//        assert transitions.size() == 4; // Includes pseudo-states
-//        assert transitions.stream().anyMatch(s -> s.getName().equals("nextState"));
-//        assert transitions.stream().anyMatch(s -> s.getName().isEmpty());
-//
-//        // Test StateDiagrams
-//        assert statemachines.size() == 1; // Includes pseudo-states
-//        assert statemachines.stream().anyMatch(s -> s.getName().equals("StateMachine1"));
-//
-//        // Test Activites
-//        assert activity.size() == 3; // Includes pseudo-states
-//        assert activity.stream().anyMatch(s -> s.getName().equals("sendStim1"));
-//        assert activity.stream().anyMatch(s -> s.getName().equals("sendStim2"));
-//        assert activity.stream().anyMatch(s -> s.getName().equals("sendStim3"));
-//
-//        // Test Regions (we just care about counting them, nothing else)
-//        assert regions.size() == 2;
+    void testAtomicDiagramElements() throws Exception {
+        Model model = runAndGetModel("Atomic.uml");
+
+        List<ModelElement> states = model.getAcceptedElements(model.getMetaModel().getType(StateType.state.name()));
+        List<ModelElement> activities = model.getAcceptedElements(model.getMetaModel().getType(StateType.activity.name()));
+        List<ModelElement> transitions = model.getAcceptedElements(model.getMetaModel().getType(StateType.transition.name()));
+
+        // Minimal expected structure
+        assertEquals(1, states.size());
+        assertEquals(1, activities.size());
+        assertEquals(0, transitions.size());
+    }
+
+    @Test
+    void testChoiceDiagramElements() throws Exception {
+        Model model = runAndGetModel("Choice.uml");
+
+        List<ModelElement> states = model.getAcceptedElements(model.getMetaModel().getType(StateType.state.name()));
+        List<ModelElement> transitions = model.getAcceptedElements(model.getMetaModel().getType(StateType.transition.name()));
+
+        assertTrue(states.size() >= 2);
+        assertTrue(transitions.isEmpty());
+    }
+
+    @Test
+    void testSequentialDiagramElements() throws Exception {
+        Model model = runAndGetModel("Sequential.uml");
+
+        List<ModelElement> states = model.getAcceptedElements(model.getMetaModel().getType(StateType.state.name()));
+        List<ModelElement> transitions = model.getAcceptedElements(model.getMetaModel().getType(StateType.transition.name()));
+
+        assertTrue(states.size() >= 2);
+        assertFalse(transitions.isEmpty());
+    }
+
+    @Test
+    void testParallelDiagramElements() throws Exception {
+        Model model = runAndGetModel("Parallel.uml");
+
+        List<ModelElement> states = model.getAcceptedElements(model.getMetaModel().getType(StateType.state.name()));
+        List<ModelElement> regions = model.getAcceptedElements(model.getMetaModel().getType(StateType.region.name()));
+
+        assertTrue(states.size() >= 2);
+        assertEquals(3, regions.size());
+    }
+
+    @Test
+    void testNextMappingsDiagramElements() throws Exception {
+        Model model = runAndGetModel("NextMappings.uml");
+
+        List<ModelElement> states = model.getAcceptedElements(model.getMetaModel().getType(StateType.state.name()));
+        List<ModelElement> transitions = model.getAcceptedElements(model.getMetaModel().getType(StateType.transition.name()));
+
+        assertTrue(states.size() >= 2);
+        assertFalse(transitions.isEmpty());
+    }
+
+    @Test
+    void testAtomicConditionalDiagramElements() throws Exception {
+        Model model = runAndGetModel("Atomic-Conditional.uml");
+
+        List<ModelElement> states = model.getAcceptedElements(model.getMetaModel().getType(StateType.state.name()));
+        List<ModelElement> activities = model.getAcceptedElements(model.getMetaModel().getType(StateType.activity.name()));
+
+        assertFalse(states.isEmpty());
+        assertFalse(activities.isEmpty());
+    }
+
+    @Test
+    void testAtomicAssignmentDiagramElements() throws Exception {
+        Model model = runAndGetModel("Atomic-Assignment.uml");
+
+        List<ModelElement> states = model.getAcceptedElements(model.getMetaModel().getType(StateType.state.name()));
+        List<ModelElement> activities = model.getAcceptedElements(model.getMetaModel().getType(StateType.activity.name()));
+
+        assertFalse(states.isEmpty());
+        assertFalse(activities.isEmpty());
     }
 }
