@@ -1,0 +1,72 @@
+%! Author = Alex
+%! Date = 2025-03-18
+
+% Preamble
+\documentclass[12pt]{article}
+% Formatting imports
+\usepackage[
+    paper=a4paper,
+    top=1in,
+    bottom=1in,
+    left=1.5in,
+    right=1in
+]{geometry}
+\usepackage{setspace}
+% changes the text to double-line spacing
+\doublespacing
+
+% Bibliography backend setup
+\usepackage[
+    backend=biber,
+    sortlocale=de_DE,
+    natbib=true,
+    url=true,
+    doi=false,
+    eprint=false
+]{biblatex}
+\addbibresource{refs.bib}
+
+
+
+\usepackage[toc,page]{appendix}
+\usepackage{amsmath}
+\usepackage{caption}
+\captionsetup[table]{skip=10pt}
+
+\usepackage{longtable}
+\usepackage[table]{xcolor}
+\usepackage{tabularx} % Package to manage table width automatically
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{pdfpages} % Import pdf, used for appendices
+\graphicspath{ {figures/} }
+
+
+% Document
+\begin{document}
+
+    \input{frontmatter/frontmatter}
+
+    \section{Introduction}\label{sec:intro}
+    \input{sections/introduction}
+    \newpage
+
+    \section{Engineering Process}\label{sec:eng-process}
+    \input{sections/process}
+    \newpage
+
+    \section{Technical Details}\label{sec:technical-details}
+    \input{sections/technical-details}
+    \newpage
+
+    \section{Conclusion}\label{sec:conclusion}
+    \input{sections/conclusion}
+    \newpage
+
+    \printbibliography
+    \newpage
+
+    \input{appendices/appendices}
+
+
+\end{document}

@@ -1,0 +1,65 @@
+\subsection{Problem Background}\label{subsec:problem-background}
+Modern system requirements are becoming increasingly complex over time.
+To fulfill these requirements, engineers typically go through a modelling phase.
+Models are artifacts from the modelling phase that represent different views of the system to understand various aspects of it.
+Producing graphical models in languages such as UML (Unified Modelling Language) is a typical modelling technique to communicate information quickly through visual system interactions.
+This communication works well across levels of system details between humans,
+but they tend to be written with informal modelling languages due to their simplicity.
+This means the semantic meaning of the model is nondeterministic, and computers cannot interpret most graphical models.
+In contrast, formal modelling languages like C2KA (Communicating Concurrent Kleene Algebra) have a defined semantics.
+This allows computers to perform rigorous automated model checking on formal models of the system.
+Critical system properties like safety and security can be proven at the model level before any system implementation starts.
+
+System descriptions can vary in quality, especially across different stages of design.
+They can range from informal and incomplete natural language descriptions
+to well-defined formal requirements.
+Engineers need to make reasonable decisions on how to model systems from these descriptions.
+This often means going for informal visual models that are easy to produce and communicate with.
+Even with their known model-checking benefits, formal models are often dismissed.
+They require more time to make and specialized skills to produce and understand them.
+This means formal models cannot easily replace informal models, they typically supplement them.
+
+\subsection{Problem Motivation}\label{subsec:problem-motivation}
+We wanted to take advantage of the benefits of formal modelling methodologies without facing the barriers they typically impose.
+We believed we could use the informal models typically created to derive formal models with minimal additional time cost.
+We were specifically interested in the C2KA formalism for a few reasons.
+The language is suitable for model checking system properties relating to interactions between components, which is an increasing concern in complex systems with many components.
+The language is new and has poor support from existing tools.
+Our tool would be a welcome addition to the ecosystem, contributing greatly to the growth of C2KA.
+Experienced C2KA modellers believed this model transformation was possible in this formalism.
+This gave us confidence that our project would be feasible and beneficial.
+
+% Precise difference between statement, motivation, proposed solution, accomplishments?
+\subsection{Problem Statement}\label{subsec:problem-statement}
+Our project aims to convert UML State Diagram visual models into C2KA agent specifications.
+We are aiming to use these agent specifications in our C2KA model checker of interest,
+the Implicit Interactions Analysis Tool (IIAT)~\cite{repo_iiat}.
+By targeting a specific model checker, it is easier to prove the function and usefulness of our tool.
+
+\subsection{Proposed Solution}\label{subsec:proposed-solution}
+We are building a tool as our solution: the ``UML to C2KA Converter'', or \textbf{U2C} for short.
+To achieve its goals, we decided to find transformation patterns manually first.
+Once we understood how to convert it manually, we would encode the rules deterministically.
+That is, we wanted our program to behave like a pure function.
+It should map one given input to precisely one reproducible output.
+The output in question would be the agent specification files that the IIAT uses.
+The input would be some machine-readable version of a set of UML State Diagrams.
+
+\subsection{Accomplishments}\label{subsec:accomplishments}
+\begin{enumerate}
+    \item Found deterministic transformation rules for visual models
+    to C2KA specifications.
+    \item Managed to read a textual representation of the graphical models.
+    \item Re-created a diagram structure internally to easily parse state diagram information in code.
+    \item Used our custom structure to simply implement the transformation rules we determined.
+    \item Formatted and serialized our specifications in a format the IIAT could use.
+    \item Created a diff tool to validate our outputs given a trusted C2KA specification written by hand.
+    \item Validated our tool against one known C2KA system,
+    using our diff tool, and by observing parity in the IIAT\@.
+\end{enumerate}
+
+\subsection{Document Overview}\label{subsec:document-overview}
+The remainder of this report is organized as follows.
+Section 2.0 outlines how our project meets the objectives of an engineering project.
+Section 3.0 goes over our methodologies and results in technical detail.
+Finally, Section 4.0 contains our conclusions, reflexions, and possible future work.
